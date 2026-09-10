@@ -48,6 +48,7 @@ export function HotspotList({
           <li key={point.id} className={`man-hi__item${open ? " man-hi__item--open" : ""}`}>
             <button
               type="button"
+              id={`${panelId(point.id)}-head`}
               className="man-hi__item-head"
               aria-expanded={open}
               aria-controls={panelId(point.id)}
@@ -57,22 +58,29 @@ export function HotspotList({
               <span className="man-hi__item-number">{index + 1}</span>
               <span className="man-hi__item-title">{point.title}</span>
             </button>
-            {open && (
-              <div id={panelId(point.id)} className="man-hi__item-body">
-                {point.description !== undefined && (
-                  <p className="man-hi__item-text">{point.description}</p>
-                )}
-                {point.link !== undefined && (
-                  <button
-                    type="button"
-                    className="man-hi__popover-action"
-                    onClick={() => onOpenLink(point)}
-                  >
-                    {linkLabel(point.link)}
-                  </button>
-                )}
-              </div>
-            )}
+            {/* Die Klappe bleibt auch geschlossen im Markup: sonst zeigte das
+                aria-controls des Kopfes im Normalzustand auf nichts, und
+                Bildschirmleser könnten die Klappe nicht ansteuern. */}
+            <div
+              id={panelId(point.id)}
+              role="region"
+              aria-labelledby={`${panelId(point.id)}-head`}
+              className="man-hi__item-body"
+              hidden={!open}
+            >
+              {point.description !== undefined && (
+                <p className="man-hi__item-text">{point.description}</p>
+              )}
+              {point.link !== undefined && (
+                <button
+                  type="button"
+                  className="man-hi__popover-action"
+                  onClick={() => onOpenLink(point)}
+                >
+                  {linkLabel(point.link)}
+                </button>
+              )}
+            </div>
           </li>
         );
       })}

@@ -44,7 +44,15 @@ describe("HotspotList", () => {
 
   it("hält die Beschreibung zu, solange der Eintrag nicht offen ist", () => {
     renderList();
-    expect(screen.queryByText("CCS, bis 350 kW.")).not.toBeInTheDocument();
+    expect(screen.getByText("CCS, bis 350 kW.")).not.toBeVisible();
+  });
+
+  it("hat auch geschlossen eine Klappe, auf die der Kopf zeigen kann", () => {
+    const { container } = renderList();
+    const head = screen.getByRole("button", { name: /Ladeanschluss/ });
+    const target = container.querySelector(`#${head.getAttribute("aria-controls")}`);
+    expect(target).not.toBeNull();
+    expect(target).toHaveAttribute("aria-labelledby", head.id);
   });
 
   it("klappt den offenen Eintrag auf", () => {
