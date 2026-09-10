@@ -20,6 +20,7 @@ import React, { ReactElement } from "react";
 import ReactDOM from "react-dom/client";
 
 import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
+import { startWidget } from "@shared/dev-mode/start-widget";
 import {
   DISPLAY_MODE_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
@@ -93,4 +94,25 @@ const externalBlockDefinition: ExternalBlockDefinition = {
   version: pkg.version,
 };
 
-window.defineBlock(externalBlockDefinition);
+/**
+ * Meldet den Baustein bei der Wirtsseite an.
+ *
+ * Der Weg über `startWidget` fragt zuerst, ob ein lokaler
+ * Entwicklungsserver dieses Widget ausliefert. In fast jedem Browser lautet
+ * die Antwort nein, und es wird sofort angemeldet; auf dem Rechner der
+ * Entwicklung übernimmt das lokale Bundle und meldet an seiner Stelle an.
+ * Immer nur eines von beiden — ein Bausteinname lässt sich nicht zweimal
+ * belegen.
+ *
+ * Die Abfrage davor lässt das Modul in Jest laden, wo es keine Wirtsseite
+ * gibt: ohne sie bräche schon der blosse Import der Datei jeden Test.
+ */
+if (typeof window.defineBlock === "function") {
+  void startWidget({
+    name: "hotspot-image-widget",
+    version: pkg.version,
+    register: () => {
+      window.defineBlock(externalBlockDefinition);
+    },
+  });
+}
