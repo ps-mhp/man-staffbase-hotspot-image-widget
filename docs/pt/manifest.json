@@ -1,0 +1,49 @@
+{
+  "title": "Imagem com pontos",
+  "summary": "Uma imagem com pontos clicáveis: um título, uma descrição e, se desejado, uma página vinculada para cada ponto.",
+  "icon": "📍",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Visão geral",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Passo a passo",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Configurações",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Numerada, com a lista ao lado da imagem",
+      "attributes": {
+        "display-mode": "numbered"
+      },
+      "resolve": [
+        "points",
+        "image"
+      ]
+    },
+    {
+      "title": "Apenas pontos, sem lista",
+      "attributes": {
+        "display-mode": "dots"
+      },
+      "resolve": [
+        "points",
+        "image"
+      ]
+    }
+  ]
+}

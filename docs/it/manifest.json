@@ -1,0 +1,49 @@
+{
+  "title": "Immagine con i puntini",
+  "summary": "Un'immagine con punti cliccabili: un titolo, una descrizione e, se desiderato, una pagina collegata per ogni punto.",
+  "icon": "📍",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Panoramica",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Passo dopo passo",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Impostazioni",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Domande frequenti",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Numerata, con la lista accanto all'immagine",
+      "attributes": {
+        "display-mode": "numbered"
+      },
+      "resolve": [
+        "points",
+        "image"
+      ]
+    },
+    {
+      "title": "Solo punti, senza lista",
+      "attributes": {
+        "display-mode": "dots"
+      },
+      "resolve": [
+        "points",
+        "image"
+      ]
+    }
+  ]
+}

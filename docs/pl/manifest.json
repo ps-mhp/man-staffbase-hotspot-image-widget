@@ -1,0 +1,49 @@
+{
+  "title": "Obraz z kropkami",
+  "summary": "Obraz z klikalnymi kropkami: tytuł, opis i, jeśli chcesz, powiązana strona dla każdej kropki.",
+  "icon": "📍",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Przegląd",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Krok po kroku",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Ustawienia",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Ponumerowane, z listą obok obrazu",
+      "attributes": {
+        "display-mode": "numbered"
+      },
+      "resolve": [
+        "points",
+        "image"
+      ]
+    },
+    {
+      "title": "Tylko punkty, bez listy",
+      "attributes": {
+        "display-mode": "dots"
+      },
+      "resolve": [
+        "points",
+        "image"
+      ]
+    }
+  ]
+}
