@@ -61,4 +61,13 @@ describe("PointForm", () => {
     fireEvent.click(screen.getByRole("button", { name: /Punkt löschen/ }));
     expect(onRemove).toHaveBeenCalledTimes(1);
   });
+
+  it("ordnet den Warnhinweis dem Titelfeld zu, statt ihn nur danebenzustellen", () => {
+    // Ohne die Zuordnung liest ein Screenreader beim Betreten des Feldes
+    // nichts vor -- der Hinweis stünde dann nur für Sehende da.
+    render(<PointForm point={{ id: "p1", x: 10, y: 10, title: "" }} onChange={jest.fn()} onRemove={jest.fn()} />);
+    const title = screen.getByLabelText(/Titel/);
+    expect(title).toHaveAccessibleDescription(/nicht angezeigt/);
+    expect(title).toBeInvalid();
+  });
 });

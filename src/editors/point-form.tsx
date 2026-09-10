@@ -41,6 +41,9 @@ export function PointForm({ point, onChange, onRemove }: PointFormProps): ReactE
     onChange(value === "" ? rest : { ...rest, description: value });
   };
 
+  const titleMissing = point.title.trim() === "";
+  const warningId = `man-hie-title-warning-${point.id}`;
+
   return (
     <div className="man-hie__form">
       <label className="man-hie__label">
@@ -49,11 +52,15 @@ export function PointForm({ point, onChange, onRemove }: PointFormProps): ReactE
           className="man-hie__input"
           type="text"
           value={point.title}
+          // Der Hinweis steht neben dem Feld; ohne diese Verknüpfung liest ein
+          // Screenreader ihn beim Betreten des Feldes nicht mit vor.
+          aria-invalid={titleMissing}
+          aria-describedby={titleMissing ? warningId : undefined}
           onChange={(event) => onChange({ ...point, title: event.target.value })}
         />
       </label>
-      {point.title.trim() === "" && (
-        <p className="man-hie__hint" data-testid="point-form-warning">
+      {titleMissing && (
+        <p className="man-hie__hint" id={warningId} data-testid="point-form-warning">
           Ohne Titel wird dieser Punkt nicht angezeigt.
         </p>
       )}

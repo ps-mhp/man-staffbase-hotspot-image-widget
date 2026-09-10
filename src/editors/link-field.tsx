@@ -38,6 +38,16 @@ export interface LinkFieldProps {
 export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
   const [options, setOptions] = useState<PageOption[]>([]);
   const [loading, setLoading] = useState(true);
+  /**
+   * Ob gerade von Hand eingetragen wird.
+   *
+   * Bewusst nur Oberflächenzustand: der Picker ruft `onManual` schon, wenn der
+   * Katalog leer zurückkommt -- also auch dann, wenn die Anfrage bloss
+   * fehlschlug. Würde das gespeichert, verlöre ein bestehender Seitenlink beim
+   * blossen Öffnen des Editors Adresse und Titel, ohne dass jemand etwas
+   * angerührt hätte. Geschrieben wird erst, wenn wirklich getippt wird.
+   */
+  const [manual, setManual] = useState(false);
 
   useEffect(() => {
     let current = true;
@@ -55,11 +65,7 @@ export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
     };
   }, []);
 
-  const toManual = useCallback(() => {
-    // Von Hand eingetragene Adressen gehen in einen neuen Tab. Der Titel gilt
-    // nur für Seiten aus dem System und wird deshalb fallen gelassen.
-    onChange({ kind: "url", href: "", ...(link?.label === undefined ? {} : { label: link.label }) });
-  }, [link?.label, onChange]);
+  const toManual = useCallback(() => setManual(true), []);
 
   if (link === undefined) {
     return (
@@ -76,10 +82,19 @@ export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
   }
 
   const chosen = options.find((option) => option.href === link.href);
+  /**
+   * Ein gespeicherter Seitenlink, den der Katalog nicht kennt -- die Seite
+   * wurde gelöscht, oder die Liste kam unvollständig. Ohne Hinweis stünde im
+   * Auswahlfeld die Aufforderung „Seite auswählen …", als wäre nie etwas
+   * gesetzt worden, und der nächste Klick überschriebe den Link stillschweigend.
+   */
+  const orphaned = !loading && link.kind === "page" && link.href !== "" && chosen === undefined;
+  const typing = manual || link.kind === "url";
 
   const pickPage = (id: string): void => {
     const option = options.find((candidate) => candidate.id === id);
     if (option === undefined) return;
+    setManual(false);
     onChange({
       kind: "page",
       href: option.href,
@@ -90,7 +105,7 @@ export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
 
   return (
     <div className="man-hie__form">
-      {link.kind === "page" ? (
+      {!typing ? (
         <label className="man-hie__label">
           Ziel
           {/*
@@ -112,6 +127,11 @@ export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
                   "Die Seiten des Systems lassen sich gerade nicht laden. Trage die Adresse von Hand ein.",
               }}
             />
+          )}
+          {orphaned && (
+            <span className="man-hie__hint" data-testid="link-field-orphaned">
+              Die gespeicherte Seite steht nicht in der Liste: {link.href}
+            </span>
           )}
         </label>
       ) : (
@@ -138,13 +158,19 @@ export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
           <button
             type="button"
             className="man-hie__button"
-            onClick={() =>
-              onChange({
-                kind: "page",
-                href: "",
-                ...(link.label === undefined ? {} : { label: link.label }),
-              })
-            }
+            onClick={() => {
+              setManual(false);
+              // Zurück zur Liste heisst: die eigene Adresse gilt nicht mehr.
+              // Anders als beim Umschalten ist das hier eine ausdrückliche
+              // Handlung, also darf sie schreiben.
+              if (link.kind === "url") {
+                onChange({
+                  kind: "page",
+                  href: "",
+                  ...(link.label === undefined ? {} : { label: link.label }),
+                });
+              }
+            }}
           >
             Stattdessen eine Seite auswählen
           </button>
