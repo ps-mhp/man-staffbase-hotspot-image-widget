@@ -89,10 +89,14 @@ describe("Stylesheet", () => {
     expect(rule).toMatch(/counter-increment:\s*man-hi-item\s+list-item/);
   });
 
-  it("unterdrückt die Nummer, die die Wirtsseite vor den Eintrag setzt", () => {
-    expect(hotspotStyles).toMatch(
-      /(\.man-hi__item){5}::before\s*\{[^}]*content:\s*none\s*!important/,
-    );
+  // Beide Wege, auf denen eine Wirtsseite etwas vor einen Listeneintrag setzen
+  // kann. `list-style: none` allein genuegt nicht: ein `content` auf `::marker`
+  // fuellt die Markierung, statt sie abzuschalten.
+  it.each([
+    ["::marker", /(\.man-hi__item){5}::marker\s*\{[^}]*content:\s*""\s*!important/],
+    ["::before", /(\.man-hi__item){5}::before\s*\{[^}]*content:\s*none\s*!important/],
+  ])("unterdrückt %s der Wirtsseite am Eintrag", (_name, pattern) => {
+    expect(hotspotStyles).toMatch(pattern);
   });
 
   it("unterdrückt die Listenpunkte der Wirtsseite am Eintrag selbst", () => {

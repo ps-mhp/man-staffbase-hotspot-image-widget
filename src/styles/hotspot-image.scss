@@ -273,10 +273,18 @@
     border-bottom: 1px solid var(--man-hi-border);
   }
 
-  // Die Nummer der Marke steht in einem eigenen Kaestchen vor dem Eintrag und
-  // ueberlebt `list-style: none`, weil sie keine Markierung ist. Neben dem
-  // roten Kreis waere sie eine zweite Nummerierung.
+  // Neben dem roten Kreis waere die Nummer der Wirtsseite eine zweite
+  // Nummerierung. Sie steht links ausserhalb des Eintrags, also im
+  // Markierungs-Kaestchen -- und ein `content` auf `::marker` schlaegt
+  // `list-style: none`, weil es die Markierung nicht abschaltet, sondern
+  // fuellt. Beide Wege sind zugehalten: welchen die Wirtsseite nimmt, laesst
+  // sich von hier aus nicht einsehen, und ein falsch geratener kostete am
+  // 10.09.2026 bereits einen Anlauf.
   @include man-outshine-host {
+    &::marker {
+      content: "" !important;
+    }
+
     &::before {
       content: none !important;
     }
