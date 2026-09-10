@@ -45,7 +45,8 @@ export function PlacementCanvas({
   onSelect,
 }: PlacementCanvasProps): ReactElement {
   const stageRef = useRef<HTMLDivElement>(null);
-  const draggingRef = useRef<string | null>(null);
+  /** Welcher Punkt gerade an welchem Zeiger hängt. */
+  const draggingRef = useRef<{ pointId: string; pointerId: number } | null>(null);
 
   const toPercent = (clientX: number, clientY: number): { x: number; y: number } | null => {
     const stage = stageRef.current;
@@ -70,7 +71,7 @@ export function PlacementCanvas({
   };
 
   const onMarkerPointerDown = (event: React.PointerEvent<HTMLButtonElement>, pointId: string) => {
-    draggingRef.current = pointId;
+    draggingRef.current = { pointId, pointerId: event.pointerId };
     // Ohne Capture verliert man den Punkt, sobald der Zeiger den Marker
     // verlässt — und das tut er beim Ziehen sofort.
     event.currentTarget.setPointerCapture?.(event.pointerId);
@@ -83,12 +84,17 @@ export function PlacementCanvas({
   };
 
   const onMarkerPointerMove = (event: React.PointerEvent<HTMLButtonElement>, pointId: string) => {
-    if (draggingRef.current !== pointId) return;
+    // Auch die Zeigerkennung muss stimmen: bleibt der Ziehzustand nach einem
+    // abgebrochenen Zug stehen, verschöbe schon das blosse Überfahren des
+    // Markers den Punkt -- ohne dass jemand ihn angefasst hätte.
+    if (draggingRef.current?.pointId !== pointId || draggingRef.current.pointerId !== event.pointerId) {
+      return;
+    }
     const spot = toPercent(event.clientX, event.clientY);
     if (spot !== null) onMove(pointId, spot.x, spot.y);
   };
 
-  const onMarkerPointerUp = (event: React.PointerEvent<HTMLButtonElement>) => {
+  const endDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
     draggingRef.current = null;
     event.currentTarget.releasePointerCapture?.(event.pointerId);
   };
@@ -135,7 +141,13 @@ export function PlacementCanvas({
             onClick={(event) => onMarkerClick(event, point.id)}
             onPointerDown={(event) => onMarkerPointerDown(event, point.id)}
             onPointerMove={(event) => onMarkerPointerMove(event, point.id)}
-            onPointerUp={onMarkerPointerUp}
+            onPointerUp={endDrag}
+            // Ein Zug endet nicht immer im Loslassen: das Betriebssystem kann
+            // ihn abbrechen, und die Zeigerbindung kann verlorengehen. Bliebe
+            // der Ziehzustand dann stehen, verschöbe die nächste Bewegung über
+            // dem Marker den Punkt ungefragt.
+            onPointerCancel={endDrag}
+            onLostPointerCapture={endDrag}
             onKeyDown={(event) => onMarkerKeyDown(event, point)}
           >
             {index + 1}

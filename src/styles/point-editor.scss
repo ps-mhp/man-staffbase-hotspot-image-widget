@@ -125,6 +125,18 @@
   box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
 }
 
+// Der Punkt, an dem gerade gearbeitet wird. Ohne diese Auszeichnung waere die
+// Auswahl auf der Buehne unsichtbar: das Formular daneben zeigte einen Punkt,
+// aber niemand saehe, welchen.
+.man-hie__canvas-marker--selected {
+  border-color: #2563eb;
+  background: #2563eb;
+  box-shadow:
+    0 0 0 3px rgb(37 99 235 / 30%),
+    0 1px 4px rgb(0 0 0 / 35%);
+  z-index: 1;
+}
+
 .man-hie__canvas-marker:focus-visible {
   outline: 3px solid #2563eb;
   outline-offset: 2px;

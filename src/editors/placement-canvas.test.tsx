@@ -120,6 +120,43 @@ describe("PlacementCanvas", () => {
     expect(onMove).toHaveBeenLastCalledWith("p1", 75, 75);
   });
 
+  it("hört auf zu schieben, wenn der Zug abgebrochen wird", () => {
+    // Ein Zug endet nicht immer im Loslassen -- das Betriebssystem kann ihn
+    // abbrechen. Bliebe der Ziehzustand stehen, verschöbe schon das blosse
+    // Überfahren des Markers den Punkt, ohne dass jemand ihn angefasst hätte.
+    const onMove = jest.fn();
+    renderCanvas({ onMove });
+    const marker = screen.getByTestId("place-marker-p1");
+    marker.setPointerCapture = jest.fn();
+    marker.releasePointerCapture = jest.fn();
+
+    fireEvent.pointerDown(marker, { clientX: 200, clientY: 100, pointerId: 1 });
+    fireEvent.pointerCancel(marker, { pointerId: 1 });
+    onMove.mockClear();
+
+    fireEvent.pointerMove(marker, { clientX: 300, clientY: 150, pointerId: 1 });
+    expect(onMove).not.toHaveBeenCalled();
+  });
+
+  // Der Fall „ein zweiter Finger zieht mit" ist in der Umsetzung abgefangen
+  // (die Zeigerkennung muss zum angefassten Punkt passen), lässt sich hier
+  // aber nicht prüfen: jsdom setzt `pointerId` nicht um, das Feld bleibt in
+  // jedem Zeigerereignis `undefined`. Nur am echten Touchgerät zu sehen.
+
+  it("lässt keinen Punkt über den Bildrand hinauswandern", () => {
+    // Ein Zug endet oft ausserhalb des Bildes. Ohne Begrenzung stünde der
+    // Punkt bei -25 % und waere in der Leseansicht unerreichbar.
+    const onMove = jest.fn();
+    renderCanvas({ onMove });
+    const marker = screen.getByTestId("place-marker-p1");
+    marker.setPointerCapture = jest.fn();
+    marker.releasePointerCapture = jest.fn();
+
+    fireEvent.pointerDown(marker, { clientX: 200, clientY: 100, pointerId: 1 });
+    fireEvent.pointerMove(marker, { clientX: -100, clientY: 400, pointerId: 1 });
+    expect(onMove).toHaveBeenLastCalledWith("p1", 0, 100);
+  });
+
   it("verschiebt mit den Pfeiltasten um ein Prozent — genauer als mit der Maus", () => {
     const onMove = jest.fn();
     renderCanvas({ onMove });
