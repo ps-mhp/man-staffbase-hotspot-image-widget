@@ -1,11 +1,23 @@
 {
-  "title": "hotspot-image-widget",
-  "summary": "TODO: Ein Satz, was dieses Widget für Redakteure tut.",
-  "icon": "🧩",
+  "title": "Bild mit Punkten",
+  "summary": "Ein Bild mit anklickbaren Punkten: je Punkt ein Titel, eine Beschreibung und auf Wunsch eine verlinkte Seite.",
+  "icon": "📍",
   "pages": [
     { "id": "overview", "title": "Übersicht", "file": "overview.md" },
     { "id": "usage", "title": "Schritt für Schritt", "file": "usage.md" },
     { "id": "settings", "title": "Einstellungen", "file": "settings.md" },
     { "id": "faq", "title": "FAQ", "file": "faq.md" }
+  ],
+  "examples": [
+    {
+      "title": "Nummeriert, mit Liste neben dem Bild",
+      "attributes": { "display-mode": "numbered" },
+      "resolve": ["points", "image"]
+    },
+    {
+      "title": "Nur Punkte, ohne Liste",
+      "attributes": { "display-mode": "dots" },
+      "resolve": ["points", "image"]
+    }
   ]
 }
