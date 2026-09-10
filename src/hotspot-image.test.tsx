@@ -111,6 +111,16 @@ describe("HotspotImage", () => {
     expect(document.activeElement).toBe(screen.getByTestId("marker-p2"));
   });
 
+  it("gibt den Fokus auch nach einem Klick daneben zum Marker zurück", () => {
+    // Bisher war nur der Weg über Escape abgedeckt. Das Schliessen per Klick
+    // daneben läuft über eine andere Ereigniskette und blieb ungeprüft.
+    render(<HotspotImage image={image} points={points} mode="dots" />);
+    fireEvent.click(screen.getByTestId("marker-p1"));
+    fireEvent.mouseDown(document.body);
+
+    expect(document.activeElement).toBe(screen.getByTestId("marker-p1"));
+  });
+
   it("lässt den Fokus in der Liste, wenn ein Eintrag wieder zugeklappt wird", () => {
     // In der nummerierten Darstellung gibt es kein Popover, dem der Fokus
     // zurückzugeben wäre. Ihn trotzdem aufs Bild zu ziehen, risse ihn beim

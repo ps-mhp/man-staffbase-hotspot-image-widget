@@ -84,8 +84,23 @@ describe("HotspotPopover", () => {
   });
 
   it("steht auf schmalen Bildschirmen zentriert statt am Punkt", () => {
-    renderPopover({ centered: true });
-    expect(screen.getByTestId("popover-p1")).toHaveClass("man-hi__popover--centered");
+    // Die Klasse allein bewiese nichts: entscheidend ist, dass keine
+    // gerechnete Lage mehr am Element klebt. Bliebe sie stehen, überschriebe
+    // sie die Zentrierung aus dem Stylesheet, und die Box stünde auf einem
+    // schmalen Bildschirm doch wieder am Punkt -- womöglich halb daneben.
+    const stage = document.createElement("div");
+    const box = renderPopover({ centered: true, stage }).getByTestId("popover-p1");
+    expect(box).toHaveClass("man-hi__popover--centered");
+    expect(box.style.left).toBe("");
+    expect(box.style.top).toBe("");
+    expect(box.style.visibility).toBe("");
+  });
+
+  it("stellt die Box am Punkt auf, solange der Bildschirm breit ist", () => {
+    const stage = document.createElement("div");
+    const box = renderPopover({ centered: false, stage }).getByTestId("popover-p1");
+    expect(box).not.toHaveClass("man-hi__popover--centered");
+    expect(box.style.left).not.toBe("");
   });
 
   it("schließt beim Klick daneben", () => {
