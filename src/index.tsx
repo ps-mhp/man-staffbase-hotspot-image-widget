@@ -119,11 +119,11 @@ const externalBlockDefinition: ExternalBlockDefinition = {
  * Die Abfrage davor lässt das Modul in Jest laden, wo es keine Wirtsseite
  * gibt: ohne sie bräche schon der blosse Import der Datei jeden Test.
  *
- * Der Editor haengt am Anmelden, nicht am Laden. Auf Modulebene gestartet
+ * Der Editor hängt am Anmelden, nicht am Laden. Auf Modulebene gestartet
  * belegte der Beobachter des installierten Bundles das `points`-Feld, bevor
- * es ueberhaupt fragte, ob ein lokaler Server uebernimmt — der
+ * es überhaupt fragte, ob ein lokaler Server übernimmt — der
  * Entwicklungsmodus lieferte dann die Ansicht, aber den Editor der
- * veroeffentlichten Fassung. Live nachgewiesen am 02.09.2026 im
+ * veröffentlichten Fassung. Live nachgewiesen am 02.09.2026 im
  * Hero-Slider-Widget: eine Marke im lokal ausgelieferten Bundle erschien im
  * Dialog nicht.
  */
