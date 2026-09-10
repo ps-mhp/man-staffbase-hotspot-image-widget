@@ -80,6 +80,21 @@ describe("Stylesheet", () => {
     expect(hotspotStyles).toMatch(/content:\s*counter\(man-hi-item\)/);
   });
 
+  // Der eigene Zähler darf den eingebauten nicht verdrängen: `counter-increment`
+  // ersetzt, was der Browser dem Listenpunkt sonst mitgibt. Ohne `list-item`
+  // blieb dessen Zähler auf 0 stehen, und die Wirtsseite schrieb eine rote 0
+  // vor jeden Eintrag.
+  it("lässt dem Listenpunkt seinen eingebauten Zähler", () => {
+    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__item"))?.[0];
+    expect(rule).toMatch(/counter-increment:\s*man-hi-item\s+list-item/);
+  });
+
+  it("unterdrückt die Nummer, die die Wirtsseite vor den Eintrag setzt", () => {
+    expect(hotspotStyles).toMatch(
+      /(\.man-hi__item){5}::before\s*\{[^}]*content:\s*none\s*!important/,
+    );
+  });
+
   it("unterdrückt die Listenpunkte der Wirtsseite am Eintrag selbst", () => {
     // Am Container allein genügt es nicht: `list-style` wird von dort nur
     // vererbt, und eine Regel der Wirtsseite auf dem `li` sticht sie aus.

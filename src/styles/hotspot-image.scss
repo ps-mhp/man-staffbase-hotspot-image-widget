@@ -261,13 +261,26 @@
 // 10.09.2026 im Frontend so gesehen.
 .man-hi__item {
   @include man-outshine-host {
-    counter-increment: man-hi-item;
+    // `list-item` steht ausdruecklich dabei, obwohl niemand ihn liest: der
+    // Browser zaehlt ihn in einer geordneten Liste von selbst hoch, und zwar
+    // ueber genau diese Eigenschaft. Nennt man hier nur den eigenen Zaehler,
+    // faellt das Hochzaehlen weg -- die Wirtsseite schrieb daraufhin vor jeden
+    // Eintrag eine rote 0. Am 10.09.2026 im Frontend so gesehen.
+    counter-increment: man-hi-item list-item;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
     border-bottom: 1px solid var(--man-hi-border);
   }
 
+  // Die Nummer der Marke steht in einem eigenen Kaestchen vor dem Eintrag und
+  // ueberlebt `list-style: none`, weil sie keine Markierung ist. Neben dem
+  // roten Kreis waere sie eine zweite Nummerierung.
+  @include man-outshine-host {
+    &::before {
+      content: none !important;
+    }
+  }
 }
 
 // Eine Zeile der Liste, kein Handlungsknopf -- also gegen die Wirtsseite
