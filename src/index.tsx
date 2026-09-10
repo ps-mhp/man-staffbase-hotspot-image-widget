@@ -13,8 +13,8 @@
 
 import { setPublicPathFromBundle } from "@shared/public-path";
 
-// Must run before any dynamic `import()`, so that lazily loaded chunks come
-// from the CDN the bundle was served from and not from the hosting page.
+// Muss vor jedem dynamischen `import()` laufen, damit nachgeladene Teile von
+// dem CDN kommen, von dem das Bundle stammt, und nicht von der Wirtsseite.
 setPublicPathFromBundle("hotspot-image-widget.js");
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -30,7 +30,9 @@ import {
 import icon from "../resources/hotspot-image-widget.svg";
 import pkg from "../package.json";
 
-/** Die Attribute des Widgets; gespiegelt im Konfigurationsschema. */
+/** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um
+ *  Abweichungen zu vermeiden: Ein Tippfehler würde sonst zur Laufzeit zu einem
+ *  stumm leeren Attribut führen. */
 const widgetAttributes: string[] = [IMAGE_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE];
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
