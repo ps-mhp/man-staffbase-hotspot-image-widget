@@ -55,7 +55,18 @@ export function ImageField({ image, onChange }: ImageFieldProps): ReactElement {
         </button>
       ) : (
         <div className="man-hie__image-chosen">
-          <img className="man-hie__image-preview" src={image.url} alt={image.alt} />
+          {/*
+            Im Editor ist die Vorschau schmueckendes Beiwerk: der
+            Alternativtext steht unmittelbar darunter in einem beschrifteten
+            Feld. Ihn hier zu wiederholen laese ihn der Vorlesesoftware zweimal
+            vor, ohne dass ein zweites Mal etwas zu erfahren waere.
+          */}
+          <img
+            className="man-hie__image-preview"
+            data-testid="image-preview"
+            src={image.url}
+            alt=""
+          />
           <div className="man-hie__image-actions">
             <button type="button" className="man-hie__button" onClick={() => setPicking(true)}>
               Anderes Bild wählen …
