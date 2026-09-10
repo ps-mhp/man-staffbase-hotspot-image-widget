@@ -56,6 +56,26 @@ describe("Stylesheet", () => {
     expect(css).toMatch(outshineRule(css, className));
   });
 
+  // Die Marke rundet nichts ab: `man("radius")` ist 0. Erfundene Rundungen
+  // fielen am 10.09.2026 im Frontend als CI-Verstoss auf -- der Handlungsknopf
+  // trug 6px. Die Rundung des Punktes kommt aus `radius-round`, ist also
+  // ebenfalls ein Token und kein eigener Einfall.
+  it.each([
+    ["hotspot-image.scss", hotspotStyles],
+    ["page-modal.scss", modalStyles],
+  ])("rundet in %s nur nach den MAN-Tokens", (_name, css) => {
+    const invented = [...css.matchAll(/border-radius:\s*([^;}]+)/g)]
+      .map((match) => match[1].trim())
+      .filter((value) => !value.startsWith("var(--man-radius") && !value.startsWith("0"));
+
+    expect(invented).toEqual([]);
+  });
+
+  it("gibt dem Handlungsknopf die Versalien der Marke", () => {
+    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__popover-action"))?.[0];
+    expect(rule).toContain("text-transform: uppercase !important");
+  });
+
   it("lässt dem Puls den Schatten, statt ihn festzunageln", () => {
     // Eine Animation kommt gegen `!important` nicht an: stünde der Schatten
     // mit Nachdruck, liefe der Puls unsichtbar.

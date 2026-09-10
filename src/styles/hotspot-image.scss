@@ -73,7 +73,7 @@
     min-width: 0 !important;
     padding: 0 !important;
     border: 2px solid var(--man-hi-surface) !important;
-    border-radius: 50% !important;
+    border-radius: #{man("radius-round")} !important;
     background: var(--man-hi-accent) !important;
     color: var(--man-hi-surface) !important;
     font: 700 14px/1 #{man("font-head")} !important;
@@ -125,7 +125,8 @@
   width: min(280px, 90%);
   padding: 14px 16px;
   border: 1px solid var(--man-hi-border);
-  border-radius: 10px;
+  // Eckig: `man("radius")` ist 0, die Marke rundet nichts ab.
+  border-radius: man("radius");
   background: var(--man-hi-surface);
   box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
   line-height: 1.45;
@@ -195,19 +196,43 @@
   white-space: pre-line;
 }
 
-// Der Handlungsknopf soll die Hausfarbe tragen, nicht das Grau, das die
-// Wirtsseite jedem blanken `button` gibt.
+// Der Primaerknopf der Marke: MAN-Rot gefuellt, weisse Versalien, eckig. Der
+// Grundriss (10/24er Polsterung, 16/18er Label) ist derselbe wie beim
+// Hero-Slider und stammt aus `onetruck-css/src/03-elements/button/_app.scss`.
+// Die abgerundeten Ecken davor waren eine Erfindung und standen gegen die CI
+// -- `man("radius")` ist 0. Beanstandet am 10.09.2026.
 .man-hi__popover-action {
   @include man-outshine-host {
+    @include man-type("label", $important: true);
+
     box-sizing: border-box !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 12px !important;
-    padding: 8px 14px !important;
-    border: 0 !important;
-    border-radius: 6px !important;
+    padding: 10px 24px !important;
+    min-height: 44px;
+    // Der Knopf der Marke steht auf 16/18, nicht auf den 13px des Labels --
+    // `man-type` liefert Schnitt und Familie, die Groesse kommt vom Grundriss.
+    font-size: 16px !important;
+    line-height: 18px !important;
+    color: #{man("white")} !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: #{man("track-label")} !important;
     background: var(--man-hi-accent) !important;
-    color: var(--man-hi-surface) !important;
-    font-size: 14px !important;
+    border: 0 !important;
+    border-radius: #{man("radius")} !important;
     cursor: pointer;
+    transition: background-color man("duration") man("ease");
+  }
+}
+
+.man-hi__popover-action:hover,
+.man-hi__popover-action:focus-visible {
+  @include man-outshine-host {
+    color: #{man("white")} !important;
+    background: #{man("red-hover")} !important;
   }
 }
 
@@ -255,7 +280,7 @@
   place-items: center;
   flex: 0 0 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: man("radius-round");
   background: var(--man-hi-accent);
   color: var(--man-hi-surface);
   font-size: 13px;

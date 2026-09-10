@@ -28,8 +28,9 @@
   flex-direction: column;
   width: min(960px, 100%);
   height: min(80vh, 100%);
-  border-radius: 10px;
-  background: #ffffff;
+  // Eckig: `man("radius")` ist 0, die Marke rundet nichts ab.
+  border-radius: man("radius");
+  background: #{man("white")};
   overflow: hidden;
 }
 
