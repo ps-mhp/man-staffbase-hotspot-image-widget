@@ -39,6 +39,12 @@ describe("PageModal", () => {
     expect(link).toHaveAttribute("href", "/content/pages/1");
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", expect.stringContaining("noopener"));
+    expect(link).toHaveAttribute("rel", expect.stringContaining("noreferrer"));
+  });
+
+  it("trägt den Seitentitel als Namen des Dialogs", () => {
+    renderModal();
+    expect(screen.getByRole("dialog", { name: "Laden zu Hause" })).toBeInTheDocument();
   });
 
   it("schließt über den Knopf, über Escape und über den Hintergrund", () => {
@@ -60,13 +66,15 @@ describe("PageModal", () => {
   it("hält den Fokus im Dialog — sonst tabbte man hinter das Modal", () => {
     renderModal();
     const close = screen.getByRole("button", { name: "Schließen" });
-    const external = screen.getByRole("link", { name: /neuem Tab/i });
+    // Das iFrame ist das letzte fokussierbare Element im Dialog: ohne es im
+    // Ring käme man mit der Tastatur nie an den Inhalt der Seite.
+    const frame = screen.getByTitle("Laden zu Hause");
 
     expect(close).toHaveFocus();
 
     // Rückwärts vom ersten Element springt der Fokus ans letzte.
     fireEvent.keyDown(screen.getByRole("dialog"), { key: "Tab", shiftKey: true });
-    expect(external).toHaveFocus();
+    expect(frame).toHaveFocus();
 
     // Und vorwärts vom letzten wieder ans erste.
     fireEvent.keyDown(screen.getByRole("dialog"), { key: "Tab" });
@@ -84,6 +92,16 @@ describe("PageModal", () => {
     expect(opener).toHaveFocus();
 
     opener.remove();
+  });
+
+  it("kommt damit zurecht, dass der öffnende Knopf inzwischen weg ist", () => {
+    const opener = document.createElement("button");
+    document.body.appendChild(opener);
+    opener.focus();
+
+    const { unmount } = renderModal();
+    opener.remove();
+    expect(() => unmount()).not.toThrow();
   });
 
   it("gibt den Hintergrund beim Schließen wieder zum Scrollen frei", () => {

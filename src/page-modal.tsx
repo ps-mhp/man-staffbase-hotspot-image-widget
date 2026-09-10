@@ -61,7 +61,9 @@ export function PageModal({ href, title, onClose }: PageModalProps): ReactElemen
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previous;
-      opener?.focus?.();
+      // Nur zurückgeben, wenn es das Ursprungselement noch gibt: ein Knopf,
+      // der beim Schließen mitverschwindet, nähme den Fokus sonst ins Nichts.
+      if (opener !== null && opener.isConnected) opener.focus();
     };
   }, [onClose]);
 
@@ -70,11 +72,13 @@ export function PageModal({ href, title, onClose }: PageModalProps): ReactElemen
    *
    * Ohne das wandert er beim Tabben hinter das Modal in die Seite darunter,
    * die dort weiterhin steht — und ist von dort nicht mehr zu finden. Das
-   * iFrame bleibt außen vor: was darin passiert, entscheidet seine Seite.
+   * iFrame zählt mit: bliebe es außen vor, käme man mit der Tastatur gar
+   * nicht erst an den Inhalt, wegen dem das Modal überhaupt aufgeht. Was
+   * *innerhalb* des iFrames passiert, entscheidet dagegen dessen Seite.
    */
   const onPanelKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== "Tab" || panelRef.current === null) return;
-    const focusable = panelRef.current.querySelectorAll<HTMLElement>("button, a[href]");
+    const focusable = panelRef.current.querySelectorAll<HTMLElement>("button, a[href], iframe");
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     if (first === undefined || last === undefined) return;
