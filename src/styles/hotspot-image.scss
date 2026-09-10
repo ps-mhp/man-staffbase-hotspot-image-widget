@@ -160,3 +160,54 @@
   z-index: 9;
   background: rgb(0 0 0 / 45%);
 }
+
+.man-hi__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--man-hi-border);
+}
+
+.man-hi__item {
+  border-bottom: 1px solid var(--man-hi-border);
+}
+
+.man-hi__item-head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 12px 8px;
+  border: 0;
+  background: transparent;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.man-hi__item-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--man-hi-accent);
+  color: var(--man-hi-surface);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.man-hi__item--open .man-hi__item-title {
+  font-weight: 600;
+}
+
+.man-hi__item-body {
+  padding: 0 8px 14px 42px;
+}
+
+.man-hi__item-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-line;
+}
