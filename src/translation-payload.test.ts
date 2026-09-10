@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-import { HotspotPoint } from "./points-model";
+import { DEFAULT_LINK_LABEL, HotspotPoint } from "./points-model";
 import { pointsFromTranslated, pointsToTranslatable } from "./translation-payload";
 
 const points: HotspotPoint[] = [
@@ -63,5 +63,26 @@ describe("Übersetzung der Punkte", () => {
 
   it("behält den Originaltext, wenn im übersetzten Dokument ein Punkt fehlt", () => {
     expect(pointsFromTranslated("<div></div>", points)).toEqual(points);
+  });
+
+  it("schickt auch die Vorgabe der Buttonbeschriftung mit", () => {
+    // Ohne eigene Beschriftung steht `DEFAULT_LINK_LABEL` am Button. Die
+    // steckt im Bundle, nicht im Attribut -- bliebe sie draussen, stünde unter
+    // jedem Punkt einer übersetzten Seite weiterhin ein deutsches
+    // „Seite öffnen".
+    const ohneLabel: HotspotPoint[] = [
+      { id: "p3", x: 10, y: 10, title: "Dach", link: { kind: "page", href: "/content/pages/2" } },
+    ];
+    expect(pointsToTranslatable(ohneLabel)).toContain(DEFAULT_LINK_LABEL);
+  });
+
+  it("schreibt die übersetzte Vorgabe auch wirklich in den Punkt", () => {
+    const ohneLabel: HotspotPoint[] = [
+      { id: "p3", x: 10, y: 10, title: "Dach", link: { kind: "page", href: "/content/pages/2" } },
+    ];
+    const html = pointsToTranslatable(ohneLabel).replace(DEFAULT_LINK_LABEL, "Open page");
+    const [point] = pointsFromTranslated(html, ohneLabel);
+    expect(point.link?.label).toBe("Open page");
+    expect(point.link?.href).toBe("/content/pages/2");
   });
 });

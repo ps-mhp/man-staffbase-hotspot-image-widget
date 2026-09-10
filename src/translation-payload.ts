@@ -25,7 +25,7 @@
  * des Systems, deren Adresse eine Übersetzung nur zerstören könnte.
  */
 
-import { HotspotLink, HotspotPoint } from "./points-model";
+import { HotspotLink, HotspotPoint, linkLabel } from "./points-model";
 
 /** Die Felder, die je Punkt übersetzt werden. */
 type FieldName = "title" | "description" | "linkLabel";
@@ -53,7 +53,12 @@ export function pointsToTranslatable(points: HotspotPoint[]): string {
 
     addField("title", point.title);
     addField("description", point.description);
-    addField("linkLabel", point.link?.label);
+    // Nicht `link.label`, sondern die Beschriftung, die wirklich am Button
+    // steht. Ohne eigene Beschriftung greift `DEFAULT_LINK_LABEL` -- die
+    // steckt im Bundle statt im Attribut und käme sonst nie in die
+    // Übersetzung. Unter jedem Punkt einer übersetzten Seite stünde dann
+    // weiterhin ein deutsches „Seite öffnen".
+    addField("linkLabel", point.link === undefined ? undefined : linkLabel(point.link));
 
     container.appendChild(pointElement);
   });
@@ -98,6 +103,9 @@ const withTranslatedLink = (
   fields: ReadonlyMap<FieldName, string>,
 ): HotspotLink | undefined => {
   if (link === undefined) return undefined;
+  // Rückfallwert ist `link.label`, nicht die Vorgabe: kam nichts zurück, war
+  // auch nichts zu übersetzen. Die Vorgabe hier einzusetzen schriebe das
+  // deutsche „Seite öffnen" fest ins Attribut, ohne dass es jemand gesetzt hat.
   const label = pick(fields, "linkLabel", link.label);
   return label === undefined ? { ...link } : { ...link, label };
 };
