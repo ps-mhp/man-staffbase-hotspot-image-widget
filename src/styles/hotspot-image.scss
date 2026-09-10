@@ -1,0 +1,96 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.man-hi {
+  --man-hi-accent: #1f2937;
+  --man-hi-surface: #ffffff;
+  --man-hi-border: #e5e7eb;
+
+  display: grid;
+  gap: 16px;
+  container-type: inline-size;
+}
+
+.man-hi--numbered {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .man-hi--numbered {
+    grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+    align-items: start;
+  }
+}
+
+.man-hi__stage {
+  position: relative;
+  margin: 0;
+  line-height: 0;
+}
+
+/* `height: auto` ist hier kein Beiwerk: zusammen mit den Attributen `width`
+   und `height` am Bild rechnet der Browser daraus von selbst das
+   Seitenverhältnis und hält den Platz frei — die Seite springt beim Laden
+   nicht. Ohne `height: auto` fällt genau das weg. */
+.man-hi__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.man-hi__marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid var(--man-hi-surface);
+  border-radius: 50%;
+  background: var(--man-hi-accent);
+  color: var(--man-hi-surface);
+  font: 600 14px/1 system-ui, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+}
+
+.man-hi__marker--dots {
+  width: 20px;
+  height: 20px;
+}
+
+.man-hi__marker:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Der Puls zeigt an, dass der Punkt gemeint ist — er darf deshalb nicht von
+   selbst laufen, sondern nur unter dem Zeiger, im Fokus und im offenen
+   Zustand. Wer weniger Bewegung eingestellt hat, sieht ihn nie. */
+@media (prefers-reduced-motion: no-preference) {
+  .man-hi__marker:hover,
+  .man-hi__marker:focus-visible,
+  .man-hi__marker--open {
+    animation: man-hi-pulse 1.6s ease-out infinite;
+  }
+}
+
+@keyframes man-hi-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(37 99 235 / 55%);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(37 99 235 / 0%);
+  }
+}
