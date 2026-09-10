@@ -94,3 +94,69 @@
     box-shadow: 0 0 0 14px rgb(37 99 235 / 0%);
   }
 }
+
+.man-hi__popover {
+  position: absolute;
+  z-index: 2;
+  width: min(280px, 90%);
+  padding: 14px 16px;
+  border: 1px solid var(--man-hi-border);
+  border-radius: 10px;
+  background: var(--man-hi-surface);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+  line-height: 1.45;
+  text-align: left;
+}
+
+/* Auf schmalen Bildschirmen ist am Punkt kein Platz — und der Finger deckt
+   die Stelle ohnehin zu. Die Box steht deshalb in der Mitte des Bildes. */
+.man-hi__popover--centered {
+  position: fixed;
+  inset: auto 50% auto 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: min(320px, calc(100vw - 32px));
+  z-index: 10;
+}
+
+.man-hi__popover-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.man-hi__popover-title {
+  margin: 0 28px 6px 0;
+  font-size: 16px;
+}
+
+.man-hi__popover-text {
+  margin: 0;
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.man-hi__popover-action {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--man-hi-accent);
+  color: var(--man-hi-surface);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.man-hi__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: rgb(0 0 0 / 45%);
+}
