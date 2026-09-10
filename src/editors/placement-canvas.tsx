@@ -74,11 +74,12 @@ export function PlacementCanvas({
     // Ohne Capture verliert man den Punkt, sobald der Zeiger den Marker
     // verlässt — und das tut er beim Ziehen sofort.
     event.currentTarget.setPointerCapture?.(event.pointerId);
-    // Die Auswahl selbst passiert bewusst nicht hier, sondern nur in
-    // onMarkerClick: pointerdown und click feuern im Browser für einen
-    // einfachen Klick beide auf demselben Element, ein zweiter Aufruf hier
-    // wäre für einen reinen Zustands-Setter zwar folgenlos, aber unnötig und
-    // eine doppelte Zuständigkeit an derselben Stelle.
+    // Die Auswahl gehört an den Druck, nicht an das Loslassen: wer einen Punkt
+    // anfasst, um ihn zu schieben, meint diesen Punkt -- und das Formular
+    // daneben soll ihn schon während des Ziehens zeigen. Auf Touchgeräten
+    // unterdrücken Browser nach einer Ziehbewegung ohnehin den `click`; ihn
+    // allein zu befragen liesse einen gezogenen Punkt unausgewählt.
+    onSelect(pointId);
   };
 
   const onMarkerPointerMove = (event: React.PointerEvent<HTMLButtonElement>, pointId: string) => {
@@ -92,8 +93,12 @@ export function PlacementCanvas({
     event.currentTarget.releasePointerCapture?.(event.pointerId);
   };
 
-  const onMarkerClick = (pointId: string) => {
-    onSelect(pointId);
+  const onMarkerClick = (event: React.MouseEvent<HTMLButtonElement>, pointId: string) => {
+    // Mit dem Zeiger hat `onMarkerPointerDown` längst ausgewählt. Übrig bleibt
+    // die Tastatur: Enter und Leertaste erzeugen einen `click` ohne
+    // vorangehenden `pointerdown`, kenntlich an `detail === 0`. Ohne diese
+    // Unterscheidung wählte ein gewöhnlicher Mausklick zweimal aus.
+    if (event.detail === 0) onSelect(pointId);
   };
 
   const onMarkerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, point: HotspotPoint) => {
@@ -122,10 +127,12 @@ export function PlacementCanvas({
             className={`man-hie__canvas-marker${selected ? " man-hie__canvas-marker--selected" : ""}`}
             style={{ left: `${point.x}%`, top: `${point.y}%` }}
             aria-label={`Punkt ${index + 1}${point.title === "" ? "" : `: ${point.title}`}`}
-            // Ausgewählt ist ein Umschalt-Zustand des Markers, nicht bloß ein
-            // Aussehen: aria-pressed sagt ihn auch an, wenn niemand die Klasse sieht.
-            aria-pressed={selected}
-            onClick={() => onMarkerClick(point.id)}
+            // Ausgewählt heisst „an diesem Punkt wird gerade gearbeitet" -- eine
+            // Auszeichnung innerhalb einer Menge, kein Schalter. `aria-pressed`
+            // verspräche ein Umschalten, das es hier nicht gibt: ein zweiter
+            // Klick wählt denselben Punkt erneut aus, statt ihn abzuwählen.
+            aria-current={selected ? "true" : undefined}
+            onClick={(event) => onMarkerClick(event, point.id)}
             onPointerDown={(event) => onMarkerPointerDown(event, point.id)}
             onPointerMove={(event) => onMarkerPointerMove(event, point.id)}
             onPointerUp={onMarkerPointerUp}
