@@ -1,0 +1,87 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.man-hi-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 55%);
+}
+
+.man-hi-modal__panel {
+  display: flex;
+  flex-direction: column;
+  width: min(960px, 100%);
+  height: min(80vh, 100%);
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.man-hi-modal__head {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.man-hi-modal__title {
+  order: 1;
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.man-hi-modal__external {
+  order: 2;
+  flex: 0 0 auto;
+  font-size: 14px;
+}
+
+/* Steht im Markup vorn (Fokusfang), gehört optisch aber nach rechts. */
+.man-hi-modal__close {
+  order: 3;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.man-hi-modal__frame {
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .man-hi-modal {
+    padding: 0;
+  }
+
+  .man-hi-modal__panel {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
