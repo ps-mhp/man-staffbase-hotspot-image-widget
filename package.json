@@ -1,0 +1,11 @@
+{
+  "name": "@man/hotspot-image-widget",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "staffbase": {
+    "element": "hotspot-image-widget",
+    "bundle": "dist/hotspot-image-widget.js"
+  }
+}
