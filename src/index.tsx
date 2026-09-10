@@ -1,5 +1,5 @@
 /*!
- * Copyright 2026, Staffbase SE and contributors.
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,12 +20,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
-import { configurationSchema, uiSchema } from "./configuration-schema";
+import {
+  DISPLAY_MODE_ATTRIBUTE,
+  IMAGE_ATTRIBUTE,
+  POINTS_ATTRIBUTE,
+  configurationSchema,
+  uiSchema,
+} from "./configuration-schema";
 import icon from "../resources/hotspot-image-widget.svg";
 import pkg from "../package.json";
 
-/** Attributes handled by the widget; mirrored in the configuration schema. */
-const widgetAttributes: string[] = [];
+/** Die Attribute des Widgets; gespiegelt im Konfigurationsschema. */
+const widgetAttributes: string[] = [IMAGE_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE];
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class HotspotImageWidgetBlock extends BaseBlockClass implements BaseBlock {
@@ -53,7 +59,7 @@ const blockDefinition: BlockDefinition = {
   blockLevel: "block",
   configurationSchema: configurationSchema,
   uiSchema: uiSchema,
-  label: "HotspotImageWidget",
+  label: "Bild mit Punkten",
   iconUrl: icon,
 };
 
