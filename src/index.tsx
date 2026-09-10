@@ -16,7 +16,7 @@ import { setPublicPathFromBundle } from "@shared/public-path";
 // Muss vor jedem dynamischen `import()` laufen, damit nachgeladene Teile von
 // dem CDN kommen, von dem das Bundle stammt, und nicht von der Wirtsseite.
 setPublicPathFromBundle("hotspot-image-widget.js");
-import React from "react";
+import React, { ReactElement } from "react";
 import ReactDOM from "react-dom/client";
 
 import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
@@ -27,8 +27,29 @@ import {
   configurationSchema,
   uiSchema,
 } from "./configuration-schema";
+import { HotspotImage } from "./hotspot-image";
+import { parseImage, parsePoints, readDisplayMode } from "./points-model";
 import icon from "../resources/hotspot-image-widget.svg";
 import pkg from "../package.json";
+
+/**
+ * Attribute kommen immer als Zeichenkette an, auch wenn dort JSON steht.
+ * Die Namen tragen Bindestriche, wie im Schema.
+ */
+export interface HotspotImageWidgetProps {
+  contentLanguage?: string;
+  [IMAGE_ATTRIBUTE]?: string;
+  [POINTS_ATTRIBUTE]?: string;
+  [DISPLAY_MODE_ATTRIBUTE]?: string;
+}
+
+export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement | null => (
+  <HotspotImage
+    image={parseImage(props[IMAGE_ATTRIBUTE] ?? "")}
+    points={parsePoints(props[POINTS_ATTRIBUTE] ?? "")}
+    mode={readDisplayMode(props[DISPLAY_MODE_ATTRIBUTE])}
+  />
+);
 
 /** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um
  *  Abweichungen zu vermeiden: Ein Tippfehler würde sonst zur Laufzeit zu einem
@@ -40,8 +61,9 @@ const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
     private _root: ReactDOM.Root | null = null;
 
     public renderBlock(container: HTMLElement): void {
+      const attrs = this.parseAttributes<Record<string, unknown>>();
       this._root ??= ReactDOM.createRoot(container);
-      this._root.render(<div />);
+      this._root.render(<HotspotImageWidget {...attrs} />);
     }
 
     public static get observedAttributes(): string[] {
