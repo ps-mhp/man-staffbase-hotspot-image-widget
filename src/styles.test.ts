@@ -50,6 +50,7 @@ describe("Stylesheet", () => {
     ["man-hi__popover-close", hotspotStyles],
     ["man-hi__popover-action", hotspotStyles],
     ["man-hi__item-head", hotspotStyles],
+    ["man-hi__popover-title", hotspotStyles],
     ["man-hi-modal__close", modalStyles],
   ])("setzt %s gegen die Regeln der Wirtsseite durch", (className, css) => {
     expect(css).toMatch(outshineRule(css, className));

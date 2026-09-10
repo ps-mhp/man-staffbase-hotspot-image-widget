@@ -178,9 +178,15 @@
   }
 }
 
+// Mit Nachdruck: die Wirtsseite gibt ihren Ueberschriften eigene Abstaende,
+// und ein blosses `margin: 0` kam dagegen nicht an -- der Titel rutschte
+// dadurch aus der Zeile mit dem Schliessen-Kreuz.
 .man-hi__popover-title {
-  margin: 0;
-  font-size: 16px;
+  @include man-outshine-host {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+  }
 }
 
 .man-hi__popover-text {
