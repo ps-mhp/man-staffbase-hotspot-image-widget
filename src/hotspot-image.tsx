@@ -60,7 +60,17 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
     if (openId === null) {
       // Ohne das säße der Fokus nach Escape am Seitenanfang, und wer mit der
       // Tastatur arbeitet, müsste sich zurück zum Bild hangeln.
-      if (closed !== null) {
+      //
+      // Nur für das Popover, und nur wenn kein Modal übernommen hat: der
+      // Effekt des Kindes läuft vor dem des Elternteils, das Modal hätte
+      // seinen Schliessen-Knopf also schon fokussiert. Der Zugriff hier risse
+      // den Fokus wieder heraus — hinter das Modal, wo sein Fokusfang nicht
+      // mehr greift und die Tastatur durch die verdeckte Seite liefe.
+      //
+      // In der nummerierten Darstellung gibt es gar kein Popover, dem der
+      // Fokus zurückzugeben wäre; dort bliebe er sonst nicht am Listenkopf,
+      // sondern spränge beim Zuklappen aufs Bild.
+      if (closed !== null && mode === "dots" && page === null) {
         stageRef.current
           ?.querySelector<HTMLElement>(`[data-testid="marker-${closed}"]`)
           ?.focus();
@@ -75,7 +85,7 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
         .getElementById(panelId(openId))
         ?.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
-  }, [openId, mode]);
+  }, [openId, mode, page]);
 
   // Ein Widget ohne Bild oder ohne Punkte hat nichts zu zeigen. Ein leerer
   // Kasten in der Seite sähe nach einem Fehler aus.
@@ -100,7 +110,17 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
     // Das Popover stünde sonst als zweiter Dialog mit demselben Namen hinter
     // dem Modal. Die Liste darf dagegen offen bleiben: sie ist kein Dialog,
     // und ihr Eintrag ist nach dem Schließen des Modals der Ort zum Weiterlesen.
-    if (mode === "dots") setOpenId(null);
+    if (mode === "dots") {
+      setOpenId(null);
+      // Noch im Ereignis, nicht erst im Effekt: das Modal merkt sich beim
+      // Einhängen, woher der Fokus kam, und dorthin gibt es ihn beim
+      // Schliessen zurück. Ohne das verschwände das Popover mitsamt dem
+      // fokussierten Knopf, das Modal fände nur noch den Seitenkörper vor,
+      // und nach dem Schliessen begänne die Tastaturbedienung von vorn.
+      stageRef.current
+        ?.querySelector<HTMLElement>(`[data-testid="marker-${point.id}"]`)
+        ?.focus();
+    }
     setPage({ href: link.href, title: link.title ?? point.title });
   };
 

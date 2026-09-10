@@ -88,6 +88,43 @@ describe("HotspotImage", () => {
     expect(screen.getByTitle("Laden zu Hause")).toHaveAttribute("src", "/content/pages/1");
   });
 
+  it("gibt den Fokus an das Modal ab, statt ihn hinter dem Modal zu lassen", () => {
+    // Das Popover verschwindet beim Öffnen des Modals, und der Effekt des
+    // Elternteils holte den Fokus auf den Marker zurück -- hinter das Modal,
+    // wo dessen Fokusfang nicht mehr greift. Wer mit der Tastatur arbeitet,
+    // tabte dann durch die verdeckte Seite statt durch den Dialog.
+    render(<HotspotImage image={image} points={points} mode="dots" />);
+    fireEvent.click(screen.getByTestId("marker-p2"));
+    fireEvent.click(screen.getByRole("button", { name: "Seite öffnen" }));
+
+    const panel = screen.getByTitle("Laden zu Hause").closest("[role='dialog']");
+    expect(panel).not.toBeNull();
+    expect(panel).toContainElement(document.activeElement as HTMLElement);
+  });
+
+  it("bringt den Fokus nach dem Schliessen des Modals zum Marker zurück", () => {
+    render(<HotspotImage image={image} points={points} mode="dots" />);
+    fireEvent.click(screen.getByTestId("marker-p2"));
+    fireEvent.click(screen.getByRole("button", { name: "Seite öffnen" }));
+    fireEvent.keyDown(document, { key: "Escape" });
+
+    expect(document.activeElement).toBe(screen.getByTestId("marker-p2"));
+  });
+
+  it("lässt den Fokus in der Liste, wenn ein Eintrag wieder zugeklappt wird", () => {
+    // In der nummerierten Darstellung gibt es kein Popover, dem der Fokus
+    // zurückzugeben wäre. Ihn trotzdem aufs Bild zu ziehen, risse ihn beim
+    // Zuklappen aus der Liste heraus -- gerade dort, wo mit der Tastatur
+    // gelesen wird.
+    render(<HotspotImage image={image} points={points} mode="numbered" />);
+    const item = screen.getByTestId("item-p1");
+    item.focus();
+    fireEvent.click(item);
+    fireEvent.click(item);
+
+    expect(document.activeElement).toBe(item);
+  });
+
   it("nimmt den Titel des Punktes, wenn der Link keinen mitbringt", () => {
     const untitled: HotspotPoint[] = [
       { id: "p4", x: 10, y: 10, title: "Dach", link: { kind: "page", href: "/content/pages/2" } },
