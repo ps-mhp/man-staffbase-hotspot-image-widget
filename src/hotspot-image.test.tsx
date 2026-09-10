@@ -122,7 +122,18 @@ describe("HotspotImage", () => {
     fireEvent.click(screen.getByTestId("marker-p3"));
     fireEvent.click(screen.getByRole("button", { name: "Seite öffnen" }));
     expect(open).toHaveBeenCalledWith("https://example.test/pdf", "_blank", "noopener,noreferrer");
-    expect(screen.queryByRole("dialog", { name: "Handbuch" })).not.toBeInTheDocument();
+    // Der Punkt heißt selbst „Handbuch“, deshalb hier nicht über den Namen:
+    // geprüft wird, dass gar kein Modal aufgegangen ist.
+    expect(screen.queryByTestId("page-modal-scrim")).not.toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: "Handbuch" })).toBeInTheDocument();
     open.mockRestore();
+  });
+
+  it("lässt den Listeneintrag offen, während das Modal darüber steht", () => {
+    render(<HotspotImage image={image} points={points} mode="numbered" />);
+    fireEvent.click(screen.getByTestId("item-p2"));
+    fireEvent.click(screen.getByRole("button", { name: "Seite öffnen" }));
+    expect(screen.getByTestId("page-modal-scrim")).toBeInTheDocument();
+    expect(screen.getByTestId("item-p2")).toHaveAttribute("aria-expanded", "true");
   });
 });

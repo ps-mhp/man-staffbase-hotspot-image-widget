@@ -89,17 +89,18 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
   const openLink = (point: HotspotPoint) => {
     const link = point.link;
     if (link === undefined) return;
-    // Das Popover hat seinen Zweck erfüllt, sobald sein Link greift: es bliebe
-    // sonst als zweiter Dialog mit demselben Titel hinter dem Modal stehen —
-    // oder, bei einem neuen Tab, als einziger übrig und täuschte einen noch
-    // offenen Punkt vor.
-    setOpenId(null);
     if (link.kind === "url") {
       // Fremde Ziele kommen nicht ins iFrame: ob sie sich einbetten lassen,
       // entscheidet ihr Server, und ein blockiertes iFrame bleibt wortlos leer.
+      // Der Punkt bleibt dabei offen — der neue Tab führt weg, und wer
+      // zurückkommt, soll den Zusammenhang noch vorfinden.
       window.open(link.href, "_blank", "noopener,noreferrer");
       return;
     }
+    // Das Popover stünde sonst als zweiter Dialog mit demselben Namen hinter
+    // dem Modal. Die Liste darf dagegen offen bleiben: sie ist kein Dialog,
+    // und ihr Eintrag ist nach dem Schließen des Modals der Ort zum Weiterlesen.
+    if (mode === "dots") setOpenId(null);
     setPage({ href: link.href, title: link.title ?? point.title });
   };
 
