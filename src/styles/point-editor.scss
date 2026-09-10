@@ -44,11 +44,15 @@
   }
 }
 
+// Die Spalte muss selbst rollen können. Ohne das schob ein hohes Bild den
+// Inhalt über die Fussleiste hinweg, und der Hinweis unter der Bühne stand
+// halb abgeschnitten hinter den Knöpfen -- am 10.09.2026 im Studio gesehen.
 .man-hie__left {
   display: flex;
   flex-direction: column;
   gap: 16px;
   min-height: 0;
+  overflow-y: auto;
 }
 
 .man-hie__right {
@@ -282,9 +286,29 @@
   border-color: chrome.$accent-stronger;
 }
 
+// Die Fussleiste liegt ausserhalb des rollenden Bereichs und bleibt deshalb
+// immer sichtbar. Der Strich trennt sie vom Inhalt, der sonst darunter
+// hindurchzulaufen scheint.
+.man-hie__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 12px 16px;
+  border-top: 1px solid chrome.$border;
+  background: chrome.$surface;
+}
+
 .man-hie__hint {
   margin: 0;
   font-size: 12px;
   line-height: 18px;
   color: chrome.$text-muted;
+}
+
+// Steht ausserhalb des rollenden Bereichs und braucht die Abstände deshalb
+// selbst; im Inhalt liefert sie das Raster.
+.man-hie__hint--footer {
+  flex: 0 0 auto;
+  padding: 0 16px;
 }

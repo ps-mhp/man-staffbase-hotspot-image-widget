@@ -62,11 +62,12 @@ describe("ImageField", () => {
     );
   });
 
-  it("zeigt das gewählte Bild und lässt den Alternativtext ändern", () => {
+  it("lässt den Alternativtext des gewählten Bildes ändern", () => {
     const image = { url: "https://example.test/a.jpg", alt: "Ein Auto" };
     const onChange = jest.fn();
     render(<ImageField image={image} onChange={onChange} />);
-    expect(screen.getByTestId("image-preview")).toHaveAttribute("src", image.url);
+    // Keine eigene Vorschau: die Bühne im Editor zeigt dasselbe Bild.
+    expect(screen.queryByTestId("image-preview")).not.toBeInTheDocument();
     fireEvent.change(screen.getByLabelText(/Alternativtext/), { target: { value: "Ein Bus" } });
     expect(onChange).toHaveBeenCalledWith({ ...image, alt: "Ein Bus" });
   });

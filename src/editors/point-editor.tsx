@@ -187,13 +187,17 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
         </div>
       </div>
       {untitled > 0 && (
-        <p className="man-hie__hint" data-testid="point-editor-untitled" role="alert">
+        <p
+          className="man-hie__hint man-hie__hint--footer"
+          data-testid="point-editor-untitled"
+          role="alert"
+        >
           {untitled === 1
             ? "Ein Punkt hat noch keinen Titel. Ohne Titel ginge er beim Übernehmen verloren."
             : `${untitled} Punkte haben noch keinen Titel. Ohne Titel gingen sie beim Übernehmen verloren.`}
         </p>
       )}
-      <div className="man-hie__image-actions">
+      <div className="man-hie__footer">
         <button type="button" className="man-hie__button" onClick={onClose}>
           Abbrechen
         </button>

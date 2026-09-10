@@ -11,6 +11,8 @@
  * limitations under the License.
  */
 
+@use "@shared/stylings/man-tokens" as *;
+
 .man-hi-modal {
   position: fixed;
   inset: 0;
@@ -55,17 +57,29 @@
   font-size: 14px;
 }
 
-/* Steht im Markup vorn (Fokusfang), gehört optisch aber nach rechts. */
+/* Steht im Markup vorn (Fokusfang), gehört optisch aber nach rechts.
+   Mit Nachdruck und erhöhter Spezifität, weil `onetruck-css` jedem blanken
+   `button` im Inhaltsbereich Füllung, Innenabstand und Versalien gibt -- ein
+   Schliessen-Kreuz braucht nichts davon. */
 .man-hi-modal__close {
-  order: 3;
-  flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  background: transparent;
-  font-size: 22px;
-  line-height: 1;
-  cursor: pointer;
+  @include man-outshine-host {
+    order: 3;
+    flex: 0 0 auto;
+    box-sizing: border-box !important;
+    display: grid;
+    place-items: center;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    color: #{man("slate-700")} !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
+    text-transform: none !important;
+    cursor: pointer;
+  }
 }
 
 .man-hi-modal__frame {

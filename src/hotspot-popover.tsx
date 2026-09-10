@@ -109,10 +109,17 @@ export function HotspotPopover({
       className={`man-hi__popover${centered ? " man-hi__popover--centered" : ""}`}
       style={style}
     >
-      <button type="button" className="man-hi__popover-close" aria-label="Schließen" onClick={onClose}>
-        ×
-      </button>
-      <h3 className="man-hi__popover-title">{point.title}</h3>
+      <div className="man-hi__popover-head">
+        <h3 className="man-hi__popover-title">{point.title}</h3>
+        <button
+          type="button"
+          className="man-hi__popover-close"
+          aria-label="Schließen"
+          onClick={onClose}
+        >
+          ×
+        </button>
+      </div>
       {point.description !== undefined && (
         <p className="man-hi__popover-text">{point.description}</p>
       )}

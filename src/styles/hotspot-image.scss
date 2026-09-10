@@ -11,10 +11,15 @@
  * limitations under the License.
  */
 
+@use "@shared/stylings/man-tokens" as *;
+
 .man-hi {
-  --man-hi-accent: #1f2937;
-  --man-hi-surface: #ffffff;
-  --man-hi-border: #e5e7eb;
+  // Die Punkte sind das Erkennungszeichen des Widgets und tragen deshalb die
+  // Hausfarbe, nicht ein dahergelaufenes Dunkelgrau -- am 10.09.2026 im
+  // Frontend als "nicht im MAN-Rot" beanstandet.
+  --man-hi-accent: #{man("red")};
+  --man-hi-surface: #{man("white")};
+  --man-hi-border: #{man("grey-200")};
 
   display: grid;
   gap: 16px;
@@ -48,31 +53,50 @@
   height: auto;
 }
 
+// Mit Nachdruck und erhoehter Spezifitaet: `onetruck-css` macht aus jedem
+// blanken `button` im Inhaltsbereich einen Handlungsknopf ueber die volle
+// Breite -- mit eigenen Innenabstaenden, eigener Fuellung und ohne Rundung.
+// Der Punkt geriet dadurch zu einem flachen, dunklen Rechteck, das niemand
+// mehr als Punkt erkannte; am 10.09.2026 im Frontend so gesehen.
+//
+// `box-shadow` bleibt bewusst ohne `!important`: der Puls unten setzt ihn per
+// Animation, und eine Animation kaeme gegen `!important` nicht an.
 .man-hi__marker {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: 2px solid var(--man-hi-surface);
-  border-radius: 50%;
-  background: var(--man-hi-accent);
-  color: var(--man-hi-surface);
-  font: 600 14px/1 system-ui, sans-serif;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+  @include man-outshine-host {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    box-sizing: border-box !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border: 2px solid var(--man-hi-surface) !important;
+    border-radius: 50% !important;
+    background: var(--man-hi-accent) !important;
+    color: var(--man-hi-surface) !important;
+    font: 700 14px/1 #{man("font-head")} !important;
+    text-transform: none !important;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+  }
 }
 
+// Muss ebenfalls durchgesetzt werden, sonst gaebe der Grundriss oben mit
+// seinen fuenf Klassen den Ausschlag und der Punkt bliebe zu gross.
 .man-hi__marker--dots {
-  width: 20px;
-  height: 20px;
+  @include man-outshine-host {
+    width: 20px !important;
+    height: 20px !important;
+  }
 }
 
+// Dunkel statt weiss: der Punkt traegt selbst schon einen weissen Ring, ein
+// zweiter weisser Ring daneben waere auf hellem Bild nicht auszumachen.
 .man-hi__marker:focus-visible {
-  outline: 3px solid #2563eb;
-  outline-offset: 2px;
+  outline: 3px solid #{man("slate-900")} !important;
+  outline-offset: man("focus-offset");
 }
 
 /* Der Puls zeigt an, dass der Punkt gemeint ist — er darf deshalb nicht von
@@ -88,10 +112,10 @@
 
 @keyframes man-hi-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgb(37 99 235 / 55%);
+    box-shadow: 0 0 0 0 #{man-alpha("red", 0.55)};
   }
   100% {
-    box-shadow: 0 0 0 14px rgb(37 99 235 / 0%);
+    box-shadow: 0 0 0 14px #{man-alpha("red", 0)};
   }
 }
 
@@ -119,21 +143,43 @@
   z-index: 10;
 }
 
+// Titel und Kreuz stehen in einer Zeile. Zuvor lag das Kreuz frei ueber der
+// Ecke und schob sich, von der Wirtsseite grau gefuellt und aufgepolstert,
+// als Kasten ueber den Rand der Box -- am 10.09.2026 im Frontend so gesehen.
+.man-hi__popover-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+// Dasselbe Durchsetzen wie beim Punkt: `onetruck-css` gibt jedem blanken
+// `button` Fuellung, Innenabstand und Versalien. Ein Schliessen-Kreuz braucht
+// nichts davon -- nur das Kreuz.
 .man-hi__popover-close {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  background: transparent;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
+  @include man-outshine-host {
+    box-sizing: border-box !important;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    margin: -4px -6px 0 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    color: #{man("slate-700")} !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    text-transform: none !important;
+    cursor: pointer;
+  }
 }
 
 .man-hi__popover-title {
-  margin: 0 28px 6px 0;
+  margin: 0;
   font-size: 16px;
 }
 
@@ -143,15 +189,20 @@
   white-space: pre-line;
 }
 
+// Der Handlungsknopf soll die Hausfarbe tragen, nicht das Grau, das die
+// Wirtsseite jedem blanken `button` gibt.
 .man-hi__popover-action {
-  margin-top: 12px;
-  padding: 8px 14px;
-  border: 0;
-  border-radius: 6px;
-  background: var(--man-hi-accent);
-  color: var(--man-hi-surface);
-  font-size: 14px;
-  cursor: pointer;
+  @include man-outshine-host {
+    box-sizing: border-box !important;
+    margin-top: 12px !important;
+    padding: 8px 14px !important;
+    border: 0 !important;
+    border-radius: 6px !important;
+    background: var(--man-hi-accent) !important;
+    color: var(--man-hi-surface) !important;
+    font-size: 14px !important;
+    cursor: pointer;
+  }
 }
 
 .man-hi__scrim {
@@ -172,17 +223,25 @@
   border-bottom: 1px solid var(--man-hi-border);
 }
 
+// Eine Zeile der Liste, kein Handlungsknopf -- also gegen die Wirtsseite
+// durchgesetzt, die jedem blanken `button` Fuellung und Versalien gibt.
 .man-hi__item-head {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  width: 100%;
-  padding: 12px 8px;
-  border: 0;
-  background: transparent;
-  font-size: 15px;
-  text-align: left;
-  cursor: pointer;
+  @include man-outshine-host {
+    box-sizing: border-box !important;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100% !important;
+    padding: 12px 8px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
+    color: inherit !important;
+    font-size: 15px !important;
+    text-align: left !important;
+    text-transform: none !important;
+    cursor: pointer;
+  }
 }
 
 .man-hi__item-number {

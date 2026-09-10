@@ -56,17 +56,10 @@ export function ImageField({ image, onChange }: ImageFieldProps): ReactElement {
       ) : (
         <div className="man-hie__image-chosen">
           {/*
-            Im Editor ist die Vorschau schmueckendes Beiwerk: der
-            Alternativtext steht unmittelbar darunter in einem beschrifteten
-            Feld. Ihn hier zu wiederholen laese ihn der Vorlesesoftware zweimal
-            vor, ohne dass ein zweites Mal etwas zu erfahren waere.
+            Keine Vorschau: die Bühne darunter zeigt dasselbe Bild, nur mit den
+            Punkten darauf. Beides übereinander schob im Studio den halben
+            Dialog aus dem Fenster -- am 10.09.2026 im Studio gesehen.
           */}
-          <img
-            className="man-hie__image-preview"
-            data-testid="image-preview"
-            src={image.url}
-            alt=""
-          />
           <div className="man-hie__image-actions">
             <button type="button" className="man-hie__button" onClick={() => setPicking(true)}>
               Anderes Bild wählen …
