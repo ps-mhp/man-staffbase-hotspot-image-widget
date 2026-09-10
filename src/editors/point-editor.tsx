@@ -51,10 +51,19 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
   const [image, setImage] = useState<HotspotImage | null>(() => readImageAttribute());
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [full, setFull] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
 
   const changeImage = (next: HotspotImage | null): void => {
+    // Das Bild gehört einem eigenen Feld, nicht dem Entwurf dieses Fensters.
+    // Findet sich das Feld nicht, ist das Bild nirgends gespeichert -- es hier
+    // trotzdem anzuzeigen, lüde dazu ein, Punkte auf einer Fläche zu setzen,
+    // die nach dem Übernehmen leer wäre.
+    if (!writeImageAttribute(next)) {
+      setImageFailed(true);
+      return;
+    }
+    setImageFailed(false);
     setImage(next);
-    writeImageAttribute(next);
   };
 
   const selectedIndex = value.findIndex((point) => point.id === selectedId);
@@ -90,16 +99,31 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
     setSelectedId(null);
   };
 
+  /**
+   * Punkte ohne Titel überleben das Speichern nicht: `readPoint` verwirft sie
+   * beim nächsten Lesen, und mit ihnen Beschreibung und Link. Wer einen Punkt
+   * setzt und nur die Beschreibung ausfüllt, fände ihn nach dem Öffnen des
+   * Dialogs spurlos verschwunden. Deshalb hier der Riegel, statt es die
+   * Redaktion später merken zu lassen.
+   */
+  const untitled = value.filter((point) => point.title.trim() === "").length;
+
   const onFormChange = (point: HotspotPoint): void => {
     onChange(value.map((entry) => (entry.id === point.id ? point : entry)));
   };
 
   return (
     <div className="man-hie">
-      {css}
+      <style>{css}</style>
       <div className="man-hie__layout">
         <div className="man-hie__left">
           <ImageField image={image} onChange={changeImage} />
+          {imageFailed && (
+            <p className="man-hie__hint" data-testid="point-editor-image-failed" role="alert">
+              Das Bild liess sich nicht speichern. Schliesse das Fenster und
+              trage es unten im Formular ein.
+            </p>
+          )}
           {image === null ? (
             <p className="man-hie__hint" data-testid="point-editor-needs-image">
               Ohne Bild gibt es keine Fläche, auf der Punkte liegen könnten.
@@ -162,11 +186,23 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
           )}
         </div>
       </div>
+      {untitled > 0 && (
+        <p className="man-hie__hint" data-testid="point-editor-untitled" role="alert">
+          {untitled === 1
+            ? "Ein Punkt hat noch keinen Titel. Ohne Titel ginge er beim Übernehmen verloren."
+            : `${untitled} Punkte haben noch keinen Titel. Ohne Titel gingen sie beim Übernehmen verloren.`}
+        </p>
+      )}
       <div className="man-hie__image-actions">
         <button type="button" className="man-hie__button" onClick={onClose}>
           Abbrechen
         </button>
-        <button type="button" className="man-hie__button man-hie__button--primary" onClick={onSave}>
+        <button
+          type="button"
+          className="man-hie__button man-hie__button--primary"
+          disabled={untitled > 0}
+          onClick={onSave}
+        >
           Übernehmen
         </button>
       </div>

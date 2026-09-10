@@ -133,4 +133,45 @@ describe("PointEditor", () => {
     fireEvent.click(screen.getByRole("button", { name: "Abbrechen" }));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
+
+  it("legt das Stylesheet als Stil an, nicht als Text ins Fenster", () => {
+    // `useHotStyle` liefert eine Zeichenkette. Direkt in den Baum gerendert
+    // stünde das ganze Stylesheet lesbar im Dialog, und der Editor verlöre
+    // sein Layout.
+    const { container } = renderEditor();
+    expect(container.querySelector("style")).not.toBeNull();
+    expect(screen.queryByText(/man-hie__layout/)).not.toBeInTheDocument();
+  });
+
+  it("zeigt kein Bild an, das sich nicht speichern liess", () => {
+    // Sonst setzte die Redaktion Punkte auf eine Fläche, die nach dem
+    // Übernehmen gar nicht da ist.
+    const { readImageAttribute, writeImageAttribute } = jest.requireMock("./use-image-attribute");
+    readImageAttribute.mockReturnValueOnce(null);
+    writeImageAttribute.mockReturnValueOnce(false);
+    renderEditor({ value: [] });
+    fireEvent.click(screen.getByRole("button", { name: "Bild setzen" }));
+    expect(screen.getByTestId("point-editor-image-failed")).toBeInTheDocument();
+    expect(screen.queryByTestId("placement-canvas")).not.toBeInTheDocument();
+  });
+
+  it("lässt einen Punkt ohne Titel nicht übernehmen", () => {
+    // `readPoint` verwirft titellose Punkte beim nächsten Lesen -- mitsamt
+    // Beschreibung und Link. Ohne diesen Riegel verschwände die Arbeit
+    // stillschweigend zwischen Speichern und Wiederöffnen.
+    const onSave = jest.fn();
+    renderEditor({ value: [{ id: "p1", x: 25, y: 60, title: "" }], onSave });
+    const apply = screen.getByRole("button", { name: "Übernehmen" });
+    expect(apply).toBeDisabled();
+    fireEvent.click(apply);
+    expect(onSave).not.toHaveBeenCalled();
+    expect(screen.getByTestId("point-editor-untitled")).toBeInTheDocument();
+  });
+
+  it("lässt übernehmen, sobald jeder Punkt einen Titel hat", () => {
+    const onSave = jest.fn();
+    renderEditor({ onSave });
+    fireEvent.click(screen.getByRole("button", { name: "Übernehmen" }));
+    expect(onSave).toHaveBeenCalled();
+  });
 });
