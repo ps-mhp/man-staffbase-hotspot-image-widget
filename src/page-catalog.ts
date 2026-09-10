@@ -52,7 +52,7 @@ interface RawPage {
 }
 
 interface CatalogResponse {
-  entries?: RawPage[];
+  entries?: unknown;
 }
 
 /**
@@ -78,13 +78,20 @@ export const pageCatalogSource: EntityCatalogSource<RawPage> = {
       // die Eingabe von Hand, und die reicht zum Arbeiten.
       if (!response.ok) return [];
       const body = (await response.json()) as CatalogResponse;
-      return body.entries ?? [];
+      // Auf die Form der Antwort ist kein Verlass: `fetchEntityCatalog` ruft
+      // gleich `.map` darauf, und das liegt dort ausserhalb des Fangnetzes.
+      // Ein Feld, das keine Liste ist, risse also den ganzen Dialog mit.
+      return Array.isArray(body?.entries) ? (body.entries as RawPage[]) : [];
     } catch {
       return [];
     }
   },
 
   toOption(page: RawPage): PageOption | null {
+    // Auch hier gilt kein Vertrauen in die Form: `toOption` laeuft in
+    // `fetchEntityCatalog` ungeschuetzt, ein Zugriff auf `null` waere das Ende
+    // des Dialogs statt eines fehlenden Listeneintrags.
+    if (typeof page !== "object" || page === null) return null;
     const id = page.id;
     const menuId = page.menuId;
     // Ohne `menuId` ließe sich keine Adresse bilden — ein solcher Eintrag

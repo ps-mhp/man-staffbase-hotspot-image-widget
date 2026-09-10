@@ -11,7 +11,16 @@
  * limitations under the License.
  */
 
-import { pageCatalogSource } from "./page-catalog";
+import { fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
+import { PAGES_ENDPOINT, pageCatalogSource } from "./page-catalog";
+
+/** Antwortet mit genau diesem Rumpf, egal was gefragt wird. */
+const respondWith = (body: unknown): void => {
+  globalThis.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: async () => body,
+  }) as unknown as typeof fetch;
+};
 
 describe("pageCatalogSource", () => {
   afterEach(() => jest.restoreAllMocks());
@@ -36,7 +45,7 @@ describe("pageCatalogSource", () => {
 
     const raw = await pageCatalogSource.fetchList();
     expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("/api/branch/pages/search"),
+      expect.stringContaining(PAGES_ENDPOINT),
       expect.objectContaining({ credentials: "same-origin" }),
     );
     expect(pageCatalogSource.toOption(raw[0])).toEqual({
@@ -60,5 +69,29 @@ describe("pageCatalogSource", () => {
     expect(
       pageCatalogSource.toOption({ id: "1", localization: { de_DE: { title: "Ohne Adresse" } } }),
     ).toBeNull();
+  });
+});
+
+/**
+ * Der Editor ruft nie `fetchList` oder `toOption` einzeln auf, sondern immer
+ * `fetchEntityCatalog`. Nur dort zeigt sich, was eine unerwartete Antwort
+ * wirklich anrichtet: `fetchEntityCatalog` faengt allein `fetchList` ab, das
+ * anschliessende `.map` und jedes `toOption` laufen ungeschuetzt. Ein Fehler
+ * darin nimmt den ganzen Konfigurationsdialog mit -- der Redakteur kaeme dann
+ * nicht einmal mehr an die Eingabe von Hand.
+ */
+describe("der Weg, den der Editor tatsächlich geht", () => {
+  afterEach(() => jest.restoreAllMocks());
+
+  it("übersteht ein `entries`, das gar keine Liste ist", async () => {
+    respondWith({ entries: { "0": { id: "1", menuId: "2" } } });
+    await expect(fetchEntityCatalog(pageCatalogSource)).resolves.toEqual([]);
+  });
+
+  it("übersteht einen leeren Platz in der Liste", async () => {
+    respondWith({ entries: [null, { id: "1", menuId: "2" }] });
+    await expect(fetchEntityCatalog(pageCatalogSource)).resolves.toEqual([
+      { id: "1", title: "1", href: "/content/page/2" },
+    ]);
   });
 });
