@@ -19,7 +19,13 @@ setPublicPathFromBundle("hotspot-image-widget.js");
 import React, { ReactElement } from "react";
 import ReactDOM from "react-dom/client";
 
-import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
+import {
+  BlockAttributes,
+  BlockFactory,
+  BlockDefinition,
+  ExternalBlockDefinition,
+  BaseBlock,
+} from "widget-sdk";
 import { startWidget } from "@shared/dev-mode/start-widget";
 import {
   DISPLAY_MODE_ATTRIBUTE,
@@ -37,12 +43,11 @@ import pkg from "../package.json";
  * Attribute kommen immer als Zeichenkette an, auch wenn dort JSON steht.
  * Die Namen tragen Bindestriche, wie im Schema.
  */
-export interface HotspotImageWidgetProps {
-  contentLanguage?: string;
+export type HotspotImageWidgetProps = BlockAttributes & {
   [IMAGE_ATTRIBUTE]?: string;
   [POINTS_ATTRIBUTE]?: string;
   [DISPLAY_MODE_ATTRIBUTE]?: string;
-}
+};
 
 export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement | null => (
   <HotspotImage
@@ -61,10 +66,16 @@ const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class HotspotImageWidgetBlock extends BaseBlockClass implements BaseBlock {
     private _root: ReactDOM.Root | null = null;
 
+    private get props(): HotspotImageWidgetProps {
+      const attrs = this.parseAttributes<HotspotImageWidgetProps>();
+      // Die Sprache steht nicht in den Attributen, sondern am Block selbst.
+      // Ohne sie wüsste die Ansicht nicht, in welcher Fassung sie steht.
+      return { ...attrs, contentLanguage: this.contentLanguage };
+    }
+
     public renderBlock(container: HTMLElement): void {
-      const attrs = this.parseAttributes<Record<string, unknown>>();
       this._root ??= ReactDOM.createRoot(container);
-      this._root.render(<HotspotImageWidget {...attrs} />);
+      this._root.render(<HotspotImageWidget {...this.props} />);
     }
 
     public static get observedAttributes(): string[] {
