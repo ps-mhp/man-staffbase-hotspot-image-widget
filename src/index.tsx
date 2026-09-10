@@ -27,6 +27,7 @@ import {
   BaseBlock,
 } from "widget-sdk";
 import { startWidget } from "@shared/dev-mode/start-widget";
+import { getTranslationRegistry } from "@shared/translation/registry";
 import {
   DISPLAY_MODE_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
@@ -37,6 +38,7 @@ import {
 import { HotspotImage } from "./hotspot-image";
 import { parseImage, parsePoints, readDisplayMode } from "./points-model";
 import { startPointEditorInjector } from "./point-editor-injector";
+import { hotspotTranslationProvider } from "./translation-provider";
 import icon from "../resources/hotspot-image-widget.svg";
 import pkg from "../package.json";
 
@@ -133,6 +135,10 @@ if (typeof window.defineBlock === "function") {
     version: pkg.version,
     register: () => {
       startPointEditorInjector();
+      // Wie der Editor-Injektor gehört auch die Übersetzung ins
+      // `register`-Callback: auf Modulebene angemeldet würde die Registry
+      // laufen, bevor feststeht, ob ein lokaler Entwicklungsserver übernimmt.
+      getTranslationRegistry().register(hotspotTranslationProvider);
       window.defineBlock(externalBlockDefinition);
     },
   });
