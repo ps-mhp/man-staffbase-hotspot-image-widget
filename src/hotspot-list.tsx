@@ -41,8 +41,8 @@ export function HotspotList({
   onOpenLink,
 }: HotspotListProps): ReactElement {
   return (
-    <ul className="man-hi__list">
-      {points.map((point, index) => {
+    <ol className="man-hi__list">
+      {points.map((point) => {
         const open = point.id === openId;
         return (
           <li key={point.id} className={`man-hi__item${open ? " man-hi__item--open" : ""}`}>
@@ -55,7 +55,12 @@ export function HotspotList({
               data-testid={`item-${point.id}`}
               onClick={() => onToggle(point.id)}
             >
-              <span className="man-hi__item-number">{index + 1}</span>
+              {/*
+                Die Ziffer kommt aus dem Zähler des Stylesheets, nicht aus dem
+                Laufindex: eine geordnete Liste nummeriert von selbst, und zwei
+                Quellen für dieselbe Zahl können auseinanderlaufen.
+              */}
+              <span className="man-hi__item-number" aria-hidden="true" />
               <span className="man-hi__item-title">{point.title}</span>
             </button>
             {/* Die Klappe bleibt auch geschlossen im Markup: sonst zeigte das
@@ -84,6 +89,6 @@ export function HotspotList({
           </li>
         );
       })}
-    </ul>
+    </ol>
   );
 }

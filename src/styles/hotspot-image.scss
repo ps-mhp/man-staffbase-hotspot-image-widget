@@ -243,15 +243,31 @@
   background: rgb(0 0 0 / 45%);
 }
 
+// Eine geordnete Liste: die Reihenfolge ist Teil der Aussage, und der Zaehler
+// liefert die Ziffern von selbst -- der Laufindex aus dem Markup entfaellt.
 .man-hi__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--man-hi-border);
+  @include man-outshine-host {
+    counter-reset: man-hi-item;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    border-top: 1px solid var(--man-hi-border);
+  }
 }
 
+// `list-style` steht schon am Container, wird von dort aber nur vererbt: eine
+// Regel der Wirtsseite, die den Listenpunkt selbst trifft, sticht sie aus. Der
+// rote Strich der Marke stand deshalb links neben jeder Ziffer -- am
+// 10.09.2026 im Frontend so gesehen.
 .man-hi__item {
-  border-bottom: 1px solid var(--man-hi-border);
+  @include man-outshine-host {
+    counter-increment: man-hi-item;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    border-bottom: 1px solid var(--man-hi-border);
+  }
+
 }
 
 // Eine Zeile der Liste, kein Handlungsknopf -- also gegen die Wirtsseite
@@ -285,6 +301,10 @@
   color: var(--man-hi-surface);
   font-size: 13px;
   font-weight: 600;
+
+  &::before {
+    content: counter(man-hi-item);
+  }
 }
 
 .man-hi__item--open .man-hi__item-title {

@@ -71,6 +71,22 @@ describe("Stylesheet", () => {
     expect(invented).toEqual([]);
   });
 
+  // Die Nummerierung kommt aus dem Zaehler der geordneten Liste. Ginge eines
+  // der drei Stuecke verloren, blieben die Kreise leer, ohne dass eine
+  // Komponentenpruefung etwas merkte -- jsdom rechnet Zaehler nicht aus.
+  it("nummeriert die Liste aus dem Zähler statt aus dem Markup", () => {
+    expect(hotspotStyles).toMatch(/counter-reset:\s*man-hi-item/);
+    expect(hotspotStyles).toMatch(/counter-increment:\s*man-hi-item/);
+    expect(hotspotStyles).toMatch(/content:\s*counter\(man-hi-item\)/);
+  });
+
+  it("unterdrückt die Listenpunkte der Wirtsseite am Eintrag selbst", () => {
+    // Am Container allein genügt es nicht: `list-style` wird von dort nur
+    // vererbt, und eine Regel der Wirtsseite auf dem `li` sticht sie aus.
+    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__item"))?.[0];
+    expect(rule).toContain("list-style: none !important");
+  });
+
   it("gibt dem Handlungsknopf die Versalien der Marke", () => {
     const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__popover-action"))?.[0];
     expect(rule).toContain("text-transform: uppercase !important");

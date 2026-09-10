@@ -34,12 +34,18 @@ const renderList = (overrides: Partial<React.ComponentProps<typeof HotspotList>>
   );
 
 describe("HotspotList", () => {
-  it("nummeriert die Einträge in der Reihenfolge der Punkte", () => {
-    renderList();
+  // Die Ziffern kommen aus dem Zähler des Stylesheets, nicht aus dem Markup --
+  // jsdom rechnet `content: counter(...)` nicht aus, sichtbar prüfen lässt es
+  // sich hier also nicht. Prüfbar ist, dass die Liste geordnet ist und die
+  // Einträge in der Reihenfolge der Punkte stehen; über den Zähler selbst
+  // wacht `styles.test.ts`.
+  it("führt die Einträge als geordnete Liste in der Reihenfolge der Punkte", () => {
+    const { container } = renderList();
+
+    expect(container.querySelector("ol.man-hi__list")).not.toBeNull();
     const buttons = screen.getAllByRole("button");
-    expect(buttons[0]).toHaveTextContent("1");
     expect(buttons[0]).toHaveTextContent("Ladeanschluss");
-    expect(buttons[1]).toHaveTextContent("2");
+    expect(buttons[1]).toHaveTextContent("Kofferraum");
   });
 
   it("hält die Beschreibung zu, solange der Eintrag nicht offen ist", () => {
