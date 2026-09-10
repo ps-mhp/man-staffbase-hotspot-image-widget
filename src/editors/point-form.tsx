@@ -61,7 +61,7 @@ export function PointForm({ point, onChange, onRemove }: PointFormProps): ReactE
       </label>
       {titleMissing && (
         <p className="man-hie__hint" id={warningId} data-testid="point-form-warning">
-          Ohne Titel wird dieser Punkt nicht angezeigt.
+          Ohne Titel lässt sich der Punkt nicht übernehmen.
         </p>
       )}
 

@@ -67,7 +67,7 @@ describe("PointForm", () => {
     // nichts vor -- der Hinweis stünde dann nur für Sehende da.
     render(<PointForm point={{ id: "p1", x: 10, y: 10, title: "" }} onChange={jest.fn()} onRemove={jest.fn()} />);
     const title = screen.getByLabelText(/Titel/);
-    expect(title).toHaveAccessibleDescription(/nicht angezeigt/);
+    expect(title).toHaveAccessibleDescription(/nicht übernehmen/);
     expect(title).toBeInvalid();
   });
 });
