@@ -1,0 +1,278 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Der Editor für Hotspots im Redaktionsdialog. Bewusst in der Palette des
+// Staffbase-Studios (@shared/stylings/editor-chrome) und nicht in der Marke:
+// diese Flächen sehen nur Redakteur:innen.
+
+@use "@shared/stylings/editor-chrome" as chrome;
+@use "@shared/stylings/man-tokens" as tokens;
+
+.man-hie {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  width: 100%;
+  font-family: inherit;
+  color: chrome.$text;
+}
+
+.man-hie__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 16px;
+  padding: 16px;
+}
+
+@media (min-width: 900px) {
+  .man-hie__layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+.man-hie__left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.man-hie__right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+// --- Bildbereich ----
+
+.man-hie__image {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.man-hie__image-chosen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.man-hie__image-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  border: 1px solid chrome.$border-tile;
+  border-radius: chrome.$radius-control;
+  background: chrome.$surface-handle;
+}
+
+.man-hie__image-actions {
+  display: flex;
+  gap: 8px;
+}
+
+// --- Bühne für Punkte ----
+
+.man-hie__canvas {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+.man-hie__canvas-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.man-hie__canvas-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #1f2937;
+  color: white;
+  font: 600 14px/1 system-ui, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+}
+
+.man-hie__canvas-marker:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+// --- Liste der Punkte ----
+
+.man-hie__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid chrome.$border;
+  border-radius: chrome.$radius-control;
+  overflow-y: auto;
+  max-height: 300px;
+  background: chrome.$surface;
+}
+
+.man-hie__list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px;
+  text-align: start;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid chrome.$border;
+  cursor: pointer;
+  transition: background-color chrome.$transition;
+  font-size: 13px;
+  color: chrome.$text-body;
+}
+
+.man-hie__list-item:last-child {
+  border-bottom: none;
+}
+
+.man-hie__list-item:hover {
+  background: chrome.$surface-hover;
+}
+
+.man-hie__list-item--active {
+  background: chrome.$accent-selection;
+}
+
+// --- Formular ----
+
+.man-hie__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.man-hie__label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: chrome.$text-strong;
+}
+
+.man-hie__input,
+.man-hie__textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 8px;
+  font: inherit;
+  font-size: 13px;
+  color: chrome.$text-body;
+  background: chrome.$surface;
+  border: 1px solid chrome.$border-input;
+  border-radius: chrome.$radius-input;
+}
+
+.man-hie__input {
+  min-height: chrome.$control-height;
+}
+
+.man-hie__textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.man-hie__input:focus-visible,
+.man-hie__textarea:focus-visible {
+  outline: none;
+  border-color: chrome.$focus-border;
+  box-shadow: chrome.$focus-ring;
+}
+
+.man-hie__button {
+  @include tokens.man-outshine-host {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+  }
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: chrome.$control-height-sm;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 13px;
+  color: chrome.$text;
+  background: chrome.$surface;
+  border: 1px solid chrome.$border;
+  border-radius: chrome.$radius-control;
+  cursor: pointer;
+  transition:
+    background-color chrome.$transition,
+    border-color chrome.$transition;
+}
+
+.man-hie__button:hover:not(:disabled) {
+  background: chrome.$surface-hover;
+  border-color: chrome.$border-hover;
+}
+
+.man-hie__button:focus-visible {
+  outline: none;
+  border-color: chrome.$focus-border;
+  box-shadow: chrome.$focus-ring;
+}
+
+.man-hie__button:disabled {
+  color: chrome.$text-state;
+  cursor: default;
+  opacity: 0.6;
+}
+
+.man-hie__button--primary {
+  color: chrome.$surface;
+  background: chrome.$accent;
+  border-color: chrome.$accent-strong;
+}
+
+.man-hie__button--primary:hover:not(:disabled) {
+  background: chrome.$accent-strong;
+  border-color: chrome.$accent-stronger;
+}
+
+.man-hie__hint {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: chrome.$text-muted;
+}
