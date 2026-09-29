@@ -62,6 +62,22 @@
    new picture still fits. 
 4. **Apply**, save, preview. 
 
+## In Content Designer
+
+The Content Designer (new page editor) shows its own
+Image upload in the form. The image is therefore selected there, not in the
+Dots Window: 
+
+1. Open the widget settings. If no image has been selected yet, 
+   the points window remains closed, and in its place is the button
+   **Edit points ...**. 
+2. Select or upload an image under **Image**. 
+3. Under **Alternative text**, enter what can be seen in the image. 
+4. Click on **Edit points...** and set the points as in the
+   Basic case described from step 5. 
+5. To replace the image, close the points window, replace
+   in the form under **Image** and open the window again. 
+
 ## When something doesn't work
 
 1. **The widget doesn't show anything.** Either the image is missing, or it's still

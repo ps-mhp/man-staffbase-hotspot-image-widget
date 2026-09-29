@@ -16,6 +16,7 @@ import { render, screen } from "@testing-library/react";
 import { HotspotImageWidget } from "./index";
 import {
   DISPLAY_MODE_ATTRIBUTE,
+  IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
   POINTS_ATTRIBUTE,
   configurationSchema,
@@ -34,13 +35,14 @@ describe("Namen der Attribute", () => {
     // weg, ohne Fehlermeldung.
     expect(Object.keys(configurationSchema.properties!)).toEqual([
       IMAGE_ATTRIBUTE,
+      IMAGE_ALT_ATTRIBUTE,
       POINTS_ATTRIBUTE,
       DISPLAY_MODE_ATTRIBUTE,
     ]);
   });
 
   it("sind durchweg klein geschrieben", () => {
-    for (const name of [IMAGE_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE]) {
+    for (const name of [IMAGE_ATTRIBUTE, IMAGE_ALT_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE]) {
       expect(name).toBe(name.toLowerCase());
     }
   });

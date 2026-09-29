@@ -15,6 +15,7 @@ import { UiSchema } from "@rjsf/utils";
 import { JSONSchema7 } from "json-schema";
 
 export const IMAGE_ATTRIBUTE = "image";
+export const IMAGE_ALT_ATTRIBUTE = "image-alt";
 export const POINTS_ATTRIBUTE = "points";
 export const DISPLAY_MODE_ATTRIBUTE = "display-mode";
 
@@ -26,7 +27,12 @@ export const DISPLAY_MODE_ATTRIBUTE = "display-mode";
  * die Feldtypen von RJSF. Der Punkte-Editor tritt zur Laufzeit an die Stelle
  * von `points` (`point-editor-injector.ts`). Fällt er aus, bleiben die
  * Textfelder sichtbar und die Konfiguration damit reparierbar statt
- * unerreichbar. Der Anzeigemodus bleibt aus demselben Grund ein echtes
+ * unerreichbar.
+ *
+ * Der Content Designer behandelt den Schlüssel `image` eigens: er zeigt statt
+ * des Textfelds seinen eigenen Bild-Upload und speichert nur die Adresse. Der
+ * Alternativtext hat deshalb ein eigenes Feld, `image-alt` — im JSON des
+ * klassischen Editors steht er nur noch bei älteren Inhalten. Der Anzeigemodus bleibt aus demselben Grund ein echtes
  * Auswahlfeld des Dialogs.
  *
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
@@ -36,6 +42,11 @@ export const configurationSchema: JSONSchema7 = {
     [IMAGE_ATTRIBUTE]: {
       type: "string",
       title: "Bild",
+      default: "",
+    },
+    [IMAGE_ALT_ATTRIBUTE]: {
+      type: "string",
+      title: "Alternativtext",
       default: "",
     },
     [POINTS_ATTRIBUTE]: {
@@ -61,8 +72,13 @@ export const configurationSchema: JSONSchema7 = {
 export const uiSchema: UiSchema = {
   [IMAGE_ATTRIBUTE]: {
     "ui:help":
-      "Das Bild, auf dem die Punkte liegen. Es wird im Punkte-Editor gewählt; " +
-      "das Textfeld dahinter ist die Rohfassung und muss nicht angefasst werden.",
+      "Das Bild, auf dem die Punkte liegen. Im Content Designer wird es hier gewählt; " +
+      "im klassischen Editor wählt es der Punkte-Editor, das Textfeld ist dort nur die Rohfassung.",
+  },
+  [IMAGE_ALT_ATTRIBUTE]: {
+    "ui:help":
+      "Beschreibt das Bild für Screenreader. Leer lassen, wenn es nur schmückt. " +
+      "Lässt sich auch im Punkte-Editor bearbeiten.",
   },
   [POINTS_ATTRIBUTE]: {
     "ui:help":

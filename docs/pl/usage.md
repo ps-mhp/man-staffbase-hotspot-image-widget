@@ -62,6 +62,22 @@
    Nowy obraz nadal pasuje. 
 4. **Aplikuj**, zapisuj, podglądaj. 
 
+## W Content Designerze
+
+Content Designer (edytor nowych stron) pokazuje własne
+Przesyłaj obraz w formularzu. Obraz jest więc wybierany tam, a nie w
+Okno kropek: 
+
+1. Otwórz ustawienia widżetu. Jeśli obraz nie został jeszcze wybrany, 
+   okno punktów pozostaje zamknięte, a w jego miejscu znajduje się przycisk
+   **Uwagi edytujące...**. 
+2. Wybierz lub przesłaj obraz w sekcji **Obraz**. 
+3. W sekcji **Tekst alternatywny** wpisz to, co widać na obrazie. 
+4. Kliknij **Edytuj punkty...** i ustaw punkty tak jak
+   Podstawowy przypadek opisany w kroku 5. 
+5. Aby zastąpić obraz, zamknąć okno punktów, zastąpić
+   w formularzu pod **Obraz** i ponownie otwórz okno. 
+
 ## Gdy coś nie działa
 
 1. **Widżet nic nie pokazuje.** Albo obraz jest nieobecny, albo nadal jest

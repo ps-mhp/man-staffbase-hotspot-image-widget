@@ -13,6 +13,7 @@
 
 import {
   DISPLAY_MODE_ATTRIBUTE,
+  IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
   POINTS_ATTRIBUTE,
   configurationSchema,
@@ -20,9 +21,10 @@ import {
 } from "./configuration-schema";
 
 describe("configurationSchema", () => {
-  it("beschreibt die drei Attribute des Widgets", () => {
+  it("beschreibt die vier Attribute des Widgets", () => {
     expect(Object.keys(configurationSchema.properties ?? {})).toEqual([
       IMAGE_ATTRIBUTE,
+      IMAGE_ALT_ATTRIBUTE,
       POINTS_ATTRIBUTE,
       DISPLAY_MODE_ATTRIBUTE,
     ]);
@@ -41,7 +43,7 @@ describe("configurationSchema", () => {
   });
 
   it("erklärt jedes Feld im Dialog", () => {
-    for (const key of [IMAGE_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE]) {
+    for (const key of [IMAGE_ATTRIBUTE, IMAGE_ALT_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE]) {
       expect(uiSchema[key]?.["ui:help"]).toEqual(expect.any(String));
     }
   });

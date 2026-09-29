@@ -1,13 +1,16 @@
 # Einstellungen
 
-Der Konfigurationsdialog des Widgets führt drei Attribute. „Bild“ und
+Der Konfigurationsdialog des Widgets führt vier Attribute. „Bild“ und
 „Punkte“ werden im Fenster gepflegt, das sich beim Öffnen der Einstellungen
 von selbst zeigt; die Textfelder dahinter sind die technische Rohfassung und
-sollten nicht von Hand bearbeitet werden.
+sollten nicht von Hand bearbeitet werden. Im Content Designer zeigt „Bild“
+stattdessen den Bild-Upload des Designers — dort wird das Bild direkt im
+Formular gewählt.
 
 | Attribut | Beschriftung im Dialog | Beschreibung |
 | --- | --- | --- |
-| `image` | Bild | Das Bild, auf dem die Punkte liegen. Wird im Fenster über **Bild wählen …** aus der Mediathek gesetzt. |
+| `image` | Bild | Das Bild, auf dem die Punkte liegen. Im klassischen Editor über **Bild wählen …** im Fenster aus der Mediathek, im Content Designer direkt im Formular gewählt. |
+| `image-alt` | Alternativtext | Beschreibt das Bild für Screenreader; leer lassen, wenn es nur schmückt. Auch im Fenster unter „Alternativtext“ bearbeitbar. |
 | `points` | Punkte | Die Liste der Punkte mit Position, Titel, Beschreibung und Link. Wird im selben Fenster gepflegt. |
 | `display-mode` | Darstellung | Steuert, wie die Punkte auf der veröffentlichten Seite erscheinen. Voreingestellt ist `Nummeriert, mit Liste neben dem Bild`. |
 

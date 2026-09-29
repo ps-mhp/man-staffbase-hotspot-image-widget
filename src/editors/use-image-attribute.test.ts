@@ -16,7 +16,13 @@ import { ReactElement, useState } from "react";
 import { act, render, screen } from "@testing-library/react";
 
 import { encodeImageAttribute, parseImage } from "../points-model";
-import { readImageAttribute, writeImageAttribute } from "./use-image-attribute";
+import {
+  imageSource,
+  readImageAlt,
+  readImageAttribute,
+  writeImageAlt,
+  writeImageAttribute,
+} from "./use-image-attribute";
 
 const mountField = (value = ""): HTMLInputElement => {
   const field = document.createElement("input");
@@ -54,6 +60,76 @@ describe("Zugriff auf das Bildfeld des Dialogs", () => {
 
   it("meldet false, wenn das Feld fehlt", () => {
     expect(writeImageAttribute(null)).toBe(false);
+  });
+});
+
+/**
+ * So baut der Content Designer das Feld `image` auf (live gesehen am
+ * 29.09.2026): kein Eingabefeld, sondern ein eigener Bild-Upload mit
+ * Vorschaukarte. Nur die Beschriftung verweist noch auf `root_image`.
+ */
+const mountDesignerImage = (src: string | null): void => {
+  document.body.innerHTML = `
+    <div>
+      <label for="root_image">Bild</label>
+      <div class="relative w-full">
+        <div data-c13y-component="field" class="ds-field__root">
+          ${src === null ? "<button>Datei hochladen</button>" : `<div data-c13y-component="card"><img src="${src}" alt="x.jpg"></div>`}
+        </div>
+      </div>
+      <span aria-describedby="root_image">Hilfe</span>
+    </div>`;
+};
+
+describe("Bildfeld des Content Designers", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  it("erkennt, woher das Bild kommt", () => {
+    expect(imageSource()).toBeNull();
+    mountDesignerImage(null);
+    expect(imageSource()).toBe("designer");
+    document.body.innerHTML = "";
+    mountField();
+    expect(imageSource()).toBe("field");
+  });
+
+  it("liest das Bild aus der Vorschau des Designers", () => {
+    mountDesignerImage("https://example.test/upload/a.jpg");
+    expect(readImageAttribute()).toEqual({ url: "https://example.test/upload/a.jpg", alt: "" });
+  });
+
+  it("ist null, solange im Designer kein Bild gewählt ist", () => {
+    mountDesignerImage(null);
+    expect(readImageAttribute()).toBeNull();
+  });
+
+  it("schreibt nicht in den Upload des Designers — der gehört Staffbase", () => {
+    mountDesignerImage("https://example.test/upload/a.jpg");
+    expect(writeImageAttribute({ url: "https://example.test/b.jpg", alt: "" })).toBe(false);
+  });
+});
+
+describe("Feld für den Alternativtext", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  it("liest und schreibt das Feld image-alt", () => {
+    const field = document.createElement("input");
+    field.id = "root_image-alt";
+    field.value = "Ein Auto";
+    document.body.appendChild(field);
+
+    expect(readImageAlt()).toBe("Ein Auto");
+    expect(writeImageAlt("Ein Bus")).toBe(true);
+    expect(field.value).toBe("Ein Bus");
+  });
+
+  it("ist ohne Feld null bzw. false", () => {
+    expect(readImageAlt()).toBeNull();
+    expect(writeImageAlt("x")).toBe(false);
   });
 });
 

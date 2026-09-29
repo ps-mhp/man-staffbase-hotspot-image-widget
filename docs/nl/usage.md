@@ -62,6 +62,22 @@
    Nieuwe foto past nog steeds. 
 4. **Aanbrengen**, opslaan, preview. 
 
+## In Content Designer
+
+De Content Designer (nieuwe pagina-editor) toont zijn eigen
+Afbeelding uploaden in het formulier. De afbeelding wordt daarom daar geselecteerd, niet in de
+Dots Window: 
+
+1. Open de widgetinstellingen. Als er nog geen afbeelding is geselecteerd, 
+   Het puntenvenster blijft gesloten, en in de plaats daarvan is de knop
+   **Edit points ...**. 
+2. Selecteer of upload een afbeelding onder **Afbeelding**. 
+3. Onder **Alternatieve tekst** voer je in wat op de afbeelding te zien is. 
+4. Klik op **Punten bewerken...** en stel de punten in zoals in de
+   Basisgeval beschreven vanuit stap 5. 
+5. Om de afbeelding te vervangen, sluit je het puntenvenster, vervang
+   in de vorm onder **Afbeelding** en open het venster opnieuw. 
+
 ## Als iets niet werkt
 
 1. **De widget toont niets.** Of de afbeelding ontbreekt, of hij is er nog steeds

@@ -62,6 +62,22 @@
    neuen Bild noch passt.
 4. **Übernehmen**, speichern, in der Vorschau prüfen.
 
+## Im Content Designer
+
+Der Content Designer (neuer Seiten-Editor) zeigt für „Bild“ seinen eigenen
+Bild-Upload im Formular. Das Bild wird deshalb dort gewählt, nicht im
+Punkte-Fenster:
+
+1. Öffnen Sie die Einstellungen des Widgets. Ist noch kein Bild gewählt,
+   bleibt das Punkte-Fenster zu, und an seiner Stelle steht der Button
+   **Punkte bearbeiten …**.
+2. Wählen oder laden Sie unter **Bild** ein Bild hoch.
+3. Tragen Sie unter **Alternativtext** ein, was auf dem Bild zu sehen ist.
+4. Klicken Sie auf **Punkte bearbeiten …** und setzen Sie die Punkte wie im
+   Grundfall ab Schritt 5 beschrieben.
+5. Um das Bild auszutauschen, schliessen Sie das Punkte-Fenster, ersetzen
+   das Bild im Formular unter **Bild** und öffnen das Fenster wieder.
+
 ## Wenn etwas nicht funktioniert
 
 1. **Das Widget zeigt nichts an.** Entweder fehlt das Bild, oder es ist noch

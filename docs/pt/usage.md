@@ -62,6 +62,22 @@
    A nova foto ainda serve. 
 4. **Candidate**, salve, prévia. 
 
+## Em Content Designer
+
+O Content Designer (novo editor de página) mostra seus próprios
+Upload da imagem no formulário. Portanto, a imagem é selecionada ali, não no
+Janela de Pontos: 
+
+1. Abra as configurações do widget. Se nenhuma imagem foi selecionada ainda, 
+   A janela de pontos permanece fechada, e em seu lugar está o botão
+   **Pontos de edição ...**. 
+2. Selecione ou envie uma imagem em **Imagem**. 
+3. Em **Texto alternativo**, insira o que pode ser visto na imagem. 
+4. Clique em **Pontos de edição...** e defina os pontos como em
+   Caso básico descrito do passo 5. 
+5. Para substituir a imagem, fechar a janela de pontos, substituir
+   no formulário sob **Image** e abra a janela novamente. 
+
 ## Quando algo não funciona
 
 1. **O widget não mostra nada.** Ou a imagem está faltando, ou ainda está

@@ -62,6 +62,22 @@
    La nuova foto va ancora bene. 
 4. **Candidati**, salva, anteprima in anteprima. 
 
+## Nel Content Designer
+
+Il Content Designer (nuovo editor di pagina) mostra il proprio
+Caricamento immagine nel modulo. L'immagine è quindi selezionata lì, non nel
+Finestra dei Punti: 
+
+1. Apri le impostazioni del widget. Se non è ancora stata selezionata alcuna immagine, 
+   La finestra dei punti rimane chiusa, e al suo posto c'è il pulsante
+   **Punti di modifica ...**. 
+2. Seleziona o carica un'immagine sotto **Immagine**. 
+3. Sotto **Testo alternativo**, inserisci ciò che si può vedere nell'immagine. 
+4. Clicca su **Modifica punti...** e imposta i punti come in
+   Caso base descritto dal passaggio 5. 
+5. Per sostituire l'immagine, chiudere la finestra dei punti, sostituire
+   nella forma sotto **Immagine** e riapro la finestra. 
+
 ## Quando qualcosa non funziona
 
 1. **Il widget non mostra nulla.** O manca l'immagine, oppure è ancora presente

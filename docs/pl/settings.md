@@ -1,13 +1,16 @@
 # Ustawienia
 
-Okno konfiguracyjne widżetu ma trzy atrybuty. "Obraz" oraz
+Okno konfiguracyjne widżetu ma cztery atrybuty. "Obraz" oraz
 "Punkty" są utrzymywane w oknie, które pojawia się po otwarciu Ustawień
 pokazuje się sam; pola tekstowe stojące za nim to techniczna, wstępna wersja i
-nie powinno być przetwarzane ręcznie. 
+nie powinno być edytowane ręcznie. W Content Designer, Obraz 
+zamiast tego przesyłanie obrazu przez projektanta — tam obraz jest zapisywany bezpośrednio w
+Forma wybrana. 
 
 | Atrybut | Etykieta w dialogu | Opis |
 | --- | --- | --- |
-| 'obraz' | Obraz | Obraz, na którym znajdują się kropki. Jest ustawiany w oknie za pomocą **Wybierz obraz ...** z biblioteki multimedialnej. |
+| 'obraz' | Obraz | Obraz, na którym znajdują się kropki. W klasycznym edytorze za pomocą **Wybierz obraz ...** w oknie z biblioteki multimedialnej, w Projektantze treści wybranym bezpośrednio w formularzu. |
+| 'image-alt' | Tekst alternatywny | Opisuje obraz dla czytników ekranu; pozostawić puste, jeśli tylko dekoruje. Można go także edytować w oknie pod "Tekst alternatywny". |
 | 'punkty' | Punkty | Lista punktów z pozycją, tytułem, opisem i linkiem. Przechowywana w tym samym oknie. |
 | 'tryb wyświetlania' | Wyświetlacz | Kontroluje, jak kropki pojawiają się na opublikowanej stronie. Domyślne ustawienie to 'Numerowane, z listą obok obrazu'. |
 

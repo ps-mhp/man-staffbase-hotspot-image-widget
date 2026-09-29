@@ -28,6 +28,7 @@ import { startFieldModalInjector } from "@shared/config-modal";
 import { PointEditor } from "./editors/point-editor";
 import { POINTS_ATTRIBUTE } from "./configuration-schema";
 import { HotspotPoint, encodePointsAttribute, parsePoints } from "./points-model";
+import { imageSource, readImageAttribute } from "./editors/use-image-attribute";
 
 export function startPointEditorInjector(): () => void {
   return startFieldModalInjector<HotspotPoint[]>({
@@ -40,5 +41,8 @@ export function startPointEditorInjector(): () => void {
     modalTestId: "point-editor-modal",
     reopenTestId: "point-editor-reopen",
     panelStyle: { maxWidth: "1080px" },
+    // Im Content Designer wird das Bild im Formular gewählt. Ohne Bild hätte
+    // der Editor nichts zu zeigen und verdeckte genau das Feld, das es liefert.
+    openInitially: () => imageSource() !== "designer" || readImageAttribute() !== null,
   });
 }

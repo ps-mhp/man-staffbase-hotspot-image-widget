@@ -1,13 +1,16 @@
 # Décors
 
-La boîte de configuration du widget comporte trois attributs. « Image » et
+La boîte de dialogue de configuration du widget comporte quatre attributs. « Image » et
 Les « points » sont maintenus dans la fenêtre qui apparaît lorsque vous ouvrez les paramètres
 s’affiche lui-même ; les champs de texte derrière sont la version technique approximative et
-Il ne faut pas le traiter à la main. 
+Il ne faut pas l’éditer à la main. Dans Content Designer, Image 
+à la place, le téléchargement de l’image par le designer — là, l’image est directement sauvegardée dans le
+Forme choisie. 
 
 | Attribut | Étiquette dans la boîte de dialogue | Description |
 | --- | --- | --- |
-| 'image' | Image | L’image sur laquelle se trouvent les points. Est définie dans la fenêtre via **Select image ...** depuis la bibliothèque média. |
+| 'image' | Image | L’image sur laquelle se trouvent les points. Dans l’éditeur classique, via **Select image ...** dans la fenêtre de la bibliothèque média, dans le Content Designer sélectionné directement dans le formulaire. |
+| 'image-alt' | Texte alternatif | Décrit l’image pour les lecteurs d’écran ; laisse vide si elle ne fait que décorer. Peut aussi être modifié dans la fenêtre sous « Texte alternatif ». |
 | 'points' | Points | La liste des points avec position, titre, description et lien. Maintenu dans la même fenêtre. |
 | « mode affichage » | Affichage | Contrôle la façon dont les points apparaissent sur la page publiée. Le réglage par défaut est « Numéroté, avec la liste à côté de l’image ». |
 

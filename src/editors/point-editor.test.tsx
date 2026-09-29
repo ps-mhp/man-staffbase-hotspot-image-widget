@@ -17,19 +17,41 @@ import { PointEditor } from "./point-editor";
 import { HotspotPoint } from "../points-model";
 
 jest.mock("./image-field", () => ({
-  ImageField: ({ onChange }: { onChange: (image: unknown) => void }) => (
-    <button type="button" onClick={() => onChange({ url: "https://example.test/a.jpg", alt: "" })}>
-      Bild setzen
-    </button>
+  ImageField: ({
+    onChange,
+    onAltChange,
+    alt,
+    source,
+  }: {
+    onChange: (image: unknown) => void;
+    onAltChange: (alt: string) => void;
+    alt: string;
+    source: string;
+  }) => (
+    <div data-testid="image-field" data-alt={alt} data-source={source}>
+      <button type="button" onClick={() => onChange({ url: "https://example.test/a.jpg", alt: "" })}>
+        Bild setzen
+      </button>
+      <button type="button" onClick={() => onAltChange("Neuer Text")}>
+        Text setzen
+      </button>
+    </div>
   ),
 }));
 jest.mock("./link-field", () => ({ LinkField: () => <div data-testid="link-field" /> }));
 
 const image = { url: "https://example.test/a.jpg", alt: "Ein Auto" };
 jest.mock("./use-image-attribute", () => ({
+  imageSource: jest.fn(() => "field"),
   readImageAttribute: jest.fn(() => image),
   writeImageAttribute: jest.fn(() => true),
+  readImageAlt: jest.fn(() => ""),
+  writeImageAlt: jest.fn(() => true),
 }));
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 const points: HotspotPoint[] = [{ id: "p1", x: 25, y: 60, title: "Ladeanschluss" }];
 
@@ -153,6 +175,43 @@ describe("PointEditor", () => {
     fireEvent.click(screen.getByRole("button", { name: "Bild setzen" }));
     expect(screen.getByTestId("point-editor-image-failed")).toBeInTheDocument();
     expect(screen.queryByTestId("placement-canvas")).not.toBeInTheDocument();
+  });
+
+  it("nimmt den Alternativtext aus seinem Feld, sonst aus dem Bild", () => {
+    const { readImageAlt } = jest.requireMock("./use-image-attribute");
+    renderEditor();
+    expect(screen.getByTestId("image-field")).toHaveAttribute("data-alt", "Ein Auto");
+
+    readImageAlt.mockReturnValue("Aus dem Feld");
+    renderEditor();
+    expect(screen.getAllByTestId("image-field")[1]).toHaveAttribute("data-alt", "Aus dem Feld");
+    readImageAlt.mockReturnValue("");
+  });
+
+  it("schreibt den Alternativtext in sein Feld und hält das Bild-JSON mit", () => {
+    const { writeImageAlt, writeImageAttribute } = jest.requireMock("./use-image-attribute");
+    renderEditor();
+    fireEvent.click(screen.getByRole("button", { name: "Text setzen" }));
+    expect(writeImageAlt).toHaveBeenCalledWith("Neuer Text");
+    expect(writeImageAttribute).toHaveBeenCalledWith({ ...image, alt: "Neuer Text" });
+    expect(screen.getByTestId("image-field")).toHaveAttribute("data-alt", "Neuer Text");
+  });
+
+  it("fasst im Content Designer das Bildfeld nicht an", () => {
+    const { imageSource, writeImageAttribute, writeImageAlt } = jest.requireMock("./use-image-attribute");
+    imageSource.mockReturnValue("designer");
+    renderEditor();
+    expect(screen.getByTestId("image-field")).toHaveAttribute("data-source", "designer");
+    fireEvent.click(screen.getByRole("button", { name: "Text setzen" }));
+    expect(writeImageAlt).toHaveBeenCalledWith("Neuer Text");
+    expect(writeImageAttribute).not.toHaveBeenCalled();
+    imageSource.mockReturnValue("field");
+  });
+
+  it("zeigt ohne Punkte einen Hinweis statt einer leeren Liste", () => {
+    renderEditor({ value: [] });
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+    expect(screen.getByTestId("point-editor-no-points")).toBeInTheDocument();
   });
 
   it("lässt einen Punkt ohne Titel nicht übernehmen", () => {

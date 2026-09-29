@@ -25,27 +25,63 @@ import { MediaPicker, PickedImage } from "@shared/media/media-picker";
 import { createMediaClient } from "@shared/media/media-client";
 
 import { HotspotImage } from "../points-model";
+import { ImageSource } from "./use-image-attribute";
 
 export interface ImageFieldProps {
   image: HotspotImage | null;
+  /** Der Alternativtext; er hat sein eigenes Feld (`image-alt`). */
+  alt: string;
+  /** Wer das Bild im Dialog führt, siehe `use-image-attribute.ts`. */
+  source: ImageSource;
   onChange: (image: HotspotImage | null) => void;
+  onAltChange: (alt: string) => void;
 }
 
-export function ImageField({ image, onChange }: ImageFieldProps): ReactElement {
+export function ImageField({ image, alt, source, onChange, onAltChange }: ImageFieldProps): ReactElement {
   const [picking, setPicking] = useState(false);
   const client = useMemo(() => createMediaClient(), []);
 
   const select = (picked: PickedImage) => {
     setPicking(false);
+    // Der bisherige Alternativtext hat Vorrang: er wurde für dieses Widget
+    // geschrieben, der aus der Mediathek nur fürs Bild.
+    const nextAlt = image === null && picked.alt !== undefined ? picked.alt : alt;
     onChange({
       url: picked.url,
-      // Der bisherige Alternativtext hat Vorrang: er wurde für dieses Widget
-      // geschrieben, der aus der Mediathek nur fürs Bild.
-      alt: image?.alt ?? picked.alt ?? "",
+      alt: nextAlt,
       ...(picked.width !== undefined ? { width: picked.width } : {}),
       ...(picked.height !== undefined ? { height: picked.height } : {}),
     });
+    if (nextAlt !== alt) onAltChange(nextAlt);
   };
+
+  const altInput = (
+    <label className="man-hie__label">
+      Alternativtext
+      <input
+        className="man-hie__input"
+        type="text"
+        value={alt}
+        onChange={(event) => onAltChange(event.target.value)}
+      />
+    </label>
+  );
+
+  if (source === "designer") {
+    return (
+      <div className="man-hie__image">
+        {image === null ? (
+          <p className="man-hie__hint" data-testid="image-field-designer-hint">
+            Das Bild wird im Formular unter „Bild“ gewählt. Schliesse den
+            Editor, wähle dort ein Bild und öffne ihn mit „Punkte bearbeiten …“
+            wieder.
+          </p>
+        ) : (
+          altInput
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="man-hie__image">
@@ -68,15 +104,7 @@ export function ImageField({ image, onChange }: ImageFieldProps): ReactElement {
               Bild entfernen
             </button>
           </div>
-          <label className="man-hie__label">
-            Alternativtext
-            <input
-              className="man-hie__input"
-              type="text"
-              value={image.alt}
-              onChange={(event) => onChange({ ...image, alt: event.target.value })}
-            />
-          </label>
+          {altInput}
         </div>
       )}
 

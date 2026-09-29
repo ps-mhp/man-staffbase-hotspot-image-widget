@@ -1,13 +1,16 @@
 # Escenarios
 
-El diálogo de configuración del widget tiene tres atributos. "Imagen" y
+El diálogo de configuración del widget tiene cuatro atributos. "Imagen" y
 Los "puntos" se mantienen en la ventana que aparece al abrir Configuración
 se muestra a sí mismo; los campos de texto detrás son la versión técnica aproximada y
-No debe procesarse a mano. 
+No debe editarse a mano. En Content Designer, Image 
+en su lugar, la subida de imagen del diseñador — allí la imagen se guarda directamente en el
+Forma elegida. 
 
 | Atributo | Etiqueta en el diálogo | Descripción |
 | --- | --- | --- |
-| 'imagen' | Imagen | La imagen en la que están ubicados los puntos. Se establece en la ventana mediante **Seleccionar imagen ...** de la biblioteca multimedia. |
+| 'imagen' | Imagen | La imagen sobre la que se encuentran los puntos. En el editor clásico mediante **Select image ...** en la ventana de la biblioteca multimedia, en el Content Designer seleccionado directamente en el formulario. |
+| 'image-alt' | Texto alternativo | Describe la imagen para lectores de pantalla; dejar en blanco si solo decora. También puede editarse en la ventana bajo "Texto alternativo". |
 | 'puntos' | Puntos | La lista de puntos con posición, título, descripción y enlace. Mantenidos en la misma ventana. |
 | 'modo de visualización' | Visualización | Controla cómo aparecen los puntos en la página publicada. La configuración predeterminada es 'Numerado, con lista junto a la imagen'. |
 

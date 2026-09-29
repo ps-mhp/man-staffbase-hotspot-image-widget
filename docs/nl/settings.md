@@ -1,13 +1,16 @@
 # Instellingen
 
-De configuratiedialoog van de widget heeft drie attributen. "Afbeelding" en
+Het configuratiedialoog van de widget heeft vier attributen. "Afbeelding" en
 "Punten" worden behouden in het venster dat verschijnt wanneer je Instellingen opent
 toont zichzelf; de tekstvelden erachter zijn de technische, ruwe versie en
-Mag niet met de hand worden verwerkt. 
+Mag niet met de hand worden bewerkt. In Content Designer, afbeelding 
+in plaats daarvan wordt de afbeelding van de ontwerper — daar wordt de afbeelding direct opgeslagen in de
+Vorm gekozen. 
 
 | Attribuut | Label in dialoog | Beschrijving |
 | --- | --- | --- |
-| 'afbeelding' | Afbeelding | De afbeelding waarop de stippen zich bevinden. Wordt in het venster ingesteld via **Selecteer afbeelding ...** uit de mediabibliotheek. |
+| 'afbeelding' | Afbeelding | De afbeelding waarop de stippen zich bevinden. In de klassieke editor via **Selecteer afbeelding ...** in het venster vanuit de mediabibliotheek, in de Content Designer direct geselecteerd in het formulier. |
+| 'image-alt' | Alternatieve tekst | Beschrijft de afbeelding voor schermlezers; laat leeg als deze alleen versiert. Kan ook worden bewerkt in het venster onder "Alternatieve tekst". |
 | 'punten' | Punten | De lijst van punten met positie, titel, beschrijving en link. Bijgehouden in hetzelfde venster. |
 | 'Display-modus' | Display | Bepaalt hoe de stippen op de gepubliceerde pagina verschijnen. De standaardinstelling is 'Genummerd, met lijst naast de afbeelding'. |
 

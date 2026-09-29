@@ -62,6 +62,22 @@
    La nouvelle photo me va toujours. 
 4. **Postuler**, sauvegarder, prévisualiser. 
 
+## Dans le Content Designer
+
+Le Content Designer (nouvel éditeur de page) affiche les siens
+Téléchargement de l’image dans le formulaire. L’image est donc sélectionnée là, et non dans le
+Fenêtre des points : 
+
+1. Ouvrez les paramètres du widget. Si aucune image n’a encore été sélectionnée, 
+   La fenêtre des points reste fermée, et à sa place se trouve le bouton
+   **Points de modification ...**. 
+2. Sélectionnez ou téléchargez une image sous **Image**. 
+3. Sous **Texte alternatif**, saisissez ce qui peut être vu dans l’image. 
+4. Cliquez sur **Points d’édition...** et définissez les points comme dans le
+   Cas de base décrit à l’étape 5. 
+5. Pour remplacer l’image, fermer la fenêtre des points, remplacer
+   sous la forme sous **Image** et rouvrir la fenêtre. 
+
 ## Quand quelque chose ne marche pas
 
 1. **Le widget n’affiche rien.** Soit l’image manque, soit elle est toujours présente

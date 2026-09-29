@@ -1,13 +1,16 @@
 # Ambientazioni
 
-La finestra di configurazione del widget ha tre attributi. "Immagine" e
+La finestra di configurazione del widget ha quattro attributi. "Immagine" e
 I "punti" sono mantenuti nella finestra che appare quando apri le impostazioni
 si mostra da solo; i campi di testo dietro di essa sono la versione tecnica approssimativa e
-Non dovrebbe essere lavorato a mano. 
+Non dovrebbe essere modificato a mano. In Content Designer, Immagine 
+invece il caricamento dell'immagine del designer — lì l'immagine viene salvata direttamente nel
+Forma scelta. 
 
 | Attributo | Etichetta nel dialogo | Descrizione |
 | --- | --- | --- |
-| 'immagine' | Immagine | L'immagine su cui si trovano i puntini. È impostata nella finestra tramite **Seleziona immagine ...** dalla media library. |
+| 'immagine' | Immagine | L'immagine su cui si trovano i puntini. Nel classico editor tramite **Seleziona immagine ...** nella finestra dalla media library, nel Content Designer selezionato direttamente nel modulo. |
+| 'image-alt' | Testo alternativo | Descrive l'immagine per i lettori di schermo; lasciare vuoto se decora solo. Può anche essere modificato nella finestra sotto "Testo alternativo". |
 | 'punti' | Punti | L'elenco dei punti con posizione, titolo, descrizione e collegamento. Mantenuti nella stessa finestra. |
 | 'modalità visualizzazione' | Visualizzazione | Controlla come appaiono i punti nella pagina pubblicata. L'impostazione predefinita è 'Numerato, con elenco accanto all'immagine'. |
 

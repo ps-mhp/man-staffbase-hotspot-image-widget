@@ -22,6 +22,7 @@ import {
   linkLabel,
   newPointId,
   parseImage,
+  readImage,
   parsePoints,
   readDisplayMode,
 } from "./points-model";
@@ -111,6 +112,40 @@ describe("parseImage / encodeImageAttribute", () => {
     expect(parseImage("{")).toBeNull();
     expect(parseImage('{"alt":"Ohne URL"}')).toBeNull();
     expect(encodeImageAttribute(null)).toBe("");
+  });
+});
+
+describe("Bild aus dem Content Designer", () => {
+  // Der Designer speichert für `image` nur die Adresse des hochgeladenen
+  // Bildes, kein JSON (live gesehen am 29.09.2026).
+  it("liest eine blosse Adresse als Bild ohne Alternativtext", () => {
+    const url = "https://www.onetruck.man/api/media/secure/external/v2/image/upload/c1.jpg";
+    expect(parseImage(url)).toEqual({ url, alt: "" });
+    expect(parseImage("/api/media/x.jpg")).toEqual({ url: "/api/media/x.jpg", alt: "" });
+  });
+
+  it("hält Text, der keine Adresse ist, nicht für ein Bild", () => {
+    expect(parseImage("kein bild")).toBeNull();
+    expect(parseImage("javascript:alert(1)")).toBeNull();
+  });
+});
+
+describe("readImage", () => {
+  const url = "https://example.test/a.jpg";
+
+  it("nimmt den Alternativtext aus seinem eigenen Attribut", () => {
+    expect(readImage(url, "Ein Auto")).toEqual({ url, alt: "Ein Auto" });
+  });
+
+  it("fällt für ältere Inhalte auf den Text im Bild-JSON zurück", () => {
+    const raw = encodeImageAttribute({ url, alt: "Aus dem JSON" });
+    expect(readImage(raw, "")).toEqual({ url, alt: "Aus dem JSON" });
+    expect(readImage(raw, undefined)).toEqual({ url, alt: "Aus dem JSON" });
+    expect(readImage(raw, "Neu")).toEqual({ url, alt: "Neu" });
+  });
+
+  it("ist ohne Bild null", () => {
+    expect(readImage("", "Ein Auto")).toBeNull();
   });
 });
 

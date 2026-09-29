@@ -1,13 +1,16 @@
 # Settings
 
-The widget's configuration dialog has three attributes. "Image" and
+The widget's configuration dialog has four attributes. "Image" and
 "Points" are maintained in the window that appears when you open Settings
 shows itself; the text fields behind it are the technical rough version and
-should not be processed by hand. 
+should not be edited by hand. In Content Designer, Image 
+instead the image upload of the designer — there the image is saved directly in the
+Form chosen. 
 
 | Attribute | Label in Dialog | Description |
 | --- | --- | --- |
-| 'image' | Image | The image on which the dots are located. Is set in the window via **Select image ...** from the media library. |
+| 'image' | Image | The image on which the dots are located. In the classic editor via **Select image ...** in the window from the media library, in the Content Designer selected directly in the form. |
+| 'image-alt' | Alternative text | Describes the image for screen readers; leave blank if it only decorates. Can also be edited in the window under "Alternative text". |
 | 'points' | Points | The list of points with position, title, description and link. Maintained in the same window. |
 | 'display-mode' | Display | Controls how the dots appear on the published page. The default setting is 'Numbered, with list next to the image'. |
 

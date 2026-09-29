@@ -37,7 +37,13 @@ import { HotspotImage, HotspotPoint, MAX_POINTS, emptyPoint } from "../points-mo
 import { ImageField } from "./image-field";
 import { PlacementCanvas } from "./placement-canvas";
 import { PointForm } from "./point-form";
-import { readImageAttribute, writeImageAttribute } from "./use-image-attribute";
+import {
+  imageSource,
+  readImageAlt,
+  readImageAttribute,
+  writeImageAlt,
+  writeImageAttribute,
+} from "./use-image-attribute";
 import pointEditorCss from "../styles/point-editor.scss";
 
 // Kein eigenes Feld: `interface ... extends ... {}` wäre nach der hiesigen
@@ -48,7 +54,11 @@ export type PointEditorProps = FieldModalContentProps<HotspotPoint[]>;
 export function PointEditor({ value, onChange, onSave, onClose }: PointEditorProps): ReactElement {
   const css = useHotStyle(pointEditorCss, "hotspot-image-widget", "styles/point-editor.scss");
 
+  // Beim Öffnen einmal gelesen: im Content Designer wählt das Formular das
+  // Bild, und der Editor wird danach über „Punkte bearbeiten …“ neu geöffnet.
+  const [source] = useState(() => imageSource() ?? "field");
   const [image, setImage] = useState<HotspotImage | null>(() => readImageAttribute());
+  const [alt, setAlt] = useState<string>(() => readImageAlt() || image?.alt || "");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [full, setFull] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
@@ -64,6 +74,14 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
     }
     setImageFailed(false);
     setImage(next);
+  };
+
+  const changeAlt = (next: string): void => {
+    writeImageAlt(next);
+    // Im klassischen Editor steht der Text auch im Bild-JSON. Mitgeführt,
+    // damit ältere Leser dort nicht einen veralteten finden.
+    if (source === "field" && image !== null) changeImage({ ...image, alt: next });
+    setAlt(next);
   };
 
   const selectedIndex = value.findIndex((point) => point.id === selectedId);
@@ -117,7 +135,13 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
       <style>{css}</style>
       <div className="man-hie__layout">
         <div className="man-hie__left">
-          <ImageField image={image} onChange={changeImage} />
+          <ImageField
+            image={image}
+            alt={alt}
+            source={source}
+            onChange={changeImage}
+            onAltChange={changeAlt}
+          />
           {imageFailed && (
             <p className="man-hie__hint" data-testid="point-editor-image-failed" role="alert">
               Das Bild liess sich nicht speichern. Schliesse das Fenster und
@@ -147,19 +171,27 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
           )}
         </div>
         <div className="man-hie__right">
-          <ul className="man-hie__list">
-            {value.map((point, index) => (
-              <li key={point.id}>
-                <button
-                  type="button"
-                  className={`man-hie__list-item${point.id === selectedId ? " man-hie__list-item--active" : ""}`}
-                  onClick={() => setSelectedId(point.id)}
-                >
-                  {index + 1}. {point.title === "" ? "Ohne Titel" : point.title}
-                </button>
-              </li>
-            ))}
-          </ul>
+          {/* Leer gerendert zeichnete der Rahmen der Liste nur eine Linie
+              neben das Bild -- am 29.09.2026 im Content Designer gesehen. */}
+          {value.length === 0 ? (
+            <p className="man-hie__hint" data-testid="point-editor-no-points">
+              {image === null ? "Noch keine Punkte." : "Noch keine Punkte. Ein Klick ins Bild setzt den ersten."}
+            </p>
+          ) : (
+            <ul className="man-hie__list">
+              {value.map((point, index) => (
+                <li key={point.id}>
+                  <button
+                    type="button"
+                    className={`man-hie__list-item${point.id === selectedId ? " man-hie__list-item--active" : ""}`}
+                    onClick={() => setSelectedId(point.id)}
+                  >
+                    {index + 1}. {point.title === "" ? "Ohne Titel" : point.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
 
           {selected !== null && (
             <>

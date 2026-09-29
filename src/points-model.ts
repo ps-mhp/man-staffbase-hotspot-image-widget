@@ -190,7 +190,17 @@ export function encodePointsAttribute(points: HotspotPoint[]): string {
 }
 
 /** Liest das Attribut `image`; ohne URL gibt es kein Bild. */
+/**
+ * Was der Content Designer für `image` speichert: die blosse Adresse des
+ * hochgeladenen Bildes. Nur http(s) und Pfade der eigenen Instanz — eine
+ * `javascript:`-Adresse soll nicht als `src` enden.
+ */
+const IMAGE_URL = /^(https?:\/\/|\/)\S+$/i;
+
 export function parseImage(raw: string): HotspotImage | null {
+  const trimmed = raw.trim();
+  if (IMAGE_URL.test(trimmed)) return { url: trimmed, alt: "" };
+
   const value = readRaw(raw);
   if (typeof value !== "object" || value === null || Array.isArray(value)) return null;
   const image = value as Record<string, unknown>;
@@ -200,6 +210,19 @@ export function parseImage(raw: string): HotspotImage | null {
   if (typeof image.width === "number") result.width = image.width;
   if (typeof image.height === "number") result.height = image.height;
   return result;
+}
+
+/**
+ * Das Bild samt Alternativtext, wie die Leseansicht es braucht.
+ *
+ * Der Text steht in `image-alt`; ist das leer, gilt der im Bild-JSON, den
+ * ältere Inhalte noch tragen.
+ */
+export function readImage(rawImage: string, rawAlt: string | undefined): HotspotImage | null {
+  const image = parseImage(rawImage);
+  if (image === null) return null;
+  const alt = rawAlt?.trim() ?? "";
+  return alt === "" ? image : { ...image, alt };
 }
 
 /** Schreibt das Attribut `image`; ohne Bild bleibt es leer. */

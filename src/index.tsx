@@ -30,13 +30,14 @@ import { startWidget } from "@shared/dev-mode/start-widget";
 import { getTranslationRegistry } from "@shared/translation/registry";
 import {
   DISPLAY_MODE_ATTRIBUTE,
+  IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
   POINTS_ATTRIBUTE,
   configurationSchema,
   uiSchema,
 } from "./configuration-schema";
 import { HotspotImage } from "./hotspot-image";
-import { parseImage, parsePoints, readDisplayMode } from "./points-model";
+import { parsePoints, readDisplayMode, readImage } from "./points-model";
 import { startPointEditorInjector } from "./point-editor-injector";
 import { hotspotTranslationProvider } from "./translation-provider";
 import icon from "../resources/hotspot-image-widget.svg";
@@ -48,13 +49,14 @@ import pkg from "../package.json";
  */
 export type HotspotImageWidgetProps = BlockAttributes & {
   [IMAGE_ATTRIBUTE]?: string;
+  [IMAGE_ALT_ATTRIBUTE]?: string;
   [POINTS_ATTRIBUTE]?: string;
   [DISPLAY_MODE_ATTRIBUTE]?: string;
 };
 
 export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement | null => (
   <HotspotImage
-    image={parseImage(props[IMAGE_ATTRIBUTE] ?? "")}
+    image={readImage(props[IMAGE_ATTRIBUTE] ?? "", props[IMAGE_ALT_ATTRIBUTE])}
     points={parsePoints(props[POINTS_ATTRIBUTE] ?? "")}
     mode={readDisplayMode(props[DISPLAY_MODE_ATTRIBUTE])}
   />
@@ -63,7 +65,12 @@ export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement
 /** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um
  *  Abweichungen zu vermeiden: Ein Tippfehler würde sonst zur Laufzeit zu einem
  *  stumm leeren Attribut führen. */
-const widgetAttributes: string[] = [IMAGE_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE];
+const widgetAttributes: string[] = [
+  IMAGE_ATTRIBUTE,
+  IMAGE_ALT_ATTRIBUTE,
+  POINTS_ATTRIBUTE,
+  DISPLAY_MODE_ATTRIBUTE,
+];
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class HotspotImageWidgetBlock extends BaseBlockClass implements BaseBlock {

@@ -62,6 +62,22 @@
    La nueva foto sigue encajándome. 
 4. **Solicitar**, guardar, previsualizar. 
 
+## En Content Designer
+
+El Content Designer (nuevo editor de página) muestra su propio
+Subida de imagen en el formulario. Por tanto, la imagen se selecciona allí, no en el
+Ventana de puntos: 
+
+1. Abre la configuración del widget. Si aún no se ha seleccionado ninguna imagen, 
+   La ventana de puntos permanece cerrada y, en su lugar, está el botón
+   **Puntos de edición ...**. 
+2. Seleccionar o subir una imagen bajo **Imagen**. 
+3. En **Texto alternativo**, introduce lo que se puede ver en la imagen. 
+4. Haz clic en **Puntos de edición...** y establece los puntos como en el
+   Caso básico descrito del paso 5. 
+5. Para reemplazar la imagen, cerrar la ventana de puntos, reemplazar
+   en la forma bajo **Imagen** y abrir la ventana de nuevo. 
+
 ## Cuando algo no funciona
 
 1. **El widget no muestra nada.** O la imagen falta, o sigue estando

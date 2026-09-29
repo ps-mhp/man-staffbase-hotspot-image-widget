@@ -46,16 +46,30 @@ beforeEach(() => {
   mockPicked = { url: "https://example.test/neu.jpg", width: 1600, height: 900 };
 });
 
+type Props = React.ComponentProps<typeof ImageField>;
+
+const renderField = (overrides: Partial<Props> = {}) => {
+  const props: Props = {
+    image: null,
+    alt: "",
+    source: "field",
+    onChange: jest.fn(),
+    onAltChange: jest.fn(),
+    ...overrides,
+  };
+  render(<ImageField {...props} />);
+  return props;
+};
+
 describe("ImageField", () => {
   it("zeigt ohne Bild nur die Aufforderung", () => {
-    render(<ImageField image={null} onChange={jest.fn()} />);
+    renderField();
     expect(screen.getByRole("button", { name: /Bild wählen/ })).toBeInTheDocument();
     expect(screen.queryByTestId("image-preview")).not.toBeInTheDocument();
   });
 
   it("öffnet die Mediathek und gibt das gewählte Bild weiter", () => {
-    const onChange = jest.fn();
-    render(<ImageField image={null} onChange={onChange} />);
+    const { onChange } = renderField();
     chooseFromLibrary();
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({ url: "https://example.test/neu.jpg", width: 1600, height: 900 }),
@@ -64,50 +78,69 @@ describe("ImageField", () => {
 
   it("lässt den Alternativtext des gewählten Bildes ändern", () => {
     const image = { url: "https://example.test/a.jpg", alt: "Ein Auto" };
-    const onChange = jest.fn();
-    render(<ImageField image={image} onChange={onChange} />);
+    const { onAltChange } = renderField({ image, alt: "Ein Auto" });
     // Keine eigene Vorschau: die Bühne im Editor zeigt dasselbe Bild.
     expect(screen.queryByTestId("image-preview")).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/Alternativtext/)).toHaveValue("Ein Auto");
     fireEvent.change(screen.getByLabelText(/Alternativtext/), { target: { value: "Ein Bus" } });
-    expect(onChange).toHaveBeenCalledWith({ ...image, alt: "Ein Bus" });
+    expect(onAltChange).toHaveBeenCalledWith("Ein Bus");
   });
 
   it("übernimmt den Alternativtext aus der Mediathek, wenn es noch keinen gibt", () => {
-    const onChange = jest.fn();
     mockPicked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek" };
-    render(<ImageField image={null} onChange={onChange} />);
+    const { onChange, onAltChange } = renderField();
     chooseFromLibrary();
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ alt: "Aus der Mediathek" }));
+    expect(onAltChange).toHaveBeenCalledWith("Aus der Mediathek");
   });
 
   it("lässt einen vorhandenen Alternativtext beim Bildwechsel stehen", () => {
     // Der Text wurde für dieses Widget geschrieben; der aus der Mediathek
     // beschreibt nur die Datei. Ihn zu überschreiben nähme der Redaktion
     // unbemerkt ihre Arbeit weg.
-    const onChange = jest.fn();
     mockPicked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek" };
-    render(
-      <ImageField image={{ url: "https://example.test/alt.jpg", alt: "Ein Auto" }} onChange={onChange} />,
-    );
+    const { onChange, onAltChange } = renderField({
+      image: { url: "https://example.test/alt.jpg", alt: "Ein Auto" },
+      alt: "Ein Auto",
+    });
     fireEvent.click(screen.getByRole("button", { name: /Anderes Bild wählen/ }));
     fireEvent.click(screen.getByRole("button", { name: "Bild wählen" }));
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ alt: "Ein Auto" }));
+    expect(onAltChange).not.toHaveBeenCalled();
   });
 
   it("achtet auch einen bewusst leer gelassenen Alternativtext", () => {
     // Leer heißt „dieses Bild ist schmückend" -- eine Aussage, kein Versäumnis.
-    const onChange = jest.fn();
     mockPicked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek" };
-    render(<ImageField image={{ url: "https://example.test/alt.jpg", alt: "" }} onChange={onChange} />);
+    const { onChange } = renderField({ image: { url: "https://example.test/alt.jpg", alt: "" }, alt: "" });
     fireEvent.click(screen.getByRole("button", { name: /Anderes Bild wählen/ }));
     fireEvent.click(screen.getByRole("button", { name: "Bild wählen" }));
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ alt: "" }));
   });
 
   it("nimmt das Bild wieder heraus", () => {
-    const onChange = jest.fn();
-    render(<ImageField image={{ url: "https://example.test/a.jpg", alt: "" }} onChange={onChange} />);
+    const { onChange } = renderField({ image: { url: "https://example.test/a.jpg", alt: "" } });
     fireEvent.click(screen.getByRole("button", { name: "Bild entfernen" }));
     expect(onChange).toHaveBeenCalledWith(null);
+  });
+});
+
+describe("ImageField im Content Designer", () => {
+  // Dort wählt Staffbase das Bild im Formular; der Editor kann es nicht setzen.
+  it("verweist ohne Bild auf das Formular statt auf die Mediathek", () => {
+    renderField({ source: "designer" });
+    expect(screen.queryByRole("button", { name: /Bild wählen/ })).not.toBeInTheDocument();
+    expect(screen.getByTestId("image-field-designer-hint")).toHaveTextContent(/Formular/);
+  });
+
+  it("bietet mit Bild nur den Alternativtext an", () => {
+    const { onAltChange } = renderField({
+      source: "designer",
+      image: { url: "https://example.test/a.jpg", alt: "" },
+    });
+    expect(screen.queryByRole("button", { name: /Anderes Bild wählen/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Bild entfernen" })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText(/Alternativtext/), { target: { value: "Ein Bus" } });
+    expect(onAltChange).toHaveBeenCalledWith("Ein Bus");
   });
 });
