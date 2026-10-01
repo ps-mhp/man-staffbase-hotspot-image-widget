@@ -25,10 +25,11 @@ import { ReactElement, useEffect, useRef, useState } from "react";
 import { HotspotList } from "./hotspot-list";
 import { HotspotMarker } from "./hotspot-marker";
 import { HotspotPopover } from "./hotspot-popover";
-import { PageModal } from "./page-modal";
 import { DisplayMode, HotspotImage as HotspotImageData, HotspotPoint } from "./points-model";
 import styles from "./styles/hotspot-image.scss";
 import { useHotStyle } from "@shared/hot-style";
+import { ContentModal } from "@shared/content-modal/content-modal";
+import { PageFrame } from "@shared/content-modal/page-frame";
 import { useNarrowViewport } from "./use-narrow-viewport";
 
 export interface HotspotImageProps {
@@ -187,7 +188,9 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
       </div>
 
       {page !== null && (
-        <PageModal href={page.href} title={page.title} onClose={() => setPage(null)} />
+        <ContentModal href={page.href} title={page.title} onClose={() => setPage(null)}>
+          <PageFrame href={page.href} title={page.title} />
+        </ContentModal>
       )}
     </>
   );

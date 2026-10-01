@@ -26,7 +26,6 @@
  */
 
 import hotspotStyles from "./styles/hotspot-image.scss";
-import modalStyles from "./styles/page-modal.scss";
 
 /**
  * Der fünffach wiederholte Selektor, den `man-outshine-host` erzeugt.
@@ -51,7 +50,6 @@ describe("Stylesheet", () => {
     ["man-hi__popover-action", hotspotStyles],
     ["man-hi__item-head", hotspotStyles],
     ["man-hi__popover-title", hotspotStyles],
-    ["man-hi-modal__close", modalStyles],
   ])("setzt %s gegen die Regeln der Wirtsseite durch", (className, css) => {
     expect(css).toMatch(outshineRule(css, className));
   });
@@ -62,7 +60,6 @@ describe("Stylesheet", () => {
   // ebenfalls ein Token und kein eigener Einfall.
   it.each([
     ["hotspot-image.scss", hotspotStyles],
-    ["page-modal.scss", modalStyles],
   ])("rundet in %s nur nach den MAN-Tokens", (_name, css) => {
     const invented = [...css.matchAll(/border-radius:\s*([^;}]+)/g)]
       .map((match) => match[1].trim())
@@ -117,5 +114,45 @@ describe("Stylesheet", () => {
     const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__marker"))?.[0] ?? "";
     expect(rule).toContain("box-shadow:");
     expect(rule).not.toMatch(/box-shadow:[^;]*!important/);
+  });
+
+  // Auf dem Telefon lagen die nummerierten Punkte bei vielen Stellen
+  // übereinander, die Ziffern waren nicht mehr zu lesen. Unter der Umbruch-
+  // breite werden sie deshalb klein und ziffernlos; wer welcher ist, zeigt
+  // die Liste darunter.
+  it("macht die nummerierten Punkte auf schmalen Bildschirmen klein und ohne Ziffer", () => {
+    const narrow = hotspotStyles.match(/@media \(max-width: 767px\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? "";
+    expect(narrow).toMatch(outshineRule(narrow, "man-hi__marker--numbered"));
+    expect(narrow).toMatch(/\.man-hi__marker-number\s*\{[^}]*display:\s*none/);
+  });
+
+  it("zieht den hervorgehobenen Punkt nach vorn, statt ihn unter den anderen zu lassen", () => {
+    expect(hotspotStyles).toMatch(/\.man-hi__marker--highlighted[^{]*\{[^}]*z-index:/);
+    expect(hotspotStyles).toMatch(/\.man-hi__marker--open[^{]*\{[^}]*z-index:/);
+  });
+
+  // Der weisse Ring um den Punkt ist nicht CI-konform (beanstandet am
+  // 29.09.2026). Vom Bild ab hebt ihn stattdessen ein Schatten.
+  it("setzt den Punkt ohne weissen Rand, nur mit Schatten ab", () => {
+    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__marker"))?.[0] ?? "";
+    expect(rule).toContain("border: 0 !important");
+    expect(rule).toMatch(/box-shadow:\s*var\(--man-hi-shadow\)/);
+  });
+
+  it("lässt den hervorgehobenen Punkt schweben: angehoben, mit tieferem Schatten", () => {
+    for (const className of ["man-hi__marker--open", "man-hi__marker--highlighted"]) {
+      const rule = hotspotStyles.match(outshineRule(hotspotStyles, className))?.[0] ?? "";
+      expect(rule).toMatch(/--man-hi-shadow:/);
+      expect(rule).toMatch(/transform:[^;]*var\(--man-hi-lift\)/);
+    }
+  });
+
+  it("behält den Schatten auch während des Pulses", () => {
+    // Die Animation ersetzt `box-shadow` ganz. Stünde der Schatten nicht in
+    // den Keyframes, verlöre der pulsierende Punkt seine Abhebung vom Bild.
+    const keyframes = hotspotStyles.match(/@keyframes man-hi-pulse\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+    const frames = [...keyframes.matchAll(/box-shadow:[^;]*/g)].map((match) => match[0]);
+    expect(frames).toHaveLength(2);
+    frames.forEach((frame) => expect(frame).toContain("var(--man-hi-shadow)"));
   });
 });

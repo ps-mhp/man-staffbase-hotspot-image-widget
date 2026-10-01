@@ -171,7 +171,7 @@ describe("HotspotImage", () => {
     expect(open).toHaveBeenCalledWith("https://example.test/pdf", "_blank", "noopener,noreferrer");
     // Der Punkt heißt selbst „Handbuch“, deshalb hier nicht über den Namen:
     // geprüft wird, dass gar kein Modal aufgegangen ist.
-    expect(screen.queryByTestId("page-modal-scrim")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("content-modal-scrim")).not.toBeInTheDocument();
     expect(screen.getByRole("dialog", { name: "Handbuch" })).toBeInTheDocument();
     open.mockRestore();
   });
@@ -180,7 +180,7 @@ describe("HotspotImage", () => {
     render(<HotspotImage image={image} points={points} mode="numbered" />);
     fireEvent.click(screen.getByTestId("item-p2"));
     fireEvent.click(screen.getByRole("button", { name: "Seite öffnen" }));
-    expect(screen.getByTestId("page-modal-scrim")).toBeInTheDocument();
+    expect(screen.getByTestId("content-modal-scrim")).toBeInTheDocument();
     expect(screen.getByTestId("item-p2")).toHaveAttribute("aria-expanded", "true");
   });
 

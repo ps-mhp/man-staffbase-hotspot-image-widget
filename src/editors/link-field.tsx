@@ -28,7 +28,7 @@ import { fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
 import { EntityPicker } from "@shared/entity-picker/entity-picker";
 
 import { DEFAULT_LINK_LABEL, HotspotLink } from "../points-model";
-import { PageOption, pageCatalogSource } from "../page-catalog";
+import { PageOption, pageCatalogSource } from "@shared/staffbase/pages";
 
 export interface LinkFieldProps {
   link: HotspotLink | undefined;

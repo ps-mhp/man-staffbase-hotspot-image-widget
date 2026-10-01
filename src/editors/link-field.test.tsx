@@ -14,9 +14,9 @@
 import * as React from "react";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { LinkField } from "./link-field";
-import { pageCatalogSource } from "../page-catalog";
+import { pageCatalogSource } from "@shared/staffbase/pages";
 
-jest.mock("../page-catalog", () => ({
+jest.mock("@shared/staffbase/pages", () => ({
   pageCatalogSource: {
     fetchList: jest.fn().mockResolvedValue([{ id: "1", title: "Laden zu Hause", url: "/content/pages/1" }]),
     toOption: (raw: { id: string; title: string; url: string }) => ({
