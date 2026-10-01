@@ -22,7 +22,7 @@
 import * as React from "react";
 import { ReactElement, useLayoutEffect, useRef, useState } from "react";
 
-import { Placement, placePopover } from "./popover-placement";
+import { Placement, placePopover } from "@shared/popover-placement";
 import { HotspotPoint, linkLabel } from "./points-model";
 
 export interface HotspotPopoverProps {
