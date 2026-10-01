@@ -31,6 +31,8 @@ export interface HotspotListProps {
   panelId: (pointId: string) => string;
   onToggle: (pointId: string) => void;
   onOpenLink: (point: HotspotPoint) => void;
+  /** Welcher Eintrag unter dem Mauszeiger steht; `null`, sobald er ihn verlässt. */
+  onHover: (pointId: string | null) => void;
 }
 
 export function HotspotList({
@@ -39,13 +41,25 @@ export function HotspotList({
   panelId,
   onToggle,
   onOpenLink,
+  onHover,
 }: HotspotListProps): ReactElement {
   return (
     <ol className="man-hi__list">
       {points.map((point) => {
         const open = point.id === openId;
         return (
-          <li key={point.id} className={`man-hi__item${open ? " man-hi__item--open" : ""}`}>
+          <li
+            key={point.id}
+            className={`man-hi__item${open ? " man-hi__item--open" : ""}`}
+            // Zeiger- statt Maus-Ereignisse: ein Telefon schickt nach dem
+            // Antippen ein nachgeahmtes `mouseenter`, aber kein `mouseleave`
+            // -- der Punkt bliebe hervorgehoben, bis woanders getippt wird.
+            // Beim Antippen hebt ihn ohnehin schon das Aufklappen hervor.
+            onPointerEnter={(event) => {
+              if (event.pointerType !== "touch") onHover(point.id);
+            }}
+            onPointerLeave={() => onHover(null)}
+          >
             <button
               type="button"
               id={`${panelId(point.id)}-head`}

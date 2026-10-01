@@ -183,4 +183,22 @@ describe("HotspotImage", () => {
     expect(screen.getByTestId("page-modal-scrim")).toBeInTheDocument();
     expect(screen.getByTestId("item-p2")).toHaveAttribute("aria-expanded", "true");
   });
+
+  it("hebt den Punkt im Bild hervor, solange sein Listeneintrag unter dem Zeiger steht", () => {
+    render(<HotspotImage image={image} points={points} mode="numbered" />);
+    const entry = screen.getByTestId("item-p2").closest("li") as HTMLElement;
+
+    fireEvent.pointerEnter(entry, { pointerType: "mouse" });
+    expect(screen.getByTestId("marker-p2")).toHaveClass("man-hi__marker--highlighted");
+    expect(screen.getByTestId("marker-p1")).not.toHaveClass("man-hi__marker--highlighted");
+
+    fireEvent.pointerLeave(entry, { pointerType: "mouse" });
+    expect(screen.getByTestId("marker-p2")).not.toHaveClass("man-hi__marker--highlighted");
+  });
+
+  it("hebt den Punkt im Bild hervor, wenn sein Listeneintrag angetippt wird", () => {
+    render(<HotspotImage image={image} points={points} mode="numbered" />);
+    fireEvent.click(screen.getByTestId("item-p2"));
+    expect(screen.getByTestId("marker-p2")).toHaveClass("man-hi__marker--open");
+  });
 });

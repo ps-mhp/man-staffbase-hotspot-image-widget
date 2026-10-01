@@ -30,6 +30,12 @@ En **Presentación** puedes elegir entre una de dos variantes:
 - En la vista "Puntos", se abre la ventana con el texto en ese punto
   en sí mismo; en pantallas estrechas (menos de 768 píxeles de ancho) aparece
   en su lugar, en el centro de la pantalla, con un oscurecimiento detrás. 
+- En la representación «Numerada», el punto correspondiente de la imagen se
+  resalta en cuanto el puntero del ratón se sitúa sobre una entrada de la lista
+  o se despliega una entrada: se hace más grande y los demás puntos pasan a un
+  segundo plano. En pantallas estrechas, los puntos aparecen pequeños y sin
+  número para que no se tapen aunque haya muchos; al tocar una entrada de la
+  lista se ve qué punto le corresponde.
 - Si un punto conduce a una página del sistema, aparece un botón debajo. 
   Al hacer clic en él, se abre la página en una ventana sobre la página actual; 
   Para una dirección que has ingresado tú mismo, se abre el mismo botón en su lugar

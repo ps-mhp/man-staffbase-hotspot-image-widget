@@ -49,6 +49,31 @@ describe("HotspotMarker", () => {
     expect(button).toHaveAttribute("aria-controls", "eintrag-p1");
   });
 
+  it("ist im Normalzustand nicht hervorgehoben", () => {
+    render(
+      <HotspotMarker point={point} index={0} mode="numbered" open={false} controls="box" onToggle={jest.fn()} />,
+    );
+    expect(screen.getByRole("button")).not.toHaveClass("man-hi__marker--highlighted");
+  });
+
+  it("hebt sich hervor, wenn sein Listeneintrag unter dem Zeiger steht", () => {
+    render(
+      <HotspotMarker
+        point={point}
+        index={0}
+        mode="numbered"
+        open={false}
+        highlighted
+        controls="box"
+        onToggle={jest.fn()}
+      />,
+    );
+    const button = screen.getByRole("button");
+    expect(button).toHaveClass("man-hi__marker--highlighted");
+    // Hervorgehoben heißt nicht aufgeklappt: die Ansage bleibt beim Zustand.
+    expect(button).toHaveAttribute("aria-expanded", "false");
+  });
+
   it("meldet den Klick", () => {
     const onToggle = jest.fn();
     render(

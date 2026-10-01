@@ -30,6 +30,11 @@ Em **Apresentação**, você pode escolher entre duas variantes:
 - Na visão "Pontos", a janela com o texto no ponto se abre
   ela própria; em telas estreitas (com menos de 768 pixels de largura) ela aparece
   em vez disso, no meio da tela, com um escurecimento atrás dela. 
+- Na exibição "Numerada", o ponto correspondente na imagem é destacado assim
+  que o ponteiro do mouse fica sobre um item da lista ou um item é expandido:
+  ele fica maior e os demais pontos ficam em segundo plano. Em telas estreitas,
+  os pontos aparecem pequenos e sem número, para que não se sobreponham mesmo
+  quando são muitos; tocar em um item da lista mostra a qual ponto ele pertence.
 - Se um ponto leva a uma página do sistema, um botão aparece embaixo. 
   Clicar nela abre a página em uma janela acima da página atual; 
   Para um endereço digitado por conta própria, o mesmo botão se abre em vez disso

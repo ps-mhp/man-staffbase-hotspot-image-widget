@@ -29,6 +29,7 @@ const renderList = (overrides: Partial<React.ComponentProps<typeof HotspotList>>
       panelId={(id) => `panel-${id}`}
       onToggle={jest.fn()}
       onOpenLink={jest.fn()}
+      onHover={jest.fn()}
       {...overrides}
     />,
   );
@@ -90,5 +91,28 @@ describe("HotspotList", () => {
     renderList({ openId: "p2", onOpenLink });
     fireEvent.click(screen.getByRole("button", { name: "Seite öffnen" }));
     expect(onOpenLink).toHaveBeenCalledWith(points[1]);
+  });
+
+  it("meldet, welcher Eintrag unter dem Mauszeiger steht, und wann er ihn verlässt", () => {
+    const onHover = jest.fn();
+    const { container } = renderList({ onHover });
+    const item = container.querySelectorAll("li")[1];
+
+    fireEvent.pointerEnter(item, { pointerType: "mouse" });
+    expect(onHover).toHaveBeenLastCalledWith("p2");
+
+    fireEvent.pointerLeave(item, { pointerType: "mouse" });
+    expect(onHover).toHaveBeenLastCalledWith(null);
+  });
+
+  it("nimmt ein Antippen nicht als Hover", () => {
+    // Auf dem Telefon hebt schon das Aufklappen den Punkt hervor. Ein
+    // Hover aus dem Antippen bliebe dagegen stehen, auch wenn der Eintrag
+    // wieder zugeklappt ist.
+    const onHover = jest.fn();
+    const { container } = renderList({ onHover });
+
+    fireEvent.pointerEnter(container.querySelectorAll("li")[0], { pointerType: "touch" });
+    expect(onHover).not.toHaveBeenCalled();
   });
 });

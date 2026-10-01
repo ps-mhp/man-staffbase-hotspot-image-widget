@@ -30,6 +30,12 @@ Unter **Darstellung** steht eine von zwei Varianten zur Wahl:
 - In der Darstellung „Punkte“ öffnet sich das Fenster mit dem Text am Punkt
   selbst; auf schmalen Bildschirmen (unter 768 Pixel Breite) erscheint es
   stattdessen mittig im Bildschirm, mit einer Abdunklung dahinter.
+- In der Darstellung „Nummeriert“ wird der zugehörige Punkt im Bild
+  hervorgehoben, sobald der Mauszeiger über einem Listeneintrag steht oder ein
+  Eintrag aufgeklappt ist: er wird größer, die übrigen Punkte treten zurück.
+  Auf schmalen Bildschirmen erscheinen die Punkte klein und ohne Zahl, damit
+  sie sich auch bei vielen Stellen nicht überdecken; welcher Punkt zu welchem
+  Eintrag gehört, zeigt das Antippen in der Liste.
 - Führt ein Punkt zu einer Seite des Systems, erscheint darunter ein Button.
   Ein Klick darauf öffnet die Seite in einem Fenster über der aktuellen Seite;
   bei einer selbst eingetragenen Adresse öffnet derselbe Button stattdessen

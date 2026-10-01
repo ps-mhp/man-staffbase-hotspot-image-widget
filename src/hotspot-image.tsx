@@ -49,6 +49,8 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
   const narrow = useNarrowViewport();
   const stageRef = useRef<HTMLDivElement>(null);
   const [openId, setOpenId] = useState<string | null>(null);
+  /** Der Punkt, dessen Listeneintrag gerade unter dem Mauszeiger steht. */
+  const [hoverId, setHoverId] = useState<string | null>(null);
   const [page, setPage] = useState<OpenPage | null>(null);
   /** Der zuletzt offene Punkt — dorthin gehört der Fokus nach dem Schließen. */
   const lastOpenRef = useRef<string | null>(null);
@@ -147,6 +149,7 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
               index={index}
               mode={mode}
               open={point.id === openId}
+              highlighted={point.id === hoverId}
               controls={panelId(point.id)}
               onToggle={() => toggle(point.id)}
             />
@@ -178,6 +181,7 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
             panelId={panelId}
             onToggle={toggle}
             onOpenLink={openLink}
+            onHover={setHoverId}
           />
         )}
       </div>

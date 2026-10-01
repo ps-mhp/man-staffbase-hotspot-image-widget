@@ -30,6 +30,12 @@ W sekcji **Prezentacja** możesz wybrać jeden z dwóch wariantów:
 - W widoku "Punkty" otwiera się okno z tekstem w punkcie
   samym; na wąskich ekranach (mniej niż 768 pikseli szerokości) pojawia się
   zamiast tego na środku ekranu, z ciemnieniem za nim. 
+- W widoku „Numerowany” odpowiadająca kropka na obrazie zostaje wyróżniona, gdy
+  tylko wskaźnik myszy znajdzie się nad pozycją listy lub pozycja zostanie
+  rozwinięta: powiększa się, a pozostałe kropki schodzą na dalszy plan. Na
+  wąskich ekranach kropki są małe i bez numerów, aby nie zasłaniały się nawzajem
+  nawet przy dużej ich liczbie; dotknięcie pozycji na liście pokazuje, która
+  kropka do niej należy.
 - Jeśli kropka prowadzi do strony systemu, pod nią pojawia się przycisk. 
   Kliknięcie na niego otwiera stronę w oknie nad aktualną stroną; 
   Dla adresu wpisanego samodzielnie otwiera się ten sam przycisk

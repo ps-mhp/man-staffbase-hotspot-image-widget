@@ -20,6 +20,15 @@
   --man-hi-accent: #{man("red")};
   --man-hi-surface: #{man("white")};
   --man-hi-border: #{man("grey-200")};
+  // Um so viel waechst der hervorgehobene Punkt; auf dem Telefon mehr, weil er
+  // dort klein anfaengt.
+  --man-hi-emphasis: 1.4;
+  // Die Abhebung vom Bild. Ein weisser Ring leistete das frueher, ist aber
+  // nicht CI-konform (beanstandet am 29.09.2026); ein Schatten traegt auf
+  // hellem wie dunklem Grund.
+  --man-hi-shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 2px 6px rgb(0 0 0 / 25%);
+  // Um so viel hebt sich der hervorgehobene Punkt an.
+  --man-hi-lift: 3px;
 
   display: grid;
   gap: 16px;
@@ -60,7 +69,9 @@
 // mehr als Punkt erkannte; am 10.09.2026 im Frontend so gesehen.
 //
 // `box-shadow` bleibt bewusst ohne `!important`: der Puls unten setzt ihn per
-// Animation, und eine Animation kaeme gegen `!important` nicht an.
+// Animation, und eine Animation kaeme gegen `!important` nicht an. Den Wert
+// liefert `--man-hi-shadow`, damit Puls und Hervorhebung denselben Schatten
+// fortschreiben koennen.
 .man-hi__marker {
   @include man-outshine-host {
     position: absolute;
@@ -72,14 +83,15 @@
     height: 32px !important;
     min-width: 0 !important;
     padding: 0 !important;
-    border: 2px solid var(--man-hi-surface) !important;
+    // Ohne Rand: auch der weisse Rand der Wirtsseite fuer Knoepfe muss weg.
+    border: 0 !important;
     border-radius: #{man("radius-round")} !important;
     background: var(--man-hi-accent) !important;
     color: var(--man-hi-surface) !important;
     font: 700 14px/1 #{man("font-head")} !important;
     text-transform: none !important;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+    box-shadow: var(--man-hi-shadow);
   }
 }
 
@@ -92,8 +104,73 @@
   }
 }
 
-// Dunkel statt weiss: der Punkt traegt selbst schon einen weissen Ring, ein
-// zweiter weisser Ring daneben waere auf hellem Bild nicht auszumachen.
+// Auf dem Telefon lagen die nummerierten Punkte bei vielen Stellen
+// uebereinander, und die Ziffern waren nicht mehr zu lesen. Unter der
+// Umbruchbreite werden sie deshalb klein und ziffernlos: welcher Punkt welcher
+// ist, zeigt die Liste darunter -- ein Tipp auf einen Eintrag hebt seinen Punkt
+// hervor. Die Liste ist damit auch der gleichwertige Weg, der den kleinen
+// Punkt als Tippziel entschuldigt.
+//
+// Deckungsgleich mit `NARROW_QUERY` in `use-narrow-viewport.ts`.
+@media (max-width: 767px) {
+  .man-hi {
+    --man-hi-emphasis: 1.7;
+  }
+
+  .man-hi__marker--numbered {
+    @include man-outshine-host {
+      width: 14px !important;
+      height: 14px !important;
+    }
+  }
+
+  .man-hi__marker-number {
+    display: none;
+  }
+}
+
+// Der hervorgehobene Punkt: aufgeklappt oder sein Listeneintrag unter dem
+// Zeiger. Er schwebt -- groesser, leicht angehoben und mit tieferem Schatten
+// -- und liegt vor allen anderen; bei dicht gesetzten Punkten laege er sonst
+// womoeglich unter seinem Nachbarn.
+//
+// Zweimal statt als Selektorliste: `man-outshine-host` verfuenffacht den
+// Selektor, und aus einer Liste wuerde dabei jede Kombination beider Klassen.
+@mixin man-hi-emphasis {
+  @include man-outshine-host {
+    --man-hi-shadow: 0 4px 6px rgb(0 0 0 / 20%), 0 10px 20px rgb(0 0 0 / 30%);
+
+    z-index: 1;
+    transform: translate(-50%, calc(-50% - var(--man-hi-lift))) scale(var(--man-hi-emphasis));
+  }
+}
+
+.man-hi__marker--open {
+  @include man-hi-emphasis;
+}
+
+.man-hi__marker--highlighted {
+  @include man-hi-emphasis;
+}
+
+// Neben dem hervorgehobenen Punkt treten die uebrigen zurueck. Nur in der
+// nummerierten Darstellung: in der anderen steht ohnehin das Fenster am Punkt.
+.man-hi--numbered .man-hi__stage:has(.man-hi__marker--open, .man-hi__marker--highlighted)
+  .man-hi__marker:not(.man-hi__marker--open, .man-hi__marker--highlighted) {
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .man-hi__marker {
+    transition:
+      transform man("duration") man("ease"),
+      box-shadow man("duration") man("ease"),
+      opacity man("duration") man("ease");
+  }
+}
+
+// Dunkel statt weiss: ein weisser Ring waere auf hellem Bild nicht
+// auszumachen.
 .man-hi__marker:focus-visible {
   outline: 3px solid #{man("slate-900")} !important;
   outline-offset: man("focus-offset");
@@ -112,10 +189,10 @@
 
 @keyframes man-hi-pulse {
   0% {
-    box-shadow: 0 0 0 0 #{man-alpha("red", 0.55)};
+    box-shadow: 0 0 0 0 #{man-alpha("red", 0.55)}, var(--man-hi-shadow);
   }
   100% {
-    box-shadow: 0 0 0 14px #{man-alpha("red", 0)};
+    box-shadow: 0 0 0 14px #{man-alpha("red", 0)}, var(--man-hi-shadow);
   }
 }
 

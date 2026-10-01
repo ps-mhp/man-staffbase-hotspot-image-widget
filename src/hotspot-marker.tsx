@@ -31,6 +31,11 @@ export interface HotspotMarkerProps {
   index: number;
   mode: DisplayMode;
   open: boolean;
+  /**
+   * Ob der Eintrag dieses Punktes in der Liste gerade unter dem Zeiger steht.
+   * Rein optisch: aufgeklappt wird dadurch nichts.
+   */
+  highlighted?: boolean;
   /** Die id des Elements, das dieser Marker auf- und zuklappt. */
   controls: string;
   onToggle: () => void;
@@ -41,13 +46,23 @@ export function HotspotMarker({
   index,
   mode,
   open,
+  highlighted = false,
   controls,
   onToggle,
 }: HotspotMarkerProps): ReactElement {
+  const className = [
+    "man-hi__marker",
+    `man-hi__marker--${mode}`,
+    open && "man-hi__marker--open",
+    highlighted && "man-hi__marker--highlighted",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <button
       type="button"
-      className={`man-hi__marker man-hi__marker--${mode}${open ? " man-hi__marker--open" : ""}`}
+      className={className}
       style={{ left: `${point.x}%`, top: `${point.y}%` }}
       // Der sichtbare Text ist im nummerierten Modus nur eine Ziffer und im
       // Punkte-Modus gar keiner. Der Titel muss deshalb ausdrücklich dazu.

@@ -30,6 +30,11 @@ Under **Presentation** you can choose from one of two variants:
 - In the "Points" view, the window with the text at the point opens
   itself; on narrow screens (less than 768 pixels wide) it appears
   instead, in the middle of the screen, with a darkening behind it. 
+- In the "Numbered" display, the matching dot on the image is highlighted as
+  soon as the mouse pointer rests on a list entry or an entry is expanded: it
+  grows larger and the other dots fade back. On narrow screens the dots appear
+  small and without numbers, so they do not cover each other even when there
+  are many; tapping an entry in the list shows which dot belongs to it.
 - If a dot leads to a page of the system, a button appears underneath. 
   Clicking on it opens the page in a window above the current page; 
   for a self-entered address, the same button opens instead
