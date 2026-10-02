@@ -103,9 +103,47 @@ describe("Stylesheet", () => {
     expect(rule).toContain("list-style: none !important");
   });
 
-  it("gibt dem Handlungsknopf die Versalien der Marke", () => {
-    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__popover-action"))?.[0];
-    expect(rule).toContain("text-transform: uppercase !important");
+  // Craft-Knopf m primary: 40px, Rand 2px, MAN-Rot, gemischt geschrieben und
+  // ohne Laufweite -- mit Nachdruck, weil `man-theme` jedem blanken `button`
+  // seinen eigenen Grundriss gibt.
+  it("setzt den Handlungsknopf als Craft-Knopf m primary", () => {
+    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__popover-action"))?.[0] ?? "";
+    expect(rule).toMatch(/height:\s*40px\s*!important/);
+    expect(rule).toMatch(/border-width:\s*2px\s*!important/);
+    expect(rule).toMatch(/background-color:\s*var\(--man-red, #e40045\)\s*!important/);
+    expect(rule).toContain("text-transform: none !important");
+    expect(rule).toContain("letter-spacing: normal !important");
+  });
+
+  it("schreibt keine Versalien, keine Laufweite, keine alten Schriftnamen und Gewichte", () => {
+    // Das neue MAN-CI kennt keine Versalien und keine Laufweiten (Vorgabe MAN,
+    // 02.10.2026); Man Europe hat nur 400 und 700, `MANEurope …` liefert
+    // man-theme nicht mehr aus.
+    expect(hotspotStyles).not.toMatch(/uppercase/);
+    expect(hotspotStyles).not.toMatch(/letter-spacing:(?!\s*(?:normal|0)(?![\w.%]))/);
+    expect(hotspotStyles).not.toMatch(/MANEurope/);
+    expect(hotspotStyles).not.toMatch(/font-weight:\s*(?:300|500|600)\b/);
+  });
+
+  // Craft-Overlays tragen keinen Schatten; getrennt wird über 1px Haarlinie.
+  it("setzt das Fenster als Craft-Popover: Haarlinie statt Schatten", () => {
+    const rule = hotspotStyles.match(/\.man-hi__popover\s*\{[^}]*\}/)?.[0] ?? "";
+    expect(rule).toMatch(/border:\s*var\(--man-border-width, 1px\) solid var\(--man-border, #cbd3dc\)/);
+    expect(rule).toMatch(/box-shadow:\s*none/);
+  });
+
+  it("zeigt den Fokus des Punktes als Craft-Ring", () => {
+    const rule = hotspotStyles.match(/\.man-hi__marker:focus-visible\s*\{[^}]*\}/)?.[0] ?? "";
+    expect(rule).toMatch(/outline:\s*var\(--man-focus-width, 2px\) solid var\(--man-focus-color, #3875b2\)\s*!important/);
+    expect(rule).toMatch(/outline-offset:\s*var\(--man-focus-offset, 2px\)/);
+  });
+
+  it("gibt dem Schliessen-Kreuz auch bei Hover und gedrückt keine Fläche", () => {
+    // Icon-Knöpfe tragen nach Craft in keinem Zustand einen Hintergrund.
+    const close = "\\.man\\-hi__popover\\-close".repeat(5);
+    expect(hotspotStyles).toMatch(
+      new RegExp(`${close}:hover,\\s*${close}:active\\s*\\{[^}]*background:\\s*none\\s*!important`),
+    );
   });
 
   it("lässt dem Puls den Schatten, statt ihn festzunageln", () => {

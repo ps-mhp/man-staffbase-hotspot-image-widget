@@ -12,6 +12,7 @@
  */
 
 @use "@shared/stylings/man-tokens" as *;
+@use "@shared/stylings/man-craft" as *;
 
 .man-hi {
   // Die Punkte sind das Erkennungszeichen des Widgets und tragen deshalb die
@@ -19,13 +20,17 @@
   // Frontend als "nicht im MAN-Rot" beanstandet.
   --man-hi-accent: #{man("red")};
   --man-hi-surface: #{man("white")};
-  --man-hi-border: #{man("grey-200")};
+  // Die Craft-Haarlinie, dieselbe wie am Rand des Fensters.
+  --man-hi-border: #{man("border")};
   // Um so viel waechst der hervorgehobene Punkt; auf dem Telefon mehr, weil er
   // dort klein anfaengt.
   --man-hi-emphasis: 1.4;
   // Die Abhebung vom Bild. Ein weisser Ring leistete das frueher, ist aber
   // nicht CI-konform (beanstandet am 29.09.2026); ein Schatten traegt auf
-  // hellem wie dunklem Grund.
+  // hellem wie dunklem Grund. Craft setzt Bedienelemente flach -- der Punkt
+  // liegt aber auf einem beliebigen Foto, und ohne Schatten verschwaende er
+  // auf rotem oder unruhigem Motiv. Der Schatten bleibt deshalb, als Hilfe
+  // zur Lesbarkeit, nicht als Zierde.
   --man-hi-shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 2px 6px rgb(0 0 0 / 25%);
   // Um so viel hebt sich der hervorgehobene Punkt an.
   --man-hi-lift: 3px;
@@ -169,11 +174,12 @@
   }
 }
 
-// Dunkel statt weiss: ein weisser Ring waere auf hellem Bild nicht
-// auszumachen.
+// Der Craft-Fokus: 2px Blau (`focus-color`) mit 2px Abstand, statt der
+// frueheren dunklen 3px-Linie. Das Blau steht auf hellem Bild (4,8:1 gegen
+// Weiss) wie auf dunklem (3,1:1 gegen `surface-invers`). Mit Nachdruck wie
+// zuvor, damit keine Fokusregel der Wirtsseite den Ring ersetzt.
 .man-hi__marker:focus-visible {
-  outline: 3px solid #{man("slate-900")} !important;
-  outline-offset: man("focus-offset");
+  @include man-focus-ring($important: true);
 }
 
 /* Der Puls zeigt an, dass der Punkt gemeint ist — er darf deshalb nicht von
@@ -196,16 +202,16 @@
   }
 }
 
+// Das Fenster ist ein Craft-Popover (`man-overlay`): weiss, eckig, 1px
+// Haarlinie (`border`) und KEIN Schatten -- Craft trennt Overlays nur ueber
+// die Linie (`man-theme/src/lib/_craft.scss`).
 .man-hi__popover {
+  @include man-overlay;
+
   position: absolute;
   z-index: 2;
   width: min(280px, 90%);
   padding: 14px 16px;
-  border: 1px solid var(--man-hi-border);
-  // Eckig: `man("radius")` ist 0, die Marke rundet nichts ab.
-  border-radius: man("radius");
-  background: var(--man-hi-surface);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
   line-height: 1.45;
   text-align: left;
 }
@@ -233,8 +239,10 @@
 }
 
 // Dasselbe Durchsetzen wie beim Punkt: `man-theme` gibt jedem blanken
-// `button` Fuellung, Innenabstand und Versalien. Ein Schliessen-Kreuz braucht
-// nichts davon -- nur das Kreuz.
+// `button` Fuellung und Innenabstand. Ein Schliessen-Kreuz braucht nichts
+// davon -- nur das Kreuz. Als Icon-Knopf traegt es nach Craft auch bei Hover
+// und gedrueckt keine Flaeche; das steht je Zustand ausdruecklich da, weil
+// eine Wirtsregel mit `:hover` im Selektor sonst doch fuellte.
 .man-hi__popover-close {
   @include man-outshine-host {
     box-sizing: border-box !important;
@@ -253,6 +261,15 @@
     line-height: 1 !important;
     text-transform: none !important;
     cursor: pointer;
+
+    &:hover,
+    &:active {
+      background: none !important;
+    }
+
+    &:focus-visible {
+      @include man-focus-ring($important: true);
+    }
   }
 }
 
@@ -273,51 +290,32 @@
   white-space: pre-line;
 }
 
-// Der Primaerknopf der Marke: MAN-Rot gefuellt, weisse Versalien, eckig. Der
-// Grundriss (10/24er Polsterung, 16/18er Label) ist derselbe wie beim
-// Hero-Slider und stammt aus `man-theme/src/03-elements/button/_app.scss`.
-// Die abgerundeten Ecken davor waren eine Erfindung und standen gegen die CI
-// -- `man("radius")` ist 0. Beanstandet am 10.09.2026.
+// Der Craft-Knopf m primary (`man-button`, Werte wie
+// `man-theme/src/lib/_craft.scss`): MAN-Rot gefuellt, weisse Schrift in
+// Condensed 700 16px, gemischt geschrieben, 40px hoch, eckig; Hover und
+// gedrueckt dunkler, Fokus der blaue Craft-Ring. Derselbe Knopf wie beim
+// Hero-Slider. Die Groesse m statt s, weil das Fenster auf dem Telefon in der
+// Mitte steht und dort mit dem Finger getroffen werden will -- Platz ist bei
+// 280px Breite genug. Die abgerundeten Ecken einer frueheren Fassung standen
+// gegen die CI (beanstandet am 10.09.2026); `man-button` rundet nicht.
 .man-hi__popover-action {
   @include man-outshine-host {
-    @include man-type("label", $important: true);
+    @include man-button("m", "primary", true);
 
-    box-sizing: border-box !important;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 12px !important;
-    padding: 10px 24px !important;
-    min-height: 44px;
-    // Der Knopf der Marke steht auf 16/18, nicht auf den 13px des Labels --
-    // `man-type` liefert Schnitt und Familie, die Groesse kommt vom Grundriss.
-    font-size: 16px !important;
-    line-height: 18px !important;
-    color: #{man("white")} !important;
-    text-decoration: none !important;
-    text-transform: uppercase !important;
-    letter-spacing: #{man("track-label")} !important;
-    background: var(--man-hi-accent) !important;
-    border: 0 !important;
-    border-radius: #{man("radius")} !important;
-    cursor: pointer;
-    transition: background-color man("duration") man("ease");
+    // Nach dem Knopf, weil `man-button` `margin: 0` mit Nachdruck setzt.
+    & {
+      margin-top: 12px !important;
+    }
   }
 }
 
-.man-hi__popover-action:hover,
-.man-hi__popover-action:focus-visible {
-  @include man-outshine-host {
-    color: #{man("white")} !important;
-    background: #{man("red-hover")} !important;
-  }
-}
-
+// Die Abdunkelung hinter dem mittig stehenden Fenster: die Craft-Flaeche
+// hinter Overlays (`overlay`).
 .man-hi__scrim {
   position: fixed;
   inset: 0;
   z-index: 9;
-  background: rgb(0 0 0 / 45%);
+  background: man("overlay");
 }
 
 // Eine geordnete Liste: die Reihenfolge ist Teil der Aussage, und der Zaehler
@@ -369,7 +367,8 @@
 }
 
 // Eine Zeile der Liste, kein Handlungsknopf -- also gegen die Wirtsseite
-// durchgesetzt, die jedem blanken `button` Fuellung und Versalien gibt.
+// durchgesetzt, die jedem blanken `button` Fuellung und Grundriss gibt.
+// Fokus ist der Craft-Ring.
 .man-hi__item-head {
   @include man-outshine-host {
     box-sizing: border-box !important;
@@ -386,6 +385,10 @@
     text-align: left !important;
     text-transform: none !important;
     cursor: pointer;
+
+    &:focus-visible {
+      @include man-focus-ring($important: true);
+    }
   }
 }
 
@@ -398,7 +401,8 @@
   background: var(--man-hi-accent);
   color: var(--man-hi-surface);
   font-size: 13px;
-  font-weight: 600;
+  // Fett ist 700: Man Europe hat nur 400 und 700, 600 gibt es nicht mehr.
+  font-weight: man("weight-body-bold");
 
   &::before {
     content: counter(man-hi-item);
@@ -406,7 +410,7 @@
 }
 
 .man-hi__item--open .man-hi__item-title {
-  font-weight: 600;
+  font-weight: man("weight-body-bold");
 }
 
 .man-hi__item-body {
