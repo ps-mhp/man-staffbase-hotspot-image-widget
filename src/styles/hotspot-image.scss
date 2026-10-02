@@ -62,7 +62,7 @@
   height: auto;
 }
 
-// Mit Nachdruck und erhoehter Spezifitaet: `onetruck-css` macht aus jedem
+// Mit Nachdruck und erhoehter Spezifitaet: `man-theme` macht aus jedem
 // blanken `button` im Inhaltsbereich einen Handlungsknopf ueber die volle
 // Breite -- mit eigenen Innenabstaenden, eigener Fuellung und ohne Rundung.
 // Der Punkt geriet dadurch zu einem flachen, dunklen Rechteck, das niemand
@@ -232,7 +232,7 @@
   margin-bottom: 6px;
 }
 
-// Dasselbe Durchsetzen wie beim Punkt: `onetruck-css` gibt jedem blanken
+// Dasselbe Durchsetzen wie beim Punkt: `man-theme` gibt jedem blanken
 // `button` Fuellung, Innenabstand und Versalien. Ein Schliessen-Kreuz braucht
 // nichts davon -- nur das Kreuz.
 .man-hi__popover-close {
@@ -275,7 +275,7 @@
 
 // Der Primaerknopf der Marke: MAN-Rot gefuellt, weisse Versalien, eckig. Der
 // Grundriss (10/24er Polsterung, 16/18er Label) ist derselbe wie beim
-// Hero-Slider und stammt aus `onetruck-css/src/03-elements/button/_app.scss`.
+// Hero-Slider und stammt aus `man-theme/src/03-elements/button/_app.scss`.
 // Die abgerundeten Ecken davor waren eine Erfindung und standen gegen die CI
 // -- `man("radius")` ist 0. Beanstandet am 10.09.2026.
 .man-hi__popover-action {

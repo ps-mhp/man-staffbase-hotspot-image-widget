@@ -15,7 +15,7 @@
  * Wachen über das übersetzte Stylesheet.
  *
  * Am 10.09.2026 sahen die Punkte im Frontend aus wie flache, dunkelgraue
- * Rechtecke: `onetruck-css` macht aus jedem blanken `button` im Inhaltsbereich
+ * Rechtecke: `man-theme` macht aus jedem blanken `button` im Inhaltsbereich
  * einen Handlungsknopf über die volle Breite. Keine der 152 Prüfungen merkte
  * etwas davon, weil jsdom kein fremdes Stylesheet kennt und Aussehen ohnehin
  * nicht prüfbar ist.
