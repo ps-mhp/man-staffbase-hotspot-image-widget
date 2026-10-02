@@ -30,12 +30,12 @@ Dans **Présentation**, vous pouvez choisir parmi deux variantes :
 - Dans la vue « Points », la fenêtre où le texte se trouve au point s’ouvre
   lui-même ; sur des écrans étroits (moins de 768 pixels de large), il apparaît
   au lieu de cela, au centre de l’écran, avec un sombrement derrière. 
-- Dans l’affichage « Numéroté », le point correspondant sur l’image est mis en
-  évidence dès que le pointeur de la souris survole une entrée de la liste ou
-  qu’une entrée est dépliée : il s’agrandit et les autres points s’estompent.
-  Sur les écrans étroits, les points apparaissent petits et sans numéro afin de
-  ne pas se chevaucher, même lorsqu’ils sont nombreux ; toucher une entrée de la
-  liste montre à quel point elle correspond.
+- Dans la vue « Numérotée », le point correspondant de l’image est affiché
+  dès que le pointeur de la souris est survolé sur un élément de la liste ou un
+  L’entrée est élargie : elle grandit, les autres points s’éloignent. 
+  Sur des écrans étroits, les points apparaissent petits et sans nombre, de sorte que
+  ils ne se chevauchent pas en beaucoup d’endroits ; quel point à quoi
+  Entrée, montre le tapotement dans la liste. 
 - Si un point mène à une page du système, un bouton apparaît en dessous. 
   Cliquer dessus ouvre la page dans une fenêtre au-dessus de la page actuelle ; 
   Pour une adresse saisie soi-même, le même bouton s’ouvre à la place

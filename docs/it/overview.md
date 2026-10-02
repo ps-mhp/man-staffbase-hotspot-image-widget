@@ -30,12 +30,12 @@ Sotto **Presentazione** puoi scegliere tra due varianti:
 - Nella vista "Punti", si apre la finestra con il testo al punto
   sé stesso; Su schermi stretti (meno di 768 pixel di larghezza) appare
   invece, al centro dello schermo, con un scurimento dietro di esso. 
-- Nella visualizzazione «Numerata», il punto corrispondente nell’immagine viene
-  evidenziato non appena il puntatore del mouse si trova su una voce
-  dell’elenco o una voce è espansa: diventa più grande e gli altri punti passano
-  in secondo piano. Su schermi stretti i punti appaiono piccoli e senza numero,
-  così non si sovrappongono anche quando sono molti; toccando una voce
-  dell’elenco si vede a quale punto appartiene.
+- Nella vista "Numerata", viene visualizzato il punto corrispondente nell'immagine
+  non appena il puntatore del mouse viene passato sopra un elemento della lista o un
+  L'ingresso si espande: diventa più grande, gli altri puntini si ritirano. 
+  Su schermi stretti, i punti appaiono piccoli e senza numero, così che
+  non si sovrappongono in molti punti; quale punto a quale
+  Voce mostra, la digitazione nella lista. 
 - Se un punto conduce a una pagina del sistema, appare un pulsante sotto. 
   Cliccandoci sopra si apre la pagina in una finestra sopra quella attuale; 
   Per un indirizzo inserito da solo, si apre invece lo stesso pulsante

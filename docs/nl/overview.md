@@ -30,12 +30,12 @@ Onder **Presentatie** kun je kiezen uit twee varianten:
 - In de "Points"-weergave opent het venster met de tekst op het punt
   zichzelf; op smalle schermen (minder dan 768 pixels breed) verschijnt het
   in plaats daarvan in het midden van het scherm, met een donkere verschijning erachter. 
-- In de weergave "Genummerd" wordt de bijbehorende stip op de afbeelding
-  gemarkeerd zodra de muisaanwijzer op een lijstitem staat of een item is
-  uitgeklapt: de stip wordt groter en de andere stippen treden terug. Op smalle
-  schermen verschijnen de stippen klein en zonder nummer, zodat ze elkaar ook
-  bij veel stippen niet bedekken; door op een item in de lijst te tikken, zie je
-  welke stip erbij hoort.
+- In de "Genummerde" weergave wordt het overeenkomstige punt in de afbeelding weergegeven
+  Zodra de muisaanwijzer over een lijstitem of een
+  Ingang wordt uitgebreid: hij wordt groter, de andere stippen trekken zich terug. 
+  Op smalle schermen lijken de stippen klein en zonder nummer, zodat
+  ze overlappen op veel plaatsen niet; wat wijst op welke
+  Vermeldt het aanraken in de lijst. 
 - Als een stip naar een pagina van het systeem leidt, verschijnt er een knop eronder. 
   Door erop te klikken opent de pagina in een venster boven de huidige pagina; 
   Voor een zelfingevoerd adres opent dezelfde knop in plaats daarvan
