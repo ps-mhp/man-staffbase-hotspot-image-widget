@@ -295,12 +295,14 @@
 // Condensed 700 16px, gemischt geschrieben, 40px hoch, eckig; Hover und
 // gedrueckt dunkler, Fokus der blaue Craft-Ring. Derselbe Knopf wie beim
 // Hero-Slider. Die Groesse m statt s, weil das Fenster auf dem Telefon in der
-// Mitte steht und dort mit dem Finger getroffen werden will -- Platz ist bei
-// 280px Breite genug. Die abgerundeten Ecken einer frueheren Fassung standen
-// gegen die CI (beanstandet am 10.09.2026); `man-button` rundet nicht.
+// Mitte steht und dort mit dem Finger getroffen werden will. Anders als Craft
+// bricht eine lange Beschriftung um (`$wrap`) -- bei 280px Breite liefe sie ab
+// etwa 28 Zeichen sonst ueber den Rand. Die abgerundeten Ecken einer
+// frueheren Fassung standen gegen die CI (beanstandet am 10.09.2026);
+// `man-button` rundet nicht.
 .man-hi__popover-action {
   @include man-outshine-host {
-    @include man-button("m", "primary", true);
+    @include man-button("m", "primary", true, $wrap: true);
 
     // Nach dem Knopf, weil `man-button` `margin: 0` mit Nachdruck setzt.
     & {

@@ -108,11 +108,19 @@ describe("Stylesheet", () => {
   // seinen eigenen Grundriss gibt.
   it("setzt den Handlungsknopf als Craft-Knopf m primary", () => {
     const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__popover-action"))?.[0] ?? "";
-    expect(rule).toMatch(/height:\s*40px\s*!important/);
+    expect(rule).toMatch(/min-height:\s*40px\s*!important/);
     expect(rule).toMatch(/border-width:\s*2px\s*!important/);
     expect(rule).toMatch(/background-color:\s*var\(--man-red, #e40045\)\s*!important/);
     expect(rule).toContain("text-transform: none !important");
     expect(rule).toContain("letter-spacing: normal !important");
+  });
+
+  // Craft bricht nie um; im 280px-Fenster liefe eine lange Beschriftung ab
+  // etwa 28 Zeichen ueber den Rand. Deshalb darf sie hier umbrechen.
+  it("laesst eine lange Beschriftung umbrechen statt ueber den Rand laufen", () => {
+    const rule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__popover-action"))?.[0] ?? "";
+    expect(rule).toContain("white-space: normal !important");
+    expect(rule).toMatch(/max-width:\s*100%\s*!important/);
   });
 
   it("schreibt keine Versalien, keine Laufweite, keine alten Schriftnamen und Gewichte", () => {
