@@ -40,7 +40,7 @@ export function startPointEditorInjector(): () => void {
     render: (props) => React.createElement(PointEditor, props),
     modalTestId: "point-editor-modal",
     reopenTestId: "point-editor-reopen",
-    panelStyle: { maxWidth: "1080px" },
+    panelClassName: "max-w-[1080px]",
     // Im Content Designer wird das Bild im Formular gewählt. Ohne Bild hätte
     // der Editor nichts zu zeigen und verdeckte genau das Feld, das es liefert.
     openInitially: () => imageSource() !== "designer" || readImageAttribute() !== null,
