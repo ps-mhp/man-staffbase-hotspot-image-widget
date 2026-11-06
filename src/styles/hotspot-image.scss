@@ -87,6 +87,11 @@
     width: 32px !important;
     height: 32px !important;
     min-width: 0 !important;
+    // Und die Mindesthoehe: Staffbase setzt `button { … min-height: 40px }`
+    // (`resources/css/app.css`), und eine Mindesthoehe schlaegt jede Hoehe.
+    // Aus dem runden Punkt wurde dadurch eine stehende Ellipse -- auf dem
+    // Telefon 14px breit und 40px hoch (gemessen am 15.10.2026 bei 393x852).
+    min-height: 0 !important;
     padding: 0 !important;
     // Ohne Rand: auch der weisse Rand der Wirtsseite fuer Knoepfe muss weg.
     border: 0 !important;
@@ -252,6 +257,9 @@
     width: 32px !important;
     height: 32px !important;
     min-width: 0 !important;
+    // Auch hier die Mindesthoehe der Wirtsseite, sonst steht das Kreuz in
+    // einem 32x40 hohen Kasten und sitzt sichtbar zu tief.
+    min-height: 0 !important;
     margin: -4px -6px 0 0 !important;
     padding: 0 !important;
     border: 0 !important;
