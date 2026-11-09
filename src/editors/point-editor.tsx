@@ -20,11 +20,8 @@
  * das Modell steckt in `HotspotPoint[]`, das Bild lebt in seinem eigenen
  * Attribut.
  *
- * Das Bild geht nicht durch `onChange`: dieser Editor hängt am Feld `points`,
- * `onChange`/`onSave` schreiben nur dorthin zurück. Ein zweites, eigenes
- * Attribut fürs Bild bedeutet, dass ein Bildwechsel sofort geschrieben werden
- * muss -- über `writeImageAttribute` --, statt auf das „Übernehmen" dieses
- * Formulars zu warten.
+ * Das Bild geht nicht durch `onChange`: dieser Editor hängt am Feld `points`.
+ * Wie es stattdessen gespeichert wird, steht in `editor-image.tsx`.
  */
 
 import * as React from "react";
@@ -33,17 +30,10 @@ import { ReactElement, useState } from "react";
 import { FieldModalContentProps } from "@shared/config-modal";
 import { useHotStyle } from "@shared/hot-style";
 
-import { HotspotImage, HotspotPoint, MAX_POINTS, emptyPoint } from "../points-model";
-import { ImageField } from "./image-field";
+import { HotspotPoint, MAX_POINTS, emptyPoint } from "../points-model";
+import { EditorImageField, useEditorImage } from "./editor-image";
 import { PlacementCanvas } from "./placement-canvas";
 import { PointForm } from "./point-form";
-import {
-  imageSource,
-  readImageAlt,
-  readImageAttribute,
-  writeImageAlt,
-  writeImageAttribute,
-} from "./use-image-attribute";
 import pointEditorCss from "../styles/point-editor.scss";
 
 // Kein eigenes Feld: `interface ... extends ... {}` wäre nach der hiesigen
@@ -54,35 +44,10 @@ export type PointEditorProps = FieldModalContentProps<HotspotPoint[]>;
 export function PointEditor({ value, onChange, onSave, onClose }: PointEditorProps): ReactElement {
   const css = useHotStyle(pointEditorCss, "hotspot-image-widget", "styles/point-editor.scss");
 
-  // Beim Öffnen einmal gelesen: im Content Designer wählt das Formular das
-  // Bild, und der Editor wird danach über „Punkte bearbeiten …“ neu geöffnet.
-  const [source] = useState(() => imageSource() ?? "field");
-  const [image, setImage] = useState<HotspotImage | null>(() => readImageAttribute());
-  const [alt, setAlt] = useState<string>(() => readImageAlt() || image?.alt || "");
+  const editorImage = useEditorImage();
+  const { image } = editorImage;
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [full, setFull] = useState(false);
-  const [imageFailed, setImageFailed] = useState(false);
-
-  const changeImage = (next: HotspotImage | null): void => {
-    // Das Bild gehört einem eigenen Feld, nicht dem Entwurf dieses Fensters.
-    // Findet sich das Feld nicht, ist das Bild nirgends gespeichert -- es hier
-    // trotzdem anzuzeigen, lüde dazu ein, Punkte auf einer Fläche zu setzen,
-    // die nach dem Übernehmen leer wäre.
-    if (!writeImageAttribute(next)) {
-      setImageFailed(true);
-      return;
-    }
-    setImageFailed(false);
-    setImage(next);
-  };
-
-  const changeAlt = (next: string): void => {
-    writeImageAlt(next);
-    // Im klassischen Editor steht der Text auch im Bild-JSON. Mitgeführt,
-    // damit ältere Leser dort nicht einen veralteten finden.
-    if (source === "field" && image !== null) changeImage({ ...image, alt: next });
-    setAlt(next);
-  };
 
   const selectedIndex = value.findIndex((point) => point.id === selectedId);
   const selected = selectedIndex === -1 ? null : value[selectedIndex];
@@ -135,19 +100,7 @@ export function PointEditor({ value, onChange, onSave, onClose }: PointEditorPro
       <style>{css}</style>
       <div className="man-hie__layout">
         <div className="man-hie__left">
-          <ImageField
-            image={image}
-            alt={alt}
-            source={source}
-            onChange={changeImage}
-            onAltChange={changeAlt}
-          />
-          {imageFailed && (
-            <p className="man-hie__hint" data-testid="point-editor-image-failed" role="alert">
-              Das Bild liess sich nicht speichern. Schliesse das Fenster und
-              trage es unten im Formular ein.
-            </p>
-          )}
+          <EditorImageField editorImage={editorImage} />
           {image === null ? (
             <p className="man-hie__hint" data-testid="point-editor-needs-image">
               Ohne Bild gibt es keine Fläche, auf der Punkte liegen könnten.
