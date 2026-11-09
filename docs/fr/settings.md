@@ -1,32 +1,31 @@
 # Paramètres
 
-La boîte de dialogue de configuration du widget comporte neuf attributs ; ceux qui
-sont affichés dépendent du **mode**. En mode « Menu », « Image » correspond à l’image du
-niveau de départ ; les images des niveaux inférieurs sont sélectionnées dans la fenêtre « Placer les éléments de menu
-… ». « Image » et
-« Options » sont gérés dans la fenêtre qui s’affiche automatiquement à l’ouverture des paramètres
-; les champs de texte situés derrière correspondent à la version brute technique et
-ne doivent pas être modifiés manuellement. Dans le Content Designer, « Image »
-affiche en revanche le téléchargement d’image du Designer — l’image y est sélectionnée directement dans le
-formulaire.
+Dans la boîte de dialogue de configuration du widget, il n'y a qu'un seul bouton : **Modifier l'image avec des points
+…**. Il ouvre la fenêtre dans laquelle tout est géré : mode,
+image, affichage, paramètres du menu et points. Cette fenêtre s’ouvre
+automatiquement lorsque vous accédez aux paramètres. Le bouton **Appliquer** enregistre l’ensemble des
+paramètres dans un seul champ.
 
-| Attribut | Libellé dans la boîte de dialogue | Description |
-| --- | --- | --- |
-| `image` | Image | L’image sur laquelle se trouvent les points. Dans l’éditeur classique, via **Sélectionner une image…** dans la fenêtre à partir de la médiathèque ; dans le Content Designer, sélectionnée directement dans le formulaire. |
-| `image-alt` | Texte alternatif | Décrit l’image pour les lecteurs d’écran ; laisser vide si elle est uniquement décorative. Peut également être modifié dans la fenêtre sous « Texte alternatif ». |
-| `source` | Mode | `Manuel` (par défaut) ou `Menu`. Masque les champs de l’autre mode ; leur contenu reste enregistré. |
-| `points` | Points | « Manuel » uniquement. Liste des points avec leur position, leur titre, leur description et leur lien. À gérer dans la même fenêtre. |
-| `display-mode` | Affichage | Uniquement « Manuel ». Détermine la manière dont les points apparaissent sur la page publiée. La valeur par défaut est `Numéroté, avec liste à côté de l’image`. |
-| `menu-id` | Point de départ dans le menu | « Menu » uniquement. L'élément de menu dont les sous-éléments seront placés sur l'image. Sélection dans le menu ou, via « Saisir un autre ID de menu… », l'adresse d'une page. |
-| `menu-depth` | Niveaux | « Menu » uniquement. Nombre de niveaux affichés, point de départ compris. La valeur par défaut est 3. |
-| `menu-click` | Clic sur un élément comportant des sous-éléments | Uniquement « Menu ». `Accéder au sous-menu` (par défaut) ou `Ouvrir la page`. |
-| `menu-points` | Éléments de menu sur l’image | « Menu » uniquement. Pour chaque niveau de menu, l’image et la position des éléments. À définir dans la fenêtre « Placer les éléments de menu… ». |
+| Paramètre dans la fenêtre | Description |
+| --- | --- |
+| Mode | `Manuel` (par défaut) ou `Menu`. Les points de l’autre mode restent enregistrés. |
+| Image | L’image sur laquelle se trouvent les éléments, issue de la médiathèque — en mode « Menu », l’image du niveau de départ. Ajoutez également le **texte alternatif** pour les lecteurs d’écran ; laissez ce champ vide si l’image est purement décorative. |
+| Affichage | Uniquement « Manuel ». La valeur par défaut est `Numéroté, avec une liste à côté de l’image`. |
+| Point de départ dans le menu | Uniquement « Menu ». L’élément de menu dont les sous-éléments seront placés. Sélection dans la liste ou, via « Saisir un autre ID de menu… », l’adresse d’une page. |
+| Niveaux | Uniquement « Menu ». Nombre de niveaux affichés, point de départ compris. La valeur par défaut est 3. |
+| Clic sur un élément comportant des sous-éléments | Uniquement « Menu ». `Accéder au sous-menu` (par défaut) ou `Ouvrir la page`. |
+| Niveau | « Menu » uniquement. Le niveau de menu en cours d’édition ; chacun possède sa propre image et ses propres éléments. |
+
+Techniquement, tout se trouve dans l’attribut `config`. Les widgets des versions antérieures
+conservent encore leurs paramètres dans des attributs individuels (`image`,
+`image-alt`, `points`, `display-mode` …). Tant que `config` est vide, ce sont
+ces paramètres qui s’appliquent ; lors du premier **clic sur « Appliquer »** dans la fenêtre, ils sont transférés vers `config`.
 
 ## Valeurs de « Affichage »
 
 | Valeur | Libellé dans la boîte de dialogue |
 | --- | --- |
-| `numbered` | Numéroté, avec une liste à côté de l'image |
+| `numbered` | Numéroté, avec une liste à côté de l’image |
 | `dots` | Points, sans liste |
 
 ## Valeurs de « Niveaux »
@@ -37,7 +36,7 @@ formulaire.
 | `3` | ainsi que leurs sous-éléments (par défaut) |
 | `4` à `6` | niveaux inférieurs correspondants |
 
-## Valeurs de « Clic sur un point comportant des sous-éléments »
+## Valeurs de « Clic sur un élément comportant des sous-éléments »
 
 | Valeur | Libellé dans la boîte de dialogue | Effet |
 | --- | --- | --- |
@@ -71,13 +70,14 @@ page propre accèdent au sous-menu dans les deux cas.
   élément de menu n’en comporte qu’un seul ; un clic supplémentaire sur l’image le déplace
   .
 - Un niveau de menu **sans image propre** affiche l’image du niveau supérieur.
-  On ne peut y placer des éléments que s’il dispose de sa propre image.
+  On ne peut y placer des éléments que s’il dispose d’une image propre.
 
 ## Dépendances
 
-La fenêtre « Placer les éléments de menu… » lit le point de départ et les niveaux à son
-ouverture. Après une modification, fermez la fenêtre puis rouvrez-la.
+Si vous effectuez des modifications dans la fenêtre « Point de départ » ou « Niveaux », le menu se recharge immédiatement.
+Les points qui ne sont plus attribués à aucune entrée apparaissent alors sous
+« Plus dans le menu ».
 
 Le libellé du bouton n’a d’effet que si une destination
-est attribuée à l’élément. Sans destination, il n’y a pas de bouton et le libellé reste
+est attribuée au point. Sans destination, il n’y a pas de bouton et le libellé reste
 sans effet.

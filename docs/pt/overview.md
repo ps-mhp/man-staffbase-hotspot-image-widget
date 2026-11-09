@@ -7,7 +7,7 @@ opcionalmente uma descrição e, se desejado, um link para uma página.
 
 Todos os pontos são geridos na mesma janela, que aparece automaticamente ao abrir as
 configurações: selecione a imagem, clique na imagem para marcar um
-ponto, introduza o título e os restantes dados.
+ponto, insira o título e os restantes dados.
 
 ## Dois modos
 
@@ -43,7 +43,7 @@ Em **Apresentação**, pode escolher uma de duas variantes:
   nem uma moldura vazia, nem uma imagem de preenchimento.
 - No modo de apresentação «Pontos», a janela com o texto abre-se junto ao próprio ponto;
   em ecrãs estreitos (com menos de 768 píxeis de largura), aparece,
-  em vez disso, no centro do ecrã, com um fundo escurecido por trás.
+  em vez disso, no centro do ecrã, com um fundo escurecido.
 - No modo de apresentação «Numerado», o ponto correspondente na imagem
   é destacado assim que o cursor do rato passa por cima de uma entrada da lista ou quando uma
   entrada é expandida: fica maior, enquanto os restantes pontos ficam em segundo plano.

@@ -3,26 +3,27 @@
 ## Konfiguracja podstawowa
 
 1. Umieść widżet **Obraz z kropkami** na stronie.
-2. Otwórz ustawienia widżetu. Okno edycji
-   punktów otworzy się automatycznie.
-3. Kliknij po lewej stronie **Wybierz obraz…** i wybierz obraz z
+2. Otwórz ustawienia widżetu. Okno **Obraz z
+   kropkami** otworzy się automatycznie; w przeciwnym razie kliknij **Edytuj obraz z kropkami
+   edytuj …**. U góry **tryb** jest ustawiony na „Ręcznie”.
+3. Kliknij po lewej stronie **Wybierz obraz …** i wybierz obraz z
    biblioteki multimediów. Bez obrazu nie można ustawić punktu.
-4. Wpisz poniżej **tekst alternatywny**, który opisuje, co jest widoczne na
+4. Wpisz poniżej **tekst alternatywny** opisujący to, co jest widoczne na
    zdjęciu.
-5. Kliknij w wybrane miejsce na zdjęciu. W tym miejscu pojawi się nowy
+5. Kliknij w wybrane miejsce na zdjęciu. Pojawi się tam nowy
    punkt, a po prawej stronie wyświetli się jego formularz.
-6. Wprowadź **tytuł**. Bez tytułu nie można zamknąć okna za pomocą
+6. Wpisz **tytuł**. Bez tytułu nie można zamknąć okna za pomocą
    przycisku **Zastosuj** — odpowiednia informacja pojawia się zarówno przy
    polu, jak i na dole okna.
 7. Opcjonalnie wprowadź **opis**.
-8. Opcjonalnie: pod polem „Opis” za pomocą opcji **Dodaj link**
-   dodaj adres docelowy — zobacz sekcję „Dodawanie linku” poniżej
+8. Opcjonalnie: dodaj cel pod polem „Opis” za pomocą opcji **Dodaj link
+   **Dodaj link** — patrz sekcja „Ustawianie linku” poniżej
   .
 9. Powtórz kroki od 5 do 8 dla każdego kolejnego punktu. Obraz
    może zawierać maksymalnie 20 punktów.
-10. Kliknij **Zastosuj**.
-11. W sekcji **Wygląd** wybierz opcję „Numerowane, z listą obok
-    zdjęcia” lub „Punkty, bez listy”.
+10. W górnej części, w sekcji **Wygląd**, wybierz opcję „Numerowane, z listą
+    obok obrazu” lub „Punkty, bez listy”.
+11. Kliknij **Zastosuj**.
 12. Zapisz stronę i sprawdź wynik w podglądzie.
 
 ## Dodawanie linku
@@ -38,8 +39,8 @@
    adresu do listy.
 5. Opcjonalnie można wprowadzić własną **nazwę przycisku**. Jeśli
    pole pozostanie puste, przycisk wyświetli komunikat „Otwórz stronę”.
-6. Za pomocą opcji **Usuń link** link zniknie; tytuł i
-   opis pozycji pozostaną niezmienione.
+6. Za pomocą opcji **Usuń link** link znika; tytuł i
+   opis pozycji pozostają bez zmian.
 
 ## Przenoszenie, sortowanie i usuwanie pozycji
 
@@ -48,7 +49,7 @@
    liście po prawej stronie i kliknij **W górę** lub **W dół**.
 3. Aby usunąć pozycję, zaznacz ją i kliknij w jej
    formularzu **Usuń pozycję**.
-4. Każda zmiana powinna zostać zatwierdzona przyciskiem **Zastosuj**; przycisk **Anuluj**
+4. Każda zmianę należy zatwierdzić przyciskiem **Zastosuj**; przycisk **Anuluj**
    powoduje odrzucenie wszystkich zmian wprowadzonych od ostatniego otwarcia okna.
 
 ## Późniejsze zmiany
@@ -58,58 +59,41 @@
 2. Wybierz z listy po lewej stronie punkt, który chcesz zmienić, i edytuj
    jego formularz po prawej stronie.
 3. Aby wymienić obraz, kliknij **Wybierz inny obraz…**.
-   Elementy pozostaną zachowane; sprawdź następnie, czy ich położenie na
-   nowym obrazku jest nadal prawidłowe.
+   Punkty pozostaną zachowane; następnie sprawdź, czy ich położenie na
+   nowym obrazku jest nadal odpowiednie.
 4. **Zastosuj**, zapisz, sprawdź w podglądzie.
 
 ## W Content Designerze
 
-Content Designer (nowy edytor stron) wyświetla dla „Obrazu” własną
-formularz do przesyłania obrazów. Obraz wybiera się zatem tam, a nie w
-oknie punktów:
+W Content Designerze wszystko działa dokładnie tak samo: obrazek wybiera się w oknie z
+biblioteki multimediów, a nie w formularzu.
 
-1. Otwórz ustawienia widżetu. Jeśli nie wybrano jeszcze obrazu,
-   okno punktów pozostaje zamknięte, a w jego miejscu pojawia się przycisk
-   **Edytuj punkty…**.
-2. Wybierz lub prześlij zdjęcie w sekcji **Zdjęcie**.
-3. W sekcji **Tekst alternatywny** wpisz, co widać na zdjęciu.
-4. Kliknij **Edytuj punkty …** i umieść punkty zgodnie z
-   opisem w przypadku podstawowym, począwszy od kroku 5.
-5. Aby wymienić obraz, zamknij okno punktów, zastąp
-   obraz w formularzu w sekcji **Obraz** i ponownie otwórz okno.
+## Tryb „Menu”: rozmieszczanie pozycji menu
 
-## Tryb „Menu”: Umieszczanie pozycji menu
-
-1. W ustawieniach w sekcji **Tryb** wybierz opcję „Menu:
-   Umieszczanie pozycji menu na obrazku”. Pola trybu ręcznego
-   znikną, a pojawią się pola trybu menu.
-2. W sekcji **Obraz** wybierz obraz warstwy startowej.
-3. W sekcji **Punkt startowy w menu** wybierz pozycję menu, której
-   podpozycje mają znajdować się na obrazie. Jeśli nie ma go na liście,
-   wybierz **Wprowadź inny identyfikator menu …** i wstaw adres strony
-  .
-4. W sekcji **Poziomy** określ, jak głęboko ma sięgać menu. Domyślnie
-   ustawione są 3 poziomy: punkt startowy, jego podpunkty oraz ich podpunkty.
-5. W sekcji **Kliknięcie punktu z podpunktami** wybierz, czy kliknięcie
-   spowoduje przejście do podmenu (ustawienie domyślne), czy też otworzy stronę.
-6. Kliknij **Umieść pozycje menu…**. U góry widoczny jest poziom, po lewej
-   jego obraz, a po prawej jego podpozycje.
-7. Wybierz po prawej stronie podpozycję i kliknij w wybrane
-   miejsce na obrazie. W tym miejscu pojawi się jej pozycja; na liście wpis
+1. Otwórz okno **Obraz z punktami** i ustaw u góry
+   **tryb** na „Menu”.
+2. W sekcji **Punkt początkowy w menu** wybierz pozycję menu, której
+   podpunkty mają znajdować się na obrazku. Jeśli nie ma jej na liście,
+   wybierz opcję **Wprowadź inne ID menu…** i wstaw adres strony
+  . Menu załaduje się natychmiast.
+3. W sekcji **Poziomy** określ, jak głęboko ma sięgać menu (domyślnie
+   3), a w sekcji **Kliknięcie punktu z podpunktami** – czy kliknięcie spowoduje przejście do
+   podmenu (ustawienie domyślne), czy też otworzy stronę.
+4. W polu **Poziom** podany jest poziom startowy. Po lewej stronie za pomocą opcji **Wybierz
+   obraz…** wybierz obraz z biblioteki multimediów.
+5. Po prawej stronie wybierz podpunkt i kliknij w wybrane
+   miejsce na obrazie. W tym miejscu pojawi się punkt; w liście wpis
    zostanie oznaczony jako „na obrazku”. Powtórz tę czynność dla każdego
    kolejnego podpunktu.
-8. Aby przesunąć punkt, przeciągnij go lub zaznacz pozycję
+6. Aby przesunąć punkt, przeciągnij go lub zaznacz wpis
    i kliknij w nowe miejsce. Opcja **Usuń punkt** powoduje jego usunięcie
-   z obrazka.
-9. Aby przejść na niższą warstwę, kliknij **›** po prawej stronie podpunktu
-   lub wybierz warstwę u góry. Za pomocą opcji **Wybierz obraz…** wybierz
-   obraz z biblioteki multimediów i umieść punkty tak jak w kroku 7. Bez
-   własnego obrazu warstwa ta wyświetli później obraz z warstwy znajdującej się powyżej.
-10. Kliknij **Zastosuj**, zapisz stronę i sprawdź
-    wynik w podglądzie.
-
-Jeśli zmieniłeś punkt początkowy lub poziomy, zamknij okno i
-otwórz je ponownie — podczas otwierania odczyta obie zmiany.
+   z obrazu.
+7. Aby przejść na niższą warstwę, kliknij **›** po prawej stronie podpunktu
+   lub wybierz warstwę u góry. Wybierz jej obraz i umieść
+   punkty tak jak w kroku 5. Bez własnego obrazu warstwa ta wyświetli później obraz
+   warstwy znajdującej się nad nią.
+8. Kliknij **Zastosuj**, zapisz stronę i sprawdź
+   wynik w podglądzie.
 
 ## Jeśli coś nie działa
 
@@ -119,22 +103,20 @@ otwórz je ponownie — podczas otwierania odczyta obie zmiany.
    tytułu. W dolnej części okna podana jest liczba punktów, których to dotyczy —
    wpisz tam odpowiednie tytuły.
 3. **Strona, do której prowadzi link, nie pojawia się w oknie, lecz otwiera się w
-   nowej karcie.** Celem jest adres wpisany ręcznie, a nie strona z
+   nowej karcie.** Adres docelowy to adres wprowadzony samodzielnie, a nie strona z
    listy. Tak ma być: stron zewnętrznych często nie da się osadzić w
-   oknie. Zamiast tego wybierz stronę z listy,
+   jednym oknie. Zamiast tego wybierz stronę z listy,
    jeśli ma się ona pojawić w oknie.
-4. **Na liście stron nie ma żadnej strony, tylko pole na
-   adres.** Lista stron systemu była niedostępna w momencie otwarcia.
-   Wpisz adres ręcznie lub otwórz
+4. **Na liście stron nie ma żadnej strony, a jedynie pole na
+   adres.** Lista stron systemu była niedostępna w momencie
+   otwarcia. Wpisz adres ręcznie lub otwórz
    okno ponownie.
-5. **W trybie „Menu” w oknie pojawia się komunikat, aby najpierw wybrać punkt początkowy
-  .** W polu **Punkt początkowy w menu** nie jest jeszcze nic zaznaczone. Wybierz
-  pozycję menu, zamknij okno i otwórz je ponownie.
-6. **W oknie znajdują się pozycje w sekcji „Nie ma już w menu”.** Odpowiednia
+5. **W trybie „Menu” w oknie pojawia się wskazówka, aby najpierw wybrać punkt początkowy
+  .** W polu **Punkt początkowy w menu** nie jest jeszcze nic zaznaczone.
+6. **W oknie pod pozycją „Nie ma już w menu” widnieją pozycje.** Odpowiednia
    pozycja menu została usunięta, ukryta, przeniesiona w menu lub znajduje się
    niżej niż ustawiono w sekcji **Poziomy**. Pozycje te nie pojawiają się na stronie.
    Należy je stamtąd usunąć lub zwiększyć liczbę poziomów.
-7. **W trybie „Menu” ustawienia znikają po zapisaniu
-  .** Widżet jest nadal zarejestrowany w instancji bez pól trybu menu
-  . Rejestrację należy zaktualizować (zadanie dla
-  administracji).
+7. **Ustawienia znikają po zapisaniu strony.**
+   Widżet jest nadal zarejestrowany w instancji bez pola `config`.
+   Rejestracja musi zostać zaktualizowana (zadanie administratora).

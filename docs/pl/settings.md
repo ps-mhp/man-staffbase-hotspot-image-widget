@@ -1,32 +1,31 @@
 # Ustawienia
 
-Okno dialogowe konfiguracji widżetu zawiera dziewięć atrybutów; to, które z nich są
-widoczne, zależy od **trybu**. W trybie „Menu” „Obraz” to obraz
-poziomu startowego; obrazy niższych poziomów są umieszczane w oknie „Pozycje menu
-…”. „Obraz” i
-„Pozycje” są edytowane w oknie, które pojawia się automatycznie po otwarciu ustawień;
-pola tekstowe znajdujące się za nimi zawierają surową wersję techniczną i
-nie należy ich edytować ręcznie. W Content Designerze „Obraz”
-załadowany obraz z programu Content Designer — tam obraz wybiera się bezpośrednio w
-formularzu.
+W oknie dialogowym konfiguracji widżetu znajduje się tylko jeden przycisk: **Edytuj obraz z punktami
+…**. Otwiera on okno, w którym można zarządzać wszystkimi ustawieniami — trybem,
+obrazem, wyglądem, ustawieniami menu i punktami. Okno to otwiera się
+automatycznie po uruchomieniu ustawień. Przycisk **Zastosuj** zapisuje wszystkie
+zmiany w jednym polu.
 
-| Atrybut | Etykieta w oknie dialogowym | Opis |
-| --- | --- | --- |
-| `image` | Obraz | Obraz, na którym znajdują się punkty. W klasycznym edytorze wybiera się je za pomocą opcji **Wybierz obraz…** w oknie z biblioteki multimediów, w Content Designerze wybiera się je bezpośrednio w formularzu. |
-| `image-alt` | Tekst alternatywny | Opisuje obraz dla czytników ekranu; pozostaw puste, jeśli obraz pełni wyłącznie funkcję dekoracyjną. Można go również edytować w oknie w sekcji „Tekst alternatywny”. |
-| `source` | Tryb | `Ręcznie` (domyślnie) lub `Menu`. Ukrywa pola drugiego trybu; ich zawartość pozostaje zapisana. |
-| `points` | Punkty | Tylko „Ręcznie”. Lista punktów wraz z pozycją, tytułem, opisem i linkiem. Edytowana w tym samym oknie. |
-| `display-mode` | Wyświetlanie | Tylko „Ręcznie”. Określa sposób wyświetlania punktów na opublikowanej stronie. Domyślnym ustawieniem jest `Numerowane, z listą obok obrazu`. |
-| `menu-id` | Punkt początkowy w menu | Tylko „Menu”. Pozycja menu, której podpunkty zostaną umieszczone na obrazku. Wybór z menu lub poprzez „Wprowadź inny identyfikator menu…” – adres strony. |
-| `menu-depth` | Poziomy | Tylko „Menu”. Liczba wyświetlanych poziomów, wliczając punkt początkowy. Domyślnie ustawiono 3. |
-| `menu-click` | Kliknięcie punktu z podpunktami | Tylko „Menu”. `Przejdź do podmenu` (ustawienie domyślne) lub `Otwórz stronę`. |
-| `menu-points` | Pozycje menu na obrazku | Tylko „Menu”. Obrazek i położenie pozycji dla każdego poziomu menu. Konfigurowane w oknie „Rozmieszczanie pozycji menu…”. |
+| Ustawienie w oknie | Opis |
+| --- | --- |
+| Tryb | `Ręczny` (ustawienie domyślne) lub `Menu`. Punkty z drugiego trybu pozostają zapisane. |
+| Obraz | Obraz z biblioteki multimediów, na którym znajdują się pozycje — w trybie „Menu” jest to obraz poziomu startowego. Dodatkowo **tekst alternatywny** dla czytników ekranu; pozostaw puste, jeśli obraz pełni wyłącznie funkcję dekoracyjną. |
+| Wyświetlanie | Tylko „Ręcznie”. Domyślnym ustawieniem jest `Numerowane, z listą obok obrazu`. |
+| Punkt początkowy w menu | Tylko „Menu”. Pozycja menu, której podpunkty mają zostać umieszczone. Wybór z listy lub poprzez „Wprowadź inny identyfikator menu…” adres strony. |
+| Poziomy | Tylko „Menu”. Liczba wyświetlanych poziomów, wliczając punkt początkowy. Domyślnie 3. |
+| Kliknięcie punktu z podpunktami | Tylko „Menu”. `Przejdź do podmenu` (ustawienie domyślne) lub `Otwórz stronę`. |
+| Poziom | Tylko „Menu”. Który poziom menu jest aktualnie edytowany; każdy ma własny obraz i własne pozycje. |
 
-## Wartości opcji „Wygląd”
+Technicznie wszystko znajduje się w atrybucie `config`. Widżety z wcześniejszych wersji
+nadal przechowują swoje ustawienia w poszczególnych atrybutach (`image`,
+`image-alt`, `points`, `display-mode` …). Dopóki `config` jest puste, obowiązują
+te ustawienia; przy pierwszym **zastosowaniu** w oknie są one przenoszone do `config`.
+
+## Wartości „Wyświetlania”
 
 | Wartość | Etykieta w oknie dialogowym |
 | --- | --- |
-| `numbered` | Numerowane, z listą obok obrazka |
+| `numbered` | Numerowane, z listą obok obrazu |
 | `dots` | Kropki, bez listy |
 
 ## Wartości opcji „Poziomy”
@@ -35,13 +34,13 @@ formularzu.
 | --- | --- |
 | `2` | Punkt początkowy i jego podpunkty |
 | `3` | oraz ich podpunkty (ustawienie domyślne) |
-| `4` do `6` | odpowiednio niżej |
+| `4` do `6` | odpowiednio głębiej |
 
 ## Wartości opcji „Kliknięcie punktu z podpunktami”
 
 | Wartość | Etykieta w oknie dialogowym | Efekt |
 | --- | --- | --- |
-| `enter` | Przejdź do podmenu | Widżet przechodzi do podmenu: menu wyświetla jego podpunkty, a obraz zmienia się na obraz z tego poziomu. |
+| `enter` | Przejście do podmenu | Widżet przechodzi do podmenu: menu wyświetla jego podpunkty, a obraz zmienia się na obraz z tego poziomu. |
 | `open` | Otwórz stronę | Pozycja jest linkiem do strony danej pozycji menu; strony spoza aplikacji otwierają się w nowej karcie. |
 
 Pozycje bez podpunktów otwierają w obu przypadkach swoją stronę. Foldery bez
@@ -75,8 +74,9 @@ własnej strony przechodzą w obu przypadkach do podmenu.
 
 ## Zależności
 
-Punkt początkowy i poziomy są odczytywane przez okno „Umieść punkty menu…” przy
-otwarciu. Po wprowadzeniu zmian należy zamknąć okno i otworzyć je ponownie.
+W przypadku zmiany w oknie „Punkt początkowy” lub „Poziomy” menu natychmiast się odświeża.
+Punkty, które po tej zmianie nie są już przypisane do żadnej pozycji, znajdują się w sekcji
+„Nie ma już w menu”.
 
 Etykieta przycisku działa tylko wtedy, gdy punktowi przypisano jakikolwiek cel.
 Bez celu nie ma przycisku, a etykieta pozostaje

@@ -21,9 +21,9 @@ abre una nueva pestaña?
 Respuesta: Depende del origen del destino. Una **página de la
 lista** del sistema aparece en una ventana sobre la página actual. En cambio, una
 **dirección introducida manualmente**, por el contrario, siempre abre una nueva pestaña. El
-motivo: a menudo, desde el punto de vista técnico, no es posible incrustar páginas externas en una ventana
+motivo: a menudo, las páginas externas no se pueden integrar técnicamente en una ventana
 —una ventana bloqueada simplemente se quedaría en blanco, sin mostrar ningún mensaje de error
-—. Por lo tanto, la nueva pestaña es la opción más fiable para todo lo que se encuentre fuera del
+—. Por eso, la nueva pestaña es la opción más fiable para todo lo que se encuentre fuera del
 sistema.
 
 **Pregunta:** En la lista de páginas no aparece ninguna página, sino un
@@ -83,13 +83,13 @@ encontrarás los puntos del otro modo sin cambios.
 
 **Pregunta:** ¿Puede cada nivel del menú tener su propia imagen?
 
-Respuesta: Sí. En la ventana «Colocar elementos del menú…», seleccione el nivel en la parte superior
-y, a la izquierda, la imagen de la biblioteca multimedia. Un nivel sin imagen propia muestra la
-imagen del nivel superior, junto con sus elementos.
+Respuesta: Sí. En la ventana «Imagen con puntos», en el modo «Menú», seleccione el nivel
+y, a la izquierda, elija su imagen de la biblioteca multimedia. Un nivel sin imagen propia muestra la
+imagen del nivel superior, junto con sus puntos.
 
-**Pregunta:** ¿Por qué no aparece un elemento del menú junto a la imagen, aunque
+**Pregunta:** ¿Por qué no aparece una opción del menú junto a la imagen, aunque
 exista?
 
 Respuesta: O bien está configurado como «No visible» en el menú de la aplicación, o bien
-se encuentra en un nivel inferior al establecido en **Niveles**. En el primer caso,
-también permanecerá oculto aquí; en el segundo, debe aumentar el número de niveles.
+se encuentra en un nivel inferior al establecido en **Niveles**. En el primer caso, permanecerá
+oculto también aquí; en el segundo, aumenta el número de niveles.

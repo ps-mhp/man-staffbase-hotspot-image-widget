@@ -4,9 +4,9 @@
 kliknąć przycisku „Zastosuj”.
 
 Odpowiedź: Co najmniej jeden punkt nie ma jeszcze tytułu. Punkt bez tytułu
-zostałby utracony podczas zatwierdzania — dlatego przycisk pozostaje zablokowany, dopóki każdy
+zostałby utracony podczas zapisywania — dlatego przycisk pozostaje zablokowany, dopóki każdy
 punkt nie otrzyma tytułu. W dolnej części okna podana jest liczba punktów, których to dotyczy,
-a ta sama informacja pojawia się przy samym polu.
+a przy samym polu wyświetla się ta sama informacja.
 
 **Pytanie:** Widżet nie wyświetla nic na stronie.
 
@@ -30,8 +30,8 @@ systemem.
 pole na adres.
 
 Odpowiedź: Lista stron systemu była niedostępna podczas otwierania.
-Informuje o tym tekst ostrzegawczy. W takim przypadku należy ręcznie
-wpisać adres lub zamknąć okno i otworzyć je ponownie.
+Informuje o tym tekst ostrzegawczy. W takim przypadku należy wpisać adres
+ręcznie lub zamknąć okno i otworzyć je ponownie.
 
 **Pytanie:** Umieściłem link do strony, ale po ponownym
 otwarciu pojawia się komunikat, że zapisana strona nie znajduje się na liście
@@ -44,10 +44,10 @@ nie zmienisz lub nie usuniesz — samo otwarcie okna nie powoduje jego usunięci
 **Pytanie:** Co dzieje się z elementami podczas automatycznego tłumaczenia
 strony?
 
-Odpowiedź: Tłumaczone są tytuły, opisy oraz napisy na
-przyciskach poszczególnych punktów. Położenie punktu na obrazku oraz miejsce docelowe
+Odpowiedź: Tłumaczone są tytuł, opis oraz etykieta
+przycisku każdego punktu. Położenie punktu na obrazku oraz miejsce docelowe
 linku pozostają niezmienione — nie są to elementy językowe, a w przypadku miejsca docelowego
-tłumaczenie tylko zepsułoby adres.
+tłumaczenie tylko zniszczyłoby adres.
 
 **Pytanie:** Dlaczego strona, do której prowadzi link, czasami wyświetla się w oknie jako pusta,
 chociaż link wskazuje stronę z listy?
@@ -79,13 +79,13 @@ prowadzić do strony, której nie da się otworzyć.
 **Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznym” a „Menu”?
 
 Odpowiedź: Nie. Oba tryby zapisują punkty oddzielnie. Kto przełączy się z powrotem,
-zastanie punkty z drugiego trybu bez zmian.
+znajdzie punkty z drugiego trybu w niezmienionym stanie.
 
 **Pytanie:** Czy każdy poziom menu może mieć własny obrazek?
 
-Odpowiedź: Tak. W oknie „Umieść pozycje menu…” wybierz u góry poziom,
-a po lewej stronie obraz z biblioteki multimediów. Poziom bez własnego obrazu wyświetla
-obraz poziomu znajdującego się powyżej, wraz z jego pozycjami.
+Odpowiedź: Tak. W oknie „Obraz z punktami” w trybie „Menu” wybierz poziom
+i po lewej stronie wybierz obraz z biblioteki multimediów. Poziom bez własnego obrazu wyświetla
+obraz poziomu znajdującego się powyżej wraz z jego punktami.
 
 **Pytanie:** Dlaczego pozycja menu nie pojawia się w menu obok obrazu, mimo że
 istnieje?

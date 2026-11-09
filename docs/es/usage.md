@@ -3,26 +3,27 @@
 ## Configuración básica
 
 1. Coloca el widget **Imagen con puntos** en la página.
-2. Abre la configuración del widget. La ventana para editar los
-   puntos se abrirá automáticamente.
+2. Abre la configuración del widget. La ventana **Imagen con
+   puntos** se abrirá automáticamente; si no es así, haz clic en **Editar imagen con puntos
+   editar…**. En la parte superior, el **modo** está configurado en «Manual».
 3. Haz clic a la izquierda en **Seleccionar imagen…** y elige una imagen de la
    biblioteca multimedia. Sin imagen no se puede colocar ningún punto.
-4. Introduce debajo un **texto alternativo** que describa lo que
+4. Introduzca debajo un **texto alternativo** que describa lo que
    se ve en la imagen.
-5. Haz clic en el lugar deseado de la imagen. Allí se creará un nuevo
-   punto y aparecerá su formulario a la derecha.
+5. Haga clic en el lugar deseado de la imagen. Allí aparecerá un nuevo
+   punto y, a la derecha, se mostrará su formulario.
 6. Introduzca el **título**. Sin título, no se puede cerrar la ventana con
    **Aceptar**; aparecerá un aviso al respecto tanto en el
    campo como en la parte inferior de la ventana.
-7. Si lo desea, introduzca una **descripción**.
-8. Opcional: debajo del campo «Descripción», añada un destino mediante **Añadir
-   enlace**; consulte la sección «Insertar un enlace» más
+7. Introduzca, si lo desea, una **descripción**.
+8. Opcional: añada un destino debajo del campo «Descripción» mediante **Añadir enlace
+   **Añadir enlace** — véase la sección «Insertar un enlace» más
    abajo.
-9. Repita los pasos del 5 al 8 para cada punto adicional. Una imagen
+9. Repite los pasos del 5 al 8 para cada punto adicional. Una imagen
    puede tener un máximo de 20 puntos.
-10. Haga clic en **Aplicar**.
-11. En **Presentación**, elija entre «Numerado, con lista junto a
-    la imagen» y «Puntos, sin lista».
+10. En la parte superior, en **Presentación**, elija entre «Numerado, con lista
+    junto a la imagen» y «Puntos, sin lista».
+11. Haga clic en **Aplicar**.
 12. Guarde la página y compruebe el resultado en la vista previa.
 
 ## Insertar un enlace
@@ -33,7 +34,7 @@
 3. Si prefiere introducir una dirección propia, haga clic en
    **Introducir dirección propia…** e introduzca la dirección en el campo
    **Dirección**. Dicha dirección se abrirá más tarde en una nueva
-   pestaña, no en la ventana; para ello, aparece allí el texto de aviso.
+   pestaña, no en la ventana; para ello, aparecerá allí el texto de aviso.
 4. Mediante **Seleccionar una página en su lugar**, podrá volver de la dirección
    propia a la lista.
 5. Si lo desea, introduzca un **texto para el botón**. Si
@@ -58,63 +59,46 @@
 2. Seleccione en la lista de la izquierda el punto que desea modificar y edite
    su formulario a la derecha.
 3. Para cambiar la imagen, haga clic en **Seleccionar otra imagen…**.
-   Los elementos se conservan; comprueba después si su posición en la
+   Los puntos se conservan; a continuación, compruebe si su posición en la
    nueva imagen sigue siendo la adecuada.
 4. **Aplicar**, guardar y comprobar en la vista previa.
 
 ## En el Content Designer
 
-El Content Designer (nuevo editor de páginas) muestra su propio
-en el formulario. Por lo tanto, la imagen se selecciona allí, no en la
-ventana de puntos:
+En el Content Designer todo funciona exactamente igual: la imagen se selecciona en la ventana desde
+la biblioteca multimedia, no en el formulario.
 
-1. Abra la configuración del widget. Si aún no se ha seleccionado ninguna imagen,
-   la ventana de puntos permanecerá cerrada y, en su lugar, aparecerá el botón
-   **Editar puntos…**.
-2. Seleccione o suba una imagen en **Imagen**.
-3. Introduzca en **Texto alternativo** lo que se ve en la imagen.
-4. Haga clic en **Editar puntos…** y coloque los puntos tal y como se describe en el
-   caso básico a partir del paso 5.
-5. Para cambiar la imagen, cierre la ventana de puntos, sustituya
-   la imagen en el formulario en **Imagen** y vuelva a abrir la ventana.
+## Modo «Menú»: colocar opciones de menú
 
-## Modo «Menú»: colocar elementos del menú
-
-1. En la configuración, en **Modo**, seleccione la opción «Menú:
-   Colocar elementos del menú en la imagen». Los campos del modo manual
-   desaparecen y aparecen los del modo menú.
-2. En **Imagen**, seleccione la imagen del nivel de inicio.
-3. En **Punto de inicio en el menú**, seleccione la opción del menú cuyos
+1. Abra la ventana **Imagen con puntos** y, en la parte superior, configure el
+   **modo** en «Menú».
+2. En **Punto de inicio en el menú**, seleccione la opción de menú cuyos
    subelementos deban aparecer en la imagen. Si no aparece en la lista,
    seleccione **Introducir otro ID de menú…** e introduzca la dirección de la página
-  .
-4. En **Niveles**, especifique hasta qué nivel se extiende el menú. El valor predeterminado
-   es 3: el punto de inicio, sus subopciones y las subopciones de estas.
-5. En **Clic en un punto con subopciones**, seleccione si al hacer clic
-   se accede al submenú (opción predeterminada) o se abre la página.
-6. Haga clic en **Colocar elementos del menú…**. Arriba aparece el nivel, a la izquierda
-   su imagen y a la derecha sus subelementos.
-7. Seleccione un subelemento a la derecha y haga clic en el lugar deseado
-   de la imagen. Allí se creará su elemento; a continuación, la entrada
+  . El menú se carga al instante.
+3. En **Niveles**, especifique hasta qué nivel se extiende el menú (por defecto
+   3) y, en **Al hacer clic en un punto con subopciones**, si al hacer clic se
+   accede al submenú (por defecto) o se abre la página.
+4. En **Nivel** aparece el nivel inicial. A la izquierda, con **Seleccionar
+   imagen…**, elija su imagen de la biblioteca multimedia.
+5. Seleccione un subelemento a la derecha y haga clic en el lugar deseado
+   de la imagen. Allí aparecerá su elemento; a continuación, la entrada de la lista
    aparecerá marcada con «en la imagen». Repita el proceso para cada
-   submenú adicional.
-8. Para desplazar un punto, arrástrelo o seleccione la entrada
+   subpunto adicional.
+6. Para desplazar un punto, arrástrelo o seleccione la entrada
    y haga clic en la nueva ubicación. **Eliminar punto** lo retira
    de la imagen.
-9. Para crear un nivel inferior, haga clic en **›** a la derecha de la subopción
-   o seleccione el nivel en la parte superior. Con **Seleccionar imagen…**, elija una
-   imagen de la biblioteca y coloque los puntos como en el paso 7. Si no
-   se añade una imagen propia, el nivel mostrará posteriormente la imagen del nivel superior.
-10. Haga clic en **Aplicar**, guarde la página y compruebe
-    el resultado en la vista previa.
-
-Si ha modificado el punto de inicio o los niveles, cierre la ventana y
-vuelva a abrirla; al abrirse, se cargarán ambos cambios.
+7. Para crear un nivel inferior, haz clic en **›** a la derecha del subelemento
+   o selecciona el nivel en la parte superior. Selecciona tu imagen y coloca los
+   puntos como en el paso 5. Si no tiene imagen propia, el nivel mostrará posteriormente la imagen
+   del nivel superior.
+8. Haga clic en **Aplicar**, guarde la página y compruebe
+   el resultado en la vista previa.
 
 ## Si algo no funciona
 
 1. **El widget no muestra nada.** O bien falta la imagen, o bien aún
-   no se ha establecido ningún punto. Abre la configuración y comprueba ambas cosas.
+   no se ha colocado ningún punto. Abra la configuración y compruebe ambas cosas.
 2. **No se puede hacer clic en «Aplicar».** Al menos un punto aún
    no tiene título. En la parte inferior de la ventana se indica cuántos puntos se ven afectados;
    introduzca un título en cada uno de ellos.
@@ -128,13 +112,11 @@ vuelva a abrirla; al abrirse, se cargarán ambos cambios.
    disponible al abrirla. Introduzca la dirección manualmente o vuelva a abrir la
    ventana.
 5. **En el modo «Menú», la ventana muestra un aviso para que seleccione primero un punto de partida
-  .** En **Punto de partida en el menú** aún no hay nada seleccionado. Seleccione
-  una opción del menú, cierre la ventana y vuelva a abrirla.
+  .** En **Punto de partida en el menú** aún no hay nada seleccionado.
 6. **En la ventana aparecen elementos bajo «Ya no está en el menú».** La opción de menú correspondiente
    se ha eliminado, ocultado, movido dentro del menú o se encuentra
    más abajo de lo establecido en **Niveles**. Estos elementos no aparecen en la página.
    Elimínelos de allí o aumente el número de niveles.
-7. **En el modo «Menú», la configuración desaparece tras guardar
-   los cambios.** El widget sigue registrado en la instancia sin los campos del modo «Menú»
-  . Es necesario actualizar el registro (tarea de la
-   administración).
+7. **Los ajustes desaparecen tras guardar la página.** El
+   widget sigue registrado en la instancia sin el campo `config`. El
+   registro debe actualizarse (tarea de la administración).

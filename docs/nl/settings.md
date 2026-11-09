@@ -1,40 +1,39 @@
 # Instellingen
 
-Het configuratievenster van de widget bevat negen attributen; welke daarvan
-worden weergegeven, hangt af van de **modus**. In de modus „Menu“ is „Afbeelding“ de afbeelding van het
-startniveau; de afbeeldingen van lagere niveaus worden in het venster „Menu-items
-plaatsen …” geselecteerd. „Afbeelding” en
-„Items” worden bewerkt in het venster dat automatisch verschijnt bij het openen van de instellingen;
-de tekstvelden erachter zijn de technische ruwe versie en
-mogen niet handmatig worden bewerkt. In de Content Designer verwijst „Afbeelding”
-daarentegen de afbeeldingsupload van de Designer weer — daar wordt de afbeelding direct in het
-formulier geselecteerd.
+In het configuratievenster van de widget staat slechts één knop: **Afbeelding met punten
+bewerken …**. Deze opent het venster waarin alles wordt ingesteld — modus,
+afbeelding, weergave, menu-instellingen en punten. Het venster wordt
+ook automatisch geopend wanneer je de instellingen opent. Met **Toepassen** wordt alles
+samen in één veld opgeslagen.
 
-| Attribuut | Label in het dialoogvenster | Beschrijving |
-| --- | --- | --- |
-| `image` | Afbeelding | De afbeelding waarop de punten liggen. In de klassieke editor via **Afbeelding selecteren …** in het venster vanuit de mediabibliotheek, in de Content Designer direct in het formulier geselecteerd. |
-| `image-alt` | Alternatieve tekst | Beschrijft de afbeelding voor schermlezers; laat leeg als deze alleen decoratief is. Ook bewerkbaar in het venster onder „Alternatieve tekst“. |
-| `source` | Modus | `Handmatig` (standaard) of `Menu`. Verbergt de velden van de andere modus; de inhoud daarvan blijft opgeslagen. |
-| `points` | Punten | Alleen „Handmatig“. De lijst met punten met positie, titel, beschrijving en link. Wordt in hetzelfde venster bijgewerkt. |
-| `display-mode` | Weergave | Alleen „Handmatig“. Bepaalt hoe de punten op de gepubliceerde pagina worden weergegeven. De standaardinstelling is `Genummerd, met lijst naast de afbeelding`. |
-| `menu-id` | Startpunt in het menu | Alleen „Menu“. Het menu-item waarvan de subitems op de afbeelding worden geplaatst. Keuze uit het menu of via „Andere menu-ID invoeren …“ het adres van een pagina. |
-| `menu-depth` | Niveaus | Alleen „Menu“. Hoeveel niveaus er worden weergegeven, inclusief het startpunt. Standaard is dit 3. |
-| `menu-click` | Klik op een punt met subpunten | Alleen „Menu“. `Naar het submenu gaan` (standaard) of `Pagina openen`. |
-| `menu-points` | Menu-items op de afbeelding | Alleen „Menu“. Per menuniveau de afbeelding en de positie van de items. Wordt onderhouden in het venster „Menu-items plaatsen …“. |
+| Instelling in het venster | Beschrijving |
+| --- | --- |
+| Modus | `Handmatig` (standaard) of `Menu`. De punten van de andere modus blijven opgeslagen. |
+| Afbeelding | De afbeelding uit de mediabibliotheek waarop de items staan — in de modus „Menu“ de afbeelding van het startniveau. Daarnaast de **alternatieve tekst** voor schermlezers; laat leeg als de afbeelding alleen decoratief is. |
+| Weergave | Alleen „Handmatig“. De standaardinstelling is `Genummerd, met lijst naast de afbeelding`. |
+| Startpunt in het menu | Alleen „Menu“. Het menu-item waarvan de subitems worden geplaatst. Keuze uit de lijst of via „Andere menu-ID invoeren …“ het adres van een pagina. |
+| Niveaus | Alleen „Menu“. Hoeveel niveaus er worden weergegeven, inclusief het startpunt. Standaard is dit 3. |
+| Klik op een punt met subpunten | Alleen „Menu“. `Naar het submenu gaan` (standaard) of `Pagina openen`. |
+| Niveau | Alleen „Menu“. Welk menuniveau momenteel wordt bewerkt; elk niveau heeft zijn eigen afbeelding en eigen punten. |
+
+Technisch gezien staat alles in het attribuut `config`. Widgets uit eerdere versies
+bevatten hun instellingen nog in afzonderlijke attributen (`image`,
+`image-alt`, `points`, `display-mode` …). Zolang `config` leeg is, gelden
+deze; bij de eerste **Toepassen** in het venster worden ze verplaatst naar `config`.
 
 ## Waarden van „Weergave“
 
 | Waarde | Label in het dialoogvenster |
 | --- | --- |
 | `numbered` | Genummerd, met lijst naast de afbeelding |
-| `dots` | Punten, zonder lijst |
+| `dots` | Stippen, zonder lijst |
 
-## Waarden van „Niveaus“
+## Waarden van „Lagen“
 
 | Waarde | Betekenis |
 | --- | --- |
 | `2` | Startpunt en de bijbehorende subitems |
-| `3` | plus de bijbehorende subitems (standaard) |
+| `3` | plus de subitems daarvan (standaard) |
 | `4` tot `6` | overeenkomstig dieper |
 
 ## Waarden van „Klik op een punt met subitems“
@@ -53,15 +52,15 @@ eigen pagina gaan in beide gevallen naar het submenu.
 | --- | --- |
 | Titel | Verplicht. Zonder titel kan het venster niet worden gesloten met „Toepassen“. |
 | Beschrijving | Optioneel, meerdere regels. |
-| Bestemming | Optioneel. Een pagina uit de lijst van het systeem of een zelf ingevoerd adres. |
+| Bestemming | Optioneel. Een pagina uit de systeemlijst of een zelf ingevoerd adres. |
 | Tekst op de knop | Optioneel. Als dit veld leeg blijft, toont de knop „Pagina openen“. |
 
 ## Beperkingen
 
 - Een afbeelding bevat maximaal **20 punten**. Het venster geeft een melding wanneer je
-  een extra punt probeert toe te voegen, in plaats van dit stilzwijgend te
+  probeert er nog een toe te voegen, in plaats van deze stilzwijgend te
   verwerpen.
-- Een punt **zonder titel** kan niet worden opgeslagen: de knop
+- Een punt **zonder titel** kan niet worden overgenomen: de knop
   „Toepassen“ blijft geblokkeerd zolang ten minste één punt geen titel
   heeft, en het venster geeft het aantal betreffende punten aan.
 - **Zonder afbeelding of zonder ten minste één punt toont de widget niets** —
@@ -75,9 +74,10 @@ eigen pagina gaan in beide gevallen naar het submenu.
 
 ## Afhankelijkheden
 
-Het venster „Menu-items plaatsen …“ leest het startpunt en de niveaus bij het
-openen. Na een wijziging sluit u het venster en opent u het opnieuw.
+Als u wijzigingen aanbrengt in het venster „Startpunt“ of „Niveaus“, wordt het menu onmiddellijk opnieuw geladen.
+Punten die daarna niet meer aan een item zijn toegewezen, staan onder
+„Niet meer in het menu“.
 
-De tekst op de knop heeft alleen effect als aan het menu-item überhaupt een bestemming
-is toegewezen. Zonder bestemming is er geen knop en blijft de tekst
+De tekst op de knop werkt alleen als er überhaupt een bestemming
+aan het punt is toegewezen. Zonder bestemming is er geen knop en blijft de tekst
 zonder effect.

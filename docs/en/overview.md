@@ -41,7 +41,7 @@ Under **Display**, you can choose one of two options:
 
 - Without an image or at least one bullet point, the widget displays nothing at all—
   no empty frame, no placeholder image.
-- In the “Bullets” view, the window opens with the text at the bullet
+- In the “Bullets” view, the window opens with the text on the bullet
   itself; on narrow screens (less than 768 pixels wide), it appears
   centered on the screen instead, with a darkened background behind it.
 - In “Numbered” view, the corresponding bullet in the image

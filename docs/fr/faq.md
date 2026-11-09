@@ -74,7 +74,7 @@ apparaît immédiatement.
 
 Réponse : En mode « Menu », chacun ne voit que les points correspondant aux éléments de menu auxquels il
 ou elle a accès dans le menu de l’application. C’est voulu : un point ne doit
-pas mener à une page qui ne pourrait alors pas s’ouvrir.
+pas mener à une page qui ne pourrait ensuite pas s’ouvrir.
 
 **Question :** Est-ce que je perds mes points lorsque je passe du mode « Manuel » au mode « Menu »
 et vice-versa ?
@@ -84,9 +84,9 @@ vous retrouverez les points de l’autre mode inchangés.
 
 **Question :** Chaque niveau de menu peut-il avoir sa propre image ?
 
-Réponse : Oui. Dans la fenêtre « Placer les éléments de menu… », sélectionnez le niveau en haut
-et, à gauche, choisissez votre image dans la médiathèque. Un niveau sans image propre affiche l’
-image du niveau supérieur, ainsi que ses éléments.
+Réponse : Oui. Dans la fenêtre « Image avec points », sélectionnez le niveau en mode « Menu »
+puis, à gauche, choisissez votre image dans la médiathèque. Un niveau sans image propre affiche l’
+image du niveau supérieur, ainsi que ses points.
 
 **Question :** Pourquoi un élément de menu n’apparaît-il pas à côté de l’image dans le menu, alors qu’
 il existe ?

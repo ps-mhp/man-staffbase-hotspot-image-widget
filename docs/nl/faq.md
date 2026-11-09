@@ -52,7 +52,7 @@ een vertaling het adres alleen maar onleesbaar maken.
 **Vraag:** Waarom verschijnt de gelinkte pagina soms leeg in het venster,
 hoewel de link naar een pagina uit de lijst verwijst?
 
-Antwoord: Zelfs bij pagina’s uit het eigen systeem kan het insluiten mislukken,
+Antwoord: Ook bij pagina’s uit het eigen systeem kan het insluiten mislukken,
 bijvoorbeeld wanneer de doelpagina zelf het insluiten technisch verhindert. Gebruik
 in dat geval de link „In nieuw tabblad openen“ bovenaan het venster — daar
 is hij precies voor bedoeld.
@@ -84,9 +84,9 @@ vindt de punten van de andere modus ongewijzigd terug.
 
 **Vraag:** Kan elk menuniveau een eigen afbeelding hebben?
 
-Antwoord: Ja. In het venster „Menu-items plaatsen …“ selecteert u bovenaan het niveau
+Antwoord: Ja. In het venster „Afbeelding met punten“ selecteert u in de modus „Menu“ het niveau
 en links de afbeelding uit de mediabibliotheek. Een niveau zonder eigen afbeelding toont de
-afbeelding van het niveau erboven, inclusief de bijbehorende punten.
+afbeelding van het niveau erboven, inclusief de punten daarvan.
 
 **Vraag:** Waarom verschijnt een menu-item niet naast de afbeelding in het menu, hoewel
 het wel bestaat?

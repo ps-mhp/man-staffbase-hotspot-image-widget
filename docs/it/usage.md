@@ -3,9 +3,10 @@
 ## Configurazione di base
 
 1. Inserite il widget **Immagine con punti** nella pagina.
-2. Aprire le impostazioni del widget. La finestra per la modifica dei
-   punti si aprirà automaticamente.
-3. Fare clic a sinistra su **Seleziona immagine …** e scegliere un’immagine dalla
+2. Aprite le impostazioni del widget. La finestra **Immagine con
+   punti** si aprirà automaticamente; in caso contrario, cliccate su **Modifica immagine con punti
+   Modifica …**. In alto, la **Modalità** è impostata su «Manuale».
+3. Clicca a sinistra su **Scegli immagine …** e seleziona un’immagine dalla
    libreria multimediale. Senza immagine non è possibile inserire alcun punto.
 4. Inserite sotto un **testo alternativo** che descriva ciò che è
    visibile nell’immagine.
@@ -15,15 +16,15 @@
    **Applica** — un avviso corrispondente appare sia nel
    campo che in fondo alla finestra.
 7. Inserite facoltativamente una **descrizione**.
-8. Facoltativo: sotto il campo «Descrizione», tramite **Aggiungi link**
-  , aggiungere una destinazione — vedere la sezione «Inserire un link» più
+8. Facoltativo: sotto il campo «Descrizione», aggiungete una destinazione tramite **Aggiungi link
+   **Aggiungi link** — vedi la sezione «Inserire un link» più
    in basso.
-9. Ripetere i passaggi da 5 a 8 per ogni punto successivo. Un’immagine
+9. Ripeti i passaggi da 5 a 8 per ogni altro punto. Un’immagine
    può contenere al massimo 20 punti.
-10. Fare clic su **Applica**.
-11. In **Visualizzazione**, scegliere tra «Numerato, con elenco accanto
-    all’immagine» e «Punti, senza elenco».
-12. Salvare la pagina e verificare il risultato nell’anteprima.
+10. In alto, sotto **Visualizzazione**, scegliete tra «Numerato, con elenco
+    accanto all’immagine» e «Punti, senza elenco».
+11. Cliccate su **Applica**.
+12. Salvate la pagina e controllate il risultato nell’anteprima.
 
 ## Inserire un link
 
@@ -55,86 +56,67 @@
 
 1. Riaprire le impostazioni del widget. La finestra mostra i
    punti esistenti e l’immagine selezionata.
-2. Selezionate dall’elenco a sinistra il punto da modificare e modificatene
+2. Selezionate nella lista a sinistra il punto da modificare e modificatene
    il modulo a destra.
-3. Per sostituire l’immagine, cliccate su **Seleziona un’altra immagine …**.
-   Le voci rimangono invariate; verificate quindi se la loro posizione sulla
+3. Per sostituire l’immagine, cliccate su **Scegli un’altra immagine …**.
+   I punti rimangono invariati; verificate poi se la loro posizione sulla
    nuova immagine è ancora corretta.
 4. **Applica**, salva, verifica nell’anteprima.
 
 ## Nel Content Designer
 
-Il Content Designer (nuovo editor di pagine) mostra per «Immagine» il proprio
-caricamento immagini nel modulo. L’immagine va quindi selezionata lì, non nella
-finestra dei punti:
-
-1. Aprite le impostazioni del widget. Se non è ancora stata selezionata un’immagine,
-   la finestra dei punti rimane chiusa e al suo posto compare il pulsante
-   **Modifica punti …**.
-2. Selezionate o caricate un’immagine alla voce **Immagine**.
-3. Inserite nella sezione **Testo alternativo** una descrizione di ciò che è visibile nell’immagine.
-4. Clicchi su **Modifica punti …** e posizioni i punti come descritto nel
-   caso base a partire dal punto 5.
-5. Per sostituire l’immagine, chiuda la finestra dei punti, sostituisca
-   l’immagine nel modulo alla voce **Immagine** e riapra la finestra.
+Nel Content Designer funziona tutto allo stesso modo: l’immagine viene selezionata nella finestra dalla
+libreria multimediale, non nel modulo.
 
 ## Modalità «Menu»: posizionare le voci di menu
 
-1. Nelle impostazioni, alla voce **Modalità**, selezionate l’opzione «Menu:
-   Posizionare le voci di menu sull’immagine». I campi della modalità manuale
-   scompaiono, mentre compaiono quelli della modalità menu.
-2. Sotto **Immagine**, selezionate l’immagine del livello iniziale.
-3. Sotto **Punto iniziale nel menu**, selezionate la voce di menu le cui
+1. Aprite la finestra **Immagine con punti** e impostate in alto la
+   **modalità** su «Menu».
+2. Sotto **Punto di partenza nel menu**, selezionate la voce di menu le cui
    sottovoci devono trovarsi sull’immagine. Se non è presente nell’elenco,
-   selezionare **Inserisci altro ID menu …** e inserire l’indirizzo della pagina
-  .
-4. In **Livelli**, specificare la profondità del menu. L’impostazione predefinita
-   è 3: il punto di partenza, le sue voci secondarie e le relative voci secondarie.
-5. In **Clic su una voce con voci secondarie**, scegliete se un clic
-   porta al sottomenu (impostazione predefinita) o apre la pagina.
-6. Fare clic su **Posiziona voci di menu …**. In alto è indicato il livello, a sinistra
-   la relativa immagine, a destra le voci secondarie.
-7. Selezionare una voce secondaria a destra e fare clic nel punto desiderato
+   selezionate **Inserisci altro ID menu …** e inserite l’indirizzo della pagina
+  . Il menu si carica immediatamente.
+3. In **Livelli**, specificate la profondità del menu (impostazione predefinita
+   3) e, in **Clic su un punto con sottomenu**, se un clic porta al
+   sottomenu (impostazione predefinita) o apre la pagina.
+4. Sotto **Livello** è indicato il livello iniziale. A sinistra, con **Seleziona
+   immagine…**, scegliete la vostra immagine dalla libreria multimediale.
+5. A destra, selezionate una voce secondaria e cliccate nel punto desiderato
    dell’immagine. In quel punto verrà creata la voce; nell’elenco la voce
    viene contrassegnata con «sull’immagine». Ripetete l’operazione per ogni
    ulteriore sottomenu.
-8. Per spostare una voce, trascinatela oppure selezionatela
-   e cliccate nella nuova posizione. **Rimuovi voce** la elimina
+6. Per spostare un punto, trascinatelo oppure selezionate la voce
+   e cliccate nella nuova posizione. **Rimuovi punto** lo elimina
    dall’immagine.
-9. Per passare a un livello inferiore, clicchi a destra della voce secondaria su **›**
-   oppure selezioni il livello in alto. Con **Seleziona immagine …** scelga un’
-  immagine dalla libreria e posizioni i punti come descritto al punto 7. Senza
-   un’immagine propria, il livello mostrerà in seguito l’immagine del livello sovrastante.
-10. Clicchi su **Applica**, salvi la pagina e verifichi
-    il risultato nell’anteprima.
-
-Se ha modificato il punto di partenza o i livelli, chiuda la finestra e
-la riapra: al momento dell’apertura verranno letti entrambi.
+7. Per creare un livello più profondo, clicchi a destra accanto alla voce secondaria su **›**
+   oppure selezioni il livello in alto. Selezioni l’immagine corrispondente e posizioni i
+   punti come descritto al punto 5. Se non ha un’immagine propria, il livello mostrerà in seguito l’immagine
+   del livello sovrastante.
+8. Clicchi su **Applica**, salvi la pagina e verifichi
+   il risultato nell’anteprima.
 
 ## Se qualcosa non funziona
 
 1. **Il widget non visualizza nulla.** O manca l’immagine, oppure non è stato ancora
-   impostato alcun punto. Aprite le impostazioni e controllate entrambi.
-2. **Non è possibile cliccare su «Applica».** Almeno un punto non ha ancora
+   posizionato alcun punto. Apri le impostazioni e verifica entrambi gli aspetti.
+2. **Non è possibile cliccare su “Applica”.** Almeno un punto non ha ancora
    un titolo. In fondo alla finestra è indicato quanti punti sono interessati —
-   inserite un titolo per ciascuno di essi.
+   inserisci un titolo per ciascuno di essi.
 3. **La pagina collegata non appare nella finestra, ma si apre in una
-   nuova scheda.** La destinazione è un indirizzo inserito manualmente, non una pagina presente
-   nell’elenco. È previsto che sia così: spesso le pagine esterne non possono essere
+   nuova scheda.** La destinazione è un indirizzo inserito manualmente, non una pagina dall’
+  elenco. È previsto che sia così: spesso le pagine esterne non possono essere
    incorporate in una finestra. Selezionate invece una pagina dall’elenco,
    se desiderate che appaia nella finestra.
 4. **Nell’elenco delle pagine non compare nessuna pagina, ma solo un campo per
    inserire un indirizzo.** L’elenco delle pagine del sistema non era
-   accessibile all’apertura. Inserite l’indirizzo manualmente oppure riaprite la
+   raggiungibile all’apertura. Inserite l’indirizzo manualmente oppure riaprite la
    finestra.
 5. **Nella modalità «Menu», nella finestra compare l’avviso di selezionare prima un punto di partenza
-  .** Sotto **Punto di partenza nel menu** non è ancora selezionato nulla. Selezionate
-  una voce di menu, chiudete la finestra e riapritela.
+  .** Sotto **Punto di partenza nel menu** non è ancora stato selezionato nulla.
 6. **Nella finestra sono presenti voci sotto «Non più nel menu».** La relativa
    voce di menu è stata eliminata, nascosta, spostata nel menu o si trova
    a un livello inferiore rispetto a quello impostato in **Livelli**. Queste voci non compaiono nella pagina.
    Rimuoveteli da lì oppure aumentate il numero di livelli.
-7. **In modalità «Menu», le impostazioni scompaiono nuovamente dopo il salvataggio
-  .** Il widget è ancora registrato nell’istanza senza i campi della modalità menu
-  . La registrazione deve essere aggiornata (compito dell’
-  amministrazione).
+7. **Le impostazioni scompaiono dopo aver salvato la pagina.** Il
+   widget è ancora registrato nell’istanza senza il campo `config`. La
+   registrazione deve essere aggiornata (compito dell’amministrazione).

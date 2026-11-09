@@ -39,7 +39,7 @@ W sekcji **Wyświetlanie** można wybrać jeden z dwóch wariantów:
 
 ## Co widzą czytelnicy
 
-- Bez obrazu lub bez co najmniej jednego punktu widżet nie wyświetla nic —
+- Bez obrazu lub bez co najmniej jednego punktu widżet nie wyświetla niczego —
   ani pustej ramki, ani obrazu zastępczego.
 - W widoku „Punkty” okienko z tekstem otwiera się przy samym
   punkcie; na wąskich ekranach (o szerokości poniżej 768 pikseli) pojawia się ono

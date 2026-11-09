@@ -55,7 +55,7 @@ anche se il link punta a una pagina presente nell’elenco?
 Risposta: Anche con le pagine del proprio sistema l’incorporamento può fallire,
 ad esempio se la pagina di destinazione stessa impedisce tecnicamente l’incorporamento. In questo caso,
 utilizzate il link «Apri in una nuova scheda» nella parte superiore della finestra — è proprio
-a questo che serve.
+per questo che si trova lì.
 
 **Domanda:** Posso inserire più di 20 punti su un’immagine?
 
@@ -79,18 +79,18 @@ portare a una pagina che poi non si riesce ad aprire.
 **Domanda:** Perdo i miei punti se passo da “Manuale” a “Menu”
 e viceversa?
 
-Risposta: No. Entrambe le modalità salvano i punti separatamente. Chi torna indietro,
+Risposta: No. Entrambe le modalità salvano i punti separatamente. Chi torna alla modalità precedente,
 troverà i punti dell’altra modalità invariati.
 
 **Domanda:** Ogni livello del menu può avere una propria immagine?
 
-Risposta: Sì. Nella finestra «Posiziona voci di menu…» selezionate in alto il livello
-e a sinistra l’immagine dalla libreria multimediale. Un livello senza immagine propria mostra l’
-immagine del livello superiore, compresi i relativi punti.
+Risposta: Sì. Nella finestra «Immagine con punti», in modalità «Menu», selezionate il livello
+e, a sinistra, l’immagine dalla libreria multimediale. Un livello senza immagine propria mostra l’
+immagine del livello sovrastante, compresi i relativi punti.
 
 **Domanda:** Perché una voce di menu non appare nel menu accanto all’immagine, sebbene
 esista?
 
-Risposta: O è impostata su «Non visibile» nel menu dell’app, oppure
+Risposta: O è impostata su “Non visibile” nel menu dell’app, oppure
 si trova a un livello inferiore rispetto a quello impostato in **Livelli**. Nel primo caso rimane
 nascosta anche qui; nel secondo, aumenti il numero di livelli.

@@ -1,26 +1,25 @@
 # Impostazioni
 
-La finestra di dialogo di configurazione del widget presenta nove attributi; quali di questi siano
-visibili dipende dalla **modalità**. Nella modalità “Menu”, “Immagine” corrisponde all’immagine del
-livello iniziale; le immagini dei livelli inferiori vengono selezionate nella finestra “Posizionare voci di menu
-…». «Immagine» e
-«Voci» vengono gestiti nella finestra che si apre automaticamente all’apertura delle impostazioni
-; i campi di testo sottostanti rappresentano la versione tecnica grezza e
-non devono essere modificati manualmente. Nel Content Designer, «Immagine»
-invece il caricamento dell’immagine del Designer — lì l’immagine viene selezionata direttamente nel
-modulo.
+Nella finestra di dialogo di configurazione del widget è presente un solo pulsante: **Modifica immagine con punti
+…**. Questo apre la finestra in cui si gestiscono tutte le impostazioni: modalità,
+immagine, visualizzazione, impostazioni del menu e punti. La finestra si apre
+automaticamente anche quando si aprono le impostazioni. **Applica** salva tutte le
+impostazioni in un unico campo.
 
-| Attributo | Etichetta nella finestra di dialogo | Descrizione |
-| --- | --- | --- |
-| `image` | Immagine | L’immagine su cui si trovano i punti. Nell’editor classico tramite **Seleziona immagine…** nella finestra dalla libreria multimediale, nel Content Designer selezionata direttamente nel modulo. |
-| `image-alt` | Testo alternativo | Descrive l’immagine per gli screen reader; lasciare vuoto se è solo decorativa. Modificabile anche nella finestra alla voce «Testo alternativo». |
-| `source` | Modalità | `Manuale` (impostazione predefinita) o `Menu`. Nasconde i campi dell’altra modalità; i relativi contenuti rimangono salvati. |
-| `points` | Punti | Solo «Manuale». L'elenco dei punti con posizione, titolo, descrizione e link. Viene gestito nella stessa finestra. |
-| `display-mode` | Visualizzazione | Solo «Manuale». Controlla come i punti appaiono sulla pagina pubblicata. L'impostazione predefinita è `Numerati, con elenco accanto all'immagine`. |
-| `menu-id` | Punto di partenza nel menu | Solo «Menu». La voce di menu le cui sottovoci vengono posizionate sull’immagine. Selezione dal menu o, tramite «Inserisci altro ID menu…», l’indirizzo di una pagina. |
-| `menu-depth` | Livelli | Solo «Menu». Numero di livelli visualizzati, compreso il punto di partenza. L’impostazione predefinita è 3. |
-| `menu-click` | Clic su una voce con sottovoci | Solo «Menu». `Passa al sottomenu` (impostazione predefinita) o `Apri pagina`. |
-| `menu-points` | Voci di menu sull’immagine | Solo «Menu». Per ogni livello di menu, l’immagine e la posizione delle voci. Viene gestito nella finestra «Posiziona voci di menu…». |
+| Impostazione nella finestra | Descrizione |
+| --- | --- |
+| Modalità | `Manuale` (impostazione predefinita) o `Menu`. I punti dell’altra modalità rimangono salvati. |
+| Immagine | L’immagine su cui si trovano le voci, dalla libreria multimediale — nella modalità «Menu», l’immagine del livello iniziale. Inoltre, il **testo alternativo** per gli screen reader; lasciare vuoto se l’immagine è solo decorativa. |
+| Visualizzazione | Solo «Manuale». L’impostazione predefinita è `Numerata, con elenco accanto all’immagine`. |
+| Punto di partenza nel menu | Solo «Menu». La voce di menu di cui verranno posizionate le sottovoci. Selezione dall’elenco o, tramite «Inserisci altro ID menu…», l’indirizzo di una pagina. |
+| Livelli | Solo «Menu». Quanti livelli vengono visualizzati, compreso il punto di partenza. L’impostazione predefinita è 3. |
+| Clic su una voce con sottovoci | Solo «Menu». `Passa al sottomenu` (impostazione predefinita) o `Apri pagina`. |
+| Livello | Solo «Menu». Quale livello del menu è attualmente in fase di modifica; ognuno ha la propria immagine e le proprie voci. |
+
+Tecnicamente, tutto è contenuto nell’attributo `config`. I widget delle versioni precedenti
+conservano ancora le loro impostazioni in singoli attributi (`image`,
+`image-alt`, `points`, `display-mode` …). Finché `config` è vuoto, valgono
+queste; al primo **Applica** nella finestra vengono spostate in `config`.
 
 ## Valori di «Visualizzazione»
 
@@ -33,11 +32,11 @@ modulo.
 
 | Valore | Significato |
 | --- | --- |
-| `2` | Punto iniziale e relative voci secondarie |
-| `3` | più le relative voci secondarie (impostazione predefinita) |
-| da `4` a `6` | livelli successivi |
+| `2` | Punto iniziale e relativi sottopunti |
+| `3` | più i relativi sottopunti (impostazione predefinita) |
+| da `4` a `6` | livelli corrispondentemente più profondi |
 
-## Valori di «Clic su un punto con voci secondarie»
+## Valori di «Clic su un punto con sottopunti»
 
 | Valore | Etichetta nella finestra di dialogo | Effetto |
 | --- | --- | --- |
@@ -54,7 +53,7 @@ una propria pagina passano al sottomenu in entrambi i casi.
 | Titolo | Obbligatorio. Senza titolo non è possibile chiudere la finestra con «Applica». |
 | Descrizione | Facoltativa, su più righe. |
 | Destinazione | Facoltativo. Una pagina dall’elenco del sistema o un indirizzo inserito manualmente. |
-| Etichetta del pulsante | Facoltativo. Se lasciato vuoto, il pulsante mostra «Apri pagina». |
+| Etichetta del pulsante | Facoltativo. Se lasciata vuota, il pulsante mostra «Apri pagina». |
 
 ## Limiti
 
@@ -66,18 +65,19 @@ una propria pagina passano al sottomenu in entrambi i casi.
   e la finestra indica il numero dei punti interessati.
 - **Senza immagine o senza almeno un punto, il widget non mostra nulla** —
   né sulla pagina pubblicata né come cornice vuota. Nella modalità
-  «Menu» vale lo stesso, senza punto iniziale.
+  «Menu» vale lo stesso senza punto iniziale.
 - Nella modalità «Menu», **ogni livello di menu contiene al massimo 20 voci** e ogni
   voce di menu ne ha al massimo una; un ulteriore clic sull’immagine la sposta
   altrove.
 - Un livello di menu **senza immagine propria** mostra l’immagine del livello superiore.
-  È possibile inserire voci su di esso solo se dispone di un’immagine propria.
+  È possibile posizionare voci su di esso solo se dispone di un’immagine propria.
 
 ## Dipendenze
 
-La finestra «Posiziona voci di menu …» legge il punto di partenza e i livelli all’
-apertura. Dopo aver apportato una modifica, chiudere la finestra e riaprirla.
+Se si apportano modifiche nella finestra «Punto di partenza» o «Livelli», il menu si ricarica immediatamente.
+I punti che in seguito non sono più assegnati a nessuna voce vengono visualizzati sotto
+«Non più nel menu».
 
-L’etichetta del pulsante ha effetto solo se alla voce è stata assegnata una destinazione
+L’etichetta del pulsante ha effetto solo se al punto è stata assegnata una destinazione
 . Senza destinazione non c’è alcun pulsante e l’etichetta rimane
 senza effetto.

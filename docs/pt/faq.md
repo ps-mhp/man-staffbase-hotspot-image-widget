@@ -5,7 +5,7 @@
 Resposta: Pelo menos um ponto ainda não tem título. Um ponto sem título
 seria perdido ao aplicar as alterações — por isso, o botão permanece bloqueado até que cada
 ponto tenha um título. A janela indica na parte inferior quantos pontos estão afetados
-e o próprio campo afetado apresenta a mesma indicação.
+e no próprio campo afetado aparece a mesma indicação.
 
 **Pergunta:** O widget não mostra nada na página.
 
@@ -82,13 +82,13 @@ encontrará os pontos do outro modo inalterados.
 
 **Pergunta:** Cada nível do menu pode ter a sua própria imagem?
 
-Resposta: Sim. Na janela «Colocar opções de menu…», selecione o nível na parte superior
-e, à esquerda, a imagem da biblioteca multimédia. Um nível sem imagem própria mostra a
+Resposta: Sim. Na janela «Imagem com pontos», no modo «Menu», selecione o nível
+e, à esquerda, a imagem da sua biblioteca multimédia. Um nível sem imagem própria mostra a
 imagem do nível acima, juntamente com os respetivos pontos.
 
-**Pergunta:** Por que razão uma opção de menu não aparece no menu ao lado da imagem, apesar de
+**Pergunta:** Por que razão um item do menu não aparece ao lado da imagem, apesar de
 existir?
 
 Resposta: Ou está definido como «Não visível» no menu da aplicação, ou
-está num nível mais baixo do que o definido em **Níveis**. No primeiro caso, permanece
+está num nível inferior ao definido em **Níveis**. No primeiro caso, permanece
 também aqui oculto; no segundo, aumente o número de níveis.
