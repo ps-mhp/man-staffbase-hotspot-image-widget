@@ -29,6 +29,7 @@ import {
 import { startWidget } from "@shared/dev-mode/start-widget";
 import { getTranslationRegistry } from "@shared/translation/registry";
 import {
+  ALL_ATTRIBUTES,
   DISPLAY_MODE_ATTRIBUTE,
   IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
@@ -65,12 +66,7 @@ export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement
 /** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um
  *  Abweichungen zu vermeiden: Ein Tippfehler würde sonst zur Laufzeit zu einem
  *  stumm leeren Attribut führen. */
-const widgetAttributes: string[] = [
-  IMAGE_ATTRIBUTE,
-  IMAGE_ALT_ATTRIBUTE,
-  POINTS_ATTRIBUTE,
-  DISPLAY_MODE_ATTRIBUTE,
-];
+const widgetAttributes: string[] = ALL_ATTRIBUTES;
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class HotspotImageWidgetBlock extends BaseBlockClass implements BaseBlock {

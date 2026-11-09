@@ -12,22 +12,61 @@
  */
 
 import {
+  ALL_ATTRIBUTES,
   DISPLAY_MODE_ATTRIBUTE,
   IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
+  MENU_CLICK_ATTRIBUTE,
+  MENU_DEPTH_ATTRIBUTE,
+  MENU_ID_ATTRIBUTE,
+  MENU_POINTS_ATTRIBUTE,
   POINTS_ATTRIBUTE,
+  SOURCE_ATTRIBUTE,
   configurationSchema,
   uiSchema,
 } from "./configuration-schema";
 
 describe("configurationSchema", () => {
-  it("beschreibt die vier Attribute des Widgets", () => {
+  it("beschreibt die Attribute des Widgets in der Reihenfolge des Dialogs", () => {
     expect(Object.keys(configurationSchema.properties ?? {})).toEqual([
       IMAGE_ATTRIBUTE,
       IMAGE_ALT_ATTRIBUTE,
+      SOURCE_ATTRIBUTE,
       POINTS_ATTRIBUTE,
       DISPLAY_MODE_ATTRIBUTE,
+      MENU_ID_ATTRIBUTE,
+      MENU_DEPTH_ATTRIBUTE,
+      MENU_CLICK_ATTRIBUTE,
+      MENU_POINTS_ATTRIBUTE,
     ]);
+    expect(ALL_ATTRIBUTES).toEqual(Object.keys(configurationSchema.properties ?? {}));
+  });
+
+  it("beginnt im bisherigen Modus, damit bestehende Inhalte unverändert bleiben", () => {
+    expect((configurationSchema.properties ?? {})[SOURCE_ATTRIBUTE]).toMatchObject({
+      type: "string",
+      default: "manual",
+      oneOf: [
+        { const: "manual", title: expect.any(String) },
+        { const: "menu", title: expect.any(String) },
+      ],
+    });
+  });
+
+  it("bietet drei Ebenen und das Öffnen der Seite als Vorgabe an", () => {
+    const properties = configurationSchema.properties ?? {};
+    expect(properties[MENU_DEPTH_ATTRIBUTE]).toMatchObject({ default: "3" });
+    expect((properties[MENU_DEPTH_ATTRIBUTE] as { oneOf: Array<{ const: string }> }).oneOf.map((option) => option.const)).toEqual([
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+    ]);
+    expect(properties[MENU_CLICK_ATTRIBUTE]).toMatchObject({
+      default: "open",
+      oneOf: [{ const: "open" }, { const: "reveal" }],
+    });
   });
 
   it("bietet den Anzeigemodus als Auswahl an, damit er ohne den Editor bedienbar bleibt", () => {
@@ -43,7 +82,7 @@ describe("configurationSchema", () => {
   });
 
   it("erklärt jedes Feld im Dialog", () => {
-    for (const key of [IMAGE_ATTRIBUTE, IMAGE_ALT_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE]) {
+    for (const key of ALL_ATTRIBUTES) {
       expect(uiSchema[key]?.["ui:help"]).toEqual(expect.any(String));
     }
   });

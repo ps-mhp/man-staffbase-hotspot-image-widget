@@ -115,8 +115,8 @@ export function linkLabel(link: HotspotLink): string {
 const asText = (value: unknown): string | undefined =>
   typeof value === "string" && value.trim() !== "" ? value : undefined;
 
-/** Der Rohtext eines Attributs, kodiert oder nicht. */
-function readRaw(raw: string): unknown {
+/** Der Rohtext eines Attributs, kodiert oder nicht, als JSON gelesen; `null`, wenn er nichts taugt. */
+export function readRaw(raw: string): unknown {
   if (raw.trim() === "") return null;
   const json = isPayload(raw) ? decodePayload(raw) : raw;
   if (json === null) return null;

@@ -14,14 +14,7 @@
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import { HotspotImageWidget } from "./index";
-import {
-  DISPLAY_MODE_ATTRIBUTE,
-  IMAGE_ALT_ATTRIBUTE,
-  IMAGE_ATTRIBUTE,
-  POINTS_ATTRIBUTE,
-  configurationSchema,
-  uiSchema,
-} from "./configuration-schema";
+import { ALL_ATTRIBUTES, configurationSchema, uiSchema } from "./configuration-schema";
 import { encodeImageAttribute, encodePointsAttribute } from "./points-model";
 
 const image = encodeImageAttribute({ url: "https://example.test/a.jpg", alt: "Ein Auto" });
@@ -33,16 +26,11 @@ describe("Namen der Attribute", () => {
     // DOM macht Attributnamen klein. Ein Großbuchstabe hier, und das Widget
     // liest einen Namen, den niemand schreibt — die Konfiguration bliebe stumm
     // weg, ohne Fehlermeldung.
-    expect(Object.keys(configurationSchema.properties!)).toEqual([
-      IMAGE_ATTRIBUTE,
-      IMAGE_ALT_ATTRIBUTE,
-      POINTS_ATTRIBUTE,
-      DISPLAY_MODE_ATTRIBUTE,
-    ]);
+    expect(Object.keys(configurationSchema.properties!)).toEqual(ALL_ATTRIBUTES);
   });
 
   it("sind durchweg klein geschrieben", () => {
-    for (const name of [IMAGE_ATTRIBUTE, IMAGE_ALT_ATTRIBUTE, POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE]) {
+    for (const name of ALL_ATTRIBUTES) {
       expect(name).toBe(name.toLowerCase());
     }
   });

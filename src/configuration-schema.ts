@@ -18,6 +18,23 @@ export const IMAGE_ATTRIBUTE = "image";
 export const IMAGE_ALT_ATTRIBUTE = "image-alt";
 export const POINTS_ATTRIBUTE = "points";
 export const DISPLAY_MODE_ATTRIBUTE = "display-mode";
+/** Modus „Manuell“ oder „Menü“ — siehe `menu-points-model.ts`. */
+export const SOURCE_ATTRIBUTE = "source";
+export const MENU_ID_ATTRIBUTE = "menu-id";
+export const MENU_DEPTH_ATTRIBUTE = "menu-depth";
+export const MENU_CLICK_ATTRIBUTE = "menu-click";
+export const MENU_POINTS_ATTRIBUTE = "menu-points";
+
+/** Die Felder, die nur im Modus „Manuell“ etwas bedeuten. */
+export const MANUAL_ATTRIBUTES = [POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE] as const;
+
+/** Die Felder, die nur im Modus „Menü“ etwas bedeuten. */
+export const MENU_ATTRIBUTES = [
+  MENU_ID_ATTRIBUTE,
+  MENU_DEPTH_ATTRIBUTE,
+  MENU_CLICK_ATTRIBUTE,
+  MENU_POINTS_ATTRIBUTE,
+] as const;
 
 /**
  * Das Schema des Konfigurationsdialogs.
@@ -35,6 +52,10 @@ export const DISPLAY_MODE_ATTRIBUTE = "display-mode";
  * klassischen Editors steht er nur noch bei älteren Inhalten. Der Anzeigemodus bleibt aus demselben Grund ein echtes
  * Auswahlfeld des Dialogs.
  *
+ * Im Modus „Menü“ gilt dasselbe für `menu-points`: der Platzierungs-Editor
+ * tritt an die Stelle des Textfelds. Welche Felder je Modus zu sehen sind,
+ * regelt `index.tsx` über `startConditionalFieldVisibility`.
+ *
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
  */
 export const configurationSchema: JSONSchema7 = {
@@ -48,6 +69,15 @@ export const configurationSchema: JSONSchema7 = {
       type: "string",
       title: "Alternativtext",
       default: "",
+    },
+    [SOURCE_ATTRIBUTE]: {
+      type: "string",
+      title: "Modus",
+      default: "manual",
+      oneOf: [
+        { const: "manual", title: "Manuell: eigene Punkte mit Titel, Text und Link" },
+        { const: "menu", title: "Menü: Menüpunkte auf dem Bild platzieren" },
+      ],
     },
     [POINTS_ATTRIBUTE]: {
       type: "string",
@@ -63,8 +93,42 @@ export const configurationSchema: JSONSchema7 = {
         { const: "dots", title: "Punkte, ohne Liste" },
       ],
     },
+    [MENU_ID_ATTRIBUTE]: {
+      type: "string",
+      title: "Startpunkt im Menü",
+      default: "",
+    },
+    [MENU_DEPTH_ATTRIBUTE]: {
+      type: "string",
+      title: "Ebenen",
+      default: "3",
+      oneOf: [
+        { const: "2", title: "2 — Startpunkt und Unterpunkte" },
+        { const: "3", title: "3 — dazu deren Unterpunkte" },
+        { const: "4", title: "4 Ebenen" },
+        { const: "5", title: "5 Ebenen" },
+        { const: "6", title: "6 Ebenen" },
+      ],
+    },
+    [MENU_CLICK_ATTRIBUTE]: {
+      type: "string",
+      title: "Klick auf einen Punkt",
+      default: "open",
+      oneOf: [
+        { const: "open", title: "Seite öffnen" },
+        { const: "reveal", title: "Im Menü daneben zeigen" },
+      ],
+    },
+    [MENU_POINTS_ATTRIBUTE]: {
+      type: "string",
+      title: "Menüpunkte auf dem Bild",
+      default: "[]",
+    },
   },
 };
+
+/** Alle Attribute, in der Reihenfolge des Schemas. */
+export const ALL_ATTRIBUTES: string[] = Object.keys(configurationSchema.properties ?? {});
 
 /**
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/api-reference/uiSchema
@@ -80,6 +144,12 @@ export const uiSchema: UiSchema = {
       "Beschreibt das Bild für Screenreader. Leer lassen, wenn es nur schmückt. " +
       "Lässt sich auch im Punkte-Editor bearbeiten.",
   },
+  [SOURCE_ATTRIBUTE]: {
+    "ui:help":
+      "„Manuell“: jeder Punkt hat einen eigenen Titel, Text und Link. " +
+      "„Menü“: ein Menüpunkt und seine Unterpunkte werden auf dem Bild platziert; " +
+      "daneben steht das Menü zum Blättern. Die Punkte des anderen Modus bleiben erhalten.",
+  },
   [POINTS_ATTRIBUTE]: {
     "ui:help":
       "Die Punkte auf dem Bild. Der Editor öffnet sich von selbst; " +
@@ -90,5 +160,23 @@ export const uiSchema: UiSchema = {
       "„Nummeriert“ zeigt neben dem Bild eine aufklappbare Liste der Punkte — " +
       "gut für viele Punkte und für Lesende, die lieber lesen als suchen. " +
       "„Punkte“ zeigt nur die Marker; der Text erscheint erst beim Anklicken.",
+  },
+  [MENU_ID_ATTRIBUTE]: {
+    "ui:help":
+      "Der Menüpunkt, dessen Unterpunkte auf dem Bild platziert werden — er selbst lässt sich ebenfalls " +
+      "platzieren. Fehlt er in der Liste, „Andere Menü-ID eingeben …“ wählen und die Adresse der Seite einfügen.",
+  },
+  [MENU_DEPTH_ATTRIBUTE]: {
+    "ui:help": "Wie viele Ebenen unter dem Startpunkt erscheinen, den Startpunkt mitgezählt.",
+  },
+  [MENU_CLICK_ATTRIBUTE]: {
+    "ui:help":
+      "„Seite öffnen“ führt direkt zur Seite des Menüpunkts. „Im Menü daneben zeigen“ blättert das Menü neben " +
+      "dem Bild zum Eintrag. Ordner ohne eigene Seite werden immer im Menü gezeigt.",
+  },
+  [MENU_POINTS_ATTRIBUTE]: {
+    "ui:help":
+      "Wo die Menüpunkte auf dem Bild liegen. Der Editor öffnet sich über „Menüpunkte platzieren …“; " +
+      "das Textfeld dahinter ist die Rohfassung.",
   },
 };
