@@ -12,7 +12,7 @@
 5. Clique no local pretendido na imagem. Aí surge um novo
    ponto e, à direita, aparece o respetivo formulário.
 6. Introduza o **título**. Sem título, não é possível fechar a janela com
-   **Aplicar** — surge uma mensagem a indicar isso tanto no
+   **Aplicar** — aparece uma mensagem a indicar isso tanto no
    campo como na parte inferior da janela.
 7. Opcionalmente, introduza uma **descrição**.
 8. Opcional: adicione um destino em «Adicionar **ligação**»
@@ -47,7 +47,7 @@
 2. Para alterar a ordem de numeração, selecione o item na
    lista à direita e clique em **Para cima** ou **Para baixo**.
 3. Para remover um item, selecione-o e clique em
-   **Apagar item** no respetivo formulário.
+   **Eliminar item** no respetivo formulário.
 4. Conclua cada alteração com **Aplicar**; com **Cancelar**
    rejeita todas as alterações efetuadas desde a última vez que a janela foi aberta.
 
@@ -83,27 +83,33 @@ janela de pontos:
 1. Nas definições, em **Modo**, selecione a opção «Menu:
    Colocar opções de menu na imagem». Os campos do modo manual
    desaparecem e os do modo «Menu» aparecem.
-2. Em **Ponto de partida no menu**, selecione o item de menu cujos
-   subitens devem aparecer na imagem. Se não estiver na lista,
+2. Em **Imagem**, selecione a imagem do nível inicial.
+3. Em **Ponto inicial no menu**, selecione o item do menu cujos
+   subitens devem aparecer na imagem. Se não constar da lista,
    selecione **Introduzir outro ID de menu…** e insira o endereço da página
   .
-3. Em **Níveis**, defina até que profundidade o menu se estende. O valor predefinido
-   é 3: o ponto de partida, os seus subitens e os subitens destes.
-4. Em **Clique num item**, selecione se um clique abre a página
-   (predefinição) ou se o menu navega até à entrada ao lado da imagem.
-5. Clique em **Colocar itens do menu…**. À esquerda está a imagem, à direita
-   a árvore do menu.
-6. Selecione um item de menu à direita e clique no local pretendido
-   na imagem. O item será criado nesse local; na árvore, a entrada fica então
-   marcada com «na imagem».
-7. Repita o passo 6 para cada item de menu adicional. Para deslocar um item,
-   arraste-o ou selecione a entrada e clique no
-   novo local. **Remover item** retira-o da imagem.
-8. Clique em **Aplicar**, guarde a página e verifique o
-   resultado na pré-visualização.
+4. Em **Níveis**, defina até que profundidade o menu se estende. A predefinição
+   é 3: o ponto inicial, os seus subitens e os subitens destes.
+5. Em **Clique num ponto com subitens**, selecione se um clique
+   deve aceder ao submenu (predefinição) ou abrir a página.
+6. Clique em **Colocar itens do menu…**. Na parte superior aparece o nível, à esquerda
+   a respetiva imagem e à direita os seus subitens.
+7. Selecione um subitem à direita e clique no local pretendido
+   na imagem. Aí surge o seu ponto; na lista, a entrada
+   ficará então marcada com «na imagem». Repita este procedimento para cada
+   subitem adicional.
+8. Para deslocar um ponto, arraste-o ou selecione a entrada
+   e clique no novo local. **Remover ponto** retira-o novamente
+   da imagem.
+9. Para aceder a um nível inferior, clique em **›** à direita do subitem
+   ou selecione o nível na parte superior. Com **Selecionar imagem…**, escolha uma
+   imagem da biblioteca e coloque os pontos como na etapa 7. Sem
+   uma imagem própria, o nível exibirá posteriormente a imagem do nível acima.
+10. Clique em **Aplicar**, guarde a página e verifique
+    o resultado na pré-visualização.
 
 Se tiver alterado o ponto inicial ou os níveis, feche a janela e
-abra-a novamente — ela lê ambos ao abrir.
+abra-a novamente — ela lê ambas as alterações ao abrir.
 
 ## Se algo não funcionar
 
@@ -112,19 +118,23 @@ abra-a novamente — ela lê ambos ao abrir.
 2. **Não é possível clicar em «Aplicar».** Pelo menos um ponto ainda
    não tem título. A janela indica na parte inferior quantos pontos estão em causa —
    introduza um título em cada um deles.
-3. **A página com o link não aparece na janela, mas abre um
-   novo separador.** O destino é um endereço introduzido manualmente, não uma página da
-   lista. Isto é intencional: muitas vezes, as páginas externas não podem ser
+3. **A página com o link não aparece na janela, mas abre uma
+   nova aba.** O destino é um endereço introduzido manualmente, não uma página da
+   lista. É assim que deve ser: muitas vezes, as páginas externas não podem ser
    incorporadas numa janela. Em vez disso, selecione uma página da lista,
-   se pretender que esta apareça na janela.
+   se quiser que ela apareça na janela.
 4. **Na lista de páginas não consta nenhuma página, mas sim um campo para
    introduzir um endereço.** A lista de páginas do sistema não estava
-   disponível no momento da abertura. Introduza o endereço manualmente ou abra a
-   janela novamente.
+   acessível ao abrir. Introduza o endereço manualmente ou volte a abrir a
+   janela.
 5. **No modo «Menu», a janela apresenta a indicação para selecionar primeiro um ponto de partida
-  .** Em **Ponto de partida no menu** ainda não está selecionado nada. Selecione
+  .** Em **Ponto de partida no menu** ainda não está nada selecionado. Selecione
   um item do menu, feche a janela e volte a abri-la.
-6. **Na janela, existem itens em «Já não está no menu».** O
-   item de menu correspondente foi eliminado, ocultado ou encontra-se num nível inferior ao definido em
-   **Níveis**. Estes itens não aparecem na página.
-   Remova-os daí ou aumente o número de níveis.
+6. **Na janela, aparecem itens em «Já não está no menu».** A opção de menu correspondente
+   foi eliminada, ocultada, deslocada no menu ou encontra-se
+   num nível inferior ao definido em **Níveis**. Estes itens não aparecem na página.
+   Remova-os dessa localização ou aumente o número de níveis.
+7. **No modo «Menu», as definições desaparecem novamente
+   após serem guardadas.** O widget ainda está registado na instância sem os campos do modo «Menu»
+  . O registo tem de ser atualizado (tarefa da
+   administração).

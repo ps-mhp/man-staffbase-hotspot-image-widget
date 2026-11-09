@@ -15,10 +15,11 @@ W sekcji **Tryb** można wybrać, skąd pochodzą punkty:
 
 - **Ręcznie** — każdy punkt otrzymuje własny tytuł, opis
   i, w razie potrzeby, link. Tak jak dotychczas.
-- **Menu** — wybierasz pozycję z menu aplikacji. Samą pozycję oraz jej
-  podpozycje można umieszczać pojedynczo jako punkty na obrazku. Tytuły
-  i cele pochodzą bezpośrednio z menu: jeśli nazwa pozycji menu zostanie zmieniona,
-  jej punkt natychmiast również otrzyma nową nazwę. Obok obrazka znajduje się menu do przeglądania.
+- **Menu** — wybierasz pozycję menu w aplikacji. Jej podpozycje można
+  umieścić jako punkty na obrazku — a dla każdego głębszego
+  poziomu menu na osobnym obrazku. Tytuły i cele pochodzą bezpośrednio z
+  menu: jeśli pozycja menu zostanie przemianowana, jej punkt natychmiast zmienia nazwę.
+  Obok obrazka znajduje się menu do przewijania.
 
 Punkty z drugiego trybu pozostają zachowane po zmianie trybu.
 
@@ -28,7 +29,7 @@ W sekcji **Wyświetlanie** można wybrać jeden z dwóch wariantów:
 
 - **Numerowane, z listą obok obrazka** — każdy punkt ma przypisany numer, a
   obok obrazka znajduje się rozwijana lista zawierająca wszystkie tytuły. Kliknięcie
-  punktu lub odpowiedniej pozycji na liście powoduje rozwinięcie tekstu.
+  punktu lub odpowiedniej pozycji na liście powoduje rozwinięcie jego treści.
   Rozwiązanie to sprawdza się przy co najmniej pięciu punktach oraz wszędzie tam, gdzie czytelnicy powinni widzieć tytuły
   bez konieczności szukania ich na obrazku.
 - **Kropki bez listy** — kropki pojawiają się bez numerów i nie ma
@@ -38,7 +39,7 @@ W sekcji **Wyświetlanie** można wybrać jeden z dwóch wariantów:
 
 ## Co widzą czytelnicy
 
-- Bez obrazu lub bez co najmniej jednego punktu widżet nie wyświetla niczego —
+- Bez obrazu lub bez co najmniej jednego punktu widżet nie wyświetla nic —
   ani pustej ramki, ani obrazu zastępczego.
 - W widoku „Punkty” okienko z tekstem otwiera się przy samym
   punkcie; na wąskich ekranach (o szerokości poniżej 768 pikseli) pojawia się ono
@@ -59,17 +60,18 @@ W sekcji **Wyświetlanie** można wybrać jeden z dwóch wariantów:
 
 ## Co widzą czytelnicy w trybie „Menu”
 
-- Po lewej stronie obrazek z czerwonymi kropkami bez numerów, po prawej obok niego menu — na
-  wąskich ekranach poniżej. Menu wyświetla po jednym poziomie na raz:
-  strzałka prowadzi o poziom niżej, przycisk „Wstecz” u góry z powrotem w górę, a na
-  telefonie również przesunięcie palcem w prawo.
-- Gdy kursor myszy znajduje się nad punktem, pojawia się nazwa pozycji menu,
-  a w menu zaznaczana jest odpowiednia pozycja. Jeśli pozycja znajduje się o
-  poziom niżej, zaznaczana jest pozycja, pod którą się znajduje.
-- Gdy kursor myszy znajduje się nad pozycją w menu, podświetlane są punkty tej
-  pozycji oraz wszystkich jej podpunktów.
-- Kliknięcie punktu otwiera stronę danej pozycji menu — lub, w zależności od
-  ustawień, menu przewija się do niej. Pozycje menu, które są wyłącznie folderami bez
-  własnej strony, są zawsze wyświetlane w menu.
-- Każdy użytkownik widzi tylko pozycje związane z tymi pozycjami menu, które widzi również w menu
+- Po lewej stronie obraz aktualnego poziomu menu z czerwonymi punktami bez numerów, po prawej
+  obok niego menu — na wąskich ekranach poniżej. Menu wyświetla
+  jeden poziom na raz: strzałka prowadzi o jeden poziom niżej, przycisk „Wstecz” u góry
+  ponownie w górę, a na telefonie również przesunięcie palcem w prawo.
+- Kto przewija menu do danego poziomu, widzi jego obrazek z kropkami
+  odpowiadającymi podpunktom. Jeśli poziom nie ma własnego obrazka, wyświetlany jest obrazek
+  poziomu nadrzędnego.
+- Gdy kursor myszy znajduje się nad kropką, pojawia się nazwa pozycji menu,
+  a w menu zaznaczana jest odpowiednia pozycja. I odwrotnie: pozycja
+  znajdująca się pod kursorem myszy podświetla swoją ikoną.
+- Kliknięcie ikony, która sama ma podpunkty, powoduje przejście do tego
+  podmenu — lub, w zależności od ustawień, otwiera jej stronę. Ikony bez
+  podpunktów zawsze otwierają swoją stronę.
+- Każdy użytkownik widzi tylko pozycje menu, które są widoczne również w menu
   aplikacji. Pozycje ukryte w menu nie są wyświetlane.

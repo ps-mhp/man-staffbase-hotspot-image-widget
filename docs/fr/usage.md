@@ -6,7 +6,7 @@
 2. Ouvrez les paramètres du widget. La fenêtre permettant de modifier les
    points s'ouvre automatiquement.
 3. Cliquez à gauche sur **Sélectionner une image…** et choisissez une image dans la
-   médiathèque. Il n'est pas possible de placer un point sans image.
+   médiathèque. Il est impossible de placer un point sans image.
 4. Saisissez ci-dessous un **texte alternatif** décrivant ce qui est
    visible sur l’image.
 5. Cliquez à l’endroit souhaité sur l’image. Un nouveau
@@ -83,48 +83,58 @@ fenêtre des points :
 1. Dans les paramètres, sous **Mode**, sélectionnez l’option « Menu :
    placer des éléments de menu sur l’image ». Les champs du mode manuel
    disparaissent, ceux du mode menu apparaissent.
-2. Sous **Point de départ dans le menu**, sélectionnez l’élément de menu dont
-   les sous-éléments doivent apparaître sur l’image. S’il ne figure pas dans la liste,
-   sélectionnez **Saisir un autre ID de menu…** et insérez l’adresse de la page
+2. Sous **Image**, sélectionnez l’image du niveau de départ.
+3. Sous **Point de départ dans le menu**, sélectionnez l’élément de menu dont
+   les sous-éléments doivent se trouver sur l’image. S’il ne figure pas dans la liste,
+   sélectionnez **Saisir un autre ID de menu…** et saisissez l’adresse de la page
   .
-3. Sous **Niveaux**, définissez la profondeur du menu. La valeur par défaut
-   est 3 : le point de départ, ses sous-rubriques et les sous-rubriques de celles-ci.
-4. Sous **Clic sur un élément**, choisissez si un clic ouvre la page
-   (par défaut) ou si le menu fait défiler les éléments à côté de l’image.
-5. Cliquez sur **Placer les éléments de menu…**. À gauche se trouve l’image, à droite
-   l’arborescence du menu.
-6. Sélectionnez un élément de menu à droite et cliquez à l’endroit souhaité
-   sur l’image. Son élément s’affiche à cet endroit ; dans l’arborescence, l’entrée est alors
-   marquée de la mention « sur l’image ».
-7. Répétez l’étape 6 pour chaque élément de menu supplémentaire. Pour déplacer un élément,
-   faites-le glisser ou sélectionnez-le puis cliquez à
-   l’emplacement souhaité. **Supprimer l’élément** le fait disparaître de l’image.
-8. Cliquez sur **Appliquer**, enregistrez la page et vérifiez le
-   résultat dans l’aperçu.
+4. Sous **Niveaux**, définissez le nombre de niveaux du menu. La valeur par défaut
+   est 3 : le point de départ, ses sous-éléments et les sous-éléments de ceux-ci.
+5. Sous **Clic sur un élément comportant des sous-éléments**, choisissez si un clic
+   fait basculer vers le sous-menu (par défaut) ou ouvre la page.
+6. Cliquez sur **Placer les éléments de menu…**. En haut s’affiche le niveau, à gauche
+   son image, à droite ses sous-éléments.
+7. Sélectionnez un sous-élément à droite et cliquez à l’endroit souhaité
+   sur l’image. Son élément s’y crée ; dans la liste, l’entrée
+   est alors marquée « sur l’image ». Répétez l’opération pour chaque
+   sous-rubrique supplémentaire.
+8. Pour déplacer un point, faites-le glisser ou sélectionnez l’entrée
+   puis cliquez à l’emplacement souhaité. **Supprimer le point** le fait disparaître
+   de l’image.
+9. Pour accéder à un niveau inférieur, cliquez sur **›** à droite de la sous-rubrique
+   ou sélectionnez le niveau en haut. À l’aide de **Sélectionner une image…**, choisissez une
+   image dans la médiathèque et placez les points comme à l’étape 7. Sans
+   image propre, le niveau affichera ensuite l’image du niveau supérieur.
+10. Cliquez sur **Appliquer**, enregistrez la page et vérifiez
+    le résultat dans l’aperçu.
 
 Si vous avez modifié le point de départ ou les niveaux, fermez la fenêtre puis
-rouvrez-la — elle lit les deux à l’ouverture.
+rouvrez-la — elle lit les deux modifications à l’ouverture.
 
 ## Si quelque chose ne fonctionne pas
 
 1. **Le widget n’affiche rien.** Soit l’image manque, soit aucun
    point n’a encore été défini. Ouvrez les paramètres et vérifiez ces deux éléments.
-2. **Il est impossible de cliquer sur « Appliquer ».** Au moins un point n’a pas encore
+2. **Le bouton « Appliquer » est inactif.** Au moins un point n’a pas encore
    de titre. La fenêtre indique en bas le nombre de points concernés —
-   saisissez-y un titre pour chacun d’entre eux.
+   saisissez un titre pour chacun d’entre eux.
 3. **La page liée n’apparaît pas dans la fenêtre, mais s’ouvre dans un
-   nouvel onglet.** La destination est une adresse que vous avez saisie vous-même, et non une page de
-   la liste. C’est normal : les pages externes ne peuvent souvent pas être
-   intégrées dans une fenêtre. Sélectionnez plutôt une page dans la liste,
+   nouvel onglet.** La destination est une adresse que vous avez saisie vous-même, et non une page issue
+   de la liste. C’est normal : les pages externes ne peuvent souvent pas être
+   intégrées dans une fenêtre. Choisissez plutôt une page dans la liste
    si vous souhaitez qu’elle s’affiche dans la fenêtre.
 4. **La liste des pages ne contient aucune page, mais un champ destiné à
    saisir une adresse.** La liste des pages du système n’était pas
-   accessible à l’ouverture. Saisissez l’adresse manuellement ou ouvrez à nouveau la
-   fenêtre à nouveau.
+   accessible à l’ouverture. Saisissez l’adresse manuellement ou rouvrez la
+   fenêtre.
 5. **En mode « Menu », la fenêtre indique qu’il faut d’abord sélectionner un point de départ
   .** Sous **Point de départ dans le menu**, rien n’est encore sélectionné. Sélectionnez
   un élément de menu, fermez la fenêtre et rouvrez-la.
-6. **La fenêtre affiche des éléments sous « N'apparaît plus dans le menu ».** L'élément de
-   menu correspondant a été supprimé, masqué ou se trouve à un niveau plus bas que celui défini sous
-   **Niveaux**. Ces éléments n'apparaissent pas sur la page.
+6. **La fenêtre affiche des éléments sous « N'apparaît plus dans le menu ».** L'option de menu correspondante
+   a été supprimée, masquée, déplacée dans le menu ou se trouve
+   à un niveau inférieur à celui défini sous **Niveaux**. Ces éléments n'apparaissent pas sur la page.
    Supprimez-les à cet endroit ou augmentez le nombre de niveaux.
+7. **En mode « Menu », les paramètres disparaissent à nouveau après l’enregistrement
+  .** Le widget est encore enregistré dans l’instance sans les champs du mode « Menu »
+  . L’enregistrement doit être mis à jour (tâche relevant de l’
+  administration).

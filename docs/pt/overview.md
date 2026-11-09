@@ -15,10 +15,11 @@ Em **Modo**, pode escolher a origem dos pontos:
 
 - **Manual** — cada ponto recebe um título próprio, uma descrição
   e, se desejar, um link. Tal como até agora.
-- **Menu** — seleciona uma opção do menu da aplicação. Essa opção e as suas
-  subopções podem ser colocadas individualmente como pontos na imagem. Os títulos
-  e destinos provêm diretamente do menu: se uma opção do menu for renomeada,
-  o seu ponto passa imediatamente a ter outro nome. Ao lado da imagem encontra-se o menu para navegar.
+- **Menu** — seleciona uma opção do menu da aplicação. As suas subopções podem
+  ser colocadas como pontos numa imagem — e, para cada nível mais profundo
+  do menu, numa imagem própria. Os títulos e destinos provêm diretamente do
+  menu: se um item do menu for renomeado, o respetivo ponto passa imediatamente a ter outro nome.
+  Ao lado da imagem, encontra-se o menu para navegar.
 
 Os pontos do outro modo são mantidos quando se muda de modo.
 
@@ -28,7 +29,7 @@ Em **Apresentação**, pode escolher uma de duas variantes:
 
 - **Numerada, com lista ao lado da imagem** — cada ponto tem um número e,
   ao lado da imagem, há uma lista expansível com todos os títulos. Um clique num
-  ponto ou na entrada correspondente da lista abre o respetivo texto.
+  ponto ou na entrada correspondente da lista expande o respetivo texto.
   Recomendado a partir de cerca de cinco pontos e sempre que se pretenda que os leitores vejam os títulos
   sem terem de procurar na imagem.
 - **Pontos, sem lista** — os pontos aparecem sem número e não há
@@ -42,14 +43,14 @@ Em **Apresentação**, pode escolher uma de duas variantes:
   nem uma moldura vazia, nem uma imagem de preenchimento.
 - No modo de apresentação «Pontos», a janela com o texto abre-se junto ao próprio ponto;
   em ecrãs estreitos (com menos de 768 píxeis de largura), aparece,
-  em vez disso, no centro do ecrã, com um fundo escurecido.
+  em vez disso, no centro do ecrã, com um fundo escurecido por trás.
 - No modo de apresentação «Numerado», o ponto correspondente na imagem
   é destacado assim que o cursor do rato passa por cima de uma entrada da lista ou quando uma
   entrada é expandida: fica maior, enquanto os restantes pontos ficam em segundo plano.
   Em ecrãs estreitos, os pontos aparecem pequenos e sem número, para que
   não se sobreponham, mesmo quando há muitos itens; para saber a que
   entrada pertence cada ponto, basta tocar na lista.
-- Se um ponto conduzir a uma página do sistema, aparece um botão por baixo dele.
+- Se um ponto conduzir a uma página do sistema, aparece um botão por baixo do mesmo.
   Ao clicar nesse botão, a página abre-se numa janela sobre a página atual;
   no caso de um endereço introduzido manualmente, o mesmo botão abre, em vez disso,
   um novo separador.
@@ -57,19 +58,20 @@ Em **Apresentação**, pode escolher uma de duas variantes:
   saltar de ponto para ponto, com a tecla Enter abre-se a página e com a tecla Escape
   fecha-se.
 
-## O que os leitores e leitoras vêem no modo «Menu»
+## O que os leitores veem no modo «Menu»
 
-- À esquerda, a imagem com pontos vermelhos sem número; à direita, ao lado, o menu — em
-  ecrãs estreitos, abaixo da imagem. O menu mostra um nível de cada vez: uma
-  seta leva a um nível inferior, o botão «Voltar» na parte superior leva de volta para cima; no
-  telemóvel, também basta deslizar para a direita.
-- Se o cursor do rato estiver sobre um ponto, aparece o nome da opção do menu,
-  e no menu é destacada a entrada correspondente. Se a entrada estiver um
-  nível abaixo, é destacada a entrada que se encontra por baixo dela.
-- Se o cursor do rato estiver sobre uma entrada no menu, os itens dessa
-  entrada e todos os seus subitens são destacados.
-- Um clique num item abre a página do item do menu — ou, dependendo da
-  configuração, o menu navega até ele. As opções de menu que são apenas pastas sem
-  página própria são sempre apresentadas no menu.
+- À esquerda, a imagem do nível do menu apresentado com pontos vermelhos sem número; à direita,
+  ao lado, o menu — em ecrãs estreitos, abaixo. O menu mostra um
+  nível de cada vez: uma seta leva ao nível inferior, o botão «Voltar» na parte superior
+  leva de volta ao nível anterior; no telemóvel, também é possível deslizar para a direita.
+- Quem percorrer um nível no menu vê a respetiva imagem com os pontos
+  dos seus subitens. Se um nível não tiver imagem própria, mantém-se a imagem do
+  nível acima.
+- Quando o cursor do rato passa por cima de um ponto, aparece o nome do item do menu,
+  e no menu é destacada a entrada correspondente. Por outro lado, uma entrada
+  sob o cursor do rato destaca o respetivo ponto.
+- Um clique num ponto que tenha subpontos leva ao
+  submenu correspondente — ou, dependendo da configuração, abre a respetiva página. Os pontos sem
+  subpontos abrem sempre a respetiva página.
 - Cada utilizador vê apenas os itens correspondentes às opções de menu que também vê no menu da
   aplicação. As entradas ocultas no menu não aparecem.

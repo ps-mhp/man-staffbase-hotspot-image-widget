@@ -44,10 +44,10 @@ nie zmienisz lub nie usuniesz — samo otwarcie okna nie powoduje jego usunięci
 **Pytanie:** Co dzieje się z elementami podczas automatycznego tłumaczenia
 strony?
 
-Odpowiedź: Tłumaczone są tytuł, opis oraz etykieta
-przycisku każdego punktu. Położenie punktu na obrazku oraz miejsce docelowe
+Odpowiedź: Tłumaczone są tytuły, opisy oraz napisy na
+przyciskach poszczególnych punktów. Położenie punktu na obrazku oraz miejsce docelowe
 linku pozostają niezmienione — nie są to elementy językowe, a w przypadku miejsca docelowego
-tłumaczenie tylko zniszczyłoby adres.
+tłumaczenie tylko zepsułoby adres.
 
 **Pytanie:** Dlaczego strona, do której prowadzi link, czasami wyświetla się w oknie jako pusta,
 chociaż link wskazuje stronę z listy?
@@ -79,11 +79,17 @@ prowadzić do strony, której nie da się otworzyć.
 **Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznym” a „Menu”?
 
 Odpowiedź: Nie. Oba tryby zapisują punkty oddzielnie. Kto przełączy się z powrotem,
-znajdzie punkty z drugiego trybu w niezmienionym stanie.
+zastanie punkty z drugiego trybu bez zmian.
 
-**Pytanie:** Dlaczego pozycja menu nie pojawia się w menu obok obrazka, mimo że
+**Pytanie:** Czy każdy poziom menu może mieć własny obrazek?
+
+Odpowiedź: Tak. W oknie „Umieść pozycje menu…” wybierz u góry poziom,
+a po lewej stronie obraz z biblioteki multimediów. Poziom bez własnego obrazu wyświetla
+obraz poziomu znajdującego się powyżej, wraz z jego pozycjami.
+
+**Pytanie:** Dlaczego pozycja menu nie pojawia się w menu obok obrazu, mimo że
 istnieje?
 
 Odpowiedź: Albo jest on ustawiony w menu aplikacji na „Niewidoczny”, albo
-znajduje się niżej niż ustawiono w opcji **Poziomy**. W pierwszym przypadku pozostaje
+znajduje się niżej niż ustawiono w sekcji **Poziomy**. W pierwszym przypadku pozostaje
 on ukryty również tutaj; w drugim należy zwiększyć liczbę poziomów.

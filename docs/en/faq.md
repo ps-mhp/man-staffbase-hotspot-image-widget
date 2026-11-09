@@ -10,7 +10,7 @@ and the same note appears in the affected field itself.
 
 **Question:** The widget isn’t displaying anything on the page.
 
-Answer: Either the image is missing, or no item has been added yet. In
+Answer: Either the image is missing, or no item has been selected yet. In
 both cases, the area remains intentionally blank instead of showing an empty frame or
 a placeholder image. Open the settings and check
 both.
@@ -21,7 +21,7 @@ opens a new tab?
 Answer: It depends on where the destination comes from. A **page from the
 system’s list** appears in a window on top of the current page. A
 **manually entered address**, on the other hand, always opens a new tab. The
-reason: externally hosted pages often cannot be technically embedded in a window
+reason: external pages often cannot be technically embedded in a window
 — a blocked window would then simply remain blank without displaying an error message.
 The new tab is therefore the reliable option for anything outside the
 system.
@@ -29,7 +29,7 @@ system.
 **Question:** The list of pages doesn’t contain a single page, but rather a
 field for an address.
 
-Answer: The system’s page list was unavailable when the system opened. A
+Answer: The system’s page list was unavailable when the application opened. A
 notice draws attention to this. In this case, enter the address
 manually, or close the window and reopen it.
 
@@ -71,21 +71,27 @@ Answer: No. Only the location of each menu item on the image is saved.
 The title and destination are fetched fresh from the menu each time it’s called up—the new name
 appears immediately.
 
-**Question:** Why do some colleagues see fewer points than I do?
+**Question:** Why do some colleagues see fewer items than I do?
 
-Answer: In “Menu” mode, everyone sees only the points associated with menu items that they
+Answer: In “Menu” mode, everyone sees only the items corresponding to menu entries that they
 are authorized to view in the app’s menu. This is by design: an item should
-not lead to a page that cannot be opened.
+not lead to a page that cannot then be opened.
 
-**Question:** Do I lose my points when I switch between “Manual” and “Menu”
+**Question:** Do I lose my items when I switch between “Manual” and “Menu”
 modes?
 
 Answer: No. Both modes save their points separately. If you switch back,
 you’ll find the points from the other mode unchanged.
 
+**Question:** Can each menu level have its own image?
+
+Answer: Yes. In the “Place Menu Items…” window, select the level at the top
+and choose its image from the media library on the left. A level without its own image displays the
+image of the level above it, along with that level’s items.
+
 **Question:** Why doesn’t a menu item appear next to the image in the menu, even though
 it exists?
 
-Answer: Either it’s set to “Hidden” in the app’s menu, or
-it’s lower than the level set under **Layers**. In the first case, it remains
-hidden here as well; in the second, increase the number of layers.
+Answer: Either it is set to “Hidden” in the app’s menu, or
+it is located lower than the level set under **Levels**. In the first case, it remains
+hidden here as well; in the second, increase the number of levels.

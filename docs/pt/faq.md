@@ -5,7 +5,7 @@
 Resposta: Pelo menos um ponto ainda não tem título. Um ponto sem título
 seria perdido ao aplicar as alterações — por isso, o botão permanece bloqueado até que cada
 ponto tenha um título. A janela indica na parte inferior quantos pontos estão afetados
-e no próprio campo afetado aparece a mesma indicação.
+e o próprio campo afetado apresenta a mesma indicação.
 
 **Pergunta:** O widget não mostra nada na página.
 
@@ -37,7 +37,7 @@ abri-la aparece uma mensagem a indicar que a página guardada não consta da lis
 .
 
 Resposta: A página para a qual foi criado o link foi provavelmente eliminada ou já não está
-acessível. O link anterior mantém-se até que o altere ou
+acessível. O link anterior permanece ativo até que o altere ou
 elimine — o simples facto de abrir a janela não o elimina.
 
 **Pergunta:** O que acontece aos elementos durante a tradução automática da
@@ -80,9 +80,15 @@ conduzir a uma página que depois não possa ser aberta.
 Resposta: Não. Ambos os modos guardam os pontos separadamente. Quem voltar ao modo anterior,
 encontrará os pontos do outro modo inalterados.
 
-**Pergunta:** Por que razão um item do menu não aparece ao lado da imagem no menu, apesar de
+**Pergunta:** Cada nível do menu pode ter a sua própria imagem?
+
+Resposta: Sim. Na janela «Colocar opções de menu…», selecione o nível na parte superior
+e, à esquerda, a imagem da biblioteca multimédia. Um nível sem imagem própria mostra a
+imagem do nível acima, juntamente com os respetivos pontos.
+
+**Pergunta:** Por que razão uma opção de menu não aparece no menu ao lado da imagem, apesar de
 existir?
 
 Resposta: Ou está definido como «Não visível» no menu da aplicação, ou
-está num nível inferior ao definido em **Níveis**. No primeiro caso, permanece
+está num nível mais baixo do que o definido em **Níveis**. No primeiro caso, permanece
 também aqui oculto; no segundo, aumente o número de níveis.

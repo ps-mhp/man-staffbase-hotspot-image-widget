@@ -21,15 +21,15 @@ abre una nueva pestaña?
 Respuesta: Depende del origen del destino. Una **página de la
 lista** del sistema aparece en una ventana sobre la página actual. En cambio, una
 **dirección introducida manualmente**, por el contrario, siempre abre una nueva pestaña. El
-motivo: a menudo, por razones técnicas, las páginas externas no se pueden integrar en una ventana
-; una ventana bloqueada simplemente se quedaría en blanco, sin mostrar ningún mensaje de error
-. Por eso, la nueva pestaña es la opción más fiable para todo lo que se encuentre fuera del
+motivo: a menudo, desde el punto de vista técnico, no es posible incrustar páginas externas en una ventana
+—una ventana bloqueada simplemente se quedaría en blanco, sin mostrar ningún mensaje de error
+—. Por lo tanto, la nueva pestaña es la opción más fiable para todo lo que se encuentre fuera del
 sistema.
 
 **Pregunta:** En la lista de páginas no aparece ninguna página, sino un
 campo para introducir una dirección.
 
-Respuesta: No se ha podido acceder a la lista de páginas del sistema al abrirla. Un
+Respuesta: La lista de páginas del sistema no estaba disponible al abrirla. Un
 mensaje de aviso lo indica. En este caso, introduzca la dirección
 manualmente o cierre la ventana y vuelva a abrirla.
 
@@ -46,7 +46,7 @@ página?
 
 Respuesta: Se traducen el título, la descripción y el texto del
 botón de cada punto. La posición de un punto en la imagen, así como el destino
-de un enlace, permanecen inalterados: no son texto, y en el caso del destino,
+de un enlace, permanecen sin cambios: no son texto, y en el caso del destino,
 una traducción solo estropearía la dirección.
 
 **Pregunta:** ¿Por qué a veces la página enlazada aparece vacía en la ventana,
@@ -74,16 +74,22 @@ aparece al instante.
 
 Respuesta: En el modo «Menú», cada uno solo ve los puntos correspondientes a las opciones del menú a las que
 tiene acceso en el menú de la aplicación. Esto es intencionado: un punto no debe
-conducir a una página que luego no se pueda abrir.
+llevar a una página que luego no se pueda abrir.
 
 **Pregunta:** ¿Pierdo mis puntos si cambio entre «Manual» y «Menú»?
 
 Respuesta: No. Ambos modos guardan los puntos por separado. Si vuelves al modo anterior,
 encontrarás los puntos del otro modo sin cambios.
 
-**Pregunta:** ¿Por qué no aparece una opción del menú junto a la imagen, aunque
+**Pregunta:** ¿Puede cada nivel del menú tener su propia imagen?
+
+Respuesta: Sí. En la ventana «Colocar elementos del menú…», seleccione el nivel en la parte superior
+y, a la izquierda, la imagen de la biblioteca multimedia. Un nivel sin imagen propia muestra la
+imagen del nivel superior, junto con sus elementos.
+
+**Pregunta:** ¿Por qué no aparece un elemento del menú junto a la imagen, aunque
 exista?
 
-Respuesta: O bien está configurada como «No visible» en el menú de la aplicación, o bien
+Respuesta: O bien está configurado como «No visible» en el menú de la aplicación, o bien
 se encuentra en un nivel inferior al establecido en **Niveles**. En el primer caso,
-también permanecerá oculta aquí; en el segundo, aumenta el número de niveles.
+también permanecerá oculto aquí; en el segundo, debe aumentar el número de niveles.

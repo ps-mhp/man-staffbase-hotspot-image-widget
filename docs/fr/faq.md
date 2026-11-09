@@ -21,7 +21,7 @@ ouvre un nouvel onglet ?
 Réponse : Cela dépend de l’origine de la destination. Une **page figurant dans la
 liste** du système s’affiche dans une fenêtre par-dessus la page actuelle. Une
 **adresse saisie manuellement** ouvre en revanche toujours un nouvel onglet. La
-raison : les pages externes ne peuvent souvent pas, d’un point de vue technique, être intégrées dans une fenêtre
+raison : les pages externes ne peuvent souvent pas être intégrées techniquement dans une fenêtre
 — une fenêtre bloquée resterait alors simplement vide, sans afficher de message d’erreur
 . Le nouvel onglet est donc la solution la plus fiable pour tout ce qui se trouve en dehors du
 système.
@@ -53,7 +53,7 @@ une traduction ne ferait que corrompre l’adresse.
 alors que le lien renvoie vers une page de la liste ?
 
 Réponse : Même pour les pages issues de votre propre système, l’intégration peut échouer,
-par exemple si la page de destination empêche techniquement cette intégration. Dans ce cas,
+par exemple si la page de destination empêche techniquement l’intégration. Dans ce cas,
 utilisez le lien « Ouvrir dans un nouvel onglet » en haut de la fenêtre — c’est précisément
 pour cela qu’il se trouve là.
 
@@ -74,17 +74,23 @@ apparaît immédiatement.
 
 Réponse : En mode « Menu », chacun ne voit que les points correspondant aux éléments de menu auxquels il
 ou elle a accès dans le menu de l’application. C’est voulu : un point ne doit
-pas mener vers une page qui ne pourrait ensuite pas s’ouvrir.
+pas mener à une page qui ne pourrait alors pas s’ouvrir.
 
 **Question :** Est-ce que je perds mes points lorsque je passe du mode « Manuel » au mode « Menu »
-?
+et vice-versa ?
 
 Réponse : Non. Les deux modes enregistrent leurs points séparément. Si vous revenez en arrière,
 vous retrouverez les points de l’autre mode inchangés.
 
-**Question :** Pourquoi un élément du menu n’apparaît-il pas à côté de l’image dans le menu, alors qu’
+**Question :** Chaque niveau de menu peut-il avoir sa propre image ?
+
+Réponse : Oui. Dans la fenêtre « Placer les éléments de menu… », sélectionnez le niveau en haut
+et, à gauche, choisissez votre image dans la médiathèque. Un niveau sans image propre affiche l’
+image du niveau supérieur, ainsi que ses éléments.
+
+**Question :** Pourquoi un élément de menu n’apparaît-il pas à côté de l’image dans le menu, alors qu’
 il existe ?
 
-Réponse : Soit il est réglé sur « Non visible » dans le menu de l’application, soit
+Réponse : Soit il est défini sur « Non visible » dans le menu de l’application, soit
 il se trouve à un niveau inférieur à celui défini sous **Niveaux**. Dans le premier cas, il reste
 également masqué ici ; dans le second, augmentez le nombre de niveaux.

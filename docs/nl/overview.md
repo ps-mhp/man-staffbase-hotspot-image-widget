@@ -15,10 +15,11 @@ Onder **Modus** kunt u kiezen waar de punten vandaan komen:
 
 - **Handmatig** — elk punt krijgt een eigen titel, een beschrijving
   en desgewenst een link. Net als voorheen.
-- **Menu** — u kiest een menu-item uit de app. Dit item en de
-  bijbehorende subitems kunnen afzonderlijk als punten op de afbeelding worden geplaatst. Titels
-  en bestemmingen komen rechtstreeks uit het menu: als een menu-item wordt hernoemd,
-  krijgt het bijbehorende punt onmiddellijk een andere naam. Naast de afbeelding staat het menu om door te bladeren.
+- **Menu** — u kiest een menu-item uit de app. De subitems daarvan kunnen
+  als punten op een afbeelding worden geplaatst — en voor elk lager
+  menuniveau op een aparte afbeelding. Titels en bestemmingen komen rechtstreeks uit het
+  menu: als een menu-item wordt hernoemd, krijgt het bijbehorende punt meteen een andere naam.
+  Naast de afbeelding staat het menu om door te bladeren.
 
 De punten van de andere modus blijven behouden bij het wisselen.
 
@@ -59,17 +60,18 @@ Onder **Weergave** kunt u kiezen uit twee varianten:
 
 ## Wat lezers in de modus „Menu“ zien
 
-- Links de afbeelding met rode stippen zonder nummer, rechts daarvan het menu — op
-  smalle schermen eronder. Het menu toont één niveau tegelijk: een
-  pijl brengt je een niveau dieper, de terugknop bovenaan weer omhoog, op de
-  telefoon ook door naar rechts te vegen.
-- Als de muisaanwijzer op een punt staat, verschijnt de naam van het menu-item,
-  en wordt het bijbehorende item in het menu gemarkeerd. Als het item een
-  niveau lager ligt, wordt het item gemarkeerd dat erboven ligt.
-- Als de muisaanwijzer op een item in het menu staat, worden de punten van dit
-  item en al zijn subitems gemarkeerd.
-- Een klik op een punt opent de pagina van het menu-item — of, afhankelijk van
-  de instelling, bladert het menu ernaartoe. Menu-items die alleen mappen zijn zonder
-  eigen pagina, worden altijd in het menu weergegeven.
-- Iedereen ziet alleen items van menu-items die hij of zij ook in het menu van de
-  app ziet. Verborgen menu-items verschijnen niet.
+- Links de afbeelding van het weergegeven menuniveau met rode punten zonder nummer, rechts
+  daarnaast het menu — op smalle schermen daaronder. Het menu toont één
+  niveau tegelijk: een pijl brengt je een niveau lager, de terugknop bovenaan
+  brengt je weer omhoog, op de telefoon ook door naar rechts te vegen.
+- Wie in het menu naar een niveau bladert, ziet de afbeelding daarvan met de puntjes
+  van de subitems. Heeft een niveau geen eigen afbeelding, dan blijft de afbeelding van het
+  bovenliggende niveau staan.
+- Als de muisaanwijzer op een puntje staat, verschijnt de naam van het menu-item,
+  en in het menu wordt het bijbehorende item gemarkeerd. Omgekeerd markeert een item
+  onder de muisaanwijzer het bijbehorende punt.
+- Een klik op een punt dat zelf subpunten heeft, schakelt over naar dit
+  submenu — of, afhankelijk van de instelling, opent de bijbehorende pagina. Punten zonder
+  subpunten openen altijd hun pagina.
+- Iedereen ziet alleen items bij menuopties die hij of zij ook in het menu van de
+  app ziet. Verborgen items in het menu worden niet weergegeven.

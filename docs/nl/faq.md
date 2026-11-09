@@ -10,7 +10,7 @@ worden beïnvloed, en bij het betreffende veld zelf staat dezelfde melding.
 
 **Vraag:** De widget geeft helemaal niets weer op de pagina.
 
-Antwoord: Ofwel ontbreekt de afbeelding, ofwel is er nog geen punt ingesteld. In
+Antwoord: Ofwel ontbreekt de afbeelding, ofwel is er nog geen item toegevoegd. In
 beide gevallen blijft het veld bewust leeg, in plaats van een leeg kader of
 een plaatshouderafbeelding weer te geven. Open de instellingen en controleer
 beide.
@@ -52,7 +52,7 @@ een vertaling het adres alleen maar onleesbaar maken.
 **Vraag:** Waarom verschijnt de gelinkte pagina soms leeg in het venster,
 hoewel de link naar een pagina uit de lijst verwijst?
 
-Antwoord: Ook bij pagina’s uit het eigen systeem kan het insluiten mislukken,
+Antwoord: Zelfs bij pagina’s uit het eigen systeem kan het insluiten mislukken,
 bijvoorbeeld wanneer de doelpagina zelf het insluiten technisch verhindert. Gebruik
 in dat geval de link „In nieuw tabblad openen“ bovenaan het venster — daar
 is hij precies voor bedoeld.
@@ -81,6 +81,12 @@ niet naar een pagina leiden die vervolgens niet kan worden geopend.
 
 Antwoord: Nee. Beide modi slaan hun punten apart op. Wie terugschakelt,
 vindt de punten van de andere modus ongewijzigd terug.
+
+**Vraag:** Kan elk menuniveau een eigen afbeelding hebben?
+
+Antwoord: Ja. In het venster „Menu-items plaatsen …“ selecteert u bovenaan het niveau
+en links de afbeelding uit de mediabibliotheek. Een niveau zonder eigen afbeelding toont de
+afbeelding van het niveau erboven, inclusief de bijbehorende punten.
 
 **Vraag:** Waarom verschijnt een menu-item niet naast de afbeelding in het menu, hoewel
 het wel bestaat?

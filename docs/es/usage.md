@@ -83,48 +83,58 @@ ventana de puntos:
 1. En la configuración, en **Modo**, seleccione la opción «Menú:
    Colocar elementos del menú en la imagen». Los campos del modo manual
    desaparecen y aparecen los del modo menú.
-2. En **Punto de inicio en el menú**, seleccione la opción de menú cuyos
+2. En **Imagen**, seleccione la imagen del nivel de inicio.
+3. En **Punto de inicio en el menú**, seleccione la opción del menú cuyos
    subelementos deban aparecer en la imagen. Si no aparece en la lista,
    seleccione **Introducir otro ID de menú…** e introduzca la dirección de la página
   .
-3. En **Niveles**, establezca hasta qué nivel se extiende el menú. El valor predeterminado
+4. En **Niveles**, especifique hasta qué nivel se extiende el menú. El valor predeterminado
    es 3: el punto de inicio, sus subopciones y las subopciones de estas.
-4. En **Al hacer clic en un elemento**, seleccione si al hacer clic se abre la página
-   (opción predeterminada) o si el menú se desplaza hasta la entrada junto a la imagen.
-5. Haga clic en **Colocar elementos del menú…**. A la izquierda está la imagen, a la derecha
-   el árbol del menú.
-6. Seleccione un elemento del menú a la derecha y haga clic en el lugar deseado
-   de la imagen. Allí aparecerá su elemento; en el árbol, la entrada aparecerá a continuación
-   marcada con «en la imagen».
-7. Repita el paso 6 para cada elemento adicional del menú. Para desplazar una entrada,
-   arrástrela o seleccione la entrada y haga clic en
-   la nueva ubicación. **Eliminar entrada** la retira de la imagen.
-8. Haga clic en **Aplicar**, guarde la página y compruebe el
-   resultado en la vista previa.
+5. En **Clic en un punto con subopciones**, seleccione si al hacer clic
+   se accede al submenú (opción predeterminada) o se abre la página.
+6. Haga clic en **Colocar elementos del menú…**. Arriba aparece el nivel, a la izquierda
+   su imagen y a la derecha sus subelementos.
+7. Seleccione un subelemento a la derecha y haga clic en el lugar deseado
+   de la imagen. Allí se creará su elemento; a continuación, la entrada
+   aparecerá marcada con «en la imagen». Repita el proceso para cada
+   submenú adicional.
+8. Para desplazar un punto, arrástrelo o seleccione la entrada
+   y haga clic en la nueva ubicación. **Eliminar punto** lo retira
+   de la imagen.
+9. Para crear un nivel inferior, haga clic en **›** a la derecha de la subopción
+   o seleccione el nivel en la parte superior. Con **Seleccionar imagen…**, elija una
+   imagen de la biblioteca y coloque los puntos como en el paso 7. Si no
+   se añade una imagen propia, el nivel mostrará posteriormente la imagen del nivel superior.
+10. Haga clic en **Aplicar**, guarde la página y compruebe
+    el resultado en la vista previa.
 
 Si ha modificado el punto de inicio o los niveles, cierre la ventana y
-vuelva a abrirla; al abrirla, se leerán ambos valores.
+vuelva a abrirla; al abrirse, se cargarán ambos cambios.
 
 ## Si algo no funciona
 
 1. **El widget no muestra nada.** O bien falta la imagen, o bien aún
-   no se ha establecido ningún punto. Abra la configuración y compruebe ambos aspectos.
+   no se ha establecido ningún punto. Abre la configuración y comprueba ambas cosas.
 2. **No se puede hacer clic en «Aplicar».** Al menos un punto aún
-   no tiene título. La ventana indica en la parte inferior cuántos puntos se ven afectados;
+   no tiene título. En la parte inferior de la ventana se indica cuántos puntos se ven afectados;
    introduzca un título en cada uno de ellos.
 3. **La página enlazada no aparece en la ventana, sino que se abre en una
    nueva pestaña.** El destino es una dirección introducida manualmente, no una página de
-   la lista. Esto es así a propósito: a menudo, las páginas externas no se pueden
-   incrustar en una ventana. En su lugar, seleccione una página de la lista
+   la lista. Esto es así a propósito: a menudo no es posible incrustar páginas externas en
+   una ventana. En su lugar, seleccione una página de la lista
    si desea que aparezca en la ventana.
 4. **En la lista de páginas no aparece ninguna página, sino un campo para
    introducir una dirección.** La lista de páginas del sistema no estaba
    disponible al abrirla. Introduzca la dirección manualmente o vuelva a abrir la
-   ventana de nuevo.
+   ventana.
 5. **En el modo «Menú», la ventana muestra un aviso para que seleccione primero un punto de partida
   .** En **Punto de partida en el menú** aún no hay nada seleccionado. Seleccione
   una opción del menú, cierre la ventana y vuelva a abrirla.
 6. **En la ventana aparecen elementos bajo «Ya no está en el menú».** La opción de menú correspondiente
-   se ha eliminado, se ha ocultado o se encuentra en un nivel inferior al
-   configurado en **Niveles**. Estos elementos no aparecen en la página.
+   se ha eliminado, ocultado, movido dentro del menú o se encuentra
+   más abajo de lo establecido en **Niveles**. Estos elementos no aparecen en la página.
    Elimínelos de allí o aumente el número de niveles.
+7. **En el modo «Menú», la configuración desaparece tras guardar
+   los cambios.** El widget sigue registrado en la instancia sin los campos del modo «Menú»
+  . Es necesario actualizar el registro (tarea de la
+   administración).

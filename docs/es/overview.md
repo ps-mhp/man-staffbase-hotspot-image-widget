@@ -15,10 +15,11 @@ En **Modo** se puede elegir de dónde proceden los puntos:
 
 - **Manual**: cada punto recibe su propio título, una descripción
   y, si se desea, un enlace. Igual que hasta ahora.
-- **Menú**: seleccionas una opción del menú de la aplicación. Tanto esta como sus
-  subopciones se pueden colocar individualmente como puntos en la imagen. Los títulos
-  y los destinos provienen directamente del menú: si se cambia el nombre de una opción del menú,
-  su punto también cambia de nombre inmediatamente. Junto a la imagen aparece el menú para desplazarse.
+- **Menú**: seleccionas una opción del menú de la aplicación. Sus subopciones se pueden
+  colocar como puntos en una imagen, y para cada nivel inferior
+  del menú, en una imagen propia. Los títulos y los destinos provienen directamente del
+  menú: si se renombra una opción del menú, su punto también cambia de nombre inmediatamente.
+  Junto a la imagen aparece el menú para desplazarse.
 
 Los puntos del otro modo se conservan al cambiar de uno a otro.
 
@@ -26,8 +27,8 @@ Los puntos del otro modo se conservan al cambiar de uno a otro.
 
 En **Visualización** se puede elegir entre dos variantes:
 
-- **Numerada, con lista junto a la imagen** — cada punto lleva un número y,
-  junto a la imagen, hay una lista desplegable con todos los títulos. Al hacer clic en
+- **Numerado, con lista junto a la imagen** — cada punto lleva un número y
+  junto a la imagen hay una lista desplegable con todos los títulos. Al hacer clic en
   un elemento o en la entrada correspondiente de la lista, se despliega su texto.
   Resulta útil a partir de unos cinco elementos y en todos aquellos casos en los que se quiera que los lectores vean los títulos
   sin tener que buscarlos en la imagen.
@@ -42,7 +43,7 @@ En **Visualización** se puede elegir entre dos variantes:
   ni un marco vacío, ni una imagen de relleno.
 - En el modo de visualización «Puntos», la ventana con el texto se abre en el propio punto;
   en pantallas estrechas (de menos de 768 píxeles de ancho), aparece
-  en cambio centrada en la pantalla, con un fondo oscurecido detrás.
+  en cambio en el centro de la pantalla, con un fondo oscurecido detrás.
 - En el modo «Numerado», el punto correspondiente se resalta en la imagen
   en cuanto el cursor se sitúa sobre una entrada de la lista o se
   despliega una entrada: se hace más grande y los demás puntos pasan a un segundo plano.
@@ -57,19 +58,20 @@ En **Visualización** se puede elegir entre dos variantes:
   saltar de un punto a otro, con la tecla Intro se abre y con Esc
   se cierra.
 
-## Lo que ven los lectores y lectoras en el modo «Menú»
+## Lo que ven los lectores en el modo «Menú»
 
-- A la izquierda, la imagen con puntos rojos sin número; a la derecha, el menú —en
-  pantallas estrechas, debajo—. El menú muestra un nivel cada vez: una
-  flecha lleva al nivel inferior, el botón «Atrás» de la parte superior vuelve al nivel anterior; en el
-  teléfono, también se puede deslizar hacia la derecha.
-- Si el cursor del ratón se sitúa sobre un punto, aparece el nombre de la opción del menú,
-  y en el menú se resalta la entrada correspondiente. Si la entrada se encuentra un
-  nivel más abajo, se resalta la entrada situada debajo de ella.
-- Si el cursor del ratón se sitúa sobre una entrada del menú, se resaltan los elementos de dicha
-  entrada y de todos sus subelementos.
-- Al hacer clic en un elemento, se abre la página de esa opción del menú o, según la
-  configuración, el menú se desplaza hasta ella. Las opciones de menú que son solo carpetas sin
-  página propia se muestran siempre en el menú.
-- Cada usuario solo ve las opciones correspondientes a las entradas del menú que también ve en el menú de la
-  aplicación. Las entradas ocultas en el menú no aparecen.
+- A la izquierda, la imagen del nivel del menú mostrado con puntos rojos sin número; a la derecha,
+  justo al lado, el menú —en pantallas estrechas, debajo—. El menú muestra un
+  nivel cada vez: una flecha lleva al nivel inferior, el botón «Atrás» de la parte superior
+  vuelve al nivel anterior; en el teléfono, también se puede deslizar el dedo hacia la derecha.
+- Al desplazarse por un nivel del menú, se ve su imagen con los puntos
+  de sus subniveles. Si un nivel no tiene imagen propia, se mantiene la imagen del
+  nivel superior.
+- Al situar el puntero del ratón sobre un punto, aparece el nombre de la opción del menú,
+  y en el menú se resalta la entrada correspondiente. A la inversa, una entrada
+  situada bajo el cursor resalta su opción.
+- Al hacer clic en una opción que a su vez tiene subopciones, se accede a ese
+  submenú o, según la configuración, se abre su página. Las opciones sin
+  subopciones siempre abren su página.
+- Cada usuario solo ve las opciones de los elementos del menú que también aparecen en el menú de la
+  aplicación. Las entradas ocultas en el menú no se muestran.

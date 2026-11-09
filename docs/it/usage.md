@@ -5,7 +5,7 @@
 1. Inserite il widget **Immagine con punti** nella pagina.
 2. Aprire le impostazioni del widget. La finestra per la modifica dei
    punti si aprirà automaticamente.
-3. Fare clic a sinistra su **Seleziona immagine…** e scegliere un’immagine dalla
+3. Fare clic a sinistra su **Seleziona immagine …** e scegliere un’immagine dalla
    libreria multimediale. Senza immagine non è possibile inserire alcun punto.
 4. Inserite sotto un **testo alternativo** che descriva ciò che è
    visibile nell’immagine.
@@ -83,27 +83,33 @@ finestra dei punti:
 1. Nelle impostazioni, alla voce **Modalità**, selezionate l’opzione «Menu:
    Posizionare le voci di menu sull’immagine». I campi della modalità manuale
    scompaiono, mentre compaiono quelli della modalità menu.
-2. Sotto **Punto di partenza nel menu**, selezionate la voce di menu le cui
-   voci secondarie devono trovarsi sull’immagine. Se non è presente nell’elenco,
-   selezionate **Inserisci altro ID menu …** e inserite l’indirizzo della pagina
+2. Sotto **Immagine**, selezionate l’immagine del livello iniziale.
+3. Sotto **Punto iniziale nel menu**, selezionate la voce di menu le cui
+   sottovoci devono trovarsi sull’immagine. Se non è presente nell’elenco,
+   selezionare **Inserisci altro ID menu …** e inserire l’indirizzo della pagina
   .
-3. In **Livelli**, specificare il numero di livelli del menu. L’impostazione predefinita
+4. In **Livelli**, specificare la profondità del menu. L’impostazione predefinita
    è 3: il punto di partenza, le sue voci secondarie e le relative voci secondarie.
-4. Sotto **Clic su una voce**, scegliete se un clic deve aprire la pagina
-   (impostazione predefinita) oppure se il menu deve scorrere accanto all’immagine fino alla voce corrispondente.
-5. Cliccate su **Posiziona voci di menu…**. A sinistra c’è l’immagine, a destra
-   l’albero del menu.
-6. Selezionate una voce di menu a destra e cliccate nel punto desiderato
-   dell’immagine. Lì verrà creata la voce; nell’albero, la voce risulterà quindi
-   contrassegnata con «sull’immagine».
-7. Ripetete il passaggio 6 per ogni ulteriore voce di menu. Per spostare una voce
-  , trascinatela oppure selezionatela e cliccate nella
-  nuova posizione. **Rimuovi voce** la elimina dall’immagine.
-8. Cliccate su **Applica**, salvate la pagina e controllate il
-  risultato nell’anteprima.
+5. In **Clic su una voce con voci secondarie**, scegliete se un clic
+   porta al sottomenu (impostazione predefinita) o apre la pagina.
+6. Fare clic su **Posiziona voci di menu …**. In alto è indicato il livello, a sinistra
+   la relativa immagine, a destra le voci secondarie.
+7. Selezionare una voce secondaria a destra e fare clic nel punto desiderato
+   dell’immagine. In quel punto verrà creata la voce; nell’elenco la voce
+   viene contrassegnata con «sull’immagine». Ripetete l’operazione per ogni
+   ulteriore sottomenu.
+8. Per spostare una voce, trascinatela oppure selezionatela
+   e cliccate nella nuova posizione. **Rimuovi voce** la elimina
+   dall’immagine.
+9. Per passare a un livello inferiore, clicchi a destra della voce secondaria su **›**
+   oppure selezioni il livello in alto. Con **Seleziona immagine …** scelga un’
+  immagine dalla libreria e posizioni i punti come descritto al punto 7. Senza
+   un’immagine propria, il livello mostrerà in seguito l’immagine del livello sovrastante.
+10. Clicchi su **Applica**, salvi la pagina e verifichi
+    il risultato nell’anteprima.
 
-Se avete modificato il punto di partenza o i livelli, chiudete la finestra e
-riapritela: all’apertura leggerà entrambe le impostazioni.
+Se ha modificato il punto di partenza o i livelli, chiuda la finestra e
+la riapra: al momento dell’apertura verranno letti entrambi.
 
 ## Se qualcosa non funziona
 
@@ -113,18 +119,22 @@ riapritela: all’apertura leggerà entrambe le impostazioni.
    un titolo. In fondo alla finestra è indicato quanti punti sono interessati —
    inserite un titolo per ciascuno di essi.
 3. **La pagina collegata non appare nella finestra, ma si apre in una
-   nuova scheda.** La destinazione è un indirizzo inserito manualmente, non una pagina dall’
-  elenco. È previsto che sia così: spesso le pagine esterne non possono essere
+   nuova scheda.** La destinazione è un indirizzo inserito manualmente, non una pagina presente
+   nell’elenco. È previsto che sia così: spesso le pagine esterne non possono essere
    incorporate in una finestra. Selezionate invece una pagina dall’elenco,
    se desiderate che appaia nella finestra.
-4. **Nell’elenco delle pagine non è presente alcuna pagina, ma un campo per
+4. **Nell’elenco delle pagine non compare nessuna pagina, ma solo un campo per
    inserire un indirizzo.** L’elenco delle pagine del sistema non era
-   raggiungibile all’apertura. Inserite l’indirizzo manualmente oppure aprite nuovamente la
-   finestra di nuovo.
+   accessibile all’apertura. Inserite l’indirizzo manualmente oppure riaprite la
+   finestra.
 5. **Nella modalità «Menu», nella finestra compare l’avviso di selezionare prima un punto di partenza
-  .** Sotto **Punto di partenza nel menu** non è ancora stato selezionato nulla. Selezionate
+  .** Sotto **Punto di partenza nel menu** non è ancora selezionato nulla. Selezionate
   una voce di menu, chiudete la finestra e riapritela.
 6. **Nella finestra sono presenti voci sotto «Non più nel menu».** La relativa
-   voce di menu è stata eliminata, nascosta o si trova a un livello inferiore rispetto a quello
-   impostato in **Livelli**. Queste voci non compaiono nella pagina.
-   Rimuovetele da lì oppure aumentate il numero dei livelli.
+   voce di menu è stata eliminata, nascosta, spostata nel menu o si trova
+   a un livello inferiore rispetto a quello impostato in **Livelli**. Queste voci non compaiono nella pagina.
+   Rimuoveteli da lì oppure aumentate il numero di livelli.
+7. **In modalità «Menu», le impostazioni scompaiono nuovamente dopo il salvataggio
+  .** Il widget è ancora registrato nell’istanza senza i campi della modalità menu
+  . La registrazione deve essere aggiornata (compito dell’
+  amministrazione).

@@ -6,13 +6,13 @@
 2. Open de instellingen van de widget. Het venster voor het bewerken van de
    punten wordt automatisch geopend.
 3. Klik links op **Afbeelding selecteren …** en kies een afbeelding uit de
-   mediabibliotheek. Zonder afbeelding kun je geen punt plaatsen.
+   mediabibliotheek. Zonder afbeelding kunt u geen punt plaatsen.
 4. Voer daaronder een **alternatieve tekst** in die beschrijft wat er op
    de afbeelding te zien is.
 5. Klik op de gewenste plek in de afbeelding. Daar ontstaat een nieuw
    punt en rechts verschijnt het bijbehorende formulier.
 6. Voer de **titel** in. Zonder titel kan het venster niet worden gesloten met
-   **Toepassen** — er verschijnt een overeenkomstige melding zowel bij het
+   **Toepassen** — er verschijnt een bijbehorende melding zowel bij het
    veld als onderaan in het venster.
 7. Voer eventueel een **beschrijving** in.
 8. Optioneel: voeg onder het veld „Beschrijving“ via **Link
@@ -33,7 +33,7 @@
 3. Wilt u in plaats daarvan een eigen adres invoeren, klik dan op
    **Eigen adres invoeren …** en voer het adres in het veld
    **Adres** in. Zo’n adres wordt later in een nieuw
-   tabblad geopend, niet in het venster — daarvoor staat daar de tekst.
+   tabblad geopend, niet in het venster — daarvoor staat daar de tekst met de opmerking.
 4. Via **In plaats daarvan een pagina selecteren** keert u vanuit het eigen
    adres terug naar de lijst.
 5. Voer eventueel een eigen **label voor de knop** in. Als
@@ -43,7 +43,7 @@
 
 ## Items verplaatsen, sorteren en verwijderen
 
-1. Om een item te verplaatsen, sleept u het in het venster naar de nieuwe plek.
+1. Om een item te verplaatsen, sleept u het in de afbeelding naar de nieuwe plek.
 2. Om de volgorde van de nummering te wijzigen, selecteert u het item in de
    lijst aan de rechterkant en klikt u op **Omhoog** of **Omlaag**.
 3. Om een item te verwijderen, selecteert u het en klikt u in het
@@ -83,26 +83,32 @@ puntenvenster:
 1. Selecteer in de instellingen onder **Modus** de optie „Menu:
    menu-items op de afbeelding plaatsen“. De velden van de handmatige modus
    verdwijnen, die van de menumodus verschijnen.
-2. Selecteer onder **Startpunt in het menu** het menu-item waarvan
+2. Selecteer onder **Afbeelding** de afbeelding van het startniveau.
+3. Selecteer onder **Startpunt in het menu** het menu-item waarvan
    de subitems op de afbeelding moeten komen te staan. Als het niet in de lijst staat,
    selecteer dan **Andere menu-ID invoeren …** en voeg het adres van de pagina
    in.
-3. Stel onder **Niveaus** in hoe diep het menu reikt. De standaardinstelling
+4. Bepaal onder **Lagen** hoe diep het menu reikt. De standaardinstelling
    is 3: het startpunt, de subitems daarvan en de subitems daarvan.
-4. Kies onder **Klik op een punt** of een klik de pagina opent
-   (standaard) of dat het menu naast de afbeelding naar het betreffende item bladert.
-5. Klik op **Menu-items plaatsen …**. Links staat de afbeelding, rechts
-   de menustructuur.
-6. Selecteer rechts een menu-item en klik op de gewenste
-   plek in de afbeelding. Daar verschijnt het item; in de boomstructuur wordt het item daarna
-   gemarkeerd met „op de afbeelding“.
-7. Herhaal stap 6 voor elk volgend menu-item. Om een item te
-   verplaatsen, sleept u het of selecteert u het item en klikt u op
-   de nieuwe plek. Met **Item verwijderen** haalt u het weer van de afbeelding.
-8. Klik op **Toepassen**, sla de pagina op en controleer het
-   resultaat in het voorbeeld.
+5. Kies onder **Klik op een punt met subitems** of een klik
+   naar het submenu gaat (standaard) of de pagina opent.
+6. Klik op **Menu-items plaatsen …**. Bovenaan staat het niveau, links
+   de afbeelding ervan, rechts de subitems.
+7. Selecteer rechts een subitem en klik op de gewenste
+   plek in de afbeelding. Daar verschijnt het item; in de lijst wordt het item
+   daarna gemarkeerd met „op de afbeelding“. Herhaal dit voor elk
+   volgend submenu-item.
+8. Om een punt te verplaatsen, sleept u het of selecteert u het item
+   en klikt u op de nieuwe plek. Met **Punt verwijderen** haalt u het weer
+   van de afbeelding.
+9. Voor een lager niveau klik je rechts naast het subitem op **›**
+   of selecteer je het niveau bovenaan. Selecteer met **Afbeelding selecteren …** een
+   afbeelding uit de mediabibliotheek en plaats de punten zoals in stap 7. Zonder
+   eigen afbeelding toont het niveau later de afbeelding van het niveau erboven.
+10. Klik op **Toepassen**, sla de pagina op en controleer
+    het resultaat in het voorbeeld.
 
-Als u het startpunt of de lagen hebt gewijzigd, sluit u het venster en
+Als u het startpunt of de niveaus hebt gewijzigd, sluit u het venster en
 opent u het opnieuw — het leest beide bij het openen.
 
 ## Als iets niet werkt
@@ -125,6 +131,10 @@ opent u het opnieuw — het leest beide bij het openen.
    moet kiezen.** Onder **Startpunt in het menu** is nog niets geselecteerd. Kies
    een menu-item, sluit het venster en open het opnieuw.
 6. **In het venster staan items onder „Niet meer in het menu“.** Het bijbehorende
-   menu-item is verwijderd, verborgen of bevindt zich dieper dan ingesteld onder
-   **Niveaus**. Deze items verschijnen niet op de pagina.
+   menu-item is verwijderd, verborgen, in het menu verplaatst of bevindt zich
+   dieper dan ingesteld onder **Niveaus**. Deze items verschijnen niet op de pagina.
    Verwijder ze daar of verhoog het aantal niveaus.
+7. **In de modus „Menu“ zijn de instellingen na het opslaan weer
+   verdwenen.** De widget is in de instantie nog geregistreerd zonder de velden van de menumodus
+  . De registratie moet worden bijgewerkt (taak van de
+   administratie).
