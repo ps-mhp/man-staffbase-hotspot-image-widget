@@ -33,12 +33,20 @@ import {
   DISPLAY_MODE_ATTRIBUTE,
   IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
+  MENU_CLICK_ATTRIBUTE,
+  MENU_DEPTH_ATTRIBUTE,
+  MENU_ID_ATTRIBUTE,
+  MENU_POINTS_ATTRIBUTE,
   POINTS_ATTRIBUTE,
+  SOURCE_ATTRIBUTE,
   configurationSchema,
   uiSchema,
 } from "./configuration-schema";
 import { HotspotImage } from "./hotspot-image";
+import { MenuHotspotImage } from "./menu/menu-hotspot-image";
+import { parseMenuPoints, readMenuClick, readMenuDepth, readSource } from "./menu-points-model";
 import { parsePoints, readDisplayMode, readImage } from "./points-model";
+import { readMenuId } from "@shared/staffbase/menu";
 import { startPointEditorInjector } from "./point-editor-injector";
 import { hotspotTranslationProvider } from "./translation-provider";
 import icon from "../resources/hotspot-image-widget.svg";
@@ -53,15 +61,34 @@ export type HotspotImageWidgetProps = BlockAttributes & {
   [IMAGE_ALT_ATTRIBUTE]?: string;
   [POINTS_ATTRIBUTE]?: string;
   [DISPLAY_MODE_ATTRIBUTE]?: string;
+  [SOURCE_ATTRIBUTE]?: string;
+  [MENU_ID_ATTRIBUTE]?: string;
+  [MENU_DEPTH_ATTRIBUTE]?: string;
+  [MENU_CLICK_ATTRIBUTE]?: string;
+  [MENU_POINTS_ATTRIBUTE]?: string;
 };
 
-export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement | null => (
-  <HotspotImage
-    image={readImage(props[IMAGE_ATTRIBUTE] ?? "", props[IMAGE_ALT_ATTRIBUTE])}
-    points={parsePoints(props[POINTS_ATTRIBUTE] ?? "")}
-    mode={readDisplayMode(props[DISPLAY_MODE_ATTRIBUTE])}
-  />
-);
+export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement | null => {
+  const image = readImage(props[IMAGE_ATTRIBUTE] ?? "", props[IMAGE_ALT_ATTRIBUTE]);
+  if (readSource(props[SOURCE_ATTRIBUTE]) === "menu") {
+    return (
+      <MenuHotspotImage
+        image={image}
+        points={parseMenuPoints(props[MENU_POINTS_ATTRIBUTE] ?? "")}
+        rootId={readMenuId(props[MENU_ID_ATTRIBUTE])}
+        depth={readMenuDepth(props[MENU_DEPTH_ATTRIBUTE])}
+        click={readMenuClick(props[MENU_CLICK_ATTRIBUTE])}
+      />
+    );
+  }
+  return (
+    <HotspotImage
+      image={image}
+      points={parsePoints(props[POINTS_ATTRIBUTE] ?? "")}
+      mode={readDisplayMode(props[DISPLAY_MODE_ATTRIBUTE])}
+    />
+  );
+};
 
 /** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um
  *  Abweichungen zu vermeiden: Ein Tippfehler würde sonst zur Laufzeit zu einem

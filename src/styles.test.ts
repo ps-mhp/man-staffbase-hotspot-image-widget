@@ -26,6 +26,7 @@
  */
 
 import hotspotStyles from "./styles/hotspot-image.scss";
+import menuStyles from "./styles/menu-mode.scss";
 
 /**
  * Der fünffach wiederholte Selektor, den `man-outshine-host` erzeugt.
@@ -50,6 +51,13 @@ describe("Stylesheet", () => {
     ["man-hi__popover-action", hotspotStyles],
     ["man-hi__item-head", hotspotStyles],
     ["man-hi__popover-title", hotspotStyles],
+    ["man-hi__marker--menu", menuStyles],
+    ["man-hi-menu__link", menuStyles],
+    ["man-hi-menu__heading-link", menuStyles],
+    ["man-hi-menu__open", menuStyles],
+    ["man-hi-menu__row", menuStyles],
+    ["man-hi-menu__back", menuStyles],
+    ["man-hi-menu__item", menuStyles],
   ])("setzt %s gegen die Regeln der Wirtsseite durch", (className, css) => {
     expect(css).toMatch(outshineRule(css, className));
   });
@@ -60,6 +68,7 @@ describe("Stylesheet", () => {
   // ebenfalls ein Token und kein eigener Einfall.
   it.each([
     ["hotspot-image.scss", hotspotStyles],
+    ["menu-mode.scss", menuStyles],
   ])("rundet in %s nur nach den MAN-Tokens", (_name, css) => {
     const invented = [...css.matchAll(/border-radius:\s*([^;}]+)/g)]
       .map((match) => match[1].trim())
@@ -200,5 +209,27 @@ describe("Stylesheet", () => {
     const frames = [...keyframes.matchAll(/box-shadow:[^;]*/g)].map((match) => match[0]);
     expect(frames).toHaveLength(2);
     frames.forEach((frame) => expect(frame).toContain("var(--man-hi-shadow)"));
+  });
+  // Ein Punkt im Modus „Menü“ ist oft ein Link: die Wirtsseite unterstreicht
+  // Links, auch unter dem Zeiger.
+  it("unterstreicht den Punkt nicht, auch wenn er ein Link ist", () => {
+    const rule = menuStyles.match(outshineRule(menuStyles, "man-hi__marker--menu"))?.[0] ?? "";
+    expect(rule).toContain("text-decoration: none !important");
+  });
+
+  // Das Namensschild darf keine Klicks schlucken: dicht gesetzt laege es
+  // sonst ueber dem Nachbarpunkt.
+  it("lässt Klicks durch das Namensschild hindurch", () => {
+    expect(menuStyles).toMatch(/\.man-hi__tag\s*\{[^}]*pointer-events:\s*none/);
+  });
+
+  it("zeigt das Namensschild unter dem Zeiger, im Fokus und für die Zeile unter dem Zeiger", () => {
+    expect(menuStyles).toMatch(/\.man-hi__marker:hover \.man-hi__tag/);
+    expect(menuStyles).toMatch(/\.man-hi__marker:focus-visible \.man-hi__tag/);
+    expect(menuStyles).toMatch(/\.man-hi__marker--named \.man-hi__tag/);
+  });
+
+  it("schreibt auch im Menü keine Versalien", () => {
+    expect(menuStyles).not.toMatch(/uppercase/);
   });
 });

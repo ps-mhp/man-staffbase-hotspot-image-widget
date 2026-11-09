@@ -16,6 +16,7 @@ import { render, screen } from "@testing-library/react";
 import { HotspotImageWidget } from "./index";
 import { ALL_ATTRIBUTES, configurationSchema, uiSchema } from "./configuration-schema";
 import { encodeImageAttribute, encodePointsAttribute } from "./points-model";
+import { encodeMenuPointsAttribute } from "./menu-points-model";
 
 const image = encodeImageAttribute({ url: "https://example.test/a.jpg", alt: "Ein Auto" });
 const points = encodePointsAttribute([{ id: "p1", x: 10, y: 20, title: "Ladeanschluss" }]);
@@ -92,5 +93,26 @@ describe("HotspotImageWidget", () => {
       />,
     );
     expect(screen.getByTestId("item-p1")).toBeInTheDocument();
+  });
+  it("zeigt im Modus „Menü“ die Menüpunkte statt der eigenen Punkte", async () => {
+    const menuId = "6a58dd4eefeacc1239d9fd09";
+    globalThis.fetch = jest.fn().mockResolvedValue({ ok: false, status: 404, json: async () => ({}) }) as unknown as typeof fetch;
+
+    render(
+      <HotspotImageWidget
+        contentLanguage="de_DE"
+        image={image}
+        points={points}
+        source="menu"
+        menu-id={`/content/page/${menuId}`}
+        menu-points={encodeMenuPointsAttribute([{ id: "m1", menuId, x: 1, y: 2 }])}
+      />,
+    );
+
+    expect(screen.queryByTestId("item-p1")).not.toBeInTheDocument();
+    expect(screen.getByAltText("Ein Auto")).toBeInTheDocument();
+    // Das Menü kam nicht: Bild ja, Punkte nein, dafür der Hinweis.
+    expect(await screen.findByRole("alert")).toBeInTheDocument();
+    expect(globalThis.fetch).toHaveBeenCalledWith(`/api/menu/${menuId}`, expect.anything());
   });
 });
