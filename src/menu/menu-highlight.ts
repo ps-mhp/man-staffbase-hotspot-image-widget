@@ -36,7 +36,8 @@ const shownPath = (tree: MenuTree, trail: readonly string[]): string[] => [tree.
 
 /**
  * Die Zeile des Eintrags oder seines Vorfahren auf der gezeigten Ebene; die
- * Kopfzeile, wenn er die Ebene selbst ist oder über ihr liegt; sonst nichts.
+ * Kopfzeile, wenn er die Ebene selbst ist; sonst nichts. Ein Eintrag über der
+ * Ebene markiert nichts: die Kopfzeile trägt dort einen anderen Namen.
  */
 export function menuMarkFor(tree: MenuTree, entryId: string | null, trail: readonly string[]): MenuMark | null {
   if (entryId === null) return null;
@@ -46,7 +47,7 @@ export function menuMarkFor(tree: MenuTree, entryId: string | null, trail: reado
   if (startsWith(location.path, shown) && location.path.length > shown.length) {
     return { kind: "row", id: location.path[shown.length] };
   }
-  return startsWith(shown, location.path) ? { kind: "header" } : null;
+  return location.path.length === shown.length && startsWith(shown, location.path) ? { kind: "header" } : null;
 }
 
 /** Der Eintrag und alle seine Nachfahren im Baum. */

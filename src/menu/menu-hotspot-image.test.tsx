@@ -147,6 +147,7 @@ describe("MenuHotspotImage", () => {
       await renderReady({ click: "reveal" });
 
       expect(marker(IDS.lenkrad).tagName).toBe("BUTTON");
+      expect(marker(IDS.lenkrad)).toHaveAccessibleName(`Lenkrad${MENU_MESSAGES.revealSuffix}`);
       fireEvent.click(marker(IDS.lenkrad));
 
       expect(screen.getByRole("button", { name: `${MENU_MESSAGES.back}Fahrerarbeitsplatz` })).toBeInTheDocument();
@@ -171,6 +172,17 @@ describe("MenuHotspotImage", () => {
 
       expect(document.querySelector(".man-hi-menu__item--marked")).toBeNull();
     });
+  });
+
+  it("vergisst die Hervorhebung der Zeile, wenn sie beim Blättern verschwindet", async () => {
+    await renderReady();
+    const open = screen.getByRole("button", { name: MENU_MESSAGES.openChildren("Fahrerarbeitsplatz") });
+    fireEvent.focus(open);
+    expect(marker(IDS.lenkrad)).toHaveClass("man-hi__marker--highlighted");
+
+    fireEvent.click(open);
+
+    expect(marker(IDS.lenkrad)).not.toHaveClass("man-hi__marker--highlighted");
   });
 
   describe("Hover", () => {

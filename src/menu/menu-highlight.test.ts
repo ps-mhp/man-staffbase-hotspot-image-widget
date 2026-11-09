@@ -25,10 +25,14 @@ describe("menuMarkFor", () => {
     expect(menuMarkFor(tree, IDS.lenkrad, [])).toEqual({ kind: "row", id: IDS.arbeitsplatz });
   });
 
-  it("markiert die Kopfzeile für den Knoten der Ebene selbst und alles darüber", () => {
+  it("markiert die Kopfzeile für den Knoten der Ebene selbst", () => {
     expect(menuMarkFor(tree, IDS.fahrerhaus, [])).toEqual({ kind: "header" });
     expect(menuMarkFor(tree, IDS.arbeitsplatz, [IDS.arbeitsplatz])).toEqual({ kind: "header" });
-    expect(menuMarkFor(tree, IDS.fahrerhaus, [IDS.arbeitsplatz])).toEqual({ kind: "header" });
+  });
+
+  it("markiert nichts für einen Eintrag über der gezeigten Ebene", () => {
+    // Die Kopfzeile hieße dort „Fahrerarbeitsplatz“, nicht „Fahrerhaus“.
+    expect(menuMarkFor(tree, IDS.fahrerhaus, [IDS.arbeitsplatz])).toBeNull();
   });
 
   it("markiert nichts für einen Eintrag in einem anderen Zweig", () => {

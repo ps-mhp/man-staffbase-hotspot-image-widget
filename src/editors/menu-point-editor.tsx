@@ -49,6 +49,9 @@ export const MENU_EDITOR_MESSAGES = {
   retry: "Erneut versuchen",
   pickFirst: "Wähle rechts einen Menüpunkt; ein Klick ins Bild setzt dann seinen Punkt.",
   full: `Mehr als ${MAX_POINTS} Punkte trägt ein Bild nicht.`,
+  fullWithOrphans: (count: number): string =>
+    `Mehr als ${MAX_POINTS} Punkte trägt ein Bild nicht. ${count} davon gehören zu Einträgen, die nicht mehr im Menü stehen — unten lassen sie sich entfernen.`,
+  remaining: (count: number): string => `Noch ${count} von ${MAX_POINTS} Punkten frei.`,
   orphans: "Nicht mehr im Menü",
   orphansHint: "Diese Punkte gehören zu Einträgen, die im Menü fehlen oder tiefer liegen als eingestellt.",
   remove: "Punkt entfernen",
@@ -191,7 +194,9 @@ function Placement({ tree, value, onChange, left, image }: PlacementProps): Reac
           <>
             {full && (
               <p className="man-hie__hint" data-testid="menu-editor-full">
-                {MENU_EDITOR_MESSAGES.full}
+                {orphans.length > 0
+                  ? MENU_EDITOR_MESSAGES.fullWithOrphans(orphans.length)
+                  : MENU_EDITOR_MESSAGES.full}
               </p>
             )}
             <PlacementCanvas
@@ -203,6 +208,9 @@ function Placement({ tree, value, onChange, left, image }: PlacementProps): Reac
               onSelect={onSelectPoint}
               markerLabel={() => ""}
             />
+            <p className="man-hie__hint" data-testid="menu-editor-remaining">
+              {MENU_EDITOR_MESSAGES.remaining(MAX_POINTS - value.length)}
+            </p>
           </>
         )}
       </div>

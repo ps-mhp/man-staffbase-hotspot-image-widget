@@ -34,6 +34,7 @@ export const MENU_MESSAGES = {
   empty: "Hier gibt es keine weiteren Einträge.",
   back: "Zurück: ",
   newTab: " (öffnet in neuem Tab)",
+  revealSuffix: " – im Menü zeigen",
   openChildren: (title: string): string => `Unterpunkte von ${title}`,
 } as const;
 

@@ -104,7 +104,13 @@ export function MenuMarker({
   }
 
   return (
-    <button {...common} type="button" aria-label={entry.title} onClick={() => onReveal(point.menuId)}>
+    // Der Zusatz sagt an, dass der Fokus gleich ins Menü springt.
+    <button
+      {...common}
+      type="button"
+      aria-label={`${entry.title}${MENU_MESSAGES.revealSuffix}`}
+      onClick={() => onReveal(point.menuId)}
+    >
       {tag}
     </button>
   );

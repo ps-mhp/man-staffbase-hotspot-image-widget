@@ -169,7 +169,14 @@ describe("MenuPointEditor", () => {
     clickCanvas();
 
     expect(onChange).not.toHaveBeenCalled();
-    expect(screen.getByTestId("menu-editor-full")).toBeInTheDocument();
+    // Alle zwanzig gehören zu Einträgen außerhalb des Baums: der Hinweis sagt, wo Platz zu holen ist.
+    expect(screen.getByTestId("menu-editor-full")).toHaveTextContent(MENU_EDITOR_MESSAGES.fullWithOrphans(MAX_POINTS));
+  });
+
+  it("zeigt, wie viele Punkte noch frei sind", async () => {
+    await renderEditor({ value: [point(IDS.ruhe)] });
+
+    expect(screen.getByTestId("menu-editor-remaining")).toHaveTextContent(MENU_EDITOR_MESSAGES.remaining(MAX_POINTS - 1));
   });
 
   it("fordert ein Bild an, bevor es Punkte gibt", async () => {

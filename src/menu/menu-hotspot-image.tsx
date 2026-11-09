@@ -140,6 +140,9 @@ function MenuStage({ image, points, tree, click }: MenuStageProps): ReactElement
   const onNavigate = (trail: string[], direction: MenuDirection): void => {
     setNavigation({ trail, direction });
     setReveal(null);
+    // Die Zeile unter Zeiger oder Fokus verschwindet beim Blättern, ohne ein
+    // `pointerleave` oder `blur` zu schicken -- ihre Hervorhebung bliebe hängen.
+    setRowHover(null);
   };
 
   const onReveal = (menuId: string): void => {
