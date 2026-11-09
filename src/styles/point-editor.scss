@@ -471,8 +471,10 @@
 
 // Der gewählte Hintergrund, rund wie der Punkt -- auf der Bühne und in der
 // Vorschau des Feldes. Farben wie auf der Seite (MAN-Tokens).
+// Die Luft aus der Kantenlänge (`--man-hie-icon`, inline gesetzt), nicht in
+// Prozent -- siehe `.man-hi__marker--icon-bg`.
 .man-hie__icon-bg {
-  padding: 15%;
+  padding: calc(var(--man-hie-icon, 48px) * 0.15);
   border-radius: 50%;
   box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
   filter: none;

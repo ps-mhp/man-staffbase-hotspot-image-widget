@@ -151,7 +151,12 @@ export function PlacementCanvas({
               // ein 72px-Symbol nach einem 32px-Punkt.
               ...(point.icon === undefined
                 ? {}
-                : { width: ICON_SIZES[point.icon.size], height: ICON_SIZES[point.icon.size] }),
+                : {
+                    width: ICON_SIZES[point.icon.size],
+                    height: ICON_SIZES[point.icon.size],
+                    // Für die Luft im Hintergrund, siehe `point-editor.scss`.
+                    ["--man-hie-icon" as string]: `${ICON_SIZES[point.icon.size]}px`,
+                  }),
             }}
             aria-label={`Punkt ${index + 1}${point.title === "" ? "" : `: ${point.title}`}`}
             // Ausgewählt heisst „an diesem Punkt wird gerade gearbeitet" -- eine

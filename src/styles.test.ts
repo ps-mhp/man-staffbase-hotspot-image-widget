@@ -27,6 +27,7 @@
 
 import hotspotStyles from "./styles/hotspot-image.scss";
 import menuStyles from "./styles/menu-mode.scss";
+import editorStyles from "./styles/point-editor.scss";
 
 /**
  * Der fünffach wiederholte Selektor, den `man-outshine-host` erzeugt.
@@ -245,5 +246,16 @@ describe("Stylesheet", () => {
   it("gleitet beim Blättern nur ein kurzes Stück statt um ein Drittel der Breite", () => {
     expect(menuStyles).not.toMatch(/translateX\(-?32%\)/);
     expect(menuStyles).toMatch(/translateX\(24px\)/);
+  });
+  // Ein Prozent-Innenabstand bezieht sich auf die Breite des Elternteils, nicht
+  // auf den Punkt: im Bild (und auf der Bühne des Editors) wurde der Hintergrund
+  // so zur riesigen Scheibe ohne Platz fürs Bild (rc.6, 09.11.2026).
+  it("rechnet die Luft um ein Punktbild aus seiner eigenen Grösse", () => {
+    const pointRule = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__marker--icon-bg"))?.[0] ?? "";
+    expect(pointRule).toMatch(/padding:\s*calc\(var\(--man-hi-icon, 48px\) \* 0\.15\)/);
+    expect(editorStyles).toMatch(/\.man-hie__icon-bg\s*\{[^}]*padding:\s*calc\(var\(--man-hie-icon, 48px\) \* 0\.15\)/);
+    for (const css of [hotspotStyles, editorStyles]) {
+      expect(css).not.toMatch(/icon-bg[^{]*\{[^}]*padding:\s*\d+%/);
+    }
   });
 });

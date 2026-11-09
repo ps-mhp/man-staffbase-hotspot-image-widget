@@ -324,4 +324,17 @@ describe("MenuPanel", () => {
     expect(canvasMarker).toHaveStyle({ width: "72px", height: "72px" });
     expect(canvasMarker.querySelector("img")).toHaveAttribute("src", "https://example.test/i.png");
   });
+
+  it("gibt einem Punktbild mit Hintergrund auf der Fläche seine Grösse für die Luft mit", async () => {
+    await renderPanel({
+      [IDS.fahrerhaus]: {
+        points: [{ ...point(IDS.ruhe), icon: { url: "https://example.test/i.png", size: "m", background: "white" } }],
+      },
+    });
+
+    const canvasMarker = screen.getByTestId(`place-marker-p-${IDS.ruhe}`);
+    expect(canvasMarker).toHaveClass("man-hie__icon-bg", "man-hie__icon-bg--white");
+    expect(canvasMarker.style.getPropertyValue("--man-hie-icon")).toBe("48px");
+    expect(canvasMarker).toHaveStyle({ width: "48px", height: "48px" });
+  });
 });

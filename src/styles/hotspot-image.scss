@@ -466,9 +466,14 @@
 
 // Mit Hintergrund: eine runde Fläche wie der Punkt, mit dessen Schatten
 // statt des `drop-shadow`; das Bild sitzt mit etwas Luft darin.
+//
+// Die Luft aus der eigenen Grösse gerechnet, nicht in Prozent: ein
+// Prozent-Innenabstand bezieht sich auf die Breite des umgebenden Bildes. Der
+// Punkt wurde dadurch zur riesigen Scheibe ohne Platz fürs Bild -- am
+// 09.11.2026 im Studio gesehen (rc.6).
 .man-hi__marker--icon-bg {
   @include man-outshine-host {
-    padding: 15% !important;
+    padding: calc(var(--man-hi-icon, 48px) * 0.15) !important;
     border-radius: #{man("radius-round")} !important;
     box-shadow: var(--man-hi-shadow);
     filter: none;

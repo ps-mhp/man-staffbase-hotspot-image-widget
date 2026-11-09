@@ -66,7 +66,11 @@ export function PointIconField({ icon, onChange }: PointIconFieldProps): ReactEl
         <div className="man-hie__icon-chosen">
           <span
             className={`man-hie__icon-preview${icon.background === undefined ? "" : ` man-hie__icon-bg man-hie__icon-bg--${icon.background}`}`}
-            style={{ width: ICON_SIZES[icon.size], height: ICON_SIZES[icon.size] }}
+            style={{
+              width: ICON_SIZES[icon.size],
+              height: ICON_SIZES[icon.size],
+              ["--man-hie-icon" as string]: `${ICON_SIZES[icon.size]}px`,
+            }}
           >
             <img className="man-hie__canvas-icon" src={icon.url} alt="" />
           </span>
