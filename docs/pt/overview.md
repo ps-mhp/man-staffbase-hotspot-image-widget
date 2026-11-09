@@ -21,7 +21,7 @@ Em **Modo**, pode escolher a origem dos pontos:
   menu: se um item do menu for renomeado, o respetivo ponto passa imediatamente a ter outro nome.
   Ao lado da imagem, encontra-se o menu para navegar.
 
-Os pontos do outro modo são mantidos quando se muda de modo.
+Os pontos do outro modo são mantidos quando se alterna entre os modos.
 
 ## As duas formas de apresentação no modo «Manual»
 

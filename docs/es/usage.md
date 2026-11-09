@@ -10,17 +10,17 @@
    biblioteca multimedia. Sin imagen no se puede colocar ningún punto.
 4. Introduzca debajo un **texto alternativo** que describa lo que
    se ve en la imagen.
-5. Haga clic en el lugar deseado de la imagen. Allí se creará un nuevo
-   punto y aparecerá su formulario a la derecha.
+5. Haga clic en el lugar deseado de la imagen. Allí aparecerá un nuevo
+   punto y, a la derecha, se mostrará su formulario.
 6. Introduzca el **título**. Sin título, no se puede cerrar la ventana con
    **Aceptar**; aparecerá un aviso al respecto tanto en el
    campo como en la parte inferior de la ventana.
-7. Si lo desea, introduzca una **descripción**.
-8. Opcional: debajo del campo «Descripción», añada un destino mediante **Añadir
-   enlace**; consulte la sección «Insertar un enlace» más
+7. Introduzca, si lo desea, una **descripción**.
+8. Opcional: añada un destino debajo del campo «Descripción» mediante **Añadir enlace
+   **Añadir enlace** — véase la sección «Insertar un enlace» más
    abajo.
-9. Repita los pasos del 5 al 8 para cada punto adicional. Una imagen
-   tiene un máximo de 20 puntos.
+9. Repite los pasos del 5 al 8 para cada punto adicional. Una imagen
+   puede contener un máximo de 20 puntos.
 10. En la parte superior, en **Presentación**, elija entre «Numerado, con lista
     junto a la imagen» y «Puntos, sin lista».
 11. Haga clic en **Aplicar**.
@@ -31,21 +31,28 @@
 Cada punto puede mostrar una imagen propia en lugar del punto rojo, por ejemplo, un
 símbolo o una foto recortada. Esto es posible en ambos modos.
 
-1. Seleccione el punto: en el modo «Manual», en la lista de la derecha; en el
-   modo «Menú», el elemento de menú colocado en la lista de subelementos.
+1. Selecciona el punto: en el modo «Manual», en la lista de la derecha; en el
+   modo «Menú», la opción de menú seleccionada en la lista de subopciones.
 2. En **Imagen en lugar de punto**, haz clic en **Seleccionar imagen propia…** y
    selecciona una imagen de la biblioteca multimedia. Los archivos PNG o SVG transparentes
    quedan mejor recortados.
-3. En **Tamaño**, elija entre S (32 px), M (48 px, predeterminado)
+3. En **Tamaño**, elige entre S (32 px), M (48 px, predeterminado)
    y L (72 px).
-4. Al hacer clic en **Eliminar imagen**, volverá a aparecer el punto rojo.
+4. En **Fondo**, elija si la imagen aparece suelta (transparente,
+   predeterminado) o sobre un fondo redondo en blanco, rojo MAN, antracita
+   o gris claro —como el punto rojo—.
+5. Con **Eliminar imagen**, vuelve a aparecer el punto rojo.
+
+En la biblioteca multimedia también puede encontrar una imagen introduciendo su dirección (por ejemplo,
+copiada de una página) o su ID en el campo de búsqueda. Mediante el
+icono de filtro, puede limitar la selección a una **colección**.
 
 ## Insertar un enlace
 
 1. En el formulario de un punto, haz clic en **Añadir enlace**.
 2. En **Destino**, selecciona una página de la lista. Un enlace a una página
    de esta lista aparecerá más tarde en una ventana situada encima de la página.
-3. Si prefiere introducir una dirección propia, haga clic en
+3. Si, en su lugar, desea introducir una dirección propia, haga clic en
    **Introducir dirección propia…** e introduzca la dirección en el campo
    **Dirección**. Dicha dirección se abrirá más tarde en una nueva
    pestaña, no en la ventana; para ello, aparece allí el texto explicativo.

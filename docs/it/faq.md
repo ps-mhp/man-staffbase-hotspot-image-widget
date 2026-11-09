@@ -55,7 +55,7 @@ anche se il link punta a una pagina presente nell’elenco?
 Risposta: Anche con le pagine del proprio sistema l’incorporamento può fallire,
 ad esempio se la pagina di destinazione stessa impedisce tecnicamente l’incorporamento. In questo caso,
 utilizzate il link «Apri in una nuova scheda» nella parte superiore della finestra — è proprio
-a questo che serve.
+per questo che si trova lì.
 
 **Domanda:** Posso inserire più di 20 punti su un’immagine?
 
@@ -85,7 +85,7 @@ troverà i punti dell’altra modalità invariati.
 **Domanda:** Ogni livello del menu può avere una propria immagine?
 
 Risposta: Sì. Nella finestra «Immagine con punti», in modalità «Menu», selezionate il livello
-e, a sinistra, l’immagine dalla libreria multimediale. Un livello senza immagine propria mostra l’
+e, a sinistra, la vostra immagine dalla libreria multimediale. Un livello senza immagine propria mostra l’
 immagine del livello sovrastante, compresi i relativi punti.
 
 **Domanda:** Perché una voce di menu non appare nel menu accanto all’immagine, sebbene

@@ -15,9 +15,9 @@ En **Modo** se puede elegir de dónde proceden los puntos:
 
 - **Manual**: cada punto recibe su propio título, una descripción
   y, si se desea, un enlace. Igual que hasta ahora.
-- **Menú**: selecciona una opción del menú de la aplicación. Sus subopciones se pueden
-  colocar como puntos en una imagen, y para cada nivel de menú inferior,
-  en una imagen propia. Los títulos y los destinos proceden directamente del
+- **Menú**: seleccionas una opción del menú de la aplicación. Sus subopciones se pueden
+  colocar como puntos en una imagen, y para cada nivel inferior
+  del menú, en una imagen propia. Los títulos y los destinos proceden directamente del
   menú: si se renombra una opción del menú, su punto también cambia de nombre inmediatamente.
   Junto a la imagen aparece el menú para desplazarse.
 
@@ -27,7 +27,7 @@ Los puntos del otro modo se conservan al cambiar de uno a otro.
 
 En **Visualización** se puede elegir entre dos variantes:
 
-- **Numerada, con lista junto a la imagen**: cada punto lleva un número y
+- **Numerado, con lista junto a la imagen** — cada punto lleva un número y
   junto a la imagen hay una lista desplegable con todos los títulos. Al hacer clic en
   un elemento o en la entrada correspondiente de la lista, se despliega su texto.
   Resulta útil a partir de unos cinco elementos y en todos aquellos casos en los que se quiera que los lectores vean los títulos
@@ -42,7 +42,7 @@ En **Visualización** se puede elegir entre dos variantes:
 - Sin imagen o sin al menos un punto, el widget no muestra nada:
   ni un marco vacío, ni una imagen de relleno.
 - En el modo de visualización «Puntos», la ventana se abre con el texto en el propio punto;
-  en pantallas estrechas (menos de 768 píxeles de ancho), aparece
+  en pantallas estrechas (de menos de 768 píxeles de ancho), aparece
   en cambio en el centro de la pantalla, con un fondo oscurecido detrás.
 - En el modo «Numerado», el punto correspondiente se resalta en la imagen
   en cuanto el cursor se sitúa sobre una entrada de la lista o se
@@ -67,11 +67,11 @@ En **Visualización** se puede elegir entre dos variantes:
 - Al desplazarse por un nivel del menú, se ve su imagen con los puntos
   de sus subniveles. Si un nivel no tiene imagen propia, se mantiene la imagen del
   nivel superior.
-- Al situar el puntero del ratón sobre un punto, aparece el nombre de la opción del menú,
+- Al situar el cursor sobre un punto, aparece el nombre de la opción del menú,
   y en el menú se resalta la entrada correspondiente. A la inversa, una entrada
   situada bajo el cursor resalta su opción.
 - Al hacer clic en una opción que a su vez tiene subopciones, se accede a ese
   submenú o, según la configuración, se abre su página. Las opciones sin
   subopciones siempre abren su página.
 - Cada usuario solo ve las opciones de los elementos del menú que también aparecen en el menú de la
-  aplicación. Las entradas ocultas en el menú no se muestran.
+  aplicación. Las entradas ocultas en el menú no aparecen.

@@ -23,7 +23,7 @@ ao clicar pela primeira vez em **Aplicar** na janela, elas são transferidas par
 
 ## Imagem em vez de ponto
 
-Cada ponto pode conter uma imagem própria da biblioteca de multimédia em ambos os modos;
+Cada ponto pode conter uma imagem própria da biblioteca multimédia em ambos os modos;
 esta aparece então no lugar do ponto vermelho, ajustada proporcionalmente.
 
 | Tamanho | Comprimento do lado |
@@ -32,8 +32,11 @@ esta aparece então no lugar do ponto vermelho, ajustada proporcionalmente.
 | M | 48 px (predefinição) |
 | L | 72 px |
 
+Como **fundo**, pode escolher entre Transparente (predefinição) ou uma
+área redonda em branco, vermelho MAN, antracite ou cinzento claro.
+
 O realce, a etiqueta de nome e o clique funcionam tal como no ponto. No
-modo numerado, o número aparece então apenas na lista.
+modo numerado, o número aparece apenas na lista.
 
 ## Valores de «Apresentação»
 
@@ -46,15 +49,15 @@ modo numerado, o número aparece então apenas na lista.
 
 | Valor | Significado |
 | --- | --- |
-| `2` | Ponto inicial e os seus subitens |
-| `3` | Além disso, os seus subitens (predefinição) |
-| `4` a `6` | Níveis correspondentemente mais profundos |
+| `2` | Ponto inicial e os seus subpontos |
+| `3` | além dos seus subpontos (predefinição) |
+| `4` a `6` | níveis correspondentemente mais profundos |
 
-## Valores de «Clique num ponto com subitens»
+## Valores de «Clique num ponto com subpontos»
 
 | Valor | Rótulo na caixa de diálogo | Efeito |
 | --- | --- | --- |
-| `enter` | Passar para o submenu | O widget navega para o submenu: o menu mostra os seus subitens, a imagem muda para a imagem desse nível. |
+| `enter` | Passar para o submenu | O widget navega para o submenu: o menu apresenta os seus subitens e a imagem muda para a imagem desse nível. |
 | `open` | Abrir página | O item é um link para a página do item do menu; destinos fora da aplicação abrem-se num novo separador. |
 
 Os itens sem subitens abrem a sua página em ambos os casos. As pastas sem

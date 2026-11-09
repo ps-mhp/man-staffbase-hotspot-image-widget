@@ -32,10 +32,13 @@ pojawia się on wówczas w miejscu czerwonego punktu, proporcjonalnie dopasowany
 | M | 48 px (domyślnie) |
 | L | 72 px |
 
-Podświetlenie, etykieta z nazwą i kliknięcie działają tak samo jak w przypadku punktu. W
+Jako **tło** można wybrać opcję „Przezroczyste” (domyślnie) lub
+okrągły obszar w kolorze białym, czerwonym MAN, antracytowym lub jasnoszarym.
+
+Podświetlenie, etykieta z nazwą i kliknięcie działają tak samo jak w przypadku kropki. W
 trybie numerowanym numer pojawia się wówczas wyłącznie na liście.
 
-## Wartości opcji „Wyświetlanie”
+## Wartości opcji „Wygląd”
 
 | Wartość | Etykieta w oknie dialogowym |
 | --- | --- |
@@ -55,10 +58,10 @@ trybie numerowanym numer pojawia się wówczas wyłącznie na liście.
 | Wartość | Etykieta w oknie dialogowym | Efekt |
 | --- | --- | --- |
 | `enter` | Przejście do podmenu | Widżet przechodzi do podmenu: menu wyświetla jego podpunkty, a obraz zmienia się na obraz z tego poziomu. |
-| `open` | Otwórz stronę | Pozycja jest linkiem do strony odpowiadającej tej pozycji menu; strony spoza aplikacji otwierają się w nowej karcie. |
+| `open` | Otwórz stronę | Pozycja jest linkiem do strony danej pozycji menu; strony spoza aplikacji otwierają się w nowej karcie. |
 
-Pozycje bez podpunktów w obu przypadkach otwierają swoją stronę. Foldery bez
-własnej strony w obu przypadkach przechodzą do podmenu.
+Pozycje bez podpunktów otwierają w obu przypadkach swoją stronę. Foldery bez
+własnej strony przechodzą w obu przypadkach do podmenu.
 
 ## Pola pozycji (tryb „Ręczny”)
 
@@ -67,17 +70,17 @@ własnej strony w obu przypadkach przechodzą do podmenu.
 | Tytuł | Obowiązkowe. Bez tytułu nie można zamknąć okna przyciskiem „Zastosuj”. |
 | Opis | Opcjonalne, wielowierszowe. |
 | Cel | Opcjonalne. Strona z listy systemowej lub adres wprowadzony samodzielnie. |
-| Etykieta przycisku | Opcjonalne. Jeśli pozostanie puste, przycisk wyświetli komunikat „Otwórz stronę”. |
+| Etykieta przycisku | Opcjonalne. Jeśli pozostanie puste, przycisk wyświetla komunikat „Otwórz stronę”. |
 
 ## Ograniczenia
 
 - Obraz może zawierać maksymalnie **20 punktów**. W przypadku próby
   dodania kolejnego punktu okno wyświetla odpowiedni komunikat, zamiast
-  cicho go odrzucać.
+  milcząco go odrzucać.
 - Punkt **bez tytułu** nie może zostać zatwierdzony: przycisk
   „Zapisz” pozostaje zablokowany, dopóki co najmniej jeden punkt nie ma tytułu,
   a okno podaje liczbę punktów, których to dotyczy.
-- **Bez obrazu lub bez co najmniej jednego punktu widget nic nie wyświetla** —
+- **Bez obrazu lub bez co najmniej jednego punktu widżet nic nie wyświetla** —
   ani na opublikowanej stronie, ani jako pusta ramka. W trybie
   „Menu” obowiązują te same zasady, z wyjątkiem punktu początkowego.
 - W trybie „Menu” **każdy poziom menu może zawierać maksymalnie 20 pozycji**, a każda

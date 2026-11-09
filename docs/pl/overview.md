@@ -19,7 +19,7 @@ W sekcji **Tryb** można wybrać, skąd pochodzą punkty:
   umieścić jako punkty na obrazku — a dla każdego głębszego
   poziomu menu na osobnym obrazku. Tytuły i cele pochodzą bezpośrednio z
   menu: jeśli pozycja menu zostanie przemianowana, jej punkt natychmiast zmienia nazwę.
-  Obok obrazka znajduje się menu do przeglądania.
+  Obok obrazka znajduje się menu do przewijania.
 
 Punkty z drugiego trybu pozostają zachowane po zmianie trybu.
 
@@ -46,7 +46,7 @@ W sekcji **Wyświetlanie** można wybrać jeden z dwóch wariantów:
   zamiast tego pośrodku ekranu, z przyciemnionym tłem.
 - W widoku „Numerowany” odpowiedni punkt na obrazku
   zostaje wyróżniony, gdy tylko kursor myszy znajdzie się nad pozycją na liście lub gdy
-  pozycja zostanie rozwinięta: powiększa się, a pozostałe punkty schodzą w tło.
+  pozycja zostanie rozwinięta: powiększa się, a pozostałe punkty schodzą na dalszy plan.
   Na wąskich ekranach punkty wyświetlają się jako małe i bez numerów, aby
   nie nakładały się na siebie nawet przy dużej liczbie pozycji; aby sprawdzić, który punkt należy do której
   pozycji, wystarczy go dotknąć na liście.

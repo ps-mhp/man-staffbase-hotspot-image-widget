@@ -5,7 +5,7 @@
 Resposta: Pelo menos um ponto ainda não tem título. Um ponto sem título
 seria perdido ao aplicar as alterações — por isso, o botão permanece bloqueado até que cada
 ponto tenha um título. A janela indica na parte inferior quantos pontos estão afetados
-e o próprio campo afetado apresenta a mesma indicação.
+e no próprio campo afetado aparece a mesma indicação.
 
 **Pergunta:** O widget não mostra nada na página.
 
@@ -14,11 +14,11 @@ ambos os casos, a área permanece propositadamente em branco, em vez de mostrar 
 uma imagem de preenchimento. Abra as definições e verifique
 ambas as opções.
 
-**Pergunta:** Por que razão um link abre uma janela sobre a página, enquanto outro
+**Pergunta:** Por que razão um link abre uma janela por cima da página, enquanto outro
 abre um novo separador?
 
 Resposta: Isso depende da origem do destino. Uma **página da
-lista** do sistema aparece numa janela sobre a página atual. Uma
+lista** do sistema aparece numa janela por cima da página atual. Uma
 **endereço introduzido pelo próprio utilizador**, por outro lado, abre sempre um novo separador. A
 razão: muitas vezes, não é tecnicamente possível incorporar páginas externas numa janela
 — uma janela bloqueada ficaria simplesmente vazia, sem apresentar qualquer mensagem de erro
@@ -37,7 +37,7 @@ abri-la aparece uma mensagem a indicar que a página guardada não consta da lis
 .
 
 Resposta: A página para a qual foi criado o link foi provavelmente eliminada ou já não está
-acessível. O link anterior mantém-se até que o altere ou
+acessível. O link anterior permanece ativo até que o altere ou
 elimine — o simples facto de abrir a janela não o elimina.
 
 **Pergunta:** O que acontece aos elementos durante a tradução automática da

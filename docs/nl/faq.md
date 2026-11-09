@@ -6,7 +6,7 @@ klikken.
 Antwoord: Ten minste één punt heeft nog geen titel. Een punt zonder titel
 zou bij het toepassen verloren gaan — daarom blijft de knop geblokkeerd totdat elk
 punt een titel heeft. Onderaan het venster staat vermeld hoeveel punten hierdoor
-worden beïnvloed, en bij het betreffende veld zelf staat dezelfde melding.
+worden beïnvloed, en bij het betreffende veld zelf staat dezelfde mededeling.
 
 **Vraag:** De widget geeft helemaal niets weer op de pagina.
 
@@ -52,8 +52,8 @@ een vertaling het adres alleen maar onleesbaar maken.
 **Vraag:** Waarom verschijnt de gelinkte pagina soms leeg in het venster,
 hoewel de link naar een pagina uit de lijst verwijst?
 
-Antwoord: Zelfs bij pagina’s uit het eigen systeem kan het insluiten mislukken,
-bijvoorbeeld wanneer de doelpagina zelf het insluiten technisch verhindert. Gebruik
+Antwoord: Ook bij pagina’s uit het eigen systeem kan het insluiten mislukken,
+bijvoorbeeld wanneer de doelpagina zelf het insluiten technisch blokkeert. Gebruik
 in dat geval de link „In nieuw tabblad openen“ bovenaan het venster — daar
 is hij precies voor bedoeld.
 

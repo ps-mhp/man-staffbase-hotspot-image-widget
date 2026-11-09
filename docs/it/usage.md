@@ -16,15 +16,15 @@
    **Applica** — un avviso corrispondente appare sia nel
    campo che in fondo alla finestra.
 7. Inserite facoltativamente una **descrizione**.
-8. Facoltativo: sotto il campo «Descrizione», tramite **Aggiungi link**
-  , inserite una destinazione — consultate la sezione «Inserire un link» più
+8. Facoltativo: sotto il campo «Descrizione», aggiungete una destinazione tramite **Aggiungi link
+   **Aggiungi link** — vedi la sezione «Inserire un link» più
    in basso.
-9. Ripetete i passaggi da 5 a 8 per ogni punto successivo. Un’immagine
+9. Ripeti i passaggi da 5 a 8 per ogni altro punto. Un’immagine
    può contenere al massimo 20 punti.
 10. In alto, sotto **Visualizzazione**, scegli tra «Numerato, con elenco
     accanto all’immagine» e «Punti, senza elenco».
 11. Fai clic su **Applica**.
-12. Salvare la pagina e verificare il risultato nell’anteprima.
+12. Salva la pagina e controlla il risultato nell’anteprima.
 
 ## Un’immagine personalizzata al posto del punto rosso
 
@@ -35,18 +35,25 @@ simbolo o una foto ritagliata. Ciò è possibile in entrambe le modalità.
    modalità «Menu» la voce di menu inserita nell’elenco delle sottovoci.
 2. Sotto **Immagine al posto del punto**, clicca su **Scegli immagine personalizzata…** e
    seleziona un’immagine dalla libreria multimediale. I file PNG o SVG trasparenti
-   danno i risultati migliori una volta ritagliati.
+   danno il miglior risultato se ritagliati.
 3. Sotto **Dimensione**, scegliete tra S (32 px), M (48 px, impostazione predefinita)
    e L (72 px).
-4. Cliccando su **Rimuovi immagine**, il punto rosso riappare.
+4. Sotto **Sfondo**, scegliete se l’immagine deve essere isolata (trasparente,
+   impostazione predefinita) o su uno sfondo rotondo bianco, rosso MAN, antracite
+   o grigio chiaro — come il punto rosso.
+5. Con **Rimuovi immagine**, il punto rosso ritorna.
+
+Nella mediateca è possibile trovare un’immagine anche inserendo il suo indirizzo (ad esempio
+copiato da una pagina) o il suo ID nel campo di ricerca. Cliccando sull’
+icona del filtro è possibile limitare la selezione a una **collezione**.
 
 ## Inserire un link
 
-1. Nel modulo di un punto, clicchi su **Aggiungi link**.
-2. Sotto **Destinazione**, selezioni una pagina dall’elenco. Un link a una pagina
+1. Nel modulo di un punto, clicca su **Aggiungi link**.
+2. Sotto **Destinazione**, seleziona una pagina dall’elenco. Un link a una pagina
    di questo elenco apparirà in seguito in una finestra sopra la pagina.
-3. Se desiderate invece inserire un indirizzo personalizzato, cliccate su
-   **Inserisci indirizzo personalizzato …** e inserite l’indirizzo nel campo
+3. Se si desidera invece inserire un proprio indirizzo, fare clic su
+   **Inserisci indirizzo personalizzato …** e digitare l’indirizzo nel campo
    **Indirizzo**. Tale indirizzo si aprirà in seguito in una nuova
    scheda, non nella finestra — come indicato dal testo di avvertenza.
 4. Tramite **Seleziona invece una pagina** si torna dall’indirizzo personalizzato
@@ -98,13 +105,13 @@ libreria multimediale, non nel modulo.
 5. A destra, selezionate una voce secondaria e cliccate nel punto desiderato
    dell’immagine. In quel punto verrà creata la voce; nell’elenco la voce
    viene contrassegnata con «sull’immagine». Ripetete l’operazione per ogni
-   ulteriore sottomenu.
+   ulteriore sottopunto.
 6. Per spostare un punto, trascinatelo oppure selezionate la voce
    e cliccate nella nuova posizione. **Rimuovi punto** lo elimina
    dall’immagine.
 7. Per creare un livello più profondo, clicchi a destra accanto alla voce secondaria su **›**
-   oppure selezioni il livello in alto. Selezioni l’immagine e posizioni i
-   punti come nel passaggio 5. Se non ha un’immagine propria, il livello mostrerà in seguito l’immagine
+   oppure selezioni il livello in alto. Selezioni l’immagine corrispondente e posizioni i
+   punti come descritto al punto 5. Se non ha un’immagine propria, il livello mostrerà in seguito l’immagine
    del livello sovrastante.
 8. Clicchi su **Applica**, salvi la pagina e verifichi
    il risultato nell’anteprima.

@@ -13,14 +13,14 @@
 5. Klik op de gewenste plek in de afbeelding. Daar ontstaat een nieuw
    punt en rechts verschijnt het bijbehorende formulier.
 6. Voer de **titel** in. Zonder titel kan het venster niet worden gesloten met
-   **Toepassen** — er verschijnt een bijbehorende melding zowel bij het
+   **Toepassen** — er verschijnt een overeenkomstige melding zowel bij het
    veld als onderaan in het venster.
-7. Voer eventueel een **beschrijving** in.
+7. Voer optioneel een **beschrijving** in.
 8. Optioneel: voeg onder het veld „Beschrijving“ via **Link
    toevoegen** een bestemming toe — zie het gedeelte „Een link plaatsen“ verder
    hieronder.
 9. Herhaal de stappen 5 tot en met 8 voor elk volgend punt. Een afbeelding
-   bevat maximaal 20 punten.
+   kan maximaal 20 punten bevatten.
 10. Kies bovenaan onder **Weergave** tussen „Genummerd, met lijst
     naast de afbeelding“ en „Punten, zonder lijst“.
 11. Klik op **Toepassen**.
@@ -32,33 +32,40 @@ Elk punt kan in plaats van het rode puntje een eigen afbeelding weergeven — bi
 symbool of een uitgesneden foto. Dit is in beide modi mogelijk.
 
 1. Selecteer het punt: in de modus „Handmatig“ in de lijst aan de rechterkant, in de
-   modus „Menu“ het geplaatste menu-item in de lijst met subitems.
+   de modus „Menu“ het geplaatste menu-item in de lijst met subitems.
 2. Klik onder **Afbeelding in plaats van punt** op **Eigen afbeelding kiezen …** en
    selecteer een afbeelding uit de mediabibliotheek. Transparante PNG- of SVG-bestanden
-   zien er het beste uit als ze zijn bijgesneden.
+   komen het beste tot hun recht als ze zijn uitgesneden.
 3. Kies onder **Grootte** tussen S (32 px), M (48 px, standaard)
    en L (72 px).
-4. Via **Afbeelding verwijderen** verschijnt het rode punt weer.
+4. Kies onder **Achtergrond** of de afbeelding vrijstaand is (Transparant,
+   standaard) of op een rond vlak in wit, MAN-rood, antraciet
+   of lichtgrijs — net als de rode stip.
+5. Met **Afbeelding verwijderen** verschijnt de rode stip weer.
+
+In de mediabibliotheek kunt u een afbeelding ook vinden door het adres (bijvoorbeeld
+gekopieerd van een pagina) of de ID in het zoekveld in te voeren. Via het
+filtersymbool kunt u de selectie beperken tot een **collectie**.
 
 ## Een link plaatsen
 
 1. Klik in het formulier van een punt op **Link toevoegen**.
-2. Selecteer onder **Bestemming** een pagina uit de lijst. Een link naar een pagina
+2. Selecteer onder **Doel** een pagina uit de lijst. Een link naar een pagina
    uit deze lijst verschijnt later in een venster boven de pagina.
-3. Als u in plaats daarvan een eigen adres wilt invoeren, klikt u op
-   **Eigen adres invoeren …** en vult u het adres in het veld
+3. Wilt u in plaats daarvan een eigen adres invoeren, klik dan op
+   **Eigen adres invoeren …** en voer het adres in het veld
    **Adres** in. Zo’n adres wordt later in een nieuw
-   tabblad geopend, niet in het venster — daar staat de toelichting bij.
+   tabblad geopend, niet in het venster — daar staat de bijbehorende tekst.
 4. Via **In plaats daarvan een pagina selecteren** keert u vanuit het eigen
    adres terug naar de lijst.
-5. Voer eventueel een eigen **label voor de knop** in. Als
+5. Voer desgewenst een eigen **label voor de knop** in. Als
    het veld leeg blijft, toont de knop „Pagina openen“.
 6. Via **Link verwijderen** verdwijnt de link weer; de titel en
    beschrijving van het item blijven hierdoor ongewijzigd.
 
 ## Items verplaatsen, sorteren en verwijderen
 
-1. Om een item te verplaatsen, sleept u het in de afbeelding naar de nieuwe plek.
+1. Om een item te verplaatsen, sleept u het in het venster naar de nieuwe plek.
 2. Om de volgorde van de nummering te wijzigen, selecteert u het item in de
    lijst aan de rechterkant en klikt u op **Omhoog** of **Omlaag**.
 3. Om een item te verwijderen, selecteert u het en klikt u in het

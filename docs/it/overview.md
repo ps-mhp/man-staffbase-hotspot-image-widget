@@ -1,7 +1,7 @@
 # Immagine con punti
 
 Questo widget mostra un'immagine in cui singoli punti sono contrassegnati come **punti**
-— ad esempio, stazioni su una mappa panoramica, persone in una
+— ad esempio, fermate su una mappa panoramica, persone in una
 foto di gruppo o componenti in uno schizzo. A ogni punto corrispondono un titolo,
 facoltativamente una descrizione e, se lo si desidera, un link a una pagina.
 
@@ -42,7 +42,7 @@ Alla voce **Visualizzazione** è possibile scegliere tra due varianti:
 - Senza immagine o senza almeno un punto, il widget non mostra nulla —
   né una cornice vuota, né un’immagine segnaposto.
 - Nella visualizzazione «Punti», la finestra con il testo si apre direttamente sul punto
-  stesso; su schermi stretti (di larghezza inferiore a 768 pixel) appare
+  stesso; sugli schermi stretti (di larghezza inferiore a 768 pixel) appare
   invece al centro dello schermo, con uno sfondo oscurato.
 - Nella visualizzazione «Numerata», il punto corrispondente nell’immagine
   viene evidenziato non appena il cursore del mouse si posiziona su una voce dell’elenco o una

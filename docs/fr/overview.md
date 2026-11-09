@@ -3,10 +3,10 @@
 Ce widget affiche une image sur laquelle certains endroits sont marqués par des **points**
 — par exemple, des stations sur un plan d'ensemble, des personnes sur une
 photo de groupe ou des éléments sur un croquis. Chaque point est associé à un titre,
-éventuellement à une description et, si vous le souhaitez, à un lien vers une page.
+éventuellement à une description et, au choix, à un lien vers une page.
 
-Tous les points sont gérés dans la même fenêtre, qui s'affiche automatiquement lorsque vous ouvrez les
-paramètres : sélectionnez une image, cliquez dessus pour placer un
+Tous les points sont gérés dans la même fenêtre, qui s'affiche automatiquement à l'ouverture des
+paramètres : sélectionnez une image, cliquez dans l'image pour placer un
 point, puis saisissez le titre et les autres informations.
 
 ## Deux modes
@@ -49,7 +49,7 @@ Sous **Affichage**, vous avez le choix entre deux variantes :
   entrée est déployée : il s’agrandit, tandis que les autres points s’estompent.
   Sur les écrans étroits, les points apparaissent petits et sans numéro, afin qu’
 ils ne se chevauchent pas, même lorsqu’il y en a beaucoup ; pour savoir quel point correspond à quelle
-entrée, il suffit de le toucher dans la liste.
+entrée, il suffit de cliquer dessus dans la liste.
 - Si un élément renvoie vers une page du système, un bouton apparaît en dessous.
   Un clic dessus ouvre la page dans une fenêtre superposée à la page actuelle ;
   si l’adresse a été saisie manuellement, ce même bouton ouvre à la place
@@ -58,7 +58,7 @@ entrée, il suffit de le toucher dans la liste.
   passer d’un point à l’autre, la touche Entrée d’ouvrir, et la touche Échap
   de fermer.
 
-## Ce que voient les lecteurs et lectrices en mode « Menu »
+## Ce que voient les lectrices et lecteurs en mode « Menu »
 
 - À gauche, l’image du niveau de menu affiché avec des points rouges sans chiffre ; à droite,
   juste à côté, le menu — sur les écrans étroits, celui-ci apparaît en dessous. Le menu affiche un

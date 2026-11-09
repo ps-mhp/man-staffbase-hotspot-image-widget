@@ -12,15 +12,15 @@
    shown in the image.
 5. Click on the desired spot in the image. A new
    point will appear there, and its form will show up on the right.
-6. Enter the **Title**. Without a title, you cannot close the window by
-   clicking **Apply**—a corresponding message appears both in the
+6. Enter the **title**. Without a title, you cannot close the window by clicking
+   **Apply**—a corresponding message appears both in the
    field and at the bottom of the window.
 7. Optionally, enter a **Description**.
-8. Optional: Under the “Description” field, use **Add Link**
-   to add a destination—see the section “Setting a Link” further
-   below.
+8. Optional: Below the “Description” field, use **Add Link
+   **"Add Link"** — see the section “Setting a Link” further
+   down.
 9. Repeat steps 5 through 8 for each additional point. An image
-   is worth a maximum of 20 points.
+   can have a maximum of 20 points.
 10. At the top, under **Display**, choose between “Numbered, with list
     next to the image” and “Bullets, without list.”
 11. Click **Apply**.
@@ -28,25 +28,32 @@
 
 ## A Custom Image Instead of the Red Dot
 
-Each item can display its own image instead of the red dot—such as an
+Each item can display a custom image instead of the red dot—such as an
 icon or a cropped photo. This works in both modes.
 
-1. Select the bullet: in “Manual” mode, select it from the list on the right; in
-   “Menu” mode, select the placed menu item from the list of subitems.
+1. Select the item: in “Manual” mode from the list on the right; in
+   “Menu” mode, the placed menu item in the list of subitems.
 2. Under **Image Instead of Dot**, click **Select Custom Image…** and
    select an image from the media library. Transparent PNG or SVG files
-   work best when cropped.
+   look best when cropped.
 3. Under **Size**, choose between S (32 px), M (48 px, default)
-  , and L (72 px).
-4. Click **Remove Image** to restore the red dot.
+   and L (72 px).
+4. Under **Background**, choose whether the image is isolated (Transparent,
+   default) or placed on a round background in white, MAN red, anthracite,
+   or light gray—just like the red dot.
+5. Click **Remove Image** to restore the red dot.
+
+You can also find an image in the media library by pasting its URL (e.g.,
+copied from a page) or its ID into the search field. Click the
+filter icon to limit the selection to a **collection**.
 
 ## Adding a Link
 
-1. In a point’s form, click **Add Link**.
+1. In a dot’s form, click **Add Link**.
 2. Under **Destination**, select a page from the list. A link to a page
    from this list will later appear in a window above the page.
 3. If you’d like to enter your own URL instead, click
-   **Enter Your Own URL …** and type the URL into the
+   **Enter Your Own URL …** and enter the URL in the
    **URL** field. Such a URL will later open in a new
    tab, not in the window—the tooltip explains this.
 4. Click **Select a Page Instead** to return from the custom
@@ -92,7 +99,7 @@ the media library, not in the form.
    The menu loads immediately.
 3. Under **Levels**, specify how deep the menu goes (default
    3), and under **Click on a Point with Subitems**, choose whether a click
-   opens the submenu (default) or opens the page.
+   switches to the submenu (default) or opens the page.
 4. The **Level** field shows the starting level. On the left, use **Select
    Image…** to choose your image from the media library.
 5. Select a subitem on the right and click at the desired
@@ -129,7 +136,7 @@ the media library, not in the form.
   .** Nothing is currently selected under **Starting Point in the Menu**.
 6. **The window displays items under “No longer in the menu.”** The corresponding
    menu item has been deleted, hidden, moved within the menu, or is
-   lower than the level set under **Levels**. These items do not appear on the page.
+   located deeper than the setting under **Levels**. These items do not appear on the page.
    Remove them there or increase the number of levels.
 7. **The settings are lost after saving the page.** The
    widget is still registered in the instance without the `config` field. The

@@ -65,8 +65,8 @@ Onder **Weergave** kunt u kiezen uit twee varianten:
   niveau tegelijk: een pijl brengt je een niveau lager, de terugknop bovenaan
   brengt je weer omhoog; op de telefoon ook door naar rechts te vegen.
 - Wie in het menu naar een niveau bladert, ziet de afbeelding daarvan met de puntjes
-  van de subitems. Heeft een niveau geen eigen afbeelding, dan blijft de afbeelding van
-  het niveau erboven staan.
+  van de subitems. Heeft een niveau geen eigen afbeelding, dan blijft de afbeelding van het
+  bovenliggende niveau staan.
 - Als de muisaanwijzer op een puntje staat, verschijnt de naam van het menu-item,
   en in het menu wordt het bijbehorende item gemarkeerd. Omgekeerd markeert een item
   onder de muisaanwijzer het bijbehorende punt.

@@ -32,6 +32,9 @@ questa apparirà al posto del punto rosso, ridimensionata proporzionalmente.
 | M | 48 px (impostazione predefinita) |
 | L | 72 px |
 
+Come **sfondo** è possibile scegliere tra trasparente (impostazione predefinita) o un’
+area circolare in bianco, rosso MAN, antracite o grigio chiaro.
+
 L’evidenziazione, l’etichetta e il clic funzionano come per il punto. Nella
 modalità numerata, il numero compare solo nell’elenco.
 
@@ -47,10 +50,10 @@ modalità numerata, il numero compare solo nell’elenco.
 | Valore | Significato |
 | --- | --- |
 | `2` | Punto iniziale e relativi sottopunti |
-| `3` | più i relativi sottopunti (impostazione predefinita) |
+| `3` | più le relative sottovoci (impostazione predefinita) |
 | da `4` a `6` | livelli corrispondentemente più profondi |
 
-## Valori di «Clic su un punto con sottopunti»
+## Valori di «Clic su un punto con sottovoci»
 
 | Valore | Etichetta nella finestra di dialogo | Effetto |
 | --- | --- | --- |
@@ -67,7 +70,7 @@ una propria pagina passano al sottomenu in entrambi i casi.
 | Titolo | Obbligatorio. Senza titolo non è possibile chiudere la finestra con «Applica». |
 | Descrizione | Facoltativa, su più righe. |
 | Destinazione | Facoltativo. Una pagina dall’elenco del sistema o un indirizzo inserito manualmente. |
-| Etichetta del pulsante | Facoltativo. Se lasciata vuota, il pulsante mostra «Apri pagina». |
+| Etichetta del pulsante | Facoltativo. Se lasciato vuoto, il pulsante mostra «Apri pagina». |
 
 ## Limiti
 
@@ -79,7 +82,7 @@ una propria pagina passano al sottomenu in entrambi i casi.
   e la finestra indica il numero dei punti interessati.
 - **Senza immagine o senza almeno un punto, il widget non mostra nulla** —
   né sulla pagina pubblicata né come cornice vuota. Nella modalità
-  «Menu» vale lo stesso, senza punto iniziale.
+  «Menu» vale lo stesso senza punto iniziale.
 - Nella modalità «Menu», **ogni livello di menu contiene al massimo 20 voci** e ogni
   voce di menu ne ha al massimo una; un ulteriore clic sull’immagine la sposta
   altrove.

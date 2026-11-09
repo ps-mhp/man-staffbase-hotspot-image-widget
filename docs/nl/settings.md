@@ -32,12 +32,15 @@ deze verschijnt dan in plaats van het rode punt, proportioneel aangepast.
 | M | 48 px (standaard) |
 | L | 72 px |
 
+Als **achtergrond** kun je kiezen uit Transparant (standaard) of een
+rond vlak in wit, MAN-rood, antraciet of lichtgrijs.
+
 Markeren, naamplaatje en klikken werken net als bij de stip. In de
 genummerde modus staat het nummer dan alleen nog in de lijst.
 
 ## Waarden van „Weergave“
 
-| Waarde | Label in het dialoogvenster |
+| Waarde | Benaming in het dialoogvenster |
 | --- | --- |
 | `numbered` | Genummerd, met lijst naast de afbeelding |
 | `dots` | Stippen, zonder lijst |
@@ -47,10 +50,10 @@ genummerde modus staat het nummer dan alleen nog in de lijst.
 | Waarde | Betekenis |
 | --- | --- |
 | `2` | Startpunt en de bijbehorende subpunten |
-| `3` | plus de bijbehorende subpunten (standaard) |
+| `3` | plus de subitems daarvan (standaard) |
 | `4` tot `6` | overeenkomstig dieper |
 
-## Waarden van „Klik op een punt met subpunten“
+## Waarden van „Klik op een punt met subitems“
 
 | Waarde | Tekst in het dialoogvenster | Effect |
 | --- | --- | --- |

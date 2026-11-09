@@ -72,8 +72,8 @@ pojawia się natychmiast.
 
 **Pytanie:** Dlaczego niektórzy koledzy i koleżanki widzą mniej punktów niż ja?
 
-Odpowiedź: W trybie „Menu” każdy widzi tylko te punkty, do których ma
-dostęp w menu aplikacji. Tak zostało zaprojektowane: punkt nie powinien
+Odpowiedź: W trybie „Menu” każdy widzi tylko te punkty, które
+ma uprawnienia do wyświetlania w menu aplikacji. Tak zostało zaprojektowane: punkt nie powinien
 prowadzić do strony, której nie da się otworzyć.
 
 **Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznym” a „Menu”?
@@ -85,7 +85,7 @@ znajdzie punkty z drugiego trybu w niezmienionym stanie.
 
 Odpowiedź: Tak. W oknie „Obraz z punktami” w trybie „Menu” wybierz poziom
 i po lewej stronie wybierz obraz z biblioteki multimediów. Poziom bez własnego obrazu wyświetla
-obraz poziomu znajdującego się powyżej wraz z jego punktami.
+obraz poziomu znajdującego się powyżej, wraz z jego punktami.
 
 **Pytanie:** Dlaczego pozycja menu nie pojawia się w menu obok obrazu, mimo że
 istnieje?

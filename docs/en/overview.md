@@ -73,5 +73,5 @@ Under **Display**, you can choose one of two options:
 - Clicking an item that has subitems takes you to that
   submenu—or, depending on the settings, opens its page. Items without
   subitems always open their page.
-- Each user sees only items for menu options that they also see in the
+- Each user sees only the items associated with menu options that they also see in the
   app’s menu. Entries hidden in the menu do not appear.

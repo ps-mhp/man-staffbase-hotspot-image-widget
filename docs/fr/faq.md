@@ -74,7 +74,7 @@ apparaît immédiatement.
 
 Réponse : En mode « Menu », chacun ne voit que les points correspondant aux éléments de menu auxquels il
 ou elle a accès dans le menu de l’application. C’est voulu : un point ne doit
-pas mener à une page qui ne pourrait alors pas s’ouvrir.
+pas mener à une page qui ne pourrait ensuite pas s’ouvrir.
 
 **Question :** Est-ce que je perds mes points lorsque je passe du mode « Manuel » au mode « Menu »
 et vice-versa ?

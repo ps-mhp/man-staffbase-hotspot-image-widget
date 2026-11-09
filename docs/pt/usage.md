@@ -8,27 +8,27 @@
    editar …**. Na parte superior, o **Modo** está definido como «Manual».
 3. Clique em **Selecionar imagem …**, à esquerda, e selecione uma imagem da
    biblioteca multimédia. Sem imagem, não é possível colocar nenhum ponto.
-4. Introduza abaixo um **texto alternativo** que descreva o que se
-   vê na imagem.
-5. Clique no local pretendido na imagem. Aí surge um novo
+4. Introduza, na secção inferior, um **texto alternativo** que descreva o que
+   se vê na imagem.
+5. Clique no local pretendido na imagem. Nesse local surge um novo
    ponto e, à direita, aparece o respetivo formulário.
 6. Introduza o **título**. Sem título, não é possível fechar a janela com
    **Aplicar** — surge uma mensagem a indicar isso tanto no
    campo como na parte inferior da janela.
 7. Opcionalmente, introduza uma **descrição**.
-8. Opcional: adicione um destino em «Descrição» através de **Adicionar
-   ligação** — consulte a secção «Criar uma ligação» mais
+8. Opcional: adicione um destino abaixo do campo «Descrição» através de **Adicionar link
+   **Adicionar link** — consulte a secção «Criar um link» mais
    abaixo.
 9. Repita os passos 5 a 8 para cada ponto adicional. Uma imagem
-   vale, no máximo, 20 pontos.
-10. Na parte superior, em **Apresentação**, escolha entre «Numerado, com lista
+   pode ter, no máximo, 20 pontos.
+10. Na secção **Apresentação**, na parte superior, escolha entre «Numerado, com lista
     ao lado da imagem» e «Pontos, sem lista».
 11. Clique em **Aplicar**.
 12. Guarde a página e verifique o resultado na pré-visualização.
 
-## Uma imagem própria em vez do ponto vermelho
+## Uma imagem personalizada em vez do ponto vermelho
 
-Cada ponto pode apresentar uma imagem própria em vez do ponto vermelho — por exemplo, um
+Cada ponto pode exibir uma imagem personalizada em vez do ponto vermelho — por exemplo, um
 símbolo ou uma fotografia recortada. Isto é possível em ambos os modos.
 
 1. Selecione o ponto: no modo «Manual», na lista à direita; no
@@ -38,16 +38,23 @@ símbolo ou uma fotografia recortada. Isto é possível em ambos os modos.
    ficam melhor com o fundo removido.
 3. Em **Tamanho**, escolha entre S (32 px), M (48 px, predefinido)
    e L (72 px).
-4. Ao clicar em **Remover imagem**, o ponto vermelho volta a aparecer.
+4. Em **Fundo**, escolha se a imagem fica isolada (transparente,
+   predefinida) ou sobre uma área redonda em branco, vermelho MAN, antracite
+   ou cinzento claro — tal como o ponto vermelho.
+5. Ao clicar em **Remover imagem**, o ponto vermelho volta a aparecer.
+
+Na biblioteca de multimédia, também pode encontrar uma imagem inserindo o seu endereço (por exemplo,
+copiado de uma página) ou o seu ID no campo de pesquisa. Através do
+ícone de filtro, pode restringir a seleção a uma **coleção**.
 
 ## Criar um link
 
 1. No formulário de um ponto, clique em **Adicionar link**.
 2. Em **Destino**, selecione uma página da lista. Um link para uma página
-   desta lista aparecerá posteriormente numa janela sobre a página.
+   desta lista aparecerá posteriormente numa janela acima da página.
 3. Se preferir introduzir um endereço próprio, clique em
    **Introduzir endereço próprio…** e introduza o endereço no campo
-   **Endereço**. Esse endereço abre-se posteriormente numa nova
+   **Endereço**. Esse endereço abrirá posteriormente numa nova
    aba, e não na janela — é isso que indica o texto de aviso.
 4. Através de **Selecionar uma página em vez disso**, pode voltar da
    morada personalizada para a lista.
@@ -73,7 +80,7 @@ símbolo ou uma fotografia recortada. Isto é possível em ambos os modos.
 2. Selecione na lista à esquerda o ponto a alterar e edite
    o respetivo formulário à direita.
 3. Para substituir a imagem, clique em **Selecionar outra imagem…**.
-   Os pontos são mantidos; verifique depois se a sua posição na
+   Os pontos permanecem inalterados; verifique depois se a sua posição na
    nova imagem ainda está correta.
 4. **Aplicar**, guardar, verificar na pré-visualização.
 

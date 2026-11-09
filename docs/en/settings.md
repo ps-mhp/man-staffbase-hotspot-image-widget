@@ -23,7 +23,7 @@ these settings apply; when you first **Apply** in the window, they are moved to 
 
 ## Image Instead of a Dot
 
-Each item can have its own image from the media library in both modes;
+Each dot can display its own image from the media library in both modes;
 it then appears in place of the red dot, scaled proportionally.
 
 | Size | Edge Length |
@@ -32,27 +32,30 @@ it then appears in place of the red dot, scaled proportionally.
 | M | 48 px (default) |
 | L | 72 px |
 
+For the **background**, you can choose between Transparent (default) or a
+round area in white, MAN red, anthracite, or light gray.
+
 Highlighting, the label, and clicking work the same as with the dot. In
-numbered mode, the number then appears only in the list.
+numbered mode, the number appears only in the list.
 
 ## Values for “Display”
 
-| Value | Label in the dialog |
+| Value | Label in dialog |
 | --- | --- |
 | `numbered` | Numbered, with a list next to the image |
 | `dots` | Dots, without a list |
 
-## Values for “Layers”
+## Values for “Levels”
 
 | Value | Meaning |
 | --- | --- |
-| `2` | Starting point and its subitems |
-| `3` | Plus their subitems (default) |
-| `4` through `6` | Correspondingly deeper |
+| `2` | Starting point and its subpoints |
+| `3` | plus its subitems (default) |
+| `4` to `6` | correspondingly deeper |
 
-## Values for “Click on a Point with Subitems”
+## Values for “Click on an item with subitems”
 
-| Value | Label in the dialog | Effect |
+| Value | Label in dialog | Effect |
 | --- | --- | --- |
 | `enter` | Go to the submenu | The widget navigates to the submenu: the menu displays its subitems, and the image changes to the image for that level. |
 | `open` | Open page | The menu item is a link to the page associated with the menu item; destinations outside the app open in a new tab. |
@@ -92,6 +95,6 @@ If you make changes in the Start Point or Levels window, the menu reloads immedi
 Points that are no longer assigned to an entry are listed under
 “No Longer in the Menu.”
 
-The button label only takes effect if a destination
-is assigned to the point. Without a destination, there is no button, and the label has
+The button label only takes effect if a destination has been assigned
+to the point. Without a destination, there is no button, and the label has
 no effect.

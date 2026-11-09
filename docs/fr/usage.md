@@ -15,14 +15,14 @@
 6. Saisissez le **titre**. Sans titre, il n’est pas possible de fermer la fenêtre avec
    **Appliquer** — une remarque à ce sujet s’affiche à la fois dans le
    champ et en bas de la fenêtre.
-7. Vous pouvez, si vous le souhaitez, saisir une **description**.
-8. Facultatif : sous le champ « Description », ajoutez une destination via **Ajouter un lien**
-   — voir la section « Insérer un lien » plus
+7. Saisissez éventuellement une **description**.
+8. Facultatif : sous le champ « Description », ajoutez une destination via **Ajouter un lien
+   ** — voir la section « Créer un lien » plus
    bas.
 9. Répétez les étapes 5 à 8 pour chaque point supplémentaire. Une image
    peut comporter au maximum 20 points.
 10. En haut, sous **Affichage**, choisissez entre « Numéroté, avec liste
-    à côté de l’image » et « Points, sans liste ».
+    à côté de l’image » et « Puces, sans liste ».
 11. Cliquez sur **Appliquer**.
 12. Enregistrez la page et vérifiez le résultat dans l’aperçu.
 
@@ -32,18 +32,25 @@ Chaque point peut afficher une image personnalisée à la place du point rouge �
 icône ou une photo recadrée. Cela fonctionne dans les deux modes.
 
 1. Sélectionnez le point : en mode « Manuel » dans la liste de droite, en
-   mode « Menu » l’élément de menu placé dans la liste des sous-éléments.
-2. Sous **Image à la place du point**, cliquez sur **Choisir sa propre image…** et
+   mode « Menu », l'élément de menu placé dans la liste des sous-éléments.
+2. Sous **Image à la place du point**, cliquez sur **Choisir une image personnalisée…** et
    sélectionnez une image dans la médiathèque. Les fichiers PNG ou SVG transparents
-   donnent le meilleur résultat une fois détourés.
+   donnent le meilleur résultat lorsqu’ils sont détachés.
 3. Sous **Taille**, choisissez entre S (32 px), M (48 px, par défaut)
    et L (72 px).
-4. Cliquez sur **Supprimer l’image** pour faire réapparaître le point rouge.
+4. Sous **Arrière-plan**, choisissez si l’image doit être isolée (transparente,
+   par défaut) ou placée sur un fond rond de couleur blanche, rouge MAN, anthracite
+   ou gris clair — comme le point rouge.
+5. Cliquez sur **Supprimer l’image** pour faire réapparaître le point rouge.
+
+Dans la médiathèque, vous pouvez également trouver une image en saisissant son adresse (copiée par exemple à partir
+d’une page) ou son identifiant dans le champ de recherche. Sous l’
+icône de filtre, vous pouvez limiter la sélection à une **collection**.
 
 ## Créer un lien
 
 1. Dans le formulaire d’un point, cliquez sur **Ajouter un lien**.
-2. Sous **Destination**, sélectionnez une page dans la liste. Un lien vers une page
+2. Sous **Cible**, sélectionnez une page dans la liste. Un lien vers une page
    de cette liste apparaîtra ensuite dans une fenêtre au-dessus de la page.
 3. Si vous souhaitez plutôt saisir votre propre adresse, cliquez sur
    **Saisir votre propre adresse…** et saisissez l’adresse dans le champ
@@ -104,7 +111,7 @@ de la médiathèque, et non dans le formulaire.
    de l’image.
 7. Pour créer un niveau inférieur, cliquez sur **›** à droite de la sous-rubrique
    ou sélectionnez le niveau en haut. Choisissez votre image et placez les
-   points comme à l’étape 5. Sans image propre, le niveau affichera ensuite l’image
+   points comme à l’étape 5. Sans image propre, le niveau affichera plus tard l’image
    du niveau supérieur.
 8. Cliquez sur **Appliquer**, enregistrez la page et vérifiez
    le résultat dans l’aperçu.
