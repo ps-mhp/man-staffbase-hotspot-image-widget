@@ -29,6 +29,7 @@ import { PointEditor } from "./editors/point-editor";
 import { POINTS_ATTRIBUTE } from "./configuration-schema";
 import { HotspotPoint, encodePointsAttribute, parsePoints } from "./points-model";
 import { imageSource, readImageAttribute } from "./editors/use-image-attribute";
+import { dialogInMenuMode } from "./menu-dialog";
 
 export function startPointEditorInjector(): () => void {
   return startFieldModalInjector<HotspotPoint[]>({
@@ -43,6 +44,8 @@ export function startPointEditorInjector(): () => void {
     panelClassName: "max-w-[1080px]",
     // Im Content Designer wird das Bild im Formular gewählt. Ohne Bild hätte
     // der Editor nichts zu zeigen und verdeckte genau das Feld, das es liefert.
-    openInitially: () => imageSource() !== "designer" || readImageAttribute() !== null,
+    // Im Modus „Menü“ ist das Feld ausgeblendet, sein Editor hat dort nichts zu suchen.
+    openInitially: () =>
+      !dialogInMenuMode() && (imageSource() !== "designer" || readImageAttribute() !== null),
   });
 }

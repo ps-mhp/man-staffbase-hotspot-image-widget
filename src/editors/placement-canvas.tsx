@@ -31,7 +31,11 @@ export interface PlacementCanvasProps {
   onAdd: (x: number, y: number) => void;
   onMove: (pointId: string, x: number, y: number) => void;
   onSelect: (pointId: string) => void;
+  /** Was auf dem Marker steht; ohne Angabe die laufende Nummer. */
+  markerLabel?: (index: number) => string;
 }
+
+const numberLabel = (index: number): string => String(index + 1);
 
 /** Ein Tastendruck bewegt um ein Prozent. */
 const STEP = 1;
@@ -43,6 +47,7 @@ export function PlacementCanvas({
   onAdd,
   onMove,
   onSelect,
+  markerLabel = numberLabel,
 }: PlacementCanvasProps): ReactElement {
   const stageRef = useRef<HTMLDivElement>(null);
   /** Welcher Punkt gerade an welchem Zeiger hängt. */
@@ -150,7 +155,7 @@ export function PlacementCanvas({
             onLostPointerCapture={endDrag}
             onKeyDown={(event) => onMarkerKeyDown(event, point)}
           >
-            {index + 1}
+            {markerLabel(index)}
           </button>
         );
       })}

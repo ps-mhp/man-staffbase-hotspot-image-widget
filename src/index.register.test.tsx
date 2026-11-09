@@ -16,6 +16,8 @@ const mockStartInjector = jest.fn(() => () => undefined);
 
 jest.mock("@shared/dev-mode/start-widget", () => ({ startWidget: mockStartWidget }));
 jest.mock("./point-editor-injector", () => ({ startPointEditorInjector: mockStartInjector }));
+const mockStartMenuDialog = jest.fn(() => () => undefined);
+jest.mock("./menu-dialog", () => ({ startMenuModeDialog: mockStartMenuDialog }));
 
 interface Host {
   defineBlock: jest.Mock;
@@ -35,11 +37,13 @@ describe("Anmeldung des Widgets", () => {
     await import("./index");
 
     expect(mockStartInjector).not.toHaveBeenCalled();
+    expect(mockStartMenuDialog).not.toHaveBeenCalled();
 
     const options = mockStartWidget.mock.calls[0][0] as { register: () => void };
     options.register();
 
     expect(mockStartInjector).toHaveBeenCalled();
+    expect(mockStartMenuDialog).toHaveBeenCalled();
     expect(host.defineBlock).toHaveBeenCalled();
   });
 });

@@ -48,6 +48,7 @@ import { parseMenuPoints, readMenuClick, readMenuDepth, readSource } from "./men
 import { parsePoints, readDisplayMode, readImage } from "./points-model";
 import { readMenuId } from "@shared/staffbase/menu";
 import { startPointEditorInjector } from "./point-editor-injector";
+import { startMenuModeDialog } from "./menu-dialog";
 import { hotspotTranslationProvider } from "./translation-provider";
 import icon from "../resources/hotspot-image-widget.svg";
 import pkg from "../package.json";
@@ -165,6 +166,7 @@ if (typeof window.defineBlock === "function") {
     version: pkg.version,
     register: () => {
       startPointEditorInjector();
+      startMenuModeDialog();
       // Wie der Editor-Injektor gehört auch die Übersetzung ins
       // `register`-Callback: auf Modulebene angemeldet würde die Registry
       // laufen, bevor feststeht, ob ein lokaler Entwicklungsserver übernimmt.

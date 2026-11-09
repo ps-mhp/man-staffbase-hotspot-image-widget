@@ -187,6 +187,41 @@
   background: chrome.$accent-selection;
 }
 
+// --- Menübaum (Modus „Menü“) ----
+
+// Der Baum ist laenger als eine Punkteliste; er bekommt mehr Hoehe.
+.man-hie__tree {
+  max-height: 360px;
+}
+
+// Ein Kreis vor jedem Eintrag: hohl, solange kein Punkt liegt, gefuellt,
+// sobald einer liegt -- so sieht man im Baum auf einen Blick, was fehlt.
+.man-hie__tree-dot {
+  flex: 0 0 10px;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border: 2px solid chrome.$text-muted;
+  border-radius: 50%;
+}
+
+.man-hie__tree-dot--placed {
+  border-color: chrome.$accent;
+  background: chrome.$accent;
+}
+
+.man-hie__tree-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.man-hie__tree-badge {
+  flex: none;
+  font-size: 11px;
+  color: chrome.$text-muted;
+}
+
 // --- Formular ----
 
 .man-hie__form {
