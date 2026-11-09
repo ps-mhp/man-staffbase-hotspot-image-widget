@@ -21,7 +21,68 @@
 // Bild links, Menü rechts; auf dem Telefon untereinander -- wie die
 // nummerierte Darstellung.
 .man-hi--menu {
+  // Die Wechsel zwischen den Ebenen: länger und mit weichem Ausklang statt
+  // der knappen Craft-Bewegung (300ms, `ease-move` zieht hart an) -- am
+  // 09.11.2026 als „epileptischer Schock“ beanstandet.
+  --man-hi-fade: 420ms;
+  --man-hi-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
   grid-template-columns: 1fr;
+}
+
+// Bild und ausblendendes Vorgängerbild liegen übereinander.
+.man-hi__stage-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+// Das vorige Bild, obenauf über dem neuen samt seinen Punkten, bis es
+// ausgeblendet ist. Es nimmt keine Klicks an -- darunter liegt schon die
+// neue Ebene.
+.man-hi__leaving {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 4;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.man-hi__leaving-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .man-hi__leaving {
+    animation: man-hi-fade-out var(--man-hi-fade) var(--man-hi-soft) forwards;
+  }
+
+  // Die Punkte der neuen Ebene erscheinen nach dem Bild, nicht mit einem Schlag.
+  // Mit `:where` so schwach wie eine Klasse: der Puls unter dem Zeiger
+  // (`.man-hi__marker:hover`) soll diese Animation ablösen, nicht umgekehrt.
+  :where(.man-hi--menu) .man-hi__marker--menu {
+    animation: man-hi-marker-in 360ms var(--man-hi-soft) 160ms backwards;
+  }
+}
+
+// Ohne Bewegung wird hart getauscht; ein Ausblenden, das nie läuft, endete nie.
+@media (prefers-reduced-motion: reduce) {
+  .man-hi__leaving {
+    display: none;
+  }
+}
+
+@keyframes man-hi-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes man-hi-marker-in {
+  from {
+    opacity: 0;
+  }
 }
 
 @media (min-width: 768px) {
@@ -354,12 +415,14 @@
 
 @media (prefers-reduced-motion: no-preference) {
   // Blättern: die neue Ebene schiebt von der Seite herein, aus der sie kommt.
+  // Blättern: die neue Ebene gleitet ein kurzes Stück herein und blendet
+  // dabei auf -- weich, im Takt des Bildwechsels.
   .man-hi-menu__panel--forward {
-    animation: man-hi-menu-from-right man("duration-slow") man("ease-move");
+    animation: man-hi-menu-from-right var(--man-hi-fade, 420ms) var(--man-hi-soft, ease-out);
   }
 
   .man-hi-menu__panel--back {
-    animation: man-hi-menu-from-left man("duration-slow") man("ease-move");
+    animation: man-hi-menu-from-left var(--man-hi-fade, 420ms) var(--man-hi-soft, ease-out);
   }
 
   // Losgelassen, ohne weit genug zu wischen: die Ebene gleitet zurück.
@@ -382,14 +445,14 @@
 @keyframes man-hi-menu-from-right {
   from {
     opacity: 0;
-    transform: translateX(32%);
+    transform: translateX(24px);
   }
 }
 
 @keyframes man-hi-menu-from-left {
   from {
     opacity: 0;
-    transform: translateX(-32%);
+    transform: translateX(-24px);
   }
 }
 

@@ -63,6 +63,8 @@ const markers = (): string[] => screen.queryAllByTestId(/^menu-marker-/).map((el
 const row = (menuId: string): HTMLElement => screen.getByTestId(`menu-row-${menuId}`);
 const shownImage = (): string | null => document.querySelector(".man-hi__image")?.getAttribute("src") ?? null;
 const pointer = { pointerType: "mouse" };
+/** Der Bildwechsel wartet, bis das neue Bild dekodiert ist — siehe `use-settled-image.ts`. */
+const settle = (): Promise<void> => act(async () => undefined);
 
 describe("MenuHotspotImage", () => {
   it("zeigt nichts ohne Startknoten oder ohne ein einziges Bild und fragt dann auch nicht", () => {
@@ -137,11 +139,13 @@ describe("MenuHotspotImage", () => {
       await renderReady();
 
       fireEvent.click(screen.getByRole("button", { name: MENU_MESSAGES.openChildren("Fahrerarbeitsplatz") }));
+      await settle();
 
       expect(shownImage()).toBe(cabImage.url);
       expect(markers()).toEqual([`menu-marker-${IDS.lenkrad}`, `menu-marker-${IDS.sitz}`]);
 
       fireEvent.click(screen.getByRole("button", { name: `${MENU_MESSAGES.back}Fahrerarbeitsplatz` }));
+      await settle();
 
       expect(shownImage()).toBe(rootImage.url);
     });
@@ -162,8 +166,41 @@ describe("MenuHotspotImage", () => {
       expect(document.querySelector(".man-hi--menu-only")).not.toBeNull();
 
       fireEvent.click(screen.getByRole("button", { name: MENU_MESSAGES.openChildren("Fahrerarbeitsplatz") }));
+      await settle();
 
       expect(shownImage()).toBe(cabImage.url);
+    });
+
+    it("blendet das vorige Bild über dem neuen aus, statt hart zu tauschen", async () => {
+      await renderReady();
+
+      fireEvent.click(screen.getByRole("button", { name: MENU_MESSAGES.openChildren("Fahrerarbeitsplatz") }));
+      await settle();
+
+      const leaving = screen.getByTestId("leaving-image");
+      expect(leaving).toHaveAttribute("aria-hidden", "true");
+      expect(leaving.querySelector("img")).toHaveAttribute("src", rootImage.url);
+
+      fireEvent.animationEnd(leaving);
+
+      expect(screen.queryByTestId("leaving-image")).not.toBeInTheDocument();
+    });
+
+    it("hält das alte Bild samt seinen Punkten, bis das neue bereit ist", async () => {
+      const pending: Array<() => void> = [];
+      const spy = jest.spyOn(window, "Image").mockImplementation(
+        () => ({ src: "", decode: () => new Promise<void>((resolve) => pending.push(resolve)) }) as unknown as HTMLImageElement,
+      );
+      await renderReady();
+
+      fireEvent.click(screen.getByRole("button", { name: MENU_MESSAGES.openChildren("Fahrerarbeitsplatz") }));
+      await settle();
+      expect(shownImage()).toBe(rootImage.url);
+      expect(markers()).toContain(`menu-marker-${IDS.ruhe}`);
+
+      await act(async () => pending.forEach((resolve) => resolve()));
+      expect(shownImage()).toBe(cabImage.url);
+      spy.mockRestore();
     });
   });
 
@@ -176,6 +213,7 @@ describe("MenuHotspotImage", () => {
 
       const back = screen.getByRole("button", { name: `${MENU_MESSAGES.back}Fahrerarbeitsplatz` });
       expect(back).toHaveFocus();
+      await settle();
       expect(shownImage()).toBe(cabImage.url);
     });
 

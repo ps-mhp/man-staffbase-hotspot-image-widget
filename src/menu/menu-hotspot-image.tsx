@@ -23,7 +23,7 @@
  */
 
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 import { useHotStyle } from "@shared/hot-style";
 import { MenuTree } from "@shared/staffbase/menu-tree";
@@ -34,9 +34,10 @@ import baseStyles from "../styles/hotspot-image.scss";
 import menuStyles from "../styles/menu-mode.scss";
 import { MenuBrowser, MenuDirection } from "./menu-browser";
 import { menuMarkFor, subtreeIds } from "./menu-highlight";
-import { imageLevelFor, levelPoints, shownLevelId, trailOf } from "./menu-levels";
+import { ImageLevel, imageLevelFor, levelPoints, shownLevelId, trailOf } from "./menu-levels";
 import { MenuMarker } from "./menu-marker";
 import { MenuTreeLoader, useMenuTree } from "./use-menu-tree";
+import { prefetchImages, useSettledImageLevel } from "./use-settled-image";
 
 export const MENU_STATUS = {
   loading: "Menü wird geladen …",
@@ -154,29 +155,58 @@ function MenuStage({ image, layout, tree, click }: MenuStageProps): ReactElement
     setFocusRequest((value) => value + 1);
   };
 
-  const shown = imageLevelFor(tree, shownLevelId(tree, navigation.trail), image, layout);
+  // Alle Bilder gleich vorladen: dann kommt der spätere Wechsel aus dem Cache.
+  // Nach Adressen verglichen: `layout` ist bei jedem Rendern ein neues Objekt.
+  const imageUrls = [image?.url, ...Object.values(layout).map((level) => level.image?.url)]
+    .filter((url): url is string => url !== undefined)
+    .join("\n");
+  useEffect(() => {
+    if (imageUrls !== "") prefetchImages(imageUrls.split("\n"));
+  }, [imageUrls]);
+
+  const target = imageLevelFor(tree, shownLevelId(tree, navigation.trail), image, layout);
+  // Das alte Bild bleibt stehen, bis das neue dekodiert ist — siehe `use-settled-image.ts`.
+  const shown = useSettledImageLevel(target);
+  const leaving = useLeavingImage(shown);
   const placed = shown === null ? [] : levelPoints(tree, layout, shown.levelId);
   const highlighted = rowHover === null ? new Set<string>() : subtreeIds(tree, rowHover);
 
   return (
     <div className={`man-hi man-hi--menu${shown === null ? " man-hi--menu-only" : ""}`}>
-      {shown !== null && (
-        // Der Schlüssel tauscht die Bühne, wenn das Bild wechselt: sonst stünde
-        // das neue Bild kurz mit den Punkten des alten da.
-        <Stage key={shown.levelId} image={shown.image}>
-          {placed.map(({ point, node }) => (
-            <MenuMarker
-              key={point.id}
-              point={point}
-              node={node}
-              click={click}
-              highlighted={highlighted.has(point.menuId)}
-              named={rowHover === point.menuId}
-              onHover={setMarkerHover}
-              onEnter={onEnter}
-            />
-          ))}
-        </Stage>
+      {(shown !== null || leaving.image !== null) && (
+        <div className="man-hi__stage-wrap">
+          {shown !== null && (
+            // Der Schlüssel tauscht die Bühne, wenn das Bild wechselt: sonst stünde
+            // das neue Bild kurz mit den Punkten des alten da.
+            <Stage key={shown.levelId} image={shown.image}>
+              {placed.map(({ point, node }) => (
+                <MenuMarker
+                  key={point.id}
+                  point={point}
+                  node={node}
+                  click={click}
+                  highlighted={highlighted.has(point.menuId)}
+                  named={rowHover === point.menuId}
+                  onHover={setMarkerHover}
+                  onEnter={onEnter}
+                />
+              ))}
+            </Stage>
+          )}
+          {leaving.image !== null && (
+            // Das vorige Bild liegt obenauf und blendet aus — so wird übergeblendet
+            // statt hart getauscht. Fertig ausgeblendet, verschwindet es.
+            <div
+              key={leaving.key}
+              className="man-hi__leaving"
+              aria-hidden="true"
+              data-testid="leaving-image"
+              onAnimationEnd={leaving.done}
+            >
+              <img className="man-hi__leaving-image" src={leaving.image.url} alt="" />
+            </div>
+          )}
+        </div>
       )}
       <MenuBrowser
         tree={tree}
@@ -190,3 +220,30 @@ function MenuStage({ image, layout, tree, click }: MenuStageProps): ReactElement
     </div>
   );
 }
+
+interface Leaving {
+  image: HotspotImageData | null;
+  /** Zählt je Wechsel, damit ein neues Ausblenden von vorn beginnt. */
+  key: number;
+  done: () => void;
+}
+
+/** Das Bild, das gerade ausblendet: das vorige, sobald ein anderes gezeigt wird. */
+function useLeavingImage(shown: ImageLevel | null): Leaving {
+  const [last, setLast] = useState<ImageLevel | null>(shown);
+  const [leaving, setLeaving] = useState<{ image: HotspotImageData; key: number } | null>(null);
+
+  // Im Rendern, nicht im Effekt: sonst stünde das neue Bild einen Augenblick
+  // ohne das alte darüber da, und genau dieses Blitzen soll weg.
+  if ((shown?.image.url ?? null) !== (last?.image.url ?? null)) {
+    setLast(shown);
+    if (last !== null) setLeaving((previous) => ({ image: last.image, key: (previous?.key ?? 0) + 1 }));
+  }
+
+  return {
+    image: leaving?.image ?? null,
+    key: leaving?.key ?? 0,
+    done: () => setLeaving(null),
+  };
+}
+

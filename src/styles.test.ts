@@ -232,4 +232,15 @@ describe("Stylesheet", () => {
   it("schreibt auch im Menü keine Versalien", () => {
     expect(menuStyles).not.toMatch(/uppercase/);
   });
+  // Ein Ausblenden, das bei „weniger Bewegung“ nie läuft, endete nie — das
+  // vorige Bild läge dann für immer über dem neuen.
+  it("blendet das vorige Bild nur mit Bewegung aus und lässt es sonst ganz weg", () => {
+    expect(menuStyles).toMatch(/prefers-reduced-motion:\s*reduce\)\s*\{\s*\.man-hi__leaving\s*\{\s*display:\s*none/);
+    expect(menuStyles).toMatch(/\.man-hi__leaving\s*\{[^}]*pointer-events:\s*none/);
+  });
+
+  it("gleitet beim Blättern nur ein kurzes Stück statt um ein Drittel der Breite", () => {
+    expect(menuStyles).not.toMatch(/translateX\(-?32%\)/);
+    expect(menuStyles).toMatch(/translateX\(24px\)/);
+  });
 });
