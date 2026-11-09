@@ -61,13 +61,3 @@ export function subtreeIds(tree: MenuTree, entryId: string): Set<string> {
   if (location !== undefined) walk(location.node);
   return ids;
 }
-
-/**
- * Der Pfad, auf dem der Eintrag als Zeile steht: alle Vorfahren unterhalb des
- * Startknotens. Der Startknoten selbst steht in der Kopfzeile, also oben.
- */
-export function trailTo(tree: MenuTree, entryId: string): string[] | null {
-  const location = tree.index.get(entryId);
-  if (location === undefined) return null;
-  return location.path.slice(1, -1);
-}

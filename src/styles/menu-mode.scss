@@ -31,6 +31,14 @@
   }
 }
 
+// Ohne Bild bis hinauf zur Startebene steht nur das Menü da -- ueber die
+// ganze Breite statt in einer schmalen rechten Spalte neben nichts.
+@media (min-width: 768px) {
+  .man-hi--menu-only {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 // Ein Punkt kann ein Link sein. Die Wirtsseite unterstreicht und faerbt Links
 // -- beides hat am Punkt nichts verloren.
 .man-hi__marker--menu {

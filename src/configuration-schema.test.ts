@@ -53,7 +53,7 @@ describe("configurationSchema", () => {
     });
   });
 
-  it("bietet drei Ebenen und das Öffnen der Seite als Vorgabe an", () => {
+  it("bietet drei Ebenen und den Wechsel ins Untermenü als Vorgabe an", () => {
     const properties = configurationSchema.properties ?? {};
     expect(properties[MENU_DEPTH_ATTRIBUTE]).toMatchObject({ default: "3" });
     expect((properties[MENU_DEPTH_ATTRIBUTE] as { oneOf: Array<{ const: string }> }).oneOf.map((option) => option.const)).toEqual([
@@ -64,8 +64,8 @@ describe("configurationSchema", () => {
       "6",
     ]);
     expect(properties[MENU_CLICK_ATTRIBUTE]).toMatchObject({
-      default: "open",
-      oneOf: [{ const: "open" }, { const: "reveal" }],
+      default: "enter",
+      oneOf: [{ const: "enter" }, { const: "open" }],
     });
   });
 

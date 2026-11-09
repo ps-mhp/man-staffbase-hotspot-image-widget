@@ -112,17 +112,17 @@ export const configurationSchema: JSONSchema7 = {
     },
     [MENU_CLICK_ATTRIBUTE]: {
       type: "string",
-      title: "Klick auf einen Punkt",
-      default: "open",
+      title: "Klick auf einen Punkt mit Unterpunkten",
+      default: "enter",
       oneOf: [
+        { const: "enter", title: "Ins Untermenü wechseln" },
         { const: "open", title: "Seite öffnen" },
-        { const: "reveal", title: "Im Menü daneben zeigen" },
       ],
     },
     [MENU_POINTS_ATTRIBUTE]: {
       type: "string",
       title: "Menüpunkte auf dem Bild",
-      default: "[]",
+      default: "",
     },
   },
 };
@@ -147,8 +147,8 @@ export const uiSchema: UiSchema = {
   [SOURCE_ATTRIBUTE]: {
     "ui:help":
       "„Manuell“: jeder Punkt hat einen eigenen Titel, Text und Link. " +
-      "„Menü“: ein Menüpunkt und seine Unterpunkte werden auf dem Bild platziert; " +
-      "daneben steht das Menü zum Blättern. Die Punkte des anderen Modus bleiben erhalten.",
+      "„Menü“: die Unterpunkte eines Menüpunkts werden auf dem Bild platziert, je Menüebene mit " +
+      "eigenem Bild; daneben steht das Menü zum Blättern. Die Punkte des anderen Modus bleiben erhalten.",
   },
   [POINTS_ATTRIBUTE]: {
     "ui:help":
@@ -163,20 +163,19 @@ export const uiSchema: UiSchema = {
   },
   [MENU_ID_ATTRIBUTE]: {
     "ui:help":
-      "Der Menüpunkt, dessen Unterpunkte auf dem Bild platziert werden — er selbst lässt sich ebenfalls " +
-      "platzieren. Fehlt er in der Liste, „Andere Menü-ID eingeben …“ wählen und die Adresse der Seite einfügen.",
+      "Der Menüpunkt, dessen Unterpunkte auf dem Bild platziert werden. Fehlt er in der Liste, „Andere Menü-ID eingeben …“ wählen und die Adresse der Seite einfügen.",
   },
   [MENU_DEPTH_ATTRIBUTE]: {
     "ui:help": "Wie viele Ebenen unter dem Startpunkt erscheinen, den Startpunkt mitgezählt.",
   },
   [MENU_CLICK_ATTRIBUTE]: {
     "ui:help":
-      "„Seite öffnen“ führt direkt zur Seite des Menüpunkts. „Im Menü daneben zeigen“ blättert das Menü neben " +
-      "dem Bild zum Eintrag. Ordner ohne eigene Seite werden immer im Menü gezeigt.",
+      "„Ins Untermenü wechseln“ zeigt die Unterpunkte im Menü daneben und das Bild dieser Ebene. " +
+      "„Seite öffnen“ führt direkt zur Seite des Menüpunkts. Punkte ohne Unterpunkte öffnen immer ihre Seite.",
   },
   [MENU_POINTS_ATTRIBUTE]: {
     "ui:help":
-      "Wo die Menüpunkte auf dem Bild liegen. Der Editor öffnet sich über „Menüpunkte platzieren …“; " +
-      "das Textfeld dahinter ist die Rohfassung.",
+      "Je Menüebene ein Bild und die Punkte ihrer Unterpunkte. Der Editor öffnet sich über " +
+      "„Menüpunkte platzieren …“; das Textfeld dahinter ist die Rohfassung.",
   },
 };

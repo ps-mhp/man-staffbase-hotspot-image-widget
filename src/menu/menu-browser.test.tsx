@@ -30,7 +30,7 @@ function Harness({ onRowHover = jest.fn() }: { onRowHover?: (id: string | null) 
       direction={state.direction}
       onNavigate={(trail, direction) => setState({ trail, direction })}
       mark={null}
-      reveal={null}
+      focusRequest={0}
       onRowHover={onRowHover}
     />
   );
@@ -127,7 +127,7 @@ describe("MenuBrowser", () => {
         direction="none"
         onNavigate={jest.fn()}
         mark={null}
-        reveal={null}
+        focusRequest={0}
         onRowHover={jest.fn()}
       />,
     );

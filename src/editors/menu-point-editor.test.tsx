@@ -15,18 +15,32 @@ import * as React from "react";
 import { act, fireEvent, render, screen, within } from "@testing-library/react";
 
 import { MENU_DEPTH_ATTRIBUTE, MENU_ID_ATTRIBUTE } from "../configuration-schema";
-import { MenuHotspotPoint } from "../menu-points-model";
+import { MenuHotspotPoint, MenuLayout } from "../menu-points-model";
 import { IDS, buildTree } from "../menu/menu-tree-test-data";
 import { MAX_POINTS } from "../points-model";
 import { MENU_EDITOR_MESSAGES, MenuPointEditor } from "./menu-point-editor";
-import { PLACED_LABEL } from "./menu-tree-list";
+import { LEVEL_LIST_MESSAGES } from "./menu-level-list";
 
-jest.mock("./image-field", () => ({ ImageField: () => <div data-testid="image-field" /> }));
+const cabImage = { url: "https://example.test/kabine.jpg", alt: "Kabine" };
 
-const image = { url: "https://example.test/a.jpg", alt: "Ein Lkw" };
+// Die Bildwahl: für tiefere Ebenen ein Knopf, der ein Bild setzt, und einer, der es entfernt.
+jest.mock("./image-field", () => ({
+  ImageField: ({ image, onChange }: { image: unknown; onChange: (image: unknown) => void }) => (
+    <div data-testid="level-image-field" data-has-image={image === null ? "nein" : "ja"}>
+      <button type="button" onClick={() => onChange({ url: "https://example.test/kabine.jpg", alt: "Kabine" })}>
+        Ebenenbild setzen
+      </button>
+      <button type="button" onClick={() => onChange(null)}>
+        Ebenenbild entfernen
+      </button>
+    </div>
+  ),
+}));
+
+const rootImage = { url: "https://example.test/lkw.jpg", alt: "Lkw" };
 jest.mock("./use-image-attribute", () => ({
   imageSource: jest.fn(() => "field"),
-  readImageAttribute: jest.fn(() => image),
+  readImageAttribute: jest.fn(() => rootImage),
   writeImageAttribute: jest.fn(() => true),
   readImageAlt: jest.fn(() => ""),
   writeImageAlt: jest.fn(() => true),
@@ -53,7 +67,7 @@ async function renderEditor(
   const loadTree = jest.fn(async () => buildTree());
   render(
     <MenuPointEditor
-      value={[]}
+      value={{}}
       onChange={onChange}
       onSave={jest.fn()}
       onClose={jest.fn()}
@@ -73,12 +87,27 @@ function clickCanvas(clientX = 200, clientY = 100): void {
   fireEvent.click(stage, { clientX, clientY });
 }
 
+const item = (menuId: string): HTMLElement => screen.getByTestId(`menu-level-item-${menuId}`);
+
 describe("MenuPointEditor", () => {
-  it("liest Startpunkt und Tiefe aus dem Dialog und lädt den Baum", async () => {
+  it("liest Startpunkt und Tiefe aus dem Dialog und beginnt auf der Startebene", async () => {
     const { loadTree } = await renderEditor();
 
     expect(loadTree).toHaveBeenCalledWith(IDS.fahrerhaus, 4);
-    expect(screen.getByTestId(`menu-tree-item-${IDS.lenkrad}`)).toHaveTextContent("Lenkrad");
+    expect(screen.getByTestId("menu-editor-level")).toHaveValue(IDS.fahrerhaus);
+    expect(within(screen.getByTestId("menu-level-list")).getAllByRole("listitem").map((li) => li.textContent)).toEqual([
+      "Fahrerarbeitsplatz›",
+      "Ruhebereich",
+      "Ausstattung›",
+      "Händlersuche",
+    ]);
+  });
+
+  it("bietet jede Ebene mit Unterpunkten zur Auswahl an", async () => {
+    await renderEditor();
+
+    const options = within(screen.getByTestId("menu-editor-level")).getAllByRole("option");
+    expect(options.map((option) => option.textContent?.trim())).toEqual(["Fahrerhaus", "Fahrerarbeitsplatz", "Ausstattung"]);
   });
 
   it("verlangt zuerst einen Startpunkt", async () => {
@@ -98,10 +127,10 @@ describe("MenuPointEditor", () => {
     fireEvent.click(within(screen.getByTestId("menu-editor-failed")).getByRole("button"));
     await act(async () => undefined);
 
-    expect(screen.getByTestId("menu-tree-list")).toBeInTheDocument();
+    expect(screen.getByTestId("menu-level-list")).toBeInTheDocument();
   });
 
-  it("setzt keinen Punkt, solange kein Menüpunkt gewählt ist", async () => {
+  it("setzt keinen Punkt, solange kein Unterpunkt gewählt ist", async () => {
     const { onChange } = await renderEditor();
 
     clickCanvas();
@@ -110,87 +139,147 @@ describe("MenuPointEditor", () => {
     expect(screen.getByTestId("menu-editor-selection")).toHaveTextContent(MENU_EDITOR_MESSAGES.pickFirst);
   });
 
-  it("setzt den Punkt des gewählten Menüpunkts per Klick ins Bild", async () => {
+  it("setzt auf der Startebene den Punkt eines Unterpunkts", async () => {
     const { onChange } = await renderEditor();
 
-    fireEvent.click(screen.getByTestId(`menu-tree-item-${IDS.lenkrad}`));
+    fireEvent.click(item(IDS.ruhe));
     clickCanvas(200, 100);
 
-    expect(onChange).toHaveBeenCalledWith([{ id: expect.any(String), menuId: IDS.lenkrad, x: 50, y: 50 }]);
+    expect(onChange).toHaveBeenCalledWith({
+      [IDS.fahrerhaus]: { points: [{ id: expect.any(String), menuId: IDS.ruhe, x: 50, y: 50 }] },
+    });
   });
 
   it("versetzt einen schon gesetzten Punkt, statt einen zweiten anzulegen", async () => {
-    const { onChange } = await renderEditor({ value: [point(IDS.lenkrad)] });
+    const value: MenuLayout = { [IDS.fahrerhaus]: { points: [point(IDS.ruhe)] } };
+    const { onChange } = await renderEditor({ value });
 
-    fireEvent.click(screen.getByTestId(`menu-tree-item-${IDS.lenkrad}`));
+    fireEvent.click(item(IDS.ruhe));
     clickCanvas(100, 50);
 
-    expect(onChange).toHaveBeenCalledWith([{ id: `p-${IDS.lenkrad}`, menuId: IDS.lenkrad, x: 25, y: 25 }]);
+    expect(onChange).toHaveBeenCalledWith({ [IDS.fahrerhaus]: { points: [{ ...point(IDS.ruhe), x: 25, y: 25 }] } });
   });
 
-  it("kennzeichnet gesetzte Einträge und entfernt den Punkt des gewählten", async () => {
-    const { onChange } = await renderEditor({ value: [point(IDS.lenkrad), point(IDS.ruhe)] });
+  it("kennzeichnet gesetzte Unterpunkte und entfernt den Punkt des gewählten", async () => {
+    const value: MenuLayout = { [IDS.fahrerhaus]: { points: [point(IDS.ruhe), point(IDS.haendler)] } };
+    const { onChange } = await renderEditor({ value });
 
-    expect(screen.getByTestId(`menu-tree-item-${IDS.lenkrad}`)).toHaveTextContent(PLACED_LABEL);
-    expect(screen.getByTestId(`menu-tree-item-${IDS.sitz}`)).not.toHaveTextContent(PLACED_LABEL);
+    expect(item(IDS.ruhe)).toHaveTextContent(LEVEL_LIST_MESSAGES.placed);
+    expect(item(IDS.arbeitsplatz)).not.toHaveTextContent(LEVEL_LIST_MESSAGES.placed);
 
-    fireEvent.click(screen.getByTestId(`menu-tree-item-${IDS.lenkrad}`));
+    fireEvent.click(item(IDS.ruhe));
     fireEvent.click(screen.getByRole("button", { name: MENU_EDITOR_MESSAGES.remove }));
 
-    expect(onChange).toHaveBeenCalledWith([point(IDS.ruhe)]);
+    expect(onChange).toHaveBeenCalledWith({ [IDS.fahrerhaus]: { points: [point(IDS.haendler)] } });
   });
 
-  it("wählt beim Anfassen eines Punktes seinen Menüpunkt aus", async () => {
-    await renderEditor({ value: [point(IDS.ruhe)] });
+  describe("tiefere Ebenen", () => {
+    it("öffnet über die Liste die Ebene eines Unterpunkts", async () => {
+      await renderEditor();
+
+      fireEvent.click(screen.getByRole("button", { name: LEVEL_LIST_MESSAGES.openLevel("Fahrerarbeitsplatz") }));
+
+      expect(screen.getByTestId("menu-editor-level")).toHaveValue(IDS.arbeitsplatz);
+      expect(item(IDS.lenkrad)).toBeInTheDocument();
+    });
+
+    it("sagt ohne eigenes Bild, dass die Ebene das Bild darüber zeigt, und bietet keine Fläche", async () => {
+      await renderEditor();
+
+      fireEvent.change(screen.getByTestId("menu-editor-level"), { target: { value: IDS.arbeitsplatz } });
+
+      expect(screen.getByTestId("menu-editor-needs-image")).toHaveTextContent(MENU_EDITOR_MESSAGES.inherits);
+      expect(screen.queryByTestId("placement-canvas")).not.toBeInTheDocument();
+    });
+
+    it("setzt das Bild der Ebene in den Entwurf", async () => {
+      const value: MenuLayout = { [IDS.fahrerhaus]: { points: [point(IDS.ruhe)] } };
+      const { onChange } = await renderEditor({ value });
+      fireEvent.change(screen.getByTestId("menu-editor-level"), { target: { value: IDS.arbeitsplatz } });
+
+      fireEvent.click(screen.getByRole("button", { name: "Ebenenbild setzen" }));
+
+      expect(onChange).toHaveBeenCalledWith({
+        [IDS.fahrerhaus]: { points: [point(IDS.ruhe)] },
+        [IDS.arbeitsplatz]: { image: cabImage, points: [] },
+      });
+    });
+
+    it("platziert auf der Ebene mit eigenem Bild ihre Unterpunkte", async () => {
+      const value: MenuLayout = { [IDS.arbeitsplatz]: { image: cabImage, points: [] } };
+      const { onChange } = await renderEditor({ value });
+      fireEvent.change(screen.getByTestId("menu-editor-level"), { target: { value: IDS.arbeitsplatz } });
+
+      fireEvent.click(item(IDS.sitz));
+      clickCanvas(200, 100);
+
+      expect(onChange).toHaveBeenCalledWith({
+        [IDS.arbeitsplatz]: { image: cabImage, points: [{ id: expect.any(String), menuId: IDS.sitz, x: 50, y: 50 }] },
+      });
+    });
+
+    it("behält die Punkte, wenn das Bild der Ebene entfernt wird", async () => {
+      const value: MenuLayout = { [IDS.arbeitsplatz]: { image: cabImage, points: [point(IDS.sitz)] } };
+      const { onChange } = await renderEditor({ value });
+      fireEvent.change(screen.getByTestId("menu-editor-level"), { target: { value: IDS.arbeitsplatz } });
+
+      fireEvent.click(screen.getByRole("button", { name: "Ebenenbild entfernen" }));
+
+      expect(onChange).toHaveBeenCalledWith({ [IDS.arbeitsplatz]: { points: [point(IDS.sitz)] } });
+    });
+  });
+
+  it("wählt beim Anfassen eines Punktes seinen Unterpunkt aus", async () => {
+    await renderEditor({ value: { [IDS.fahrerhaus]: { points: [point(IDS.ruhe)] } } });
 
     fireEvent.pointerDown(screen.getByTestId(`place-marker-p-${IDS.ruhe}`), { pointerId: 1 });
 
-    expect(screen.getByTestId(`menu-tree-item-${IDS.ruhe}`)).toHaveAttribute("aria-current", "true");
+    expect(item(IDS.ruhe)).toHaveAttribute("aria-current", "true");
   });
 
-  it("zeigt Punkte ohne Eintrag im Baum gesondert und entfernt sie nur auf Wunsch", async () => {
-    const orphan = point("000000000000000000000000");
-    const { onChange } = await renderEditor({ value: [orphan, point(IDS.ruhe)] });
+  it("zeigt Punkte, die nirgends gezeigt würden, gesondert und entfernt sie nur auf Wunsch", async () => {
+    // Lenkrad steht nicht direkt unter Fahrerhaus, der zweite Eintrag gar nicht im Baum.
+    const value: MenuLayout = {
+      [IDS.fahrerhaus]: { points: [point(IDS.lenkrad), point(IDS.ruhe), point("000000000000000000000000")] },
+    };
+    const { onChange } = await renderEditor({ value });
 
     const orphans = screen.getByTestId("menu-editor-orphans");
-    expect(orphans).toHaveTextContent(MENU_EDITOR_MESSAGES.orphans);
+    expect(within(orphans).getAllByRole("listitem")).toHaveLength(2);
+    expect(orphans).toHaveTextContent("Lenkrad");
     expect(onChange).not.toHaveBeenCalled();
 
-    fireEvent.click(within(orphans).getByRole("button", { name: MENU_EDITOR_MESSAGES.removeOrphan }));
+    fireEvent.click(within(orphans).getAllByRole("button", { name: MENU_EDITOR_MESSAGES.removeOrphan })[0]);
 
-    expect(onChange).toHaveBeenCalledWith([point(IDS.ruhe)]);
+    expect(onChange).toHaveBeenCalledWith({
+      [IDS.fahrerhaus]: { points: [point(IDS.ruhe), point("000000000000000000000000")] },
+    });
   });
 
-  it("setzt höchstens so viele Punkte wie erlaubt", async () => {
+  it("setzt je Ebene höchstens so viele Punkte wie erlaubt und zeigt, wie viele frei sind", async () => {
     const many = Array.from({ length: MAX_POINTS }, (_, index) => point(index.toString(16).padStart(24, "a")));
-    const { onChange } = await renderEditor({ value: many });
+    const { onChange } = await renderEditor({ value: { [IDS.fahrerhaus]: { points: many } } });
 
-    fireEvent.click(screen.getByTestId(`menu-tree-item-${IDS.sitz}`));
+    expect(screen.getByTestId("menu-editor-remaining")).toHaveTextContent(MENU_EDITOR_MESSAGES.remaining(0));
+    fireEvent.click(item(IDS.ruhe));
     clickCanvas();
 
     expect(onChange).not.toHaveBeenCalled();
-    // Alle zwanzig gehören zu Einträgen außerhalb des Baums: der Hinweis sagt, wo Platz zu holen ist.
-    expect(screen.getByTestId("menu-editor-full")).toHaveTextContent(MENU_EDITOR_MESSAGES.fullWithOrphans(MAX_POINTS));
+    expect(screen.getByTestId("menu-editor-full")).toBeInTheDocument();
   });
 
-  it("zeigt, wie viele Punkte noch frei sind", async () => {
-    await renderEditor({ value: [point(IDS.ruhe)] });
-
-    expect(screen.getByTestId("menu-editor-remaining")).toHaveTextContent(MENU_EDITOR_MESSAGES.remaining(MAX_POINTS - 1));
-  });
-
-  it("fordert ein Bild an, bevor es Punkte gibt", async () => {
+  it("fordert auf der Startebene ein Bild an, bevor es Punkte gibt", async () => {
     const { readImageAttribute } = jest.requireMock("./use-image-attribute");
     readImageAttribute.mockReturnValueOnce(null);
 
     await renderEditor();
 
-    expect(screen.getByTestId("menu-editor-needs-image")).toBeInTheDocument();
+    expect(screen.getByTestId("menu-editor-needs-image")).toHaveTextContent(MENU_EDITOR_MESSAGES.rootNeedsImage);
     expect(screen.queryByTestId("placement-canvas")).not.toBeInTheDocument();
   });
 
   it("zeigt die Punkte auf der Fläche ohne Ziffer", async () => {
-    await renderEditor({ value: [point(IDS.ruhe)] });
+    await renderEditor({ value: { [IDS.fahrerhaus]: { points: [point(IDS.ruhe)] } } });
 
     expect(screen.getByTestId(`place-marker-p-${IDS.ruhe}`)).toHaveTextContent("");
     expect(screen.getByTestId(`place-marker-p-${IDS.ruhe}`)).toHaveAccessibleName("Punkt 1: Ruhebereich");

@@ -44,7 +44,7 @@ import {
 } from "./configuration-schema";
 import { HotspotImage } from "./hotspot-image";
 import { MenuHotspotImage } from "./menu/menu-hotspot-image";
-import { parseMenuPoints, readMenuClick, readMenuDepth, readSource } from "./menu-points-model";
+import { parseMenuLayout, readMenuClick, readMenuDepth, readSource } from "./menu-points-model";
 import { parsePoints, readDisplayMode, readImage } from "./points-model";
 import { readMenuId } from "@shared/staffbase/menu";
 import { startPointEditorInjector } from "./point-editor-injector";
@@ -75,7 +75,7 @@ export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement
     return (
       <MenuHotspotImage
         image={image}
-        points={parseMenuPoints(props[MENU_POINTS_ATTRIBUTE] ?? "")}
+        layout={parseMenuLayout(props[MENU_POINTS_ATTRIBUTE] ?? "")}
         rootId={readMenuId(props[MENU_ID_ATTRIBUTE])}
         depth={readMenuDepth(props[MENU_DEPTH_ATTRIBUTE])}
         click={readMenuClick(props[MENU_CLICK_ATTRIBUTE])}

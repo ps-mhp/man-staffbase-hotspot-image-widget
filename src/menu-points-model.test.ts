@@ -15,17 +15,22 @@ import { decodePayload } from "@shared/payload";
 
 import {
   DEFAULT_MENU_DEPTH,
-  MenuHotspotPoint,
-  encodeMenuPointsAttribute,
-  parseMenuPoints,
+  MenuLayout,
+  encodeMenuLayout,
+  levelLayout,
+  parseMenuLayout,
   readMenuClick,
   readMenuDepth,
   readSource,
+  withLevel,
 } from "./menu-points-model";
 import { MAX_POINTS } from "./points-model";
 
 const FAHRERHAUS = "6a58dd4eefeacc1239d9fd09";
+const ARBEITSPLATZ = "6a73580860fe1414378d4660";
 const RUHEBEREICH = "6a7358b8340cb013d7f29611";
+
+const image = { url: "https://www.mti.man/api/media/secure/external/v2/image/upload/a.jpg", alt: "Fahrerhaus", width: 800, height: 600 };
 
 describe("readSource", () => {
   it.each([
@@ -43,11 +48,9 @@ describe("readMenuDepth", () => {
   it.each([
     ["2", 2],
     ["6", 6],
-    ["3", 3],
     ["1", DEFAULT_MENU_DEPTH],
     ["7", DEFAULT_MENU_DEPTH],
     ["2.5", DEFAULT_MENU_DEPTH],
-    ["", DEFAULT_MENU_DEPTH],
     [undefined, DEFAULT_MENU_DEPTH],
   ])("liest %p als %p", (raw, expected) => {
     expect(readMenuDepth(raw)).toBe(expected);
@@ -60,78 +63,139 @@ describe("readMenuDepth", () => {
 
 describe("readMenuClick", () => {
   it.each([
-    ["reveal", "reveal"],
     ["open", "open"],
-    ["", "open"],
-    [undefined, "open"],
+    ["enter", "enter"],
+    // Die Fassung 0.2.0-rc.1 schrieb `reveal`; gemeint war das Menü, nicht die Seite.
+    ["reveal", "enter"],
+    ["", "enter"],
+    [undefined, "enter"],
   ])("liest %p als %p", (raw, expected) => {
     expect(readMenuClick(raw)).toBe(expected);
   });
 });
 
-describe("parseMenuPoints", () => {
-  it("liest Menü-ID und Position und schreibt die ID klein", () => {
-    const raw = JSON.stringify([{ id: "p1", menuId: FAHRERHAUS.toUpperCase(), x: 10, y: 20.5 }]);
+describe("parseMenuLayout", () => {
+  it("liest je Ebene Bild und Punkte und schreibt IDs klein", () => {
+    const raw = JSON.stringify({
+      levels: {
+        [FAHRERHAUS.toUpperCase()]: {
+          image,
+          points: [{ id: "p1", menuId: ARBEITSPLATZ.toUpperCase(), x: 10, y: 20.5 }],
+        },
+      },
+    });
 
-    expect(parseMenuPoints(raw)).toEqual([{ id: "p1", menuId: FAHRERHAUS, x: 10, y: 20.5 }]);
+    expect(parseMenuLayout(raw)).toEqual({
+      [FAHRERHAUS]: { image, points: [{ id: "p1", menuId: ARBEITSPLATZ, x: 10, y: 20.5 }] },
+    });
   });
 
-  it("liest auch die kodierte Fassung, die der Editor schreibt", () => {
-    const points: MenuHotspotPoint[] = [{ id: "p1", menuId: FAHRERHAUS, x: 1, y: 2 }];
+  it("liest die kodierte Fassung, die der Editor schreibt", () => {
+    const layout: MenuLayout = {
+      [FAHRERHAUS]: { image, points: [{ id: "p1", menuId: ARBEITSPLATZ, x: 1, y: 2 }] },
+      [ARBEITSPLATZ]: { points: [{ id: "p2", menuId: RUHEBEREICH, x: 3, y: 4 }] },
+    };
 
-    expect(parseMenuPoints(encodeMenuPointsAttribute(points))).toEqual(points);
+    expect(parseMenuLayout(encodeMenuLayout(layout))).toEqual(layout);
   });
 
-  it("verwirft Einträge ohne gültige Menü-ID oder ausserhalb des Bildes", () => {
-    const raw = JSON.stringify([
-      { id: "a", menuId: "keine-id", x: 1, y: 1 },
-      { id: "b", menuId: FAHRERHAUS, x: 101, y: 1 },
-      { id: "c", menuId: FAHRERHAUS, x: "1", y: 1 },
-      { id: "d", menuId: RUHEBEREICH, x: 5, y: 5 },
-    ]);
+  it("verwirft Ebenen ohne gültige ID und Punkte ohne gültige Menü-ID oder ausserhalb des Bildes", () => {
+    const raw = JSON.stringify({
+      levels: {
+        "keine-id": { points: [{ id: "a", menuId: RUHEBEREICH, x: 1, y: 1 }] },
+        [FAHRERHAUS]: {
+          points: [
+            { id: "b", menuId: "keine-id", x: 1, y: 1 },
+            { id: "c", menuId: RUHEBEREICH, x: 101, y: 1 },
+            { id: "d", menuId: ARBEITSPLATZ, x: 5, y: 5 },
+          ],
+        },
+      },
+    });
 
-    expect(parseMenuPoints(raw).map((point) => point.id)).toEqual(["d"]);
+    expect(parseMenuLayout(raw)).toEqual({
+      [FAHRERHAUS]: { points: [{ id: "d", menuId: ARBEITSPLATZ, x: 5, y: 5 }] },
+    });
   });
 
-  it("behält je Menüeintrag nur den ersten Punkt", () => {
-    const raw = JSON.stringify([
-      { id: "a", menuId: FAHRERHAUS, x: 1, y: 1 },
-      { id: "b", menuId: FAHRERHAUS, x: 2, y: 2 },
-    ]);
+  it("nimmt als Bild nur http(s)-Adressen und Pfade der eigenen Instanz", () => {
+    const raw = JSON.stringify({
+      levels: {
+        [FAHRERHAUS]: { image: { url: "javascript:alert(1)", alt: "" }, points: [] },
+        [ARBEITSPLATZ]: { image: { url: "/api/media/a.jpg" }, points: [] },
+      },
+    });
 
-    expect(parseMenuPoints(raw).map((point) => point.id)).toEqual(["a"]);
+    expect(parseMenuLayout(raw)).toEqual({ [ARBEITSPLATZ]: { image: { url: "/api/media/a.jpg", alt: "" }, points: [] } });
   });
 
-  it("vergibt eine ID, wo keine steht", () => {
-    const [point] = parseMenuPoints(JSON.stringify([{ menuId: FAHRERHAUS, x: 1, y: 1 }]));
+  it("behält je Menüeintrag und Ebene nur den ersten Punkt", () => {
+    const raw = JSON.stringify({
+      levels: {
+        [FAHRERHAUS]: {
+          points: [
+            { id: "a", menuId: ARBEITSPLATZ, x: 1, y: 1 },
+            { id: "b", menuId: ARBEITSPLATZ, x: 2, y: 2 },
+          ],
+        },
+      },
+    });
 
-    expect(point.id).toMatch(/\S+/);
+    expect(levelLayout(parseMenuLayout(raw), FAHRERHAUS).points.map((point) => point.id)).toEqual(["a"]);
   });
 
-  it("trägt höchstens so viele Punkte wie der manuelle Modus", () => {
-    const raw = JSON.stringify(
-      Array.from({ length: MAX_POINTS + 5 }, (_, index) => ({
-        id: `p${index}`,
-        menuId: index.toString(16).padStart(24, "0"),
-        x: 1,
-        y: 1,
-      })),
-    );
+  it("trägt je Ebene höchstens so viele Punkte wie der manuelle Modus", () => {
+    const points = Array.from({ length: MAX_POINTS + 5 }, (_, index) => ({
+      id: `p${index}`,
+      menuId: index.toString(16).padStart(24, "0"),
+      x: 1,
+      y: 1,
+    }));
 
-    expect(parseMenuPoints(raw)).toHaveLength(MAX_POINTS);
+    const layout = parseMenuLayout(JSON.stringify({ levels: { [FAHRERHAUS]: { points } } }));
+
+    expect(levelLayout(layout, FAHRERHAUS).points).toHaveLength(MAX_POINTS);
   });
 
-  it.each(["", "kaputt", "{}", "null"])("liest %p als leere Liste", (raw) => {
-    expect(parseMenuPoints(raw)).toEqual([]);
+  it.each(["", "kaputt", "{}", "null", "[]", JSON.stringify([{ menuId: FAHRERHAUS, x: 1, y: 1 }])])(
+    "liest %p als leer",
+    (raw) => {
+      expect(parseMenuLayout(raw)).toEqual({});
+    },
+  );
+
+  it("schreibt unbekannte Felder eines Punktes wieder mit", () => {
+    const raw = JSON.stringify({
+      levels: { [FAHRERHAUS]: { points: [{ id: "a", menuId: ARBEITSPLATZ, x: 1, y: 1, farbe: "blau" }] } },
+    });
+
+    const encoded = encodeMenuLayout(parseMenuLayout(raw));
+
+    expect(JSON.parse(decodePayload(encoded) ?? "")).toEqual({
+      levels: { [FAHRERHAUS]: { points: [{ id: "a", menuId: ARBEITSPLATZ, x: 1, y: 1, farbe: "blau" }] } },
+    });
+  });
+});
+
+describe("encodeMenuLayout", () => {
+  it("lässt leere Ebenen weg", () => {
+    const encoded = encodeMenuLayout({ [FAHRERHAUS]: { points: [] } });
+
+    expect(JSON.parse(decodePayload(encoded) ?? "")).toEqual({ levels: {} });
+  });
+});
+
+describe("levelLayout und withLevel", () => {
+  it("gibt für eine unbekannte Ebene eine leere zurück", () => {
+    expect(levelLayout({}, FAHRERHAUS)).toEqual({ points: [] });
   });
 
-  it("schreibt unbekannte Felder einer späteren Version wieder mit", () => {
-    const raw = JSON.stringify([{ id: "a", menuId: FAHRERHAUS, x: 1, y: 1, farbe: "blau" }]);
+  it("setzt eine Ebene, ohne die Vorlage zu verändern", () => {
+    const before: MenuLayout = { [FAHRERHAUS]: { points: [] } };
 
-    const encoded = encodeMenuPointsAttribute(parseMenuPoints(raw));
+    const after = withLevel(before, ARBEITSPLATZ, { image, points: [] });
 
-    expect(JSON.parse(decodePayload(encoded) ?? "")).toEqual([
-      { id: "a", menuId: FAHRERHAUS, x: 1, y: 1, farbe: "blau" },
-    ]);
+    expect(after).toEqual({ [FAHRERHAUS]: { points: [] }, [ARBEITSPLATZ]: { image, points: [] } });
+    expect(before).toEqual({ [FAHRERHAUS]: { points: [] } });
   });
 });

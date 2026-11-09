@@ -16,7 +16,7 @@ import { render, screen } from "@testing-library/react";
 import { HotspotImageWidget } from "./index";
 import { ALL_ATTRIBUTES, configurationSchema, uiSchema } from "./configuration-schema";
 import { encodeImageAttribute, encodePointsAttribute } from "./points-model";
-import { encodeMenuPointsAttribute } from "./menu-points-model";
+import { encodeMenuLayout } from "./menu-points-model";
 
 const image = encodeImageAttribute({ url: "https://example.test/a.jpg", alt: "Ein Auto" });
 const points = encodePointsAttribute([{ id: "p1", x: 10, y: 20, title: "Ladeanschluss" }]);
@@ -105,7 +105,7 @@ describe("HotspotImageWidget", () => {
         points={points}
         source="menu"
         menu-id={`/content/page/${menuId}`}
-        menu-points={encodeMenuPointsAttribute([{ id: "m1", menuId, x: 1, y: 2 }])}
+        menu-points={encodeMenuLayout({ [menuId]: { points: [{ id: "m1", menuId: "6a73580860fe1414378d4660", x: 1, y: 2 }] } })}
       />,
     );
 

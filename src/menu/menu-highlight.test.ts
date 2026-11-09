@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-import { menuMarkFor, subtreeIds, trailTo } from "./menu-highlight";
+import { menuMarkFor, subtreeIds } from "./menu-highlight";
 import { IDS, buildTree } from "./menu-tree-test-data";
 
 const tree = buildTree();
@@ -52,20 +52,5 @@ describe("subtreeIds", () => {
 
   it("ist leer für einen unbekannten Eintrag", () => {
     expect(subtreeIds(tree, "000000000000000000000000").size).toBe(0);
-  });
-});
-
-describe("trailTo", () => {
-  it("blättert bis zur Ebene, auf der der Eintrag als Zeile steht", () => {
-    expect(trailTo(tree, IDS.lenkrad)).toEqual([IDS.arbeitsplatz]);
-    expect(trailTo(tree, IDS.ruhe)).toEqual([]);
-  });
-
-  it("bleibt für den Startknoten oben", () => {
-    expect(trailTo(tree, IDS.fahrerhaus)).toEqual([]);
-  });
-
-  it("gibt null für einen unbekannten Eintrag", () => {
-    expect(trailTo(tree, "000000000000000000000000")).toBeNull();
   });
 });

@@ -39,7 +39,7 @@ import {
 import { readConfigValue } from "./editors/config-values";
 import { MenuPointEditor } from "./editors/menu-point-editor";
 import { imageSource, readImageAttribute } from "./editors/use-image-attribute";
-import { MenuHotspotPoint, encodeMenuPointsAttribute, parseMenuPoints, readSource } from "./menu-points-model";
+import { MenuLayout, encodeMenuLayout, parseMenuLayout, readSource } from "./menu-points-model";
 
 const START_POINT_LABELS = {
   placeholder: "Startpunkt auswählen …",
@@ -52,12 +52,12 @@ const START_POINT_LABELS = {
 export const dialogInMenuMode = (): boolean => readSource(readConfigValue(SOURCE_ATTRIBUTE)) === "menu";
 
 export function startMenuPointEditorInjector(): () => void {
-  return startFieldModalInjector<MenuHotspotPoint[]>({
+  return startFieldModalInjector<MenuLayout>({
     fieldKey: MENU_POINTS_ATTRIBUTE,
     root: document,
     reopenLabel: "Menüpunkte platzieren …",
-    parse: parseMenuPoints,
-    serialize: encodeMenuPointsAttribute,
+    parse: parseMenuLayout,
+    serialize: encodeMenuLayout,
     render: (props) => React.createElement(MenuPointEditor, props),
     modalTestId: "menu-point-editor-modal",
     reopenTestId: "menu-point-editor-reopen",

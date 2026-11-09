@@ -12,13 +12,14 @@
  */
 
 /**
- * Die Leseansicht im Modus „Menü“: das Bild mit den platzierten Menüpunkten,
- * daneben das blätternde Menü.
+ * Die Leseansicht im Modus „Menü“: das Bild der gezeigten Menüebene mit den
+ * Punkten ihrer Unterpunkte, daneben das blätternde Menü. Blättert das Menü,
+ * wechselt das Bild mit — hat eine Ebene keines, bleibt das der Ebene darüber.
  *
- * Hier liegt der Zustand: wohin geblättert ist, welcher Punkt und welche
- * Zeile unter dem Zeiger stehen, welcher Eintrag zuletzt gezeigt wurde.
- * Punkte erscheinen nur für Einträge, die im geladenen Baum stehen — wer
- * einen Eintrag nicht sehen darf, sieht auch seinen Punkt nicht.
+ * Hier liegt der Zustand: wohin geblättert ist und welcher Punkt und welche
+ * Zeile unter dem Zeiger stehen. Punkte erscheinen nur für Einträge, die im
+ * geladenen Baum stehen — wer einen Eintrag nicht sehen darf, sieht auch
+ * seinen Punkt nicht.
  */
 
 import * as React from "react";
@@ -27,12 +28,13 @@ import { ReactElement, useState } from "react";
 import { useHotStyle } from "@shared/hot-style";
 import { MenuTree } from "@shared/staffbase/menu-tree";
 
-import { MenuClickMode, MenuHotspotPoint } from "../menu-points-model";
+import { MenuClickMode, MenuLayout } from "../menu-points-model";
 import { HotspotImage as HotspotImageData } from "../points-model";
 import baseStyles from "../styles/hotspot-image.scss";
 import menuStyles from "../styles/menu-mode.scss";
-import { MenuBrowser, MenuDirection, MenuReveal } from "./menu-browser";
-import { menuMarkFor, subtreeIds, trailTo } from "./menu-highlight";
+import { MenuBrowser, MenuDirection } from "./menu-browser";
+import { menuMarkFor, subtreeIds } from "./menu-highlight";
+import { imageLevelFor, levelPoints, shownLevelId, trailOf } from "./menu-levels";
 import { MenuMarker } from "./menu-marker";
 import { MenuTreeLoader, useMenuTree } from "./use-menu-tree";
 
@@ -43,8 +45,9 @@ export const MENU_STATUS = {
 } as const;
 
 export interface MenuHotspotImageProps {
+  /** Das Bild der Startebene, aus dem Attribut `image`. */
   image: HotspotImageData | null;
-  points: MenuHotspotPoint[];
+  layout: MenuLayout;
   /** Der Startknoten; `null`, solange keiner gewählt ist. */
   rootId: string | null;
   depth: number;
@@ -55,7 +58,7 @@ export interface MenuHotspotImageProps {
 
 export function MenuHotspotImage({
   image,
-  points,
+  layout,
   rootId,
   depth,
   click,
@@ -63,13 +66,12 @@ export function MenuHotspotImage({
 }: MenuHotspotImageProps): ReactElement | null {
   const base = useHotStyle(baseStyles, "hotspot-image-widget", "styles/hotspot-image.scss");
   const menu = useHotStyle(menuStyles, "hotspot-image-widget", "styles/menu-mode.scss");
-  // Ohne Bild oder Punkt wird nichts gezeigt — und das Menü gar nicht erst gefragt.
-  const wanted = image !== null && points.length > 0;
-  const state = useMenuTree(wanted ? rootId : null, depth, loadTree);
+  // Ohne ein einziges Bild gibt es nichts zu zeigen — dann wird das Menü gar nicht erst gefragt.
+  const anyImage = image !== null || Object.values(layout).some((level) => level.image !== undefined);
+  const state = useMenuTree(anyImage ? rootId : null, depth, loadTree);
 
-  // Ohne Bild, Startknoten oder Punkt gibt es nichts zu zeigen; ein leerer
-  // Kasten sähe nach einem Fehler aus. Hinter den Hooks, wie in `hotspot-image.tsx`.
-  if (image === null || rootId === null || points.length === 0) return null;
+  // Ein leerer Kasten sähe nach einem Fehler aus. Hinter den Hooks, wie in `hotspot-image.tsx`.
+  if (!anyImage || rootId === null) return null;
 
   return (
     <>
@@ -79,10 +81,10 @@ export function MenuHotspotImage({
       </style>
       {state.status === "ready" ? (
         // Der Schlüssel setzt Blättern und Markierungen zurück, wenn ein anderer Baum kommt.
-        <MenuStage key={`${rootId}#${depth}`} image={image} points={points} tree={state.tree} click={click} />
+        <MenuStage key={`${rootId}#${depth}`} image={image} layout={layout} tree={state.tree} click={click} />
       ) : (
         <div className="man-hi man-hi--menu">
-          <Stage image={image} />
+          {image !== null && <Stage image={image} />}
           <div className="man-hi-menu man-hi-menu--status">
             {state.status === "error" ? (
               <div className="man-hi-menu__status" role="alert">
@@ -120,8 +122,8 @@ function Stage({ image, children }: { image: HotspotImageData; children?: React.
 }
 
 interface MenuStageProps {
-  image: HotspotImageData;
-  points: MenuHotspotPoint[];
+  image: HotspotImageData | null;
+  layout: MenuLayout;
   tree: MenuTree;
   click: MenuClickMode;
 }
@@ -131,58 +133,58 @@ interface Navigation {
   direction: MenuDirection;
 }
 
-function MenuStage({ image, points, tree, click }: MenuStageProps): ReactElement {
+function MenuStage({ image, layout, tree, click }: MenuStageProps): ReactElement {
   const [navigation, setNavigation] = useState<Navigation>({ trail: [], direction: "none" });
   const [markerHover, setMarkerHover] = useState<string | null>(null);
   const [rowHover, setRowHover] = useState<string | null>(null);
-  const [reveal, setReveal] = useState<MenuReveal | null>(null);
+  const [focusRequest, setFocusRequest] = useState(0);
 
   const onNavigate = (trail: string[], direction: MenuDirection): void => {
     setNavigation({ trail, direction });
-    setReveal(null);
-    // Die Zeile unter Zeiger oder Fokus verschwindet beim Blättern, ohne ein
-    // `pointerleave` oder `blur` zu schicken -- ihre Hervorhebung bliebe hängen.
+    // Zeile und Punkt unter Zeiger oder Fokus verschwinden beim Blättern, ohne
+    // ein `pointerleave` oder `blur` zu schicken -- ihre Hervorhebung bliebe hängen.
     setRowHover(null);
+    setMarkerHover(null);
   };
 
-  const onReveal = (menuId: string): void => {
-    const trail = trailTo(tree, menuId);
+  const onEnter = (menuId: string): void => {
+    const trail = trailOf(tree, menuId);
     if (trail === null) return;
-    const before = navigation.trail.length;
-    const direction: MenuDirection = trail.length > before ? "forward" : trail.length < before ? "back" : "none";
-    setNavigation({ trail, direction });
-    setReveal((previous) => ({ id: menuId, seq: (previous?.seq ?? 0) + 1 }));
+    onNavigate(trail, "forward");
+    setFocusRequest((value) => value + 1);
   };
 
+  const shown = imageLevelFor(tree, shownLevelId(tree, navigation.trail), image, layout);
+  const placed = shown === null ? [] : levelPoints(tree, layout, shown.levelId);
   const highlighted = rowHover === null ? new Set<string>() : subtreeIds(tree, rowHover);
-  const visible = points.flatMap((point) => {
-    const location = tree.index.get(point.menuId);
-    return location === undefined ? [] : [{ point, entry: location.node.entry }];
-  });
 
   return (
-    <div className="man-hi man-hi--menu">
-      <Stage image={image}>
-        {visible.map(({ point, entry }) => (
-          <MenuMarker
-            key={point.id}
-            point={point}
-            entry={entry}
-            click={click}
-            highlighted={highlighted.has(point.menuId)}
-            named={rowHover === point.menuId}
-            onHover={setMarkerHover}
-            onReveal={onReveal}
-          />
-        ))}
-      </Stage>
+    <div className={`man-hi man-hi--menu${shown === null ? " man-hi--menu-only" : ""}`}>
+      {shown !== null && (
+        // Der Schlüssel tauscht die Bühne, wenn das Bild wechselt: sonst stünde
+        // das neue Bild kurz mit den Punkten des alten da.
+        <Stage key={shown.levelId} image={shown.image}>
+          {placed.map(({ point, node }) => (
+            <MenuMarker
+              key={point.id}
+              point={point}
+              node={node}
+              click={click}
+              highlighted={highlighted.has(point.menuId)}
+              named={rowHover === point.menuId}
+              onHover={setMarkerHover}
+              onEnter={onEnter}
+            />
+          ))}
+        </Stage>
+      )}
       <MenuBrowser
         tree={tree}
         trail={navigation.trail}
         direction={navigation.direction}
         onNavigate={onNavigate}
         mark={menuMarkFor(tree, markerHover, navigation.trail)}
-        reveal={reveal}
+        focusRequest={focusRequest}
         onRowHover={setRowHover}
       />
     </div>

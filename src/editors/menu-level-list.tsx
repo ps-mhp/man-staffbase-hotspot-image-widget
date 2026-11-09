@@ -12,10 +12,9 @@
  */
 
 /**
- * Der Menübaum im Editor: alle Einträge bis zur Tiefe, eingerückt.
- *
- * Anders als in der Leseansicht wird hier nicht geblättert: wer Punkte setzt,
- * will den ganzen Baum auf einmal sehen und erkennen, was schon liegt.
+ * Die Unterpunkte der gewählten Ebene im Editor — das, was sich auf ihrem
+ * Bild platzieren lässt. Hat ein Unterpunkt selbst Unterpunkte, führt
+ * „Ebene öffnen“ zu seinem eigenen Bild.
  */
 
 import * as React from "react";
@@ -23,37 +22,33 @@ import { ReactElement } from "react";
 
 import { MenuTreeNode } from "@shared/staffbase/menu-tree";
 
-/** So viel rückt jede Ebene ein. */
-const INDENT_PX = 16;
+export const LEVEL_LIST_MESSAGES = {
+  placed: "auf dem Bild",
+  openLevel: (title: string): string => `Ebene „${title}“ öffnen`,
+} as const;
 
-export const PLACED_LABEL = "auf dem Bild";
-
-export interface MenuTreeListProps {
-  root: MenuTreeNode;
+export interface MenuLevelListProps {
+  level: MenuTreeNode;
   placed: ReadonlySet<string>;
   selectedId: string | null;
   onSelect: (menuId: string) => void;
+  onOpenLevel: (menuId: string) => void;
 }
 
-function flatten(node: MenuTreeNode, depth: number): Array<{ node: MenuTreeNode; depth: number }> {
-  return [{ node, depth }, ...node.children.flatMap((child) => flatten(child, depth + 1))];
-}
-
-export function MenuTreeList({ root, placed, selectedId, onSelect }: MenuTreeListProps): ReactElement {
+export function MenuLevelList({ level, placed, selectedId, onSelect, onOpenLevel }: MenuLevelListProps): ReactElement {
   return (
-    <ul className="man-hie__list man-hie__tree" data-testid="menu-tree-list">
-      {flatten(root, 0).map(({ node, depth }) => {
-        const { id, title } = node.entry;
+    <ul className="man-hie__list man-hie__tree" data-testid="menu-level-list">
+      {level.children.map((child) => {
+        const { id, title } = child.entry;
         const selected = id === selectedId;
         const isPlaced = placed.has(id);
         return (
-          <li key={id}>
+          <li key={id} className="man-hie__tree-row">
             <button
               type="button"
               className={`man-hie__list-item${selected ? " man-hie__list-item--active" : ""}`}
-              style={{ paddingInlineStart: `${8 + depth * INDENT_PX}px` }}
               aria-current={selected ? "true" : undefined}
-              data-testid={`menu-tree-item-${id}`}
+              data-testid={`menu-level-item-${id}`}
               onClick={() => onSelect(id)}
             >
               <span
@@ -61,8 +56,19 @@ export function MenuTreeList({ root, placed, selectedId, onSelect }: MenuTreeLis
                 aria-hidden="true"
               />
               <span className="man-hie__tree-title">{title}</span>
-              {isPlaced && <span className="man-hie__tree-badge">{PLACED_LABEL}</span>}
+              {isPlaced && <span className="man-hie__tree-badge">{LEVEL_LIST_MESSAGES.placed}</span>}
             </button>
+            {child.children.length > 0 && (
+              <button
+                type="button"
+                className="man-hie__tree-open"
+                aria-label={LEVEL_LIST_MESSAGES.openLevel(title)}
+                title={LEVEL_LIST_MESSAGES.openLevel(title)}
+                onClick={() => onOpenLevel(id)}
+              >
+                ›
+              </button>
+            )}
           </li>
         );
       })}

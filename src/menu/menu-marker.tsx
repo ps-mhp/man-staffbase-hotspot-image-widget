@@ -14,10 +14,15 @@
 /**
  * Ein Menüpunkt auf dem Bild.
  *
- * Führt er auf eine Seite und soll ein Klick sie öffnen, ist er ein echter
- * Link: mittlere Maustaste, „In neuem Tab öffnen“ und die Ansage als Link
- * kommen dann von selbst. Sonst — „Im Menü zeigen“ oder ein Ordner ohne
- * Seite — ist er ein Knopf.
+ * Was ein Klick tut, hängt am Eintrag und an der Einstellung:
+ *
+ * - Hat er im Baum Unterpunkte und steht die Einstellung auf „Ins Untermenü
+ *   wechseln“ — oder hat er keine eigene Seite —, blättert das Widget in
+ *   sein Untermenü. Dann ist der Punkt ein Knopf.
+ * - Sonst führt er auf seine Seite und ist ein echter Link: mittlere
+ *   Maustaste, „In neuem Tab öffnen“ und die Ansage als Link kommen von selbst.
+ * - Ein Ordner ohne Seite und ohne Unterpunkte auf dieser Tiefe führt nirgends
+ *   hin; er bleibt ein Knopf ohne Wirkung, damit Fokus und Namensschild gehen.
  *
  * Das Namensschild ist für Sehende; Bildschirmleser bekommen den Titel über
  * `aria-label`. Es erscheint unter dem Zeiger, im Fokus und wenn rechts genau
@@ -27,7 +32,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 
-import { MenuEntry } from "@shared/staffbase/menu";
+import { MenuTreeNode } from "@shared/staffbase/menu-tree";
 
 import { MenuClickMode, MenuHotspotPoint } from "../menu-points-model";
 import { MENU_MESSAGES } from "./menu-browser";
@@ -37,14 +42,14 @@ const EDGE = 20;
 
 export interface MenuMarkerProps {
   point: MenuHotspotPoint;
-  entry: MenuEntry;
+  node: MenuTreeNode;
   click: MenuClickMode;
   /** Hervorgehoben, weil rechts eine Zeile unter dem Zeiger steht, die ihn umfasst. */
   highlighted: boolean;
   /** Das Schild zeigen, weil rechts genau seine Zeile unter dem Zeiger steht. */
   named: boolean;
   onHover: (menuId: string | null) => void;
-  onReveal: (menuId: string) => void;
+  onEnter: (menuId: string) => void;
 }
 
 function tagPlacement(point: MenuHotspotPoint): string {
@@ -53,15 +58,23 @@ function tagPlacement(point: MenuHotspotPoint): string {
   return `man-hi__tag${horizontal}${vertical}`;
 }
 
+/** Was ein Klick auf diesen Punkt tut. */
+export function markerAction(node: MenuTreeNode, click: MenuClickMode): "enter" | "link" | "none" {
+  const hasChildren = node.children.length > 0;
+  if (hasChildren && (click === "enter" || node.entry.href === null)) return "enter";
+  return node.entry.href === null ? "none" : "link";
+}
+
 export function MenuMarker({
   point,
-  entry,
+  node,
   click,
   highlighted,
   named,
   onHover,
-  onReveal,
+  onEnter,
 }: MenuMarkerProps): ReactElement {
+  const { entry } = node;
   const className = [
     "man-hi__marker",
     "man-hi__marker--dots",
@@ -89,7 +102,8 @@ export function MenuMarker({
     </span>
   );
 
-  if (click === "open" && entry.href !== null) {
+  const action = markerAction(node, click);
+  if (action === "link" && entry.href !== null) {
     return (
       <a
         {...common}
@@ -104,12 +118,12 @@ export function MenuMarker({
   }
 
   return (
-    // Der Zusatz sagt an, dass der Fokus gleich ins Menü springt.
     <button
       {...common}
       type="button"
-      aria-label={`${entry.title}${MENU_MESSAGES.revealSuffix}`}
-      onClick={() => onReveal(point.menuId)}
+      aria-label={action === "enter" ? `${entry.title}${MENU_MESSAGES.enterSuffix}` : entry.title}
+      aria-disabled={action === "none" ? true : undefined}
+      onClick={action === "enter" ? () => onEnter(point.menuId) : undefined}
     >
       {tag}
     </button>

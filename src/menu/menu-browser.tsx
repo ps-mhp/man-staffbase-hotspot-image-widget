@@ -19,7 +19,7 @@
  * ec746db). Anders als dort ist der Baum schon geladen, bis zur eingestellten
  * Tiefe: ein Pfeil steht nur, wo der Baum Kinder hat, und Blättern fragt
  * nichts mehr nach. Wohin geblättert ist, hält das Bild darüber — ein Punkt
- * kann das Menü zu seinem Eintrag blättern lassen.
+ * kann das Menü in sein Untermenü blättern lassen.
  */
 
 import React, { useLayoutEffect, useRef } from "react";
@@ -34,17 +34,11 @@ export const MENU_MESSAGES = {
   empty: "Hier gibt es keine weiteren Einträge.",
   back: "Zurück: ",
   newTab: " (öffnet in neuem Tab)",
-  revealSuffix: " – im Menü zeigen",
+  enterSuffix: " – Untermenü öffnen",
   openChildren: (title: string): string => `Unterpunkte von ${title}`,
 } as const;
 
 export type MenuDirection = "none" | "forward" | "back";
-
-/** Ein Eintrag, den das Menü zeigen soll; `seq` zählt, damit derselbe zweimal wirkt. */
-export interface MenuReveal {
-  id: string;
-  seq: number;
-}
 
 export interface MenuBrowserProps {
   tree: MenuTree;
@@ -54,8 +48,12 @@ export interface MenuBrowserProps {
   onNavigate: (trail: string[], direction: Exclude<MenuDirection, "none">) => void;
   /** Was für den Punkt unter dem Zeiger markiert ist. */
   mark: MenuMark | null;
-  /** Der zuletzt über einen Punkt gezeigte Eintrag; bleibt markiert. */
-  reveal: MenuReveal | null;
+  /**
+   * Zählt hoch, wenn ein Punkt das Menü geblättert hat. Dann gehört der Fokus
+   * in die Kopfzeile der neuen Ebene — sonst erführe, wer nicht sieht, nicht,
+   * wohin es ging.
+   */
+  focusRequest: number;
   onRowHover: (id: string | null) => void;
 }
 
@@ -107,8 +105,7 @@ function MenuRow({ node, marked, onOpen, onHover }: MenuRowProps): React.JSX.Ele
           <Chevron direction="right" />
         </button>
       ) : (
-        // Fokussierbar nur per Skript: „Im Menü zeigen“ muss auch hier landen können.
-        <span className="man-hi-menu__label" tabIndex={-1}>
+        <span className="man-hi-menu__label">
           <span className="man-hi-menu__title">{entry.title}</span>
         </span>
       );
@@ -156,7 +153,7 @@ export function MenuBrowser({
   direction,
   onNavigate,
   mark,
-  reveal,
+  focusRequest,
   onRowHover,
 }: MenuBrowserProps): React.JSX.Element {
   const rootRef = useRef<HTMLElement>(null);
@@ -192,25 +189,15 @@ export function MenuBrowser({
     root.querySelector<HTMLElement>(selector)?.focus();
   });
 
-  // Nach „Im Menü zeigen“ steht der Fokus auf dem gezeigten Eintrag — sonst
-  // erführe, wer nicht sieht, nicht, wohin das Menü geblättert hat. Den
-  // Startknoten vertritt der Link der Kopfzeile.
-  const revealSeq = reveal?.seq;
-  const revealId = reveal?.id;
+  const handledRequest = useRef(focusRequest);
   useLayoutEffect(() => {
-    const root = rootRef.current;
-    if (revealSeq === undefined || revealId === undefined || root === null) return;
-    const element = root.querySelector<HTMLElement>(
-      `[data-row-id="${revealId}"] a, [data-row-id="${revealId}"] button, [data-row-id="${revealId}"] .man-hi-menu__label`,
-    ) ?? root.querySelector<HTMLElement>(".man-hi-menu__header a");
-    if (element === null) return;
-    element.focus();
-    element.scrollIntoView?.({ block: "nearest" });
-  }, [revealSeq, revealId]);
+    if (focusRequest === handledRequest.current) return;
+    handledRequest.current = focusRequest;
+    rootRef.current?.querySelector<HTMLElement>(".man-hi-menu__back, .man-hi-menu__header a")?.focus();
+  }, [focusRequest]);
 
-  const revealedId = reveal?.id ?? null;
-  const rowMarked = (id: string): boolean => (mark?.kind === "row" && mark.id === id) || revealedId === id;
-  const headerMarked = mark?.kind === "header" || (revealedId !== null && revealedId === current.entry.id);
+  const rowMarked = (id: string): boolean => mark?.kind === "row" && mark.id === id;
+  const headerMarked = mark?.kind === "header";
   const label = tree.root.entry.title;
 
   return (
