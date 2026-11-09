@@ -84,7 +84,7 @@ findet die Punkte des anderen Modus unverändert vor.
 
 **Frage:** Kann jede Menüebene ein eigenes Bild haben?
 
-Antwort: Ja. Im Fenster „Menüpunkte platzieren …“ wählen Sie oben die Ebene
+Antwort: Ja. Im Fenster „Bild mit Punkten“ wählen Sie im Modus „Menü“ die Ebene
 und links ihr Bild aus der Mediathek. Eine Ebene ohne eigenes Bild zeigt das
 Bild der Ebene darüber, samt deren Punkten.
 

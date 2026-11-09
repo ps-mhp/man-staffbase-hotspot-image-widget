@@ -3,8 +3,9 @@
 ## Grundfall einrichten
 
 1. Setzen Sie das Widget **Bild mit Punkten** auf die Seite.
-2. Öffnen Sie die Einstellungen des Widgets. Das Fenster zur Bearbeitung der
-   Punkte öffnet sich von selbst.
+2. Öffnen Sie die Einstellungen des Widgets. Das Fenster **Bild mit
+   Punkten** öffnet sich von selbst; sonst klicken Sie auf **Bild mit Punkten
+   bearbeiten …**. Oben steht der **Modus** auf „Manuell“.
 3. Klicken Sie links auf **Bild wählen …** und wählen Sie ein Bild aus der
    Mediathek. Ohne Bild lässt sich kein Punkt setzen.
 4. Tragen Sie darunter einen **Alternativtext** ein, der beschreibt, was auf
@@ -20,9 +21,9 @@
    unten.
 9. Wiederholen Sie die Schritte 5 bis 8 für jeden weiteren Punkt. Ein Bild
    trägt höchstens 20 Punkte.
-10. Klicken Sie auf **Übernehmen**.
-11. Wählen Sie unter **Darstellung** zwischen „Nummeriert, mit Liste neben
-    dem Bild“ und „Punkte, ohne Liste“.
+10. Wählen Sie oben unter **Darstellung** zwischen „Nummeriert, mit Liste
+    neben dem Bild“ und „Punkte, ohne Liste“.
+11. Klicken Sie auf **Übernehmen**.
 12. Speichern Sie die Seite und prüfen Sie das Ergebnis in der Vorschau.
 
 ## Einen Link setzen
@@ -64,52 +65,35 @@
 
 ## Im Content Designer
 
-Der Content Designer (neuer Seiten-Editor) zeigt für „Bild“ seinen eigenen
-Bild-Upload im Formular. Das Bild wird deshalb dort gewählt, nicht im
-Punkte-Fenster:
-
-1. Öffnen Sie die Einstellungen des Widgets. Ist noch kein Bild gewählt,
-   bleibt das Punkte-Fenster zu, und an seiner Stelle steht der Button
-   **Punkte bearbeiten …**.
-2. Wählen oder laden Sie unter **Bild** ein Bild hoch.
-3. Tragen Sie unter **Alternativtext** ein, was auf dem Bild zu sehen ist.
-4. Klicken Sie auf **Punkte bearbeiten …** und setzen Sie die Punkte wie im
-   Grundfall ab Schritt 5 beschrieben.
-5. Um das Bild auszutauschen, schliessen Sie das Punkte-Fenster, ersetzen
-   das Bild im Formular unter **Bild** und öffnen das Fenster wieder.
+Im Content Designer funktioniert alles genauso: das Bild wird im Fenster aus
+der Mediathek gewählt, nicht im Formular.
 
 ## Modus „Menü“: Menüpunkte platzieren
 
-1. Wählen Sie in den Einstellungen unter **Modus** den Eintrag „Menü:
-   Menüpunkte auf dem Bild platzieren“. Die Felder des manuellen Modus
-   verschwinden, die des Menü-Modus erscheinen.
-2. Wählen Sie unter **Bild** das Bild der Startebene.
-3. Wählen Sie unter **Startpunkt im Menü** den Menüpunkt, dessen
+1. Öffnen Sie das Fenster **Bild mit Punkten** und stellen Sie oben den
+   **Modus** auf „Menü“.
+2. Wählen Sie unter **Startpunkt im Menü** den Menüpunkt, dessen
    Unterpunkte auf dem Bild liegen sollen. Steht er nicht in der Liste,
    wählen Sie **Andere Menü-ID eingeben …** und fügen die Adresse der Seite
-   ein.
-4. Legen Sie unter **Ebenen** fest, wie tief das Menü reicht. Voreingestellt
-   sind 3: der Startpunkt, seine Unterpunkte und deren Unterpunkte.
-5. Wählen Sie unter **Klick auf einen Punkt mit Unterpunkten**, ob ein Klick
-   ins Untermenü wechselt (voreingestellt) oder die Seite öffnet.
-6. Klicken Sie auf **Menüpunkte platzieren …**. Oben steht die Ebene, links
-   ihr Bild, rechts ihre Unterpunkte.
-7. Wählen Sie rechts einen Unterpunkt und klicken Sie an die gewünschte
+   ein. Das Menü lädt sofort.
+3. Legen Sie unter **Ebenen** fest, wie tief das Menü reicht (voreingestellt
+   3), und unter **Klick auf einen Punkt mit Unterpunkten**, ob ein Klick ins
+   Untermenü wechselt (voreingestellt) oder die Seite öffnet.
+4. Unter **Ebene** steht die Startebene. Wählen Sie links mit **Bild
+   wählen …** ihr Bild aus der Mediathek.
+5. Wählen Sie rechts einen Unterpunkt und klicken Sie an die gewünschte
    Stelle im Bild. Dort entsteht sein Punkt; in der Liste ist der Eintrag
    danach mit „auf dem Bild“ gekennzeichnet. Wiederholen Sie das für jeden
    weiteren Unterpunkt.
-8. Um einen Punkt zu versetzen, ziehen Sie ihn oder wählen Sie den Eintrag
+6. Um einen Punkt zu versetzen, ziehen Sie ihn oder wählen Sie den Eintrag
    und klicken Sie an die neue Stelle. **Punkt entfernen** nimmt ihn wieder
    vom Bild.
-9. Für eine tiefere Ebene klicken Sie rechts neben dem Unterpunkt auf **›**
-   oder wählen Sie die Ebene oben aus. Wählen Sie mit **Bild wählen …** ein
-   Bild aus der Mediathek und setzen Sie die Punkte wie in Schritt 7. Ohne
-   eigenes Bild zeigt die Ebene später das Bild der Ebene darüber.
-10. Klicken Sie auf **Übernehmen**, speichern Sie die Seite und prüfen Sie
-    das Ergebnis in der Vorschau.
-
-Haben Sie Startpunkt oder Ebenen geändert, schließen Sie das Fenster und
-öffnen Sie es neu — es liest beides beim Öffnen.
+7. Für eine tiefere Ebene klicken Sie rechts neben dem Unterpunkt auf **›**
+   oder wählen Sie die Ebene oben aus. Wählen Sie ihr Bild und setzen Sie die
+   Punkte wie in Schritt 5. Ohne eigenes Bild zeigt die Ebene später das Bild
+   der Ebene darüber.
+8. Klicken Sie auf **Übernehmen**, speichern Sie die Seite und prüfen Sie
+   das Ergebnis in der Vorschau.
 
 ## Wenn etwas nicht funktioniert
 
@@ -128,13 +112,11 @@ Haben Sie Startpunkt oder Ebenen geändert, schließen Sie das Fenster und
    erreichbar. Tragen Sie die Adresse von Hand ein oder öffnen Sie das
    Fenster erneut.
 5. **Im Modus „Menü“ steht im Fenster der Hinweis, zuerst einen Startpunkt
-   zu wählen.** Unter **Startpunkt im Menü** ist noch nichts gewählt. Wählen
-   Sie einen Menüpunkt, schließen Sie das Fenster und öffnen Sie es neu.
+   zu wählen.** Unter **Startpunkt im Menü** ist noch nichts gewählt.
 6. **Im Fenster stehen Punkte unter „Nicht mehr im Menü“.** Der zugehörige
    Menüpunkt wurde gelöscht, verborgen, im Menü verschoben oder liegt
    tiefer, als unter **Ebenen** eingestellt. Auf der Seite erscheinen diese Punkte nicht.
    Entfernen Sie sie dort oder erhöhen Sie die Zahl der Ebenen.
-7. **Im Modus „Menü“ sind die Einstellungen nach dem Speichern wieder
-   weg.** Das Widget ist in der Instanz noch ohne die Felder des Menü-Modus
-   registriert. Die Registrierung muss aktualisiert werden (Aufgabe der
-   Administration).
+7. **Die Einstellungen sind nach dem Speichern der Seite wieder weg.** Das
+   Widget ist in der Instanz noch ohne das Feld `config` registriert. Die
+   Registrierung muss aktualisiert werden (Aufgabe der Administration).

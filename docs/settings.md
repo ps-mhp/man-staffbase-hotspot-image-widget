@@ -1,26 +1,25 @@
 # Einstellungen
 
-Der Konfigurationsdialog des Widgets führt neun Attribute; welche davon zu
-sehen sind, hängt vom **Modus** ab. Im Modus „Menü“ ist „Bild“ das Bild der
-Startebene; die Bilder tieferer Ebenen werden im Fenster „Menüpunkte
-platzieren …“ gewählt. „Bild“ und
-„Punkte“ werden im Fenster gepflegt, das sich beim Öffnen der Einstellungen
-von selbst zeigt; die Textfelder dahinter sind die technische Rohfassung und
-sollten nicht von Hand bearbeitet werden. Im Content Designer zeigt „Bild“
-stattdessen den Bild-Upload des Designers — dort wird das Bild direkt im
-Formular gewählt.
+Im Konfigurationsdialog des Widgets steht nur ein Knopf: **Bild mit Punkten
+bearbeiten …**. Er öffnet das Fenster, in dem alles gepflegt wird — Modus,
+Bild, Darstellung, Menü-Einstellungen und Punkte. Das Fenster öffnet sich
+beim Öffnen der Einstellungen auch von selbst. **Übernehmen** speichert alles
+zusammen in einem Feld.
 
-| Attribut | Beschriftung im Dialog | Beschreibung |
-| --- | --- | --- |
-| `image` | Bild | Das Bild, auf dem die Punkte liegen. Im klassischen Editor über **Bild wählen …** im Fenster aus der Mediathek, im Content Designer direkt im Formular gewählt. |
-| `image-alt` | Alternativtext | Beschreibt das Bild für Screenreader; leer lassen, wenn es nur schmückt. Auch im Fenster unter „Alternativtext“ bearbeitbar. |
-| `source` | Modus | `Manuell` (voreingestellt) oder `Menü`. Blendet die Felder des jeweils anderen Modus aus; deren Inhalte bleiben gespeichert. |
-| `points` | Punkte | Nur „Manuell“. Die Liste der Punkte mit Position, Titel, Beschreibung und Link. Wird im selben Fenster gepflegt. |
-| `display-mode` | Darstellung | Nur „Manuell“. Steuert, wie die Punkte auf der veröffentlichten Seite erscheinen. Voreingestellt ist `Nummeriert, mit Liste neben dem Bild`. |
-| `menu-id` | Startpunkt im Menü | Nur „Menü“. Der Menüpunkt, dessen Unterpunkte auf dem Bild platziert werden. Auswahl aus dem Menü oder über „Andere Menü-ID eingeben …“ die Adresse einer Seite. |
-| `menu-depth` | Ebenen | Nur „Menü“. Wie viele Ebenen erscheinen, der Startpunkt mitgezählt. Voreingestellt sind 3. |
-| `menu-click` | Klick auf einen Punkt mit Unterpunkten | Nur „Menü“. `Ins Untermenü wechseln` (voreingestellt) oder `Seite öffnen`. |
-| `menu-points` | Menüpunkte auf dem Bild | Nur „Menü“. Je Menüebene das Bild und die Lage der Punkte. Wird im Fenster „Menüpunkte platzieren …“ gepflegt. |
+| Einstellung im Fenster | Beschreibung |
+| --- | --- |
+| Modus | `Manuell` (voreingestellt) oder `Menü`. Die Punkte des jeweils anderen Modus bleiben gespeichert. |
+| Bild | Das Bild, auf dem die Punkte liegen, aus der Mediathek — im Modus „Menü“ das Bild der Startebene. Dazu der **Alternativtext** für Screenreader; leer lassen, wenn das Bild nur schmückt. |
+| Darstellung | Nur „Manuell“. Voreingestellt ist `Nummeriert, mit Liste neben dem Bild`. |
+| Startpunkt im Menü | Nur „Menü“. Der Menüpunkt, dessen Unterpunkte platziert werden. Auswahl aus der Liste oder über „Andere Menü-ID eingeben …“ die Adresse einer Seite. |
+| Ebenen | Nur „Menü“. Wie viele Ebenen erscheinen, der Startpunkt mitgezählt. Voreingestellt sind 3. |
+| Klick auf einen Punkt mit Unterpunkten | Nur „Menü“. `Ins Untermenü wechseln` (voreingestellt) oder `Seite öffnen`. |
+| Ebene | Nur „Menü“. Welche Menüebene gerade bearbeitet wird; jede hat ihr eigenes Bild und ihre eigenen Punkte. |
+
+Technisch steht alles im Attribut `config`. Widgets aus früheren Fassungen
+tragen ihre Einstellungen noch in einzelnen Attributen (`image`,
+`image-alt`, `points`, `display-mode` …). Solange `config` leer ist, gelten
+diese; beim ersten **Übernehmen** im Fenster wandern sie nach `config`.
 
 ## Werte von „Darstellung“
 
@@ -75,8 +74,9 @@ eigene Seite wechseln in beiden Fällen ins Untermenü.
 
 ## Abhängigkeiten
 
-Startpunkt und Ebenen liest das Fenster „Menüpunkte platzieren …“ beim
-Öffnen. Nach einer Änderung schließen Sie das Fenster und öffnen es neu.
+Ändern Sie im Fenster Startpunkt oder Ebenen, lädt das Menü sofort neu.
+Punkte, die danach keinem Eintrag mehr zugeordnet sind, stehen unter
+„Nicht mehr im Menü“.
 
 Die Beschriftung des Buttons wirkt nur, wenn dem Punkt überhaupt ein Ziel
 zugewiesen ist. Ohne Ziel gibt es keinen Button, und die Beschriftung bleibt
