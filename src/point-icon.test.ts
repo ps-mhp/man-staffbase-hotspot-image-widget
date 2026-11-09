@@ -22,6 +22,12 @@ describe("readPointIcon", () => {
     expect(readPointIcon({ url, size: "l" })).toEqual({ url, size: "l" });
   });
 
+  it("liest einen Hintergrund und lässt ohne oder bei unbekanntem den Punkt transparent", () => {
+    expect(readPointIcon({ url, size: "m", background: "red" })).toEqual({ url, size: "m", background: "red" });
+    expect(readPointIcon({ url, size: "m", background: "lila" })).toEqual({ url, size: "m" });
+    expect(readPointIcon({ url, size: "m", background: "transparent" })).toEqual({ url, size: "m" });
+  });
+
   it("nimmt ohne gültige Grösse M", () => {
     expect(readPointIcon({ url })).toEqual({ url, size: "m" });
     expect(readPointIcon({ url, size: "xl" })).toEqual({ url, size: "m" });

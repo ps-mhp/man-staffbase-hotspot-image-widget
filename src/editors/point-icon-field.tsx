@@ -22,7 +22,7 @@ import { ReactElement, useMemo, useState } from "react";
 import { createMediaClient } from "@shared/media/media-client";
 import { MediaPicker, PickedImage } from "@shared/media/media-picker";
 
-import { DEFAULT_ICON_SIZE, ICON_SIZES, IconSize, PointIcon } from "../point-icon";
+import { DEFAULT_ICON_SIZE, ICON_BACKGROUNDS, ICON_SIZES, IconBackground, IconSize, PointIcon } from "../point-icon";
 
 export const ICON_FIELD_MESSAGES = {
   label: "Bild statt Punkt",
@@ -32,6 +32,9 @@ export const ICON_FIELD_MESSAGES = {
   size: "Größe",
   hint: "Ohne eigenes Bild erscheint der rote Punkt.",
   sizes: { s: "S – 32 px", m: "M – 48 px", l: "L – 72 px" } as Record<IconSize, string>,
+  background: "Hintergrund",
+  transparent: "Transparent",
+  backgrounds: { white: "Weiß", red: "MAN-Rot", dark: "Anthrazit", light: "Hellgrau" } as Record<IconBackground, string>,
 } as const;
 
 export interface PointIconFieldProps {
@@ -45,7 +48,8 @@ export function PointIconField({ icon, onChange }: PointIconFieldProps): ReactEl
 
   const select = (picked: PickedImage): void => {
     setPicking(false);
-    onChange({ url: picked.url, size: icon?.size ?? DEFAULT_ICON_SIZE });
+    const base = { url: picked.url, size: icon?.size ?? DEFAULT_ICON_SIZE };
+    onChange(icon?.background === undefined ? base : { ...base, background: icon.background });
   };
 
   return (
@@ -60,12 +64,12 @@ export function PointIconField({ icon, onChange }: PointIconFieldProps): ReactEl
         </>
       ) : (
         <div className="man-hie__icon-chosen">
-          <img
-            className="man-hie__icon-preview"
-            src={icon.url}
-            alt=""
+          <span
+            className={`man-hie__icon-preview${icon.background === undefined ? "" : ` man-hie__icon-bg man-hie__icon-bg--${icon.background}`}`}
             style={{ width: ICON_SIZES[icon.size], height: ICON_SIZES[icon.size] }}
-          />
+          >
+            <img className="man-hie__canvas-icon" src={icon.url} alt="" />
+          </span>
           <label className="man-hie__label">
             {ICON_FIELD_MESSAGES.size}
             <select
@@ -77,6 +81,26 @@ export function PointIconField({ icon, onChange }: PointIconFieldProps): ReactEl
               {(Object.keys(ICON_SIZES) as IconSize[]).map((size) => (
                 <option key={size} value={size}>
                   {ICON_FIELD_MESSAGES.sizes[size]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="man-hie__label">
+            {ICON_FIELD_MESSAGES.background}
+            <select
+              className="man-hie__input"
+              value={icon.background ?? ""}
+              data-testid="point-icon-background"
+              onChange={(event) => {
+                const value = event.target.value as IconBackground | "";
+                const base = { url: icon.url, size: icon.size };
+                onChange(value === "" ? base : { ...base, background: value });
+              }}
+            >
+              <option value="">{ICON_FIELD_MESSAGES.transparent}</option>
+              {ICON_BACKGROUNDS.map((background) => (
+                <option key={background} value={background}>
+                  {ICON_FIELD_MESSAGES.backgrounds[background]}
                 </option>
               ))}
             </select>

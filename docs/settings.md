@@ -32,6 +32,9 @@ es erscheint dann an Stelle des roten Punkts, proportional eingepasst.
 | M | 48 px (voreingestellt) |
 | L | 72 px |
 
+Als **Hintergrund** steht Transparent (voreingestellt) zur Wahl oder eine
+runde Fläche in Weiß, MAN-Rot, Anthrazit oder Hellgrau.
+
 Hervorheben, Namensschild und Klick funktionieren wie beim Punkt. Im
 nummerierten Modus steht die Nummer dann nur noch in der Liste.
 

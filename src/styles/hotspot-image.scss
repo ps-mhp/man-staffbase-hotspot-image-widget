@@ -464,6 +464,41 @@
   --man-hi-icon: 72px;
 }
 
+// Mit Hintergrund: eine runde Fläche wie der Punkt, mit dessen Schatten
+// statt des `drop-shadow`; das Bild sitzt mit etwas Luft darin.
+.man-hi__marker--icon-bg {
+  @include man-outshine-host {
+    padding: 15% !important;
+    border-radius: #{man("radius-round")} !important;
+    box-shadow: var(--man-hi-shadow);
+    filter: none;
+  }
+}
+
+.man-hi__marker--icon-bg-white {
+  @include man-outshine-host {
+    background: man("white") !important;
+  }
+}
+
+.man-hi__marker--icon-bg-red {
+  @include man-outshine-host {
+    background: man("red") !important;
+  }
+}
+
+.man-hi__marker--icon-bg-dark {
+  @include man-outshine-host {
+    background: man("slate-900") !important;
+  }
+}
+
+.man-hi__marker--icon-bg-light {
+  @include man-outshine-host {
+    background: man("grey-100") !important;
+  }
+}
+
 // Proportional eingepasst: ein hochkantes Symbol wird nicht verzerrt.
 .man-hi__marker-icon {
   display: block;

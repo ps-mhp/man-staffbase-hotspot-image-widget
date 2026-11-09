@@ -22,10 +22,19 @@
 
 export type IconSize = "s" | "m" | "l";
 
+/**
+ * Die Fläche hinter dem Bild, rund wie der Punkt (Wunsch des Nutzers
+ * 09.11.2026). Fehlt sie, steht das Bild frei — „transparent“.
+ */
+export type IconBackground = "white" | "red" | "dark" | "light";
+
 export interface PointIcon {
   url: string;
   size: IconSize;
+  background?: IconBackground;
 }
+
+export const ICON_BACKGROUNDS: readonly IconBackground[] = ["white", "red", "dark", "light"];
 
 /** Kantenlänge des Kastens, in den das Bild proportional eingepasst wird. */
 export const ICON_SIZES: Readonly<Record<IconSize, number>> = { s: 32, m: 48, l: 72 };
@@ -43,5 +52,7 @@ export function readPointIcon(value: unknown): PointIcon | undefined {
   const raw = value as Record<string, unknown>;
   const url = typeof raw.url === "string" ? raw.url.trim() : "";
   if (!SAFE_URL.test(url)) return undefined;
-  return { url, size: isIconSize(raw.size) ? raw.size : DEFAULT_ICON_SIZE };
+  const size = isIconSize(raw.size) ? raw.size : DEFAULT_ICON_SIZE;
+  const background = ICON_BACKGROUNDS.find((candidate) => candidate === raw.background);
+  return background === undefined ? { url, size } : { url, size, background };
 }

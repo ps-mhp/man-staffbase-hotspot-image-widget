@@ -95,4 +95,11 @@ describe("HotspotMarker", () => {
     expect(marker.querySelector("img")).toHaveAttribute("src", "https://example.test/kabine.png");
     expect(marker.querySelector("img")).toHaveAttribute("alt", "");
   });
+
+  it("legt ein eigenes Bild auf den gewählten runden Hintergrund", () => {
+    const withIcon: HotspotPoint = { ...point, icon: { url: "https://example.test/k.png", size: "m", background: "dark" } };
+    render(<HotspotMarker point={withIcon} index={0} mode="dots" open={false} controls="box" onToggle={jest.fn()} />);
+
+    expect(screen.getByRole("button")).toHaveClass("man-hi__marker--icon-bg", "man-hi__marker--icon-bg-dark");
+  });
 });

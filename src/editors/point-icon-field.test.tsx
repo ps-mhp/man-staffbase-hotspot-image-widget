@@ -59,4 +59,26 @@ describe("PointIconField", () => {
     fireEvent.click(screen.getByRole("button", { name: ICON_FIELD_MESSAGES.remove }));
     expect(onChange).toHaveBeenCalledWith(undefined);
   });
+
+  it("setzt einen Hintergrund und kehrt zu transparent zurück", () => {
+    const onChange = jest.fn();
+    const { rerender } = render(<PointIconField icon={icon} onChange={onChange} />);
+
+    fireEvent.change(screen.getByTestId("point-icon-background"), { target: { value: "red" } });
+    expect(onChange).toHaveBeenLastCalledWith({ ...icon, background: "red" });
+
+    rerender(<PointIconField icon={{ ...icon, background: "red" }} onChange={onChange} />);
+    fireEvent.change(screen.getByTestId("point-icon-background"), { target: { value: "" } });
+    expect(onChange).toHaveBeenLastCalledWith(icon);
+  });
+
+  it("behält beim Austausch des Bildes den Hintergrund", () => {
+    const onChange = jest.fn();
+    render(<PointIconField icon={{ ...icon, background: "white" }} onChange={onChange} />);
+
+    fireEvent.click(screen.getByRole("button", { name: ICON_FIELD_MESSAGES.change }));
+    fireEvent.click(screen.getByRole("button", { name: "Aus Mediathek nehmen" }));
+
+    expect(onChange).toHaveBeenCalledWith({ url: "https://example.test/neu.png", size: "s", background: "white" });
+  });
 });

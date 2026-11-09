@@ -140,6 +140,7 @@ export function PlacementCanvas({
               "man-hie__canvas-marker",
               selected && "man-hie__canvas-marker--selected",
               point.icon !== undefined && "man-hie__canvas-marker--icon",
+              point.icon?.background !== undefined && `man-hie__icon-bg man-hie__icon-bg--${point.icon.background}`,
             ]
               .filter(Boolean)
               .join(" ")}

@@ -23,7 +23,9 @@ import { PointIcon } from "./point-icon";
 
 /** Die Klassen, die aus dem Punkt einen Bildpunkt der passenden Grösse machen. */
 export function iconClassNames(icon: PointIcon | undefined): string[] {
-  return icon === undefined ? [] : ["man-hi__marker--icon", `man-hi__marker--icon-${icon.size}`];
+  if (icon === undefined) return [];
+  const classes = ["man-hi__marker--icon", `man-hi__marker--icon-${icon.size}`];
+  return icon.background === undefined ? classes : [...classes, "man-hi__marker--icon-bg", `man-hi__marker--icon-bg-${icon.background}`];
 }
 
 export function MarkerIcon({ icon }: { icon: PointIcon }): ReactElement {

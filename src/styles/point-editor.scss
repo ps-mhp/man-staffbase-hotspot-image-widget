@@ -441,9 +441,9 @@
   filter: drop-shadow(0 1px 2px rgb(0 0 0 / 35%));
 }
 
+// Nur der Rahmen: ein gewählter Hintergrund bleibt sichtbar.
 .man-hie__canvas-marker--icon.man-hie__canvas-marker--selected {
   border-color: chrome.$accent;
-  background: none;
 }
 
 .man-hie__canvas-icon {
@@ -462,9 +462,35 @@
 }
 
 .man-hie__icon-preview {
+  display: block;
   flex: none;
-  object-fit: contain;
+  box-sizing: border-box;
   border: 1px solid chrome.$border;
   background: chrome.$surface-hover;
+}
+
+// Der gewählte Hintergrund, rund wie der Punkt -- auf der Bühne und in der
+// Vorschau des Feldes. Farben wie auf der Seite (MAN-Tokens).
+.man-hie__icon-bg {
+  padding: 15%;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+  filter: none;
+}
+
+.man-hie__icon-bg--white {
+  background: #{tokens.man("white")};
+}
+
+.man-hie__icon-bg--red {
+  background: #{tokens.man("red")};
+}
+
+.man-hie__icon-bg--dark {
+  background: #{tokens.man("slate-900")};
+}
+
+.man-hie__icon-bg--light {
+  background: #{tokens.man("grey-100")};
 }
 

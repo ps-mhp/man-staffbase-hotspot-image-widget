@@ -38,7 +38,14 @@ Symbol oder ein freigestelltes Foto. Das geht in beiden Modi.
    wirken freigestellt am besten.
 3. Wählen Sie unter **Größe** zwischen S (32 px), M (48 px, voreingestellt)
    und L (72 px).
-4. Über **Bild entfernen** kehrt der rote Punkt zurück.
+4. Wählen Sie unter **Hintergrund**, ob das Bild frei steht (Transparent,
+   voreingestellt) oder auf einer runden Fläche in Weiß, MAN-Rot, Anthrazit
+   oder Hellgrau — wie der rote Punkt.
+5. Über **Bild entfernen** kehrt der rote Punkt zurück.
+
+In der Mediathek finden Sie ein Bild auch, indem Sie seine Adresse (etwa aus
+einer Seite kopiert) oder seine ID ins Suchfeld einfügen. Unter dem
+Filter-Symbol lässt sich die Auswahl auf eine **Sammlung** beschränken.
 
 ## Einen Link setzen
 
