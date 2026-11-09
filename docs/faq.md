@@ -82,6 +82,12 @@ wechsle?
 Antwort: Nein. Beide Modi speichern ihre Punkte getrennt. Wer zurückwechselt,
 findet die Punkte des anderen Modus unverändert vor.
 
+**Frage:** Kann jede Menüebene ein eigenes Bild haben?
+
+Antwort: Ja. Im Fenster „Menüpunkte platzieren …“ wählen Sie oben die Ebene
+und links ihr Bild aus der Mediathek. Eine Ebene ohne eigenes Bild zeigt das
+Bild der Ebene darüber, samt deren Punkten.
+
 **Frage:** Warum erscheint ein Menüpunkt im Menü neben dem Bild nicht, obwohl
 er existiert?
 

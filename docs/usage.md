@@ -83,24 +83,30 @@ Punkte-Fenster:
 1. Wählen Sie in den Einstellungen unter **Modus** den Eintrag „Menü:
    Menüpunkte auf dem Bild platzieren“. Die Felder des manuellen Modus
    verschwinden, die des Menü-Modus erscheinen.
-2. Wählen Sie unter **Startpunkt im Menü** den Menüpunkt, dessen
+2. Wählen Sie unter **Bild** das Bild der Startebene.
+3. Wählen Sie unter **Startpunkt im Menü** den Menüpunkt, dessen
    Unterpunkte auf dem Bild liegen sollen. Steht er nicht in der Liste,
    wählen Sie **Andere Menü-ID eingeben …** und fügen die Adresse der Seite
    ein.
-3. Legen Sie unter **Ebenen** fest, wie tief das Menü reicht. Voreingestellt
+4. Legen Sie unter **Ebenen** fest, wie tief das Menü reicht. Voreingestellt
    sind 3: der Startpunkt, seine Unterpunkte und deren Unterpunkte.
-4. Wählen Sie unter **Klick auf einen Punkt**, ob ein Klick die Seite öffnet
-   (voreingestellt) oder das Menü neben dem Bild zum Eintrag blättert.
-5. Klicken Sie auf **Menüpunkte platzieren …**. Links steht das Bild, rechts
-   der Menübaum.
-6. Wählen Sie rechts einen Menüpunkt und klicken Sie an die gewünschte
-   Stelle im Bild. Dort entsteht sein Punkt; im Baum ist der Eintrag danach
-   mit „auf dem Bild“ gekennzeichnet.
-7. Wiederholen Sie Schritt 6 für jeden weiteren Menüpunkt. Um einen Punkt zu
-   versetzen, ziehen Sie ihn oder wählen Sie den Eintrag und klicken Sie an
-   die neue Stelle. **Punkt entfernen** nimmt ihn wieder vom Bild.
-8. Klicken Sie auf **Übernehmen**, speichern Sie die Seite und prüfen Sie das
-   Ergebnis in der Vorschau.
+5. Wählen Sie unter **Klick auf einen Punkt mit Unterpunkten**, ob ein Klick
+   ins Untermenü wechselt (voreingestellt) oder die Seite öffnet.
+6. Klicken Sie auf **Menüpunkte platzieren …**. Oben steht die Ebene, links
+   ihr Bild, rechts ihre Unterpunkte.
+7. Wählen Sie rechts einen Unterpunkt und klicken Sie an die gewünschte
+   Stelle im Bild. Dort entsteht sein Punkt; in der Liste ist der Eintrag
+   danach mit „auf dem Bild“ gekennzeichnet. Wiederholen Sie das für jeden
+   weiteren Unterpunkt.
+8. Um einen Punkt zu versetzen, ziehen Sie ihn oder wählen Sie den Eintrag
+   und klicken Sie an die neue Stelle. **Punkt entfernen** nimmt ihn wieder
+   vom Bild.
+9. Für eine tiefere Ebene klicken Sie rechts neben dem Unterpunkt auf **›**
+   oder wählen Sie die Ebene oben aus. Wählen Sie mit **Bild wählen …** ein
+   Bild aus der Mediathek und setzen Sie die Punkte wie in Schritt 7. Ohne
+   eigenes Bild zeigt die Ebene später das Bild der Ebene darüber.
+10. Klicken Sie auf **Übernehmen**, speichern Sie die Seite und prüfen Sie
+    das Ergebnis in der Vorschau.
 
 Haben Sie Startpunkt oder Ebenen geändert, schließen Sie das Fenster und
 öffnen Sie es neu — es liest beides beim Öffnen.
@@ -125,6 +131,10 @@ Haben Sie Startpunkt oder Ebenen geändert, schließen Sie das Fenster und
    zu wählen.** Unter **Startpunkt im Menü** ist noch nichts gewählt. Wählen
    Sie einen Menüpunkt, schließen Sie das Fenster und öffnen Sie es neu.
 6. **Im Fenster stehen Punkte unter „Nicht mehr im Menü“.** Der zugehörige
-   Menüpunkt wurde gelöscht, verborgen oder liegt tiefer, als unter
-   **Ebenen** eingestellt. Auf der Seite erscheinen diese Punkte nicht.
+   Menüpunkt wurde gelöscht, verborgen, im Menü verschoben oder liegt
+   tiefer, als unter **Ebenen** eingestellt. Auf der Seite erscheinen diese Punkte nicht.
    Entfernen Sie sie dort oder erhöhen Sie die Zahl der Ebenen.
+7. **Im Modus „Menü“ sind die Einstellungen nach dem Speichern wieder
+   weg.** Das Widget ist in der Instanz noch ohne die Felder des Menü-Modus
+   registriert. Die Registrierung muss aktualisiert werden (Aufgabe der
+   Administration).
