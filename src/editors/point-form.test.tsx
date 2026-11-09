@@ -19,6 +19,18 @@ import { HotspotPoint } from "../points-model";
 jest.mock("./link-field", () => ({
   LinkField: () => <div data-testid="link-field" />,
 }));
+jest.mock("./point-icon-field", () => ({
+  PointIconField: ({ onChange }: { onChange: (icon: unknown) => void }) => (
+    <>
+      <button type="button" onClick={() => onChange({ url: "https://example.test/i.png", size: "m" })}>
+        Icon setzen
+      </button>
+      <button type="button" onClick={() => onChange(undefined)}>
+        Icon entfernen
+      </button>
+    </>
+  ),
+}));
 
 const point: HotspotPoint = { id: "p1", x: 25, y: 60, title: "Ladeanschluss" };
 
@@ -69,5 +81,18 @@ describe("PointForm", () => {
     const title = screen.getByLabelText(/Titel/);
     expect(title).toHaveAccessibleDescription(/nicht übernehmen/);
     expect(title).toBeInvalid();
+  });
+
+  it("setzt ein eigenes Bild und nimmt es ohne leeres Feld wieder heraus", () => {
+    const onChange = jest.fn();
+    const icon = { url: "https://example.test/i.png", size: "m" as const };
+    const { rerender } = render(<PointForm point={point} onChange={onChange} onRemove={jest.fn()} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Icon setzen" }));
+    expect(onChange).toHaveBeenCalledWith({ ...point, icon });
+
+    rerender(<PointForm point={{ ...point, icon }} onChange={onChange} onRemove={jest.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "Icon entfernen" }));
+    expect(onChange).toHaveBeenLastCalledWith(point);
   });
 });

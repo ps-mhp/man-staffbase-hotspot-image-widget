@@ -21,6 +21,20 @@ tragen ihre Einstellungen noch in einzelnen Attributen (`image`,
 `image-alt`, `points`, `display-mode` …). Solange `config` leer ist, gelten
 diese; beim ersten **Übernehmen** im Fenster wandern sie nach `config`.
 
+## Bild statt Punkt
+
+Jeder Punkt kann in beiden Modi ein eigenes Bild aus der Mediathek tragen;
+es erscheint dann an Stelle des roten Punkts, proportional eingepasst.
+
+| Größe | Kantenlänge |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (voreingestellt) |
+| L | 72 px |
+
+Hervorheben, Namensschild und Klick funktionieren wie beim Punkt. Im
+nummerierten Modus steht die Nummer dann nur noch in der Liste.
+
 ## Werte von „Darstellung“
 
 | Wert | Beschriftung im Dialog |

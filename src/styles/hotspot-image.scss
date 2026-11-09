@@ -433,3 +433,54 @@
   line-height: 1.45;
   white-space: pre-line;
 }
+
+// --- Eigene Bilder an Stelle des roten Punkts (beide Modi) ----
+
+// Das Bild steht frei, ohne rote Fläche und ohne runde Kante; abgehoben wird
+// es wie der Punkt durch einen Schatten -- hier als `drop-shadow`, damit er
+// der Form eines freigestellten PNG/SVG folgt statt einem Kasten. Steht ganz
+// am Ende und mit Nachdruck, damit weder die Grössen von `--dots` noch die
+// kleinen Punkte auf dem Telefon das Bild zusammendrücken.
+.man-hi__marker--icon {
+  @include man-outshine-host {
+    width: var(--man-hi-icon, 48px) !important;
+    height: var(--man-hi-icon, 48px) !important;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 35%)) drop-shadow(0 2px 6px rgb(0 0 0 / 25%));
+  }
+}
+
+.man-hi__marker--icon-s {
+  --man-hi-icon: 32px;
+}
+
+.man-hi__marker--icon-m {
+  --man-hi-icon: 48px;
+}
+
+.man-hi__marker--icon-l {
+  --man-hi-icon: 72px;
+}
+
+// Proportional eingepasst: ein hochkantes Symbol wird nicht verzerrt.
+.man-hi__marker-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+// Der Puls zeichnet einen roten Ring um eine runde Fläche -- um ein freies
+// Bild sähe er wie ein Fehler aus. Hervorgehoben wird das Bild wie der Punkt:
+// grösser und angehoben.
+@media (prefers-reduced-motion: no-preference) {
+  .man-hi__marker--icon:hover,
+  .man-hi__marker--icon:focus-visible,
+  .man-hi__marker--icon.man-hi__marker--open {
+    animation: none;
+  }
+}
+

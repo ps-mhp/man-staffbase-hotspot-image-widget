@@ -82,4 +82,17 @@ describe("HotspotMarker", () => {
     fireEvent.click(screen.getByRole("button"));
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
+
+  it("zeigt ein eigenes Bild statt Punkt und Ziffer und behält seinen Namen", () => {
+    const withIcon: HotspotPoint = { ...point, icon: { url: "https://example.test/kabine.png", size: "l" } };
+    render(
+      <HotspotMarker point={withIcon} index={2} mode="numbered" open={false} controls="box" onToggle={jest.fn()} />,
+    );
+
+    const marker = screen.getByRole("button", { name: "Ladeanschluss" });
+    expect(marker).toHaveClass("man-hi__marker--icon", "man-hi__marker--icon-l");
+    expect(marker).not.toHaveTextContent("3");
+    expect(marker.querySelector("img")).toHaveAttribute("src", "https://example.test/kabine.png");
+    expect(marker.querySelector("img")).toHaveAttribute("alt", "");
+  });
 });

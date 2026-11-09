@@ -38,6 +38,15 @@ jest.mock("./image-field", () => ({
   ),
 }));
 
+// Das Punktbild: ein Knopf setzt eines — die Mediathek prüft point-icon-field.test.
+jest.mock("./point-icon-field", () => ({
+  PointIconField: ({ onChange }: { onChange: (icon: unknown) => void }) => (
+    <button type="button" onClick={() => onChange({ url: "https://example.test/i.png", size: "m" })}>
+      Icon setzen
+    </button>
+  ),
+}));
+
 // Der Startpunkt: ein Feld, das eine ID setzt — die Liste prüft start-point-field.test.
 jest.mock("./start-point-field", () => ({
   StartPointField: ({ onChange }: { onChange: (id: string | null) => void }) => (
@@ -293,5 +302,26 @@ describe("MenuPanel", () => {
 
     expect(screen.getByTestId(`place-marker-p-${IDS.ruhe}`)).toHaveTextContent("");
     expect(screen.getByTestId(`place-marker-p-${IDS.ruhe}`)).toHaveAccessibleName("Punkt 1: Ruhebereich");
+  });
+
+  it("gibt einem gesetzten Menüpunkt ein eigenes Bild und nimmt es wieder weg", async () => {
+    const { onMenuChange } = await renderPanel({ [IDS.fahrerhaus]: { points: [point(IDS.ruhe)] } });
+    fireEvent.click(item(IDS.ruhe));
+
+    fireEvent.click(screen.getByRole("button", { name: "Icon setzen" }));
+    expect(lastLayout(onMenuChange)).toEqual({
+      [IDS.fahrerhaus]: { points: [{ ...point(IDS.ruhe), icon: { url: "https://example.test/i.png", size: "m" } }] },
+    });
+  });
+
+  it("zeigt das Bild eines Punktes auch auf der Fläche", async () => {
+    await renderPanel({
+      [IDS.fahrerhaus]: { points: [{ ...point(IDS.ruhe), icon: { url: "https://example.test/i.png", size: "l" } }] },
+    });
+
+    const canvasMarker = screen.getByTestId(`place-marker-p-${IDS.ruhe}`);
+    expect(canvasMarker).toHaveClass("man-hie__canvas-marker--icon");
+    expect(canvasMarker).toHaveStyle({ width: "72px", height: "72px" });
+    expect(canvasMarker.querySelector("img")).toHaveAttribute("src", "https://example.test/i.png");
   });
 });

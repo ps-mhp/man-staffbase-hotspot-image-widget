@@ -319,4 +319,14 @@ describe("MenuHotspotImage", () => {
     expect(within(marker(IDS.ruhe)).getByText("Ruhebereich")).toHaveClass("man-hi__tag--start", "man-hi__tag--below");
     expect(within(marker(IDS.haendler)).getByText("Händlersuche")).toHaveClass("man-hi__tag--end");
   });
+
+  it("zeigt bei einem Menüpunkt mit eigenem Bild das Bild statt des Punkts", async () => {
+    await renderReady({
+      layout: { [IDS.fahrerhaus]: { points: [{ ...point(IDS.ruhe), icon: { url: "https://example.test/bett.svg", size: "s" } }] } },
+    });
+
+    expect(marker(IDS.ruhe)).toHaveClass("man-hi__marker--icon", "man-hi__marker--icon-s");
+    expect(marker(IDS.ruhe).querySelector(".man-hi__marker-icon")).toHaveAttribute("src", "https://example.test/bett.svg");
+    expect(marker(IDS.ruhe)).toHaveAccessibleName("Ruhebereich");
+  });
 });

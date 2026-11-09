@@ -45,6 +45,7 @@ import { HotspotImage, HotspotPoint, MAX_POINTS, clampPercent, newPointId } from
 import { ImageField } from "./image-field";
 import { MenuLevelList } from "./menu-level-list";
 import { PlacementCanvas } from "./placement-canvas";
+import { PointIconField } from "./point-icon-field";
 import { StartPointField } from "./start-point-field";
 
 export const MENU_EDITOR_MESSAGES = {
@@ -210,6 +211,7 @@ function LevelEditor({ tree, layout, onChange, rootImage, onRootImageChange }: L
     x: point.x,
     y: point.y,
     title: tree.index.get(point.menuId)?.node.entry.title ?? MENU_EDITOR_MESSAGES.orphans,
+    ...(point.icon === undefined ? {} : { icon: point.icon }),
   }));
 
   const onAdd = (x: number, y: number): void => {
@@ -312,6 +314,19 @@ function LevelEditor({ tree, layout, onChange, rootImage, onRootImageChange }: L
             ) : (
               <>
                 <p className="man-hie__hint">{MENU_EDITOR_MESSAGES.move(selectedEntry.title)}</p>
+                <PointIconField
+                  icon={selectedPoint.icon}
+                  onChange={(icon) =>
+                    setPoints(
+                      level.points.map((point) => {
+                        if (point !== selectedPoint) return point;
+                        const rest: MenuHotspotPoint = { ...point };
+                        delete rest.icon;
+                        return icon === undefined ? rest : { ...rest, icon };
+                      }),
+                    )
+                  }
+                />
                 <button
                   type="button"
                   className="man-hie__button"

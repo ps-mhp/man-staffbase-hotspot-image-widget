@@ -34,6 +34,7 @@ import { ReactElement } from "react";
 
 import { MenuTreeNode } from "@shared/staffbase/menu-tree";
 
+import { MarkerIcon, iconClassNames } from "../marker-icon";
 import { MenuClickMode, MenuHotspotPoint } from "../menu-points-model";
 import { MENU_MESSAGES } from "./menu-browser";
 
@@ -81,6 +82,7 @@ export function MenuMarker({
     "man-hi__marker--menu",
     highlighted && "man-hi__marker--highlighted",
     named && "man-hi__marker--named",
+    ...iconClassNames(point.icon),
   ]
     .filter(Boolean)
     .join(" ");
@@ -97,9 +99,12 @@ export function MenuMarker({
     onBlur: () => onHover(null),
   };
   const tag = (
-    <span className={tagPlacement(point)} aria-hidden="true">
-      {entry.title}
-    </span>
+    <>
+      {point.icon !== undefined && <MarkerIcon icon={point.icon} />}
+      <span className={tagPlacement(point)} aria-hidden="true">
+        {entry.title}
+      </span>
+    </>
   );
 
   const action = markerAction(node, click);

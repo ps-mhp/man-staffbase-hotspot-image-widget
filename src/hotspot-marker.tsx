@@ -23,6 +23,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 
+import { MarkerIcon, iconClassNames } from "./marker-icon";
 import { DisplayMode, HotspotPoint } from "./points-model";
 
 export interface HotspotMarkerProps {
@@ -55,6 +56,7 @@ export function HotspotMarker({
     `man-hi__marker--${mode}`,
     open && "man-hi__marker--open",
     highlighted && "man-hi__marker--highlighted",
+    ...iconClassNames(point.icon),
   ]
     .filter(Boolean)
     .join(" ");
@@ -72,7 +74,12 @@ export function HotspotMarker({
       data-testid={`marker-${point.id}`}
       onClick={onToggle}
     >
-      {mode === "numbered" && <span className="man-hi__marker-number">{index + 1}</span>}
+      {point.icon !== undefined ? (
+        // Das eigene Bild ersetzt Punkt und Ziffer; die Nummer steht weiter in der Liste.
+        <MarkerIcon icon={point.icon} />
+      ) : (
+        mode === "numbered" && <span className="man-hi__marker-number">{index + 1}</span>
+      )}
     </button>
   );
 }

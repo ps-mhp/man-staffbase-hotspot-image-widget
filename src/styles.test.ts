@@ -52,6 +52,7 @@ describe("Stylesheet", () => {
     ["man-hi__item-head", hotspotStyles],
     ["man-hi__popover-title", hotspotStyles],
     ["man-hi__marker--menu", menuStyles],
+    ["man-hi__marker--icon", hotspotStyles],
     ["man-hi-menu__link", menuStyles],
     ["man-hi-menu__heading-link", menuStyles],
     ["man-hi-menu__open", menuStyles],

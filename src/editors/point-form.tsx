@@ -24,6 +24,7 @@ import { ReactElement } from "react";
 
 import { HotspotPoint } from "../points-model";
 import { LinkField } from "./link-field";
+import { PointIconField } from "./point-icon-field";
 
 export interface PointFormProps {
   point: HotspotPoint;
@@ -80,6 +81,15 @@ export function PointForm({ point, onChange, onRemove }: PointFormProps): ReactE
           const rest: HotspotPoint = { ...point };
           delete rest.link;
           onChange(link === undefined ? rest : { ...rest, link });
+        }}
+      />
+
+      <PointIconField
+        icon={point.icon}
+        onChange={(icon) => {
+          const rest: HotspotPoint = { ...point };
+          delete rest.icon;
+          onChange(icon === undefined ? rest : { ...rest, icon });
         }}
       />
 

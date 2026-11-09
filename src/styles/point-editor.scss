@@ -427,3 +427,44 @@
   flex: 0 0 auto;
   padding: 0 16px;
 }
+
+// --- Eigene Bilder an Stelle des Punkts ----
+
+// Auf der Bühne wie auf der Seite: frei, ohne Fläche, mit Schatten. Die
+// Auswahl zeigt ein Rahmen statt der gefüllten Fläche.
+.man-hie__canvas-marker--icon {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 35%));
+}
+
+.man-hie__canvas-marker--icon.man-hie__canvas-marker--selected {
+  border-color: chrome.$accent;
+  background: none;
+}
+
+.man-hie__canvas-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.man-hie__icon-chosen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.man-hie__icon-preview {
+  flex: none;
+  object-fit: contain;
+  border: 1px solid chrome.$border;
+  background: chrome.$surface-hover;
+}
+

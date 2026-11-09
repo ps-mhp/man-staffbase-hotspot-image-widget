@@ -26,6 +26,20 @@
 11. Klicken Sie auf **Übernehmen**.
 12. Speichern Sie die Seite und prüfen Sie das Ergebnis in der Vorschau.
 
+## Ein eigenes Bild statt des roten Punkts
+
+Jeder Punkt kann statt des roten Punkts ein eigenes Bild zeigen — etwa ein
+Symbol oder ein freigestelltes Foto. Das geht in beiden Modi.
+
+1. Wählen Sie den Punkt aus: im Modus „Manuell“ in der Liste rechts, im
+   Modus „Menü“ den platzierten Menüpunkt in der Liste der Unterpunkte.
+2. Klicken Sie unter **Bild statt Punkt** auf **Eigenes Bild wählen …** und
+   wählen Sie ein Bild aus der Mediathek. Transparente PNG- oder SVG-Dateien
+   wirken freigestellt am besten.
+3. Wählen Sie unter **Größe** zwischen S (32 px), M (48 px, voreingestellt)
+   und L (72 px).
+4. Über **Bild entfernen** kehrt der rote Punkt zurück.
+
 ## Einen Link setzen
 
 1. Klicken Sie im Formular eines Punktes auf **Link hinzufügen**.

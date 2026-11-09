@@ -22,6 +22,7 @@
 import * as React from "react";
 import { ReactElement, useRef } from "react";
 
+import { ICON_SIZES } from "../point-icon";
 import { HotspotImage, HotspotPoint, clampPercent } from "../points-model";
 
 export interface PlacementCanvasProps {
@@ -135,8 +136,22 @@ export function PlacementCanvas({
             key={point.id}
             type="button"
             data-testid={`place-marker-${point.id}`}
-            className={`man-hie__canvas-marker${selected ? " man-hie__canvas-marker--selected" : ""}`}
-            style={{ left: `${point.x}%`, top: `${point.y}%` }}
+            className={[
+              "man-hie__canvas-marker",
+              selected && "man-hie__canvas-marker--selected",
+              point.icon !== undefined && "man-hie__canvas-marker--icon",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            style={{
+              left: `${point.x}%`,
+              top: `${point.y}%`,
+              // Mit eigenem Bild so gross wie auf der Seite — sonst platzierte man
+              // ein 72px-Symbol nach einem 32px-Punkt.
+              ...(point.icon === undefined
+                ? {}
+                : { width: ICON_SIZES[point.icon.size], height: ICON_SIZES[point.icon.size] }),
+            }}
             aria-label={`Punkt ${index + 1}${point.title === "" ? "" : `: ${point.title}`}`}
             // Ausgewählt heisst „an diesem Punkt wird gerade gearbeitet" -- eine
             // Auszeichnung innerhalb einer Menge, kein Schalter. `aria-pressed`
@@ -155,7 +170,11 @@ export function PlacementCanvas({
             onLostPointerCapture={endDrag}
             onKeyDown={(event) => onMarkerKeyDown(event, point)}
           >
-            {markerLabel(index)}
+            {point.icon === undefined ? (
+              markerLabel(index)
+            ) : (
+              <img className="man-hie__canvas-icon" src={point.icon.url} alt="" draggable={false} />
+            )}
           </button>
         );
       })}
