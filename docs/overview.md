@@ -9,7 +9,20 @@ Alle Punkte werden im selben Fenster gepflegt, das sich beim Öffnen der
 Einstellungen von selbst zeigt: Bild wählen, in das Bild klicken, um einen
 Punkt zu setzen, Titel und die übrigen Angaben eintragen.
 
-## Die beiden Darstellungen
+## Zwei Modi
+
+Unter **Modus** steht zur Wahl, woher die Punkte kommen:
+
+- **Manuell** — jeder Punkt bekommt einen eigenen Titel, eine Beschreibung
+  und auf Wunsch einen Link. So wie bisher.
+- **Menü** — Sie wählen einen Menüpunkt der App. Er selbst und seine
+  Unterpunkte lassen sich einzeln als Punkte auf dem Bild platzieren. Titel
+  und Ziele kommen direkt aus dem Menü: wird ein Menüpunkt umbenannt, heißt
+  auch sein Punkt sofort anders. Neben dem Bild steht das Menü zum Blättern.
+
+Die Punkte des jeweils anderen Modus bleiben beim Wechsel erhalten.
+
+## Die beiden Darstellungen im Modus „Manuell“
 
 Unter **Darstellung** steht eine von zwei Varianten zur Wahl:
 
@@ -43,3 +56,20 @@ Unter **Darstellung** steht eine von zwei Varianten zur Wahl:
 - Die Bedienung funktioniert auch ohne Maus: mit der Tabulatortaste lässt sich
   von Punkt zu Punkt springen, mit der Eingabetaste öffnen, mit Escape
   schließen.
+
+## Was Leser:innen im Modus „Menü“ sehen
+
+- Links das Bild mit roten Punkten ohne Zahl, rechts daneben das Menü — auf
+  schmalen Bildschirmen darunter. Das Menü zeigt eine Ebene zur Zeit: ein
+  Pfeil führt eine Ebene tiefer, der Zurück-Knopf oben wieder hinauf, auf dem
+  Telefon auch ein Wischen nach rechts.
+- Steht der Mauszeiger auf einem Punkt, erscheint der Name des Menüpunkts,
+  und im Menü wird der passende Eintrag markiert. Liegt der Eintrag eine
+  Ebene tiefer, wird der Eintrag markiert, unter dem er liegt.
+- Steht der Mauszeiger auf einem Eintrag im Menü, werden die Punkte dieses
+  Eintrags und all seiner Unterpunkte hervorgehoben.
+- Ein Klick auf einen Punkt öffnet die Seite des Menüpunkts — oder, je nach
+  Einstellung, blättert das Menü zu ihm. Menüpunkte, die nur Ordner ohne
+  eigene Seite sind, werden immer im Menü gezeigt.
+- Jede:r sieht nur Punkte zu Menüpunkten, die er oder sie auch im Menü der
+  App sieht. Im Menü verborgene Einträge erscheinen nicht.

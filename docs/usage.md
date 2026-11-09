@@ -78,6 +78,33 @@ Punkte-Fenster:
 5. Um das Bild auszutauschen, schliessen Sie das Punkte-Fenster, ersetzen
    das Bild im Formular unter **Bild** und öffnen das Fenster wieder.
 
+## Modus „Menü“: Menüpunkte platzieren
+
+1. Wählen Sie in den Einstellungen unter **Modus** den Eintrag „Menü:
+   Menüpunkte auf dem Bild platzieren“. Die Felder des manuellen Modus
+   verschwinden, die des Menü-Modus erscheinen.
+2. Wählen Sie unter **Startpunkt im Menü** den Menüpunkt, dessen
+   Unterpunkte auf dem Bild liegen sollen. Steht er nicht in der Liste,
+   wählen Sie **Andere Menü-ID eingeben …** und fügen die Adresse der Seite
+   ein.
+3. Legen Sie unter **Ebenen** fest, wie tief das Menü reicht. Voreingestellt
+   sind 3: der Startpunkt, seine Unterpunkte und deren Unterpunkte.
+4. Wählen Sie unter **Klick auf einen Punkt**, ob ein Klick die Seite öffnet
+   (voreingestellt) oder das Menü neben dem Bild zum Eintrag blättert.
+5. Klicken Sie auf **Menüpunkte platzieren …**. Links steht das Bild, rechts
+   der Menübaum.
+6. Wählen Sie rechts einen Menüpunkt und klicken Sie an die gewünschte
+   Stelle im Bild. Dort entsteht sein Punkt; im Baum ist der Eintrag danach
+   mit „auf dem Bild“ gekennzeichnet.
+7. Wiederholen Sie Schritt 6 für jeden weiteren Menüpunkt. Um einen Punkt zu
+   versetzen, ziehen Sie ihn oder wählen Sie den Eintrag und klicken Sie an
+   die neue Stelle. **Punkt entfernen** nimmt ihn wieder vom Bild.
+8. Klicken Sie auf **Übernehmen**, speichern Sie die Seite und prüfen Sie das
+   Ergebnis in der Vorschau.
+
+Haben Sie Startpunkt oder Ebenen geändert, schließen Sie das Fenster und
+öffnen Sie es neu — es liest beides beim Öffnen.
+
 ## Wenn etwas nicht funktioniert
 
 1. **Das Widget zeigt nichts an.** Entweder fehlt das Bild, oder es ist noch
@@ -94,3 +121,10 @@ Punkte-Fenster:
    eine Adresse.** Die Seitenliste des Systems war beim Öffnen nicht
    erreichbar. Tragen Sie die Adresse von Hand ein oder öffnen Sie das
    Fenster erneut.
+5. **Im Modus „Menü“ steht im Fenster der Hinweis, zuerst einen Startpunkt
+   zu wählen.** Unter **Startpunkt im Menü** ist noch nichts gewählt. Wählen
+   Sie einen Menüpunkt, schließen Sie das Fenster und öffnen Sie es neu.
+6. **Im Fenster stehen Punkte unter „Nicht mehr im Menü“.** Der zugehörige
+   Menüpunkt wurde gelöscht, verborgen oder liegt tiefer, als unter
+   **Ebenen** eingestellt. Auf der Seite erscheinen diese Punkte nicht.
+   Entfernen Sie sie dort oder erhöhen Sie die Zahl der Ebenen.

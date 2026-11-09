@@ -62,3 +62,29 @@ dafür steht er dort.
 Antwort: Nein. Ab 20 Punkten überdecken sich die Marker gegenseitig, und die
 Liste neben dem Bild würde länger als das Bild selbst. Der Editor weist beim
 Versuch, einen 21. Punkt zu setzen, darauf hin.
+
+**Frage:** Ich habe im Modus „Menü“ einen Menüpunkt umbenannt. Muss ich das
+Widget anpassen?
+
+Antwort: Nein. Gespeichert wird nur, welcher Menüpunkt wo auf dem Bild liegt.
+Titel und Ziel kommen bei jedem Aufruf frisch aus dem Menü — der neue Name
+erscheint sofort.
+
+**Frage:** Warum sehen manche Kolleg:innen weniger Punkte als ich?
+
+Antwort: Im Modus „Menü“ sieht jede:r nur die Punkte zu Menüpunkten, die er
+oder sie auch im Menü der App sehen darf. Das ist so gewollt: ein Punkt soll
+nicht auf eine Seite führen, die sich dann nicht öffnen lässt.
+
+**Frage:** Verliere ich meine Punkte, wenn ich zwischen „Manuell“ und „Menü“
+wechsle?
+
+Antwort: Nein. Beide Modi speichern ihre Punkte getrennt. Wer zurückwechselt,
+findet die Punkte des anderen Modus unverändert vor.
+
+**Frage:** Warum erscheint ein Menüpunkt im Menü neben dem Bild nicht, obwohl
+er existiert?
+
+Antwort: Entweder ist er im Menü der App auf „Nicht sichtbar“ gestellt, oder
+er liegt tiefer, als unter **Ebenen** eingestellt. Im ersten Fall bleibt er
+auch hier verborgen; im zweiten erhöhen Sie die Zahl der Ebenen.
