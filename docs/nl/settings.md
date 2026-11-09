@@ -14,12 +14,26 @@ samen in één veld opgeslagen.
 | Startpunt in het menu | Alleen „Menu“. Het menu-item waarvan de subitems worden geplaatst. Keuze uit de lijst of via „Andere menu-ID invoeren …“ het adres van een pagina. |
 | Niveaus | Alleen „Menu“. Hoeveel niveaus er worden weergegeven, inclusief het startpunt. Standaard is dit 3. |
 | Klik op een punt met subpunten | Alleen „Menu“. `Naar het submenu gaan` (standaard) of `Pagina openen`. |
-| Niveau | Alleen „Menu“. Welk menuniveau momenteel wordt bewerkt; elk niveau heeft zijn eigen afbeelding en eigen punten. |
+| Niveau | Alleen „Menu“. Welk menuniveau momenteel wordt bewerkt; elk niveau heeft zijn eigen afbeelding en zijn eigen punten. |
 
 Technisch gezien staat alles in het attribuut `config`. Widgets uit eerdere versies
-bevatten hun instellingen nog in afzonderlijke attributen (`image`,
+behouden hun instellingen nog in afzonderlijke attributen (`image`,
 `image-alt`, `points`, `display-mode` …). Zolang `config` leeg is, gelden
 deze; bij de eerste **Toepassen** in het venster worden ze verplaatst naar `config`.
+
+## Afbeelding in plaats van punt
+
+Elk punt kan in beide modi een eigen afbeelding uit de mediabibliotheek bevatten;
+deze verschijnt dan in plaats van het rode punt, proportioneel aangepast.
+
+| Grootte | Randlengte |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (standaard) |
+| L | 72 px |
+
+Markeren, naamplaatje en klikken werken net als bij de stip. In de
+genummerde modus staat het nummer dan alleen nog in de lijst.
 
 ## Waarden van „Weergave“
 
@@ -32,11 +46,11 @@ deze; bij de eerste **Toepassen** in het venster worden ze verplaatst naar `conf
 
 | Waarde | Betekenis |
 | --- | --- |
-| `2` | Startpunt en de bijbehorende subitems |
-| `3` | plus de subitems daarvan (standaard) |
+| `2` | Startpunt en de bijbehorende subpunten |
+| `3` | plus de bijbehorende subpunten (standaard) |
 | `4` tot `6` | overeenkomstig dieper |
 
-## Waarden van „Klik op een punt met subitems“
+## Waarden van „Klik op een punt met subpunten“
 
 | Waarde | Tekst in het dialoogvenster | Effect |
 | --- | --- | --- |
@@ -52,13 +66,13 @@ eigen pagina gaan in beide gevallen naar het submenu.
 | --- | --- |
 | Titel | Verplicht. Zonder titel kan het venster niet worden gesloten met „Toepassen“. |
 | Beschrijving | Optioneel, meerdere regels. |
-| Bestemming | Optioneel. Een pagina uit de systeemlijst of een zelf ingevoerd adres. |
+| Bestemming | Optioneel. Een pagina uit de lijst van het systeem of een zelf ingevoerd adres. |
 | Tekst op de knop | Optioneel. Als dit veld leeg blijft, toont de knop „Pagina openen“. |
 
 ## Beperkingen
 
-- Een afbeelding bevat maximaal **20 punten**. Het venster geeft een melding wanneer je
-  probeert er nog een toe te voegen, in plaats van deze stilzwijgend te
+- Een afbeelding bevat maximaal **20 punten**. Het venster geeft een melding wanneer wordt geprobeerd
+  er nog een toe te voegen, in plaats van deze stilzwijgend te
   verwerpen.
 - Een punt **zonder titel** kan niet worden overgenomen: de knop
   „Toepassen“ blijft geblokkeerd zolang ten minste één punt geen titel

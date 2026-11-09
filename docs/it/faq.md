@@ -55,7 +55,7 @@ anche se il link punta a una pagina presente nell’elenco?
 Risposta: Anche con le pagine del proprio sistema l’incorporamento può fallire,
 ad esempio se la pagina di destinazione stessa impedisce tecnicamente l’incorporamento. In questo caso,
 utilizzate il link «Apri in una nuova scheda» nella parte superiore della finestra — è proprio
-per questo che si trova lì.
+a questo che serve.
 
 **Domanda:** Posso inserire più di 20 punti su un’immagine?
 
@@ -66,7 +66,7 @@ si tenta di inserire un 21° punto.
 **Domanda:** Ho rinominato una voce di menu nella modalità “Menu”. Devo
 modificare il widget?
 
-Risposta: No. Viene salvata solo la posizione di ciascuna voce di menu sull’immagine.
+Risposta: No. Viene salvata solo la posizione della voce di menu sull’immagine.
 Il titolo e la destinazione vengono recuperati dal menu ogni volta che lo si richiama: il nuovo nome
 appare immediatamente.
 

@@ -12,27 +12,41 @@
    shown in the image.
 5. Click on the desired spot in the image. A new
    point will appear there, and its form will show up on the right.
-6. Enter the **title**. Without a title, you cannot close the window by clicking
-   **Apply**—a corresponding message appears both in the
+6. Enter the **Title**. Without a title, you cannot close the window by
+   clicking **Apply**—a corresponding message appears both in the
    field and at the bottom of the window.
 7. Optionally, enter a **Description**.
-8. Optional: Below the “Description” field, use **Add Link
-   **"Add Link"** — see the section “Setting a Link” further
-   down.
+8. Optional: Under the “Description” field, use **Add Link**
+   to add a destination—see the section “Setting a Link” further
+   below.
 9. Repeat steps 5 through 8 for each additional point. An image
-   can have a maximum of 20 points.
+   is worth a maximum of 20 points.
 10. At the top, under **Display**, choose between “Numbered, with list
-    next to the image” and “Bulleted, without list.”
+    next to the image” and “Bullets, without list.”
 11. Click **Apply**.
 12. Save the page and check the result in the preview.
 
+## A Custom Image Instead of the Red Dot
+
+Each item can display its own image instead of the red dot—such as an
+icon or a cropped photo. This works in both modes.
+
+1. Select the bullet: in “Manual” mode, select it from the list on the right; in
+   “Menu” mode, select the placed menu item from the list of subitems.
+2. Under **Image Instead of Dot**, click **Select Custom Image…** and
+   select an image from the media library. Transparent PNG or SVG files
+   work best when cropped.
+3. Under **Size**, choose between S (32 px), M (48 px, default)
+  , and L (72 px).
+4. Click **Remove Image** to restore the red dot.
+
 ## Adding a Link
 
-1. In the form for a point, click **Add Link**.
+1. In a point’s form, click **Add Link**.
 2. Under **Destination**, select a page from the list. A link to a page
    from this list will later appear in a window above the page.
 3. If you’d like to enter your own URL instead, click
-   **Enter Your Own URL …** and enter the URL in the
+   **Enter Your Own URL …** and type the URL into the
    **URL** field. Such a URL will later open in a new
    tab, not in the window—the tooltip explains this.
 4. Click **Select a Page Instead** to return from the custom
@@ -90,7 +104,7 @@ the media library, not in the form.
    from the image.
 7. To create a deeper layer, click **›** to the right of the subitem
    or select the layer at the top. Select its image and place the
-   points as in step 5. If it doesn’t have its own image, the layer will later display the image
+   points as in step 5. If it has no image of its own, the layer will later display the image
    of the layer above it.
 8. Click **Apply**, save the page, and check
    the result in the preview.
@@ -115,7 +129,7 @@ the media library, not in the form.
   .** Nothing is currently selected under **Starting Point in the Menu**.
 6. **The window displays items under “No longer in the menu.”** The corresponding
    menu item has been deleted, hidden, moved within the menu, or is
-   located deeper than the setting under **Levels**. These items do not appear on the page.
+   lower than the level set under **Levels**. These items do not appear on the page.
    Remove them there or increase the number of levels.
 7. **The settings are lost after saving the page.** The
    widget is still registered in the instance without the `config` field. The

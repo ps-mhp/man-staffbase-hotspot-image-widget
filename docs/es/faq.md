@@ -21,15 +21,15 @@ abre una nueva pestaña?
 Respuesta: Depende del origen del destino. Una **página de la
 lista** del sistema aparece en una ventana sobre la página actual. En cambio, una
 **dirección introducida manualmente**, por el contrario, siempre abre una nueva pestaña. El
-motivo: a menudo, las páginas externas no se pueden integrar técnicamente en una ventana
+motivo: a menudo, desde el punto de vista técnico, no es posible incrustar páginas externas en una ventana
 —una ventana bloqueada simplemente se quedaría en blanco, sin mostrar ningún mensaje de error
-—. Por eso, la nueva pestaña es la opción más fiable para todo lo que se encuentre fuera del
+—. Por lo tanto, la nueva pestaña es la opción más fiable para todo lo que se encuentre fuera del
 sistema.
 
 **Pregunta:** En la lista de páginas no aparece ninguna página, sino un
 campo para introducir una dirección.
 
-Respuesta: La lista de páginas del sistema no estaba disponible al abrirla. Un
+Respuesta: No se ha podido acceder a la lista de páginas del sistema al abrirla. Un
 mensaje de aviso lo indica. En este caso, introduzca la dirección
 manualmente o cierre la ventana y vuelva a abrirla.
 
@@ -91,5 +91,5 @@ imagen del nivel superior, junto con sus puntos.
 exista?
 
 Respuesta: O bien está configurado como «No visible» en el menú de la aplicación, o bien
-se encuentra en un nivel inferior al establecido en **Niveles**. En el primer caso, permanecerá
-oculto también aquí; en el segundo, aumenta el número de niveles.
+se encuentra en un nivel inferior al establecido en **Niveles**. En el primer caso,
+también permanecerá oculto aquí; en el segundo, aumenta el número de niveles.

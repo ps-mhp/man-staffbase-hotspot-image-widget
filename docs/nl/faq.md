@@ -52,7 +52,7 @@ een vertaling het adres alleen maar onleesbaar maken.
 **Vraag:** Waarom verschijnt de gelinkte pagina soms leeg in het venster,
 hoewel de link naar een pagina uit de lijst verwijst?
 
-Antwoord: Ook bij pagina’s uit het eigen systeem kan het insluiten mislukken,
+Antwoord: Zelfs bij pagina’s uit het eigen systeem kan het insluiten mislukken,
 bijvoorbeeld wanneer de doelpagina zelf het insluiten technisch verhindert. Gebruik
 in dat geval de link „In nieuw tabblad openen“ bovenaan het venster — daar
 is hij precies voor bedoeld.
@@ -91,6 +91,6 @@ afbeelding van het niveau erboven, inclusief de punten daarvan.
 **Vraag:** Waarom verschijnt een menu-item niet naast de afbeelding in het menu, hoewel
 het wel bestaat?
 
-Antwoord: Ofwel is het in het menu van de app ingesteld op „Niet zichtbaar“, ofwel
+Antwoord: Ofwel is het in het menu van de app ingesteld op „Niet zichtbaar”, ofwel
 ligt het dieper dan ingesteld onder **Niveaus**. In het eerste geval blijft het
 ook hier verborgen; in het tweede geval verhoogt u het aantal niveaus.

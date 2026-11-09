@@ -10,8 +10,8 @@ and the same note appears in the affected field itself.
 
 **Question:** The widget isn’t displaying anything on the page.
 
-Answer: Either the image is missing, or no item has been added yet. In
-both cases, the area remains intentionally blank instead of displaying an empty frame or
+Answer: Either the image is missing, or no item has been selected yet. In
+both cases, the area remains intentionally blank instead of showing an empty frame or
 a placeholder image. Open the settings and check
 both.
 
@@ -21,7 +21,7 @@ opens a new tab?
 Answer: It depends on where the destination comes from. A **page from the
 system’s list** appears in a window on top of the current page. A
 **manually entered address**, on the other hand, always opens a new tab. The
-reason: externally hosted pages often cannot be technically embedded in a window
+reason: external pages often cannot be technically embedded in a window
 — a blocked window would then simply remain blank without displaying an error message.
 The new tab is therefore the reliable option for anything outside the
 system.
@@ -29,7 +29,7 @@ system.
 **Question:** The list of pages doesn’t contain a single page, but rather a
 field for an address.
 
-Answer: The system’s page list was unavailable when the system opened. A
+Answer: The system’s page list was unavailable when the application opened. A
 notice draws attention to this. In this case, enter the address
 manually, or close the window and reopen it.
 
@@ -59,10 +59,10 @@ what it’s there for.
 
 **Question:** Can I place more than 20 markers on an image?
 
-Answer: No. Once you reach 20 points, the markers overlap, and the
+Answer: No. Once you reach 20 markers, they overlap each other, and the
 list next to the image would become longer than the image itself. The editor will
 notify you of this when you
-try to place a 21st point.
+try to place a 21st marker.
 
 **Question:** I renamed a menu item in “Menu” mode. Do I need to
 adjust the widget?

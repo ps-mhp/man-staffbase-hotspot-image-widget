@@ -3,9 +3,9 @@
 Ce widget affiche une image sur laquelle certains endroits sont marqués par des **points**
 — par exemple, des stations sur un plan d'ensemble, des personnes sur une
 photo de groupe ou des éléments sur un croquis. Chaque point est associé à un titre,
-éventuellement à une description et, le cas échéant, à un lien vers une page.
+éventuellement à une description et, si vous le souhaitez, à un lien vers une page.
 
-Tous les points sont gérés dans la même fenêtre, qui s'affiche automatiquement à l'ouverture des
+Tous les points sont gérés dans la même fenêtre, qui s'affiche automatiquement lorsque vous ouvrez les
 paramètres : sélectionnez une image, cliquez dessus pour placer un
 point, puis saisissez le titre et les autres informations.
 
@@ -73,5 +73,5 @@ entrée, il suffit de le toucher dans la liste.
 - Un clic sur un élément comportant lui-même des sous-éléments permet d’accéder à ce
   sous-menu — ou, selon les paramètres, d’ouvrir sa page. Les éléments sans
   sous-éléments ouvrent toujours leur page.
-- Chacun ne voit que les éléments correspondant aux options de menu qu’il ou elle voit également dans le menu de l’
-  application. Les éléments masqués dans le menu n’apparaissent pas.
+- Chaque utilisateur ne voit que les éléments correspondant aux options de menu qu’il ou elle voit également dans le menu de l’
+  application. Les entrées masquées dans le menu n’apparaissent pas.

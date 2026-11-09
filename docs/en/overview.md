@@ -34,14 +34,14 @@ Under **Display**, you can choose one of two options:
   without having to search the image.
 - **Bullets, without a list** — the bullets appear without numbers, and there is no
   list next to them. Clicking on a bullet opens a small window right
-  next to it with the title, description, and link. Useful when there are only a few bullet points and
+  next to it with the title, description, and link. Useful for a small number of bullet points and
   when the image is meant to stand on its own, without a list right next to it.
 
 ## What Readers See
 
 - Without an image or at least one bullet point, the widget displays nothing at all—
   no empty frame, no placeholder image.
-- In the “Bullets” view, the window opens with the text on the bullet
+- In the “Bullets” view, the window opens with the text at the bullet
   itself; on narrow screens (less than 768 pixels wide), it appears
   centered on the screen instead, with a darkened background behind it.
 - In “Numbered” view, the corresponding bullet in the image

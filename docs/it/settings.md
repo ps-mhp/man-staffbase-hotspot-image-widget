@@ -12,14 +12,28 @@ impostazioni in un unico campo.
 | Immagine | L’immagine su cui si trovano le voci, dalla libreria multimediale — nella modalità «Menu», l’immagine del livello iniziale. Inoltre, il **testo alternativo** per gli screen reader; lasciare vuoto se l’immagine è solo decorativa. |
 | Visualizzazione | Solo «Manuale». L’impostazione predefinita è `Numerata, con elenco accanto all’immagine`. |
 | Punto di partenza nel menu | Solo «Menu». La voce di menu di cui verranno posizionate le sottovoci. Selezione dall’elenco o, tramite «Inserisci altro ID menu…», l’indirizzo di una pagina. |
-| Livelli | Solo «Menu». Quanti livelli vengono visualizzati, compreso il punto di partenza. L’impostazione predefinita è 3. |
+| Livelli | Solo «Menu». Numero di livelli visualizzati, compreso il punto di partenza. L’impostazione predefinita è 3. |
 | Clic su una voce con sottovoci | Solo «Menu». `Passa al sottomenu` (impostazione predefinita) o `Apri pagina`. |
 | Livello | Solo «Menu». Quale livello del menu è attualmente in fase di modifica; ognuno ha la propria immagine e le proprie voci. |
 
 Tecnicamente, tutto è contenuto nell’attributo `config`. I widget delle versioni precedenti
 conservano ancora le loro impostazioni in singoli attributi (`image`,
 `image-alt`, `points`, `display-mode` …). Finché `config` è vuoto, valgono
-queste; al primo **Applica** nella finestra vengono spostate in `config`.
+queste; al primo **Salva** nella finestra, vengono spostate in `config`.
+
+## Immagine al posto del punto
+
+Ogni punto può contenere, in entrambe le modalità, una propria immagine dalla libreria multimediale;
+questa apparirà al posto del punto rosso, ridimensionata proporzionalmente.
+
+| Dimensione | Lunghezza del lato |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (impostazione predefinita) |
+| L | 72 px |
+
+L’evidenziazione, l’etichetta e il clic funzionano come per il punto. Nella
+modalità numerata, il numero compare solo nell’elenco.
 
 ## Valori di «Visualizzazione»
 
@@ -40,7 +54,7 @@ queste; al primo **Applica** nella finestra vengono spostate in `config`.
 
 | Valore | Etichetta nella finestra di dialogo | Effetto |
 | --- | --- | --- |
-| `enter` | Passa al sottomenu | Il widget passa al sottomenu: il menu mostra le voci secondarie, l’immagine passa a quella di quel livello. |
+| `enter` | Passare al sottomenu | Il widget passa al sottomenu: il menu mostra le voci secondarie, l’immagine passa a quella di quel livello. |
 | `open` | Apri pagina | La voce è un link alla pagina corrispondente alla voce di menu; le destinazioni esterne all’app si aprono in una nuova scheda. |
 
 Le voci senza sottovoci aprono la propria pagina in entrambi i casi. Le cartelle senza
@@ -65,7 +79,7 @@ una propria pagina passano al sottomenu in entrambi i casi.
   e la finestra indica il numero dei punti interessati.
 - **Senza immagine o senza almeno un punto, il widget non mostra nulla** —
   né sulla pagina pubblicata né come cornice vuota. Nella modalità
-  «Menu» vale lo stesso senza punto iniziale.
+  «Menu» vale lo stesso, senza punto iniziale.
 - Nella modalità «Menu», **ogni livello di menu contiene al massimo 20 voci** e ogni
   voce di menu ne ha al massimo una; un ulteriore clic sull’immagine la sposta
   altrove.
@@ -74,7 +88,7 @@ una propria pagina passano al sottomenu in entrambi i casi.
 
 ## Dipendenze
 
-Se si apportano modifiche nella finestra «Punto di partenza» o «Livelli», il menu si ricarica immediatamente.
+Se si apportano modifiche nella finestra «Punto di partenza» o «Livelli», il menu si aggiorna immediatamente.
 I punti che in seguito non sono più assegnati a nessuna voce vengono visualizzati sotto
 «Non più nel menu».
 

@@ -7,7 +7,7 @@ opcionalmente uma descrição e, se desejado, um link para uma página.
 
 Todos os pontos são geridos na mesma janela, que aparece automaticamente ao abrir as
 configurações: selecione a imagem, clique na imagem para marcar um
-ponto, insira o título e os restantes dados.
+ponto, introduza o título e os restantes dados.
 
 ## Dois modos
 
@@ -15,9 +15,9 @@ Em **Modo**, pode escolher a origem dos pontos:
 
 - **Manual** — cada ponto recebe um título próprio, uma descrição
   e, se desejar, um link. Tal como até agora.
-- **Menu** — seleciona uma opção do menu da aplicação. As suas subopções podem
-  ser colocadas como pontos numa imagem — e, para cada nível mais profundo
-  do menu, numa imagem própria. Os títulos e destinos provêm diretamente do
+- **Menu** — seleciona-se uma opção do menu da aplicação. As suas subopções podem
+  ser colocadas como pontos numa imagem — e, para cada nível de menu mais
+  profundo, numa imagem própria. Os títulos e destinos provêm diretamente do
   menu: se um item do menu for renomeado, o respetivo ponto passa imediatamente a ter outro nome.
   Ao lado da imagem, encontra-se o menu para navegar.
 

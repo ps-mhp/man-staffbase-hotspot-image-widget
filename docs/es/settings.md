@@ -9,23 +9,37 @@ ajustes de una sola vez.
 | Ajuste en la ventana | Descripción |
 | --- | --- |
 | Modo | `Manual` (predeterminado) o `Menú`. Los puntos del otro modo se mantienen guardados. |
-| Imagen | La imagen sobre la que se sitúan los elementos, de la biblioteca multimedia; en el modo «Menú», la imagen del nivel de inicio. Además, el **texto alternativo** para lectores de pantalla; déjalo en blanco si la imagen es meramente decorativa. |
+| Imagen | La imagen sobre la que se sitúan los elementos, de la biblioteca multimedia; en el modo «Menú», la imagen del nivel de inicio. Además, el **texto alternativo** para lectores de pantalla; déjalo en blanco si la imagen es solo decorativa. |
 | Presentación | Solo en «Manual». El valor predeterminado es `Numerado, con lista junto a la imagen`. |
 | Punto de inicio en el menú | Solo en «Menú». La opción del menú en la que se colocarán los subelementos. Selección de la lista o, mediante «Introducir otro ID de menú…», la dirección de una página. |
 | Niveles | Solo «Menú». Cuántos niveles se muestran, contando el punto de inicio. El valor predeterminado es 3. |
 | Clic en un elemento con subelementos | Solo «Menú». `Ir al submenú` (predeterminado) o `Abrir página`. |
-| Nivel | Solo «Menú». El nivel del menú que se está editando actualmente; cada uno tiene su propia imagen y sus propios elementos. |
+| Nivel | Solo «Menú». El nivel del menú que se está editando en ese momento; cada uno tiene su propia imagen y sus propios elementos. |
 
 Técnicamente, todo se encuentra en el atributo `config`. Los widgets de versiones anteriores
-aún conservan sus ajustes en atributos individuales (`image`,
+aún conservan su configuración en atributos individuales (`image`,
 `image-alt`, `points`, `display-mode` …). Mientras `config` esté vacío, se aplicarán
 estos; al hacer clic por primera vez en **Aplicar** en la ventana, se trasladarán a `config`.
+
+## Imagen en lugar de punto
+
+Cada punto puede incluir una imagen propia de la biblioteca multimedia en ambos modos;
+esta aparecerá entonces en lugar del punto rojo, ajustada proporcionalmente.
+
+| Tamaño | Longitud del borde |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (por defecto) |
+| L | 72 px |
+
+El resaltado, la etiqueta con el nombre y el clic funcionan igual que con el punto. En el
+modo numerado, el número solo aparece entonces en la lista.
 
 ## Valores de «Presentación»
 
 | Valor | Etiqueta en el cuadro de diálogo |
 | --- | --- |
-| `numbered` | Numerado, con una lista junto a la imagen |
+| `numbered` | Numerado, con lista junto a la imagen |
 | `dots` | Puntos, sin lista |
 
 ## Valores de «Niveles»
@@ -34,7 +48,7 @@ estos; al hacer clic por primera vez en **Aplicar** en la ventana, se trasladar�
 | --- | --- |
 | `2` | Punto inicial y sus subpuntos |
 | `3` | además, sus subpuntos (por defecto) |
-| `4` a `6` | a niveles correspondientemente más profundos |
+| `4` a `6` | nivel inferior correspondiente |
 
 ## Valores de «Hacer clic en un punto con subpuntos»
 

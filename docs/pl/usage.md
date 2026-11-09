@@ -12,19 +12,32 @@
    zdjęciu.
 5. Kliknij w wybrane miejsce na zdjęciu. Pojawi się tam nowy
    punkt, a po prawej stronie wyświetli się jego formularz.
-6. Wpisz **tytuł**. Bez tytułu nie można zamknąć okna za pomocą
+6. Wprowadź **tytuł**. Bez tytułu nie można zamknąć okna za pomocą
    przycisku **Zastosuj** — odpowiednia informacja pojawia się zarówno przy
    polu, jak i na dole okna.
 7. Opcjonalnie wprowadź **opis**.
-8. Opcjonalnie: dodaj cel pod polem „Opis” za pomocą opcji **Dodaj link
-   **Dodaj link** — patrz sekcja „Ustawianie linku” poniżej
-  .
-9. Powtórz kroki od 5 do 8 dla każdego kolejnego punktu. Obraz
+8. Opcjonalnie: pod polem „Opis” za pomocą opcji **Dodaj link**
+   dodaj adres docelowy — zobacz sekcję „Dodawanie linku” poniżej.
+   9. Powtórz kroki od 5 do 8 dla każdego kolejnego punktu. Jedno zdjęcie
    może zawierać maksymalnie 20 punktów.
 10. W górnej części, w sekcji **Wygląd**, wybierz opcję „Numerowane, z listą
-    obok obrazu” lub „Punkty, bez listy”.
+    obok zdjęcia” lub „Punkty, bez listy”.
 11. Kliknij **Zastosuj**.
 12. Zapisz stronę i sprawdź wynik w podglądzie.
+
+## Własny obrazek zamiast czerwonej kropki
+
+Każdy punkt może wyświetlać własny obrazek zamiast czerwonej kropki — na przykład
+ikonę lub wycięte zdjęcie. Jest to możliwe w obu trybach.
+
+1. Wybierz punkt: w trybie „Ręcznym” z listy po prawej stronie, w
+   trybie „Menu” — umieszczoną pozycję menu na liście podpunktów.
+2. W sekcji **Obraz zamiast punktu** kliknij **Wybierz własny obraz…** i
+   wybierz obraz z biblioteki multimediów. Przezroczyste pliki PNG lub SVG
+   najlepiej prezentują się po wycięciu.
+3. W sekcji **Rozmiar** wybierz między S (32 px), M (48 px, domyślnie)
+   a L (72 px).
+4. Po kliknięciu **Usuń obraz** ponownie pojawi się czerwona kropka.
 
 ## Dodawanie linku
 
@@ -39,8 +52,8 @@
    adresu do listy.
 5. Opcjonalnie można wprowadzić własną **nazwę przycisku**. Jeśli
    pole pozostanie puste, przycisk wyświetli komunikat „Otwórz stronę”.
-6. Za pomocą opcji **Usuń link** link znika; tytuł i
-   opis pozycji pozostają bez zmian.
+6. Za pomocą opcji **Usuń link** link zniknie; tytuł i
+   opis pozycji pozostaną niezmienione.
 
 ## Przenoszenie, sortowanie i usuwanie pozycji
 
@@ -49,7 +62,7 @@
    liście po prawej stronie i kliknij **W górę** lub **W dół**.
 3. Aby usunąć pozycję, zaznacz ją i kliknij w jej
    formularzu **Usuń pozycję**.
-4. Każda zmianę należy zatwierdzić przyciskiem **Zastosuj**; przycisk **Anuluj**
+4. Każda zmiana powinna zostać zatwierdzona przyciskiem **Zastosuj**; przycisk **Anuluj**
    powoduje odrzucenie wszystkich zmian wprowadzonych od ostatniego otwarcia okna.
 
 ## Późniejsze zmiany
@@ -74,7 +87,7 @@ biblioteki multimediów, a nie w formularzu.
    **tryb** na „Menu”.
 2. W sekcji **Punkt początkowy w menu** wybierz pozycję menu, której
    podpunkty mają znajdować się na obrazku. Jeśli nie ma jej na liście,
-   wybierz opcję **Wprowadź inne ID menu…** i wstaw adres strony
+   wybierz opcję **Wprowadź inny identyfikator menu…** i wklej adres strony
   . Menu załaduje się natychmiast.
 3. W sekcji **Poziomy** określ, jak głęboko ma sięgać menu (domyślnie
    3), a w sekcji **Kliknięcie punktu z podpunktami** – czy kliknięcie spowoduje przejście do
@@ -91,7 +104,7 @@ biblioteki multimediów, a nie w formularzu.
 7. Aby przejść na niższą warstwę, kliknij **›** po prawej stronie podpunktu
    lub wybierz warstwę u góry. Wybierz jej obraz i umieść
    punkty tak jak w kroku 5. Bez własnego obrazu warstwa ta wyświetli później obraz
-   warstwy znajdującej się nad nią.
+   warstwy znajdującej się powyżej.
 8. Kliknij **Zastosuj**, zapisz stronę i sprawdź
    wynik w podglądzie.
 
@@ -104,8 +117,8 @@ biblioteki multimediów, a nie w formularzu.
    wpisz tam odpowiednie tytuły.
 3. **Strona, do której prowadzi link, nie pojawia się w oknie, lecz otwiera się w
    nowej karcie.** Adres docelowy to adres wprowadzony samodzielnie, a nie strona z
-   listy. Tak ma być: stron zewnętrznych często nie da się osadzić w
-   jednym oknie. Zamiast tego wybierz stronę z listy,
+   listy. Jest to zamierzone zachowanie: stron zewnętrznych często nie da się
+   osadzić w oknie. Zamiast tego wybierz stronę z listy,
    jeśli ma się ona pojawić w oknie.
 4. **Na liście stron nie ma żadnej strony, a jedynie pole na
    adres.** Lista stron systemu była niedostępna w momencie
@@ -115,8 +128,8 @@ biblioteki multimediów, a nie w formularzu.
   .** W polu **Punkt początkowy w menu** nie jest jeszcze nic zaznaczone.
 6. **W oknie pod pozycją „Nie ma już w menu” widnieją pozycje.** Odpowiednia
    pozycja menu została usunięta, ukryta, przeniesiona w menu lub znajduje się
-   niżej niż ustawiono w sekcji **Poziomy**. Pozycje te nie pojawiają się na stronie.
+   niżej niż ustawiono w **Poziomy**. Pozycje te nie pojawiają się na stronie.
    Należy je stamtąd usunąć lub zwiększyć liczbę poziomów.
 7. **Ustawienia znikają po zapisaniu strony.**
    Widżet jest nadal zarejestrowany w instancji bez pola `config`.
-   Rejestracja musi zostać zaktualizowana (zadanie administratora).
+   Rejestrację należy zaktualizować (zadanie administratora).

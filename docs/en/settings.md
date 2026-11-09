@@ -19,7 +19,21 @@ together in a single field.
 Technically, everything is stored in the `config` attribute. Widgets from earlier versions
 still store their settings in individual attributes (`image`,
 `image-alt`, `points`, `display-mode` …). As long as `config` is empty,
-these settings apply; when you **Apply** for the first time in the window, they are moved to `config`.
+these settings apply; when you first **Apply** in the window, they are moved to `config`.
+
+## Image Instead of a Dot
+
+Each item can have its own image from the media library in both modes;
+it then appears in place of the red dot, scaled proportionally.
+
+| Size | Edge Length |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (default) |
+| L | 72 px |
+
+Highlighting, the label, and clicking work the same as with the dot. In
+numbered mode, the number then appears only in the list.
 
 ## Values for “Display”
 
@@ -34,7 +48,7 @@ these settings apply; when you **Apply** for the first time in the window, they 
 | --- | --- |
 | `2` | Starting point and its subitems |
 | `3` | Plus their subitems (default) |
-| `4` to `6` | Correspondingly deeper |
+| `4` through `6` | Correspondingly deeper |
 
 ## Values for “Click on a Point with Subitems”
 
@@ -50,7 +64,7 @@ their own page navigate to the submenu in both cases.
 
 | Field | Description |
 | --- | --- |
-| Title | Required. Without a title, the window cannot be closed with “Apply.” |
+| Title | Required. Without a title, the window cannot be closed by clicking “Apply.” |
 | Description | Optional, multi-line. |
 | Destination | Optional. A page from the system’s list or a custom address. |
 | Button Label | Optional. If left blank, the button displays “Open Page.” |

@@ -16,15 +16,29 @@
    **Applica** — un avviso corrispondente appare sia nel
    campo che in fondo alla finestra.
 7. Inserite facoltativamente una **descrizione**.
-8. Facoltativo: sotto il campo «Descrizione», aggiungete una destinazione tramite **Aggiungi link
-   **Aggiungi link** — vedi la sezione «Inserire un link» più
+8. Facoltativo: sotto il campo «Descrizione», tramite **Aggiungi link**
+  , inserite una destinazione — consultate la sezione «Inserire un link» più
    in basso.
-9. Ripeti i passaggi da 5 a 8 per ogni altro punto. Un’immagine
+9. Ripetete i passaggi da 5 a 8 per ogni punto successivo. Un’immagine
    può contenere al massimo 20 punti.
-10. In alto, sotto **Visualizzazione**, scegliete tra «Numerato, con elenco
+10. In alto, sotto **Visualizzazione**, scegli tra «Numerato, con elenco
     accanto all’immagine» e «Punti, senza elenco».
-11. Cliccate su **Applica**.
-12. Salvate la pagina e controllate il risultato nell’anteprima.
+11. Fai clic su **Applica**.
+12. Salvare la pagina e verificare il risultato nell’anteprima.
+
+## Un’immagine personalizzata al posto del punto rosso
+
+Ogni punto può mostrare un’immagine personalizzata al posto del punto rosso — ad esempio un
+simbolo o una foto ritagliata. Ciò è possibile in entrambe le modalità.
+
+1. Selezionate il punto: in modalità «Manuale» dall’elenco a destra, in
+   modalità «Menu» la voce di menu inserita nell’elenco delle sottovoci.
+2. Sotto **Immagine al posto del punto**, clicca su **Scegli immagine personalizzata…** e
+   seleziona un’immagine dalla libreria multimediale. I file PNG o SVG trasparenti
+   danno i risultati migliori una volta ritagliati.
+3. Sotto **Dimensione**, scegliete tra S (32 px), M (48 px, impostazione predefinita)
+   e L (72 px).
+4. Cliccando su **Rimuovi immagine**, il punto rosso riappare.
 
 ## Inserire un link
 
@@ -89,8 +103,8 @@ libreria multimediale, non nel modulo.
    e cliccate nella nuova posizione. **Rimuovi punto** lo elimina
    dall’immagine.
 7. Per creare un livello più profondo, clicchi a destra accanto alla voce secondaria su **›**
-   oppure selezioni il livello in alto. Selezioni l’immagine corrispondente e posizioni i
-   punti come descritto al punto 5. Se non ha un’immagine propria, il livello mostrerà in seguito l’immagine
+   oppure selezioni il livello in alto. Selezioni l’immagine e posizioni i
+   punti come nel passaggio 5. Se non ha un’immagine propria, il livello mostrerà in seguito l’immagine
    del livello sovrastante.
 8. Clicchi su **Applica**, salvi la pagina e verifichi
    il risultato nell’anteprima.

@@ -31,7 +31,7 @@ champ destiné à l’adresse.
 
 Réponse : La liste des pages du système n’était pas accessible à l’ouverture. Un
 message d’avertissement le signale. Dans ce cas, saisissez l’adresse
-manuellement, ou fermez la fenêtre et rouvrez-la.
+manuellement ou fermez la fenêtre et rouvrez-la.
 
 **Question :** J’ai créé un lien vers une page, mais lorsque je la
 rouvre, un message indique que la page enregistrée ne figure pas dans la liste
@@ -74,7 +74,7 @@ apparaît immédiatement.
 
 Réponse : En mode « Menu », chacun ne voit que les points correspondant aux éléments de menu auxquels il
 ou elle a accès dans le menu de l’application. C’est voulu : un point ne doit
-pas mener à une page qui ne pourrait ensuite pas s’ouvrir.
+pas mener à une page qui ne pourrait alors pas s’ouvrir.
 
 **Question :** Est-ce que je perds mes points lorsque je passe du mode « Manuel » au mode « Menu »
 et vice-versa ?

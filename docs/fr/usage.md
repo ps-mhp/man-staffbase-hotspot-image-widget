@@ -15,9 +15,9 @@
 6. Saisissez le **titre**. Sans titre, il n’est pas possible de fermer la fenêtre avec
    **Appliquer** — une remarque à ce sujet s’affiche à la fois dans le
    champ et en bas de la fenêtre.
-7. Saisissez une **description** (facultatif).
-8. Facultatif : sous le champ « Description », ajoutez une destination via **Ajouter un lien
-   ** — voir la section « Créer un lien » plus
+7. Vous pouvez, si vous le souhaitez, saisir une **description**.
+8. Facultatif : sous le champ « Description », ajoutez une destination via **Ajouter un lien**
+   — voir la section « Insérer un lien » plus
    bas.
 9. Répétez les étapes 5 à 8 pour chaque point supplémentaire. Une image
    peut comporter au maximum 20 points.
@@ -26,10 +26,24 @@
 11. Cliquez sur **Appliquer**.
 12. Enregistrez la page et vérifiez le résultat dans l’aperçu.
 
-## Insérer un lien
+## Une image personnalisée à la place du point rouge
+
+Chaque point peut afficher une image personnalisée à la place du point rouge — par exemple une
+icône ou une photo recadrée. Cela fonctionne dans les deux modes.
+
+1. Sélectionnez le point : en mode « Manuel » dans la liste de droite, en
+   mode « Menu » l’élément de menu placé dans la liste des sous-éléments.
+2. Sous **Image à la place du point**, cliquez sur **Choisir sa propre image…** et
+   sélectionnez une image dans la médiathèque. Les fichiers PNG ou SVG transparents
+   donnent le meilleur résultat une fois détourés.
+3. Sous **Taille**, choisissez entre S (32 px), M (48 px, par défaut)
+   et L (72 px).
+4. Cliquez sur **Supprimer l’image** pour faire réapparaître le point rouge.
+
+## Créer un lien
 
 1. Dans le formulaire d’un point, cliquez sur **Ajouter un lien**.
-2. Sous **Cible**, sélectionnez une page dans la liste. Un lien vers une page
+2. Sous **Destination**, sélectionnez une page dans la liste. Un lien vers une page
    de cette liste apparaîtra ensuite dans une fenêtre au-dessus de la page.
 3. Si vous souhaitez plutôt saisir votre propre adresse, cliquez sur
    **Saisir votre propre adresse…** et saisissez l’adresse dans le champ
@@ -58,7 +72,7 @@
    points existants et l’image sélectionnée.
 2. Sélectionnez dans la liste de gauche le point à modifier et modifiez
    son formulaire à droite.
-3. Pour remplacer l’image, cliquez sur **Sélectionner une autre image…**.
+3. Pour remplacer l’image, cliquez sur **Choisir une autre image…**.
    Les points sont conservés ; vérifiez ensuite si leur position sur la
    nouvelle image est toujours correcte.
 4. **Appliquer**, enregistrer, vérifier dans l’aperçu.

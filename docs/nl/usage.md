@@ -20,21 +20,35 @@
    toevoegen** een bestemming toe — zie het gedeelte „Een link plaatsen“ verder
    hieronder.
 9. Herhaal de stappen 5 tot en met 8 voor elk volgend punt. Een afbeelding
-   kan maximaal 20 punten bevatten.
+   bevat maximaal 20 punten.
 10. Kies bovenaan onder **Weergave** tussen „Genummerd, met lijst
     naast de afbeelding“ en „Punten, zonder lijst“.
 11. Klik op **Toepassen**.
 12. Sla de pagina op en controleer het resultaat in het voorbeeld.
+
+## Een eigen afbeelding in plaats van het rode puntje
+
+Elk punt kan in plaats van het rode puntje een eigen afbeelding weergeven — bijvoorbeeld een
+symbool of een uitgesneden foto. Dit is in beide modi mogelijk.
+
+1. Selecteer het punt: in de modus „Handmatig“ in de lijst aan de rechterkant, in de
+   modus „Menu“ het geplaatste menu-item in de lijst met subitems.
+2. Klik onder **Afbeelding in plaats van punt** op **Eigen afbeelding kiezen …** en
+   selecteer een afbeelding uit de mediabibliotheek. Transparante PNG- of SVG-bestanden
+   zien er het beste uit als ze zijn bijgesneden.
+3. Kies onder **Grootte** tussen S (32 px), M (48 px, standaard)
+   en L (72 px).
+4. Via **Afbeelding verwijderen** verschijnt het rode punt weer.
 
 ## Een link plaatsen
 
 1. Klik in het formulier van een punt op **Link toevoegen**.
 2. Selecteer onder **Bestemming** een pagina uit de lijst. Een link naar een pagina
    uit deze lijst verschijnt later in een venster boven de pagina.
-3. Wilt u in plaats daarvan een eigen adres invoeren, klik dan op
-   **Eigen adres invoeren …** en voer het adres in het veld
+3. Als u in plaats daarvan een eigen adres wilt invoeren, klikt u op
+   **Eigen adres invoeren …** en vult u het adres in het veld
    **Adres** in. Zo’n adres wordt later in een nieuw
-   tabblad geopend, niet in het venster — daarvoor staat daar de tekst.
+   tabblad geopend, niet in het venster — daar staat de toelichting bij.
 4. Via **In plaats daarvan een pagina selecteren** keert u vanuit het eigen
    adres terug naar de lijst.
 5. Voer eventueel een eigen **label voor de knop** in. Als
@@ -44,7 +58,7 @@
 
 ## Items verplaatsen, sorteren en verwijderen
 
-1. Om een item te verplaatsen, sleept u het in het venster naar de nieuwe plek.
+1. Om een item te verplaatsen, sleept u het in de afbeelding naar de nieuwe plek.
 2. Om de volgorde van de nummering te wijzigen, selecteert u het item in de
    lijst aan de rechterkant en klikt u op **Omhoog** of **Omlaag**.
 3. Om een item te verwijderen, selecteert u het en klikt u in het

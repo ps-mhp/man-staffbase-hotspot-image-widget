@@ -41,9 +41,9 @@ En **Visualización** se puede elegir entre dos variantes:
 
 - Sin imagen o sin al menos un punto, el widget no muestra nada:
   ni un marco vacío, ni una imagen de relleno.
-- En el modo de visualización «Puntos», la ventana con el texto se abre en el propio punto;
-  en pantallas estrechas (de menos de 768 píxeles de ancho), aparece
-  en cambio centrada en la pantalla, con un fondo oscurecido detrás.
+- En el modo de visualización «Puntos», la ventana se abre con el texto en el propio punto;
+  en pantallas estrechas (menos de 768 píxeles de ancho), aparece
+  en cambio en el centro de la pantalla, con un fondo oscurecido detrás.
 - En el modo «Numerado», el punto correspondiente se resalta en la imagen
   en cuanto el cursor se sitúa sobre una entrada de la lista o se
   despliega una entrada: se hace más grande y los demás puntos pasan a un segundo plano.
@@ -67,7 +67,7 @@ En **Visualización** se puede elegir entre dos variantes:
 - Al desplazarse por un nivel del menú, se ve su imagen con los puntos
   de sus subniveles. Si un nivel no tiene imagen propia, se mantiene la imagen del
   nivel superior.
-- Al situar el cursor del ratón sobre un punto, aparece el nombre de la opción del menú,
+- Al situar el puntero del ratón sobre un punto, aparece el nombre de la opción del menú,
   y en el menú se resalta la entrada correspondiente. A la inversa, una entrada
   situada bajo el cursor resalta su opción.
 - Al hacer clic en una opción que a su vez tiene subopciones, se accede a ese

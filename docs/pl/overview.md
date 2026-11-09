@@ -19,7 +19,7 @@ W sekcji **Tryb** można wybrać, skąd pochodzą punkty:
   umieścić jako punkty na obrazku — a dla każdego głębszego
   poziomu menu na osobnym obrazku. Tytuły i cele pochodzą bezpośrednio z
   menu: jeśli pozycja menu zostanie przemianowana, jej punkt natychmiast zmienia nazwę.
-  Obok obrazka znajduje się menu do przewijania.
+  Obok obrazka znajduje się menu do przeglądania.
 
 Punkty z drugiego trybu pozostają zachowane po zmianie trybu.
 
@@ -63,11 +63,11 @@ W sekcji **Wyświetlanie** można wybrać jeden z dwóch wariantów:
 - Po lewej stronie obraz aktualnego poziomu menu z czerwonymi punktami bez numerów, po prawej
   obok niego menu — na wąskich ekranach poniżej. Menu wyświetla
   jeden poziom na raz: strzałka prowadzi o jeden poziom niżej, przycisk „Wstecz” u góry
-  ponownie w górę, a na telefonie również przesunięcie palcem w prawo.
+  ponownie w górę, na telefonie również przesunięcie palcem w prawo.
 - Kto przewija menu do danego poziomu, widzi jego obrazek z kropkami
-  odpowiadającymi podpunktom. Jeśli poziom nie ma własnego obrazka, wyświetlany jest obrazek
+  odpowiadającymi podpunktom. Jeśli poziom nie ma własnego obrazka, pozostaje obrazek
   poziomu nadrzędnego.
-- Gdy kursor myszy znajduje się nad kropką, pojawia się nazwa pozycji menu,
+- Gdy wskaźnik myszy znajduje się nad kropką, pojawia się nazwa pozycji menu,
   a w menu zaznaczana jest odpowiednia pozycja. I odwrotnie: pozycja
   znajdująca się pod kursorem myszy podświetla swoją ikoną.
 - Kliknięcie ikony, która sama ma podpunkty, powoduje przejście do tego

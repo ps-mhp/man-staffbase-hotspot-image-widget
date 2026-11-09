@@ -21,6 +21,20 @@ conservent encore leurs paramètres dans des attributs individuels (`image`,
 `image-alt`, `points`, `display-mode` …). Tant que `config` est vide, ce sont
 ces paramètres qui s’appliquent ; lors du premier **clic sur « Appliquer »** dans la fenêtre, ils sont transférés vers `config`.
 
+## Image à la place d’un point
+
+Dans les deux modes, chaque point peut afficher sa propre image issue de la médiathèque ;
+celle-ci apparaît alors à la place du point rouge, redimensionnée proportionnellement.
+
+| Taille | Longueur des côtés |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (par défaut) |
+| L | 72 px |
+
+La mise en évidence, l’étiquette de nom et le clic fonctionnent comme pour le point. En
+mode numéroté, le numéro n’apparaît alors plus que dans la liste.
+
 ## Valeurs de « Affichage »
 
 | Valeur | Libellé dans la boîte de dialogue |
@@ -32,16 +46,16 @@ ces paramètres qui s’appliquent ; lors du premier **clic sur « Appliquer »*
 
 | Valeur | Signification |
 | --- | --- |
-| `2` | Point de départ et ses sous-éléments |
-| `3` | ainsi que leurs sous-éléments (par défaut) |
+| `2` | Point de départ et ses sous-points |
+| `3` | ainsi que leurs sous-points (par défaut) |
 | `4` à `6` | niveaux inférieurs correspondants |
 
-## Valeurs de « Clic sur un élément comportant des sous-éléments »
+## Valeurs de « Clic sur un point avec des sous-points »
 
 | Valeur | Libellé dans la boîte de dialogue | Effet |
 | --- | --- | --- |
-| `enter` | Accéder au sous-menu | Le widget fait défiler le sous-menu : le menu affiche ses sous-éléments, l'image passe à celle de ce niveau. |
-| `open` | Ouvrir la page | L’élément est un lien vers la page de l’élément de menu ; les destinations situées en dehors de l’application s’ouvrent dans un nouvel onglet. |
+| `enter` | Accéder au sous-menu | Le widget fait défiler le sous-menu : le menu affiche ses sous-éléments, l’image passe à celle de ce niveau. |
+| `open` | Ouvrir la page | L'élément est un lien vers la page de l'élément de menu ; les destinations situées en dehors de l'application s'ouvrent dans un nouvel onglet. |
 
 Les éléments sans sous-éléments ouvrent leur page dans les deux cas. Les dossiers sans
 page propre accèdent au sous-menu dans les deux cas.
@@ -75,9 +89,9 @@ page propre accèdent au sous-menu dans les deux cas.
 ## Dépendances
 
 Si vous effectuez des modifications dans la fenêtre « Point de départ » ou « Niveaux », le menu se recharge immédiatement.
-Les points qui ne sont plus attribués à aucune entrée apparaissent alors sous
-« Plus dans le menu ».
+Les points qui ne sont plus affectés à aucune entrée apparaissent alors sous
+« N'apparaît plus dans le menu ».
 
-Le libellé du bouton n’a d’effet que si une destination
-est attribuée au point. Sans destination, il n’y a pas de bouton et le libellé reste
+Le libellé du bouton n'a d'effet que si une destination
+est attribuée au point. Sans destination, il n'y a pas de bouton et le libellé reste
 sans effet.

@@ -72,8 +72,8 @@ pojawia się natychmiast.
 
 **Pytanie:** Dlaczego niektórzy koledzy i koleżanki widzą mniej punktów niż ja?
 
-Odpowiedź: W trybie „Menu” każdy widzi tylko te punkty, które
-ma uprawnienia do wyświetlania w menu aplikacji. Tak zostało zaprojektowane: punkt nie powinien
+Odpowiedź: W trybie „Menu” każdy widzi tylko te punkty, do których ma
+dostęp w menu aplikacji. Tak zostało zaprojektowane: punkt nie powinien
 prowadzić do strony, której nie da się otworzyć.
 
 **Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznym” a „Menu”?

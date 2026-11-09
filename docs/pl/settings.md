@@ -21,7 +21,21 @@ nadal przechowują swoje ustawienia w poszczególnych atrybutach (`image`,
 `image-alt`, `points`, `display-mode` …). Dopóki `config` jest puste, obowiązują
 te ustawienia; przy pierwszym **zastosowaniu** w oknie są one przenoszone do `config`.
 
-## Wartości „Wyświetlania”
+## Obraz zamiast punktu
+
+Każdy punkt może w obu trybach zawierać własny obraz z biblioteki multimediów;
+pojawia się on wówczas w miejscu czerwonego punktu, proporcjonalnie dopasowany.
+
+| Rozmiar | Długość krawędzi |
+| --- | --- |
+| S | 32 px |
+| M | 48 px (domyślnie) |
+| L | 72 px |
+
+Podświetlenie, etykieta z nazwą i kliknięcie działają tak samo jak w przypadku punktu. W
+trybie numerowanym numer pojawia się wówczas wyłącznie na liście.
+
+## Wartości opcji „Wyświetlanie”
 
 | Wartość | Etykieta w oknie dialogowym |
 | --- | --- |
@@ -34,17 +48,17 @@ te ustawienia; przy pierwszym **zastosowaniu** w oknie są one przenoszone do `c
 | --- | --- |
 | `2` | Punkt początkowy i jego podpunkty |
 | `3` | oraz ich podpunkty (ustawienie domyślne) |
-| `4` do `6` | odpowiednio głębiej |
+| `4` do `6` | odpowiednio głębsze |
 
 ## Wartości opcji „Kliknięcie punktu z podpunktami”
 
 | Wartość | Etykieta w oknie dialogowym | Efekt |
 | --- | --- | --- |
 | `enter` | Przejście do podmenu | Widżet przechodzi do podmenu: menu wyświetla jego podpunkty, a obraz zmienia się na obraz z tego poziomu. |
-| `open` | Otwórz stronę | Pozycja jest linkiem do strony danej pozycji menu; strony spoza aplikacji otwierają się w nowej karcie. |
+| `open` | Otwórz stronę | Pozycja jest linkiem do strony odpowiadającej tej pozycji menu; strony spoza aplikacji otwierają się w nowej karcie. |
 
-Pozycje bez podpunktów otwierają w obu przypadkach swoją stronę. Foldery bez
-własnej strony przechodzą w obu przypadkach do podmenu.
+Pozycje bez podpunktów w obu przypadkach otwierają swoją stronę. Foldery bez
+własnej strony w obu przypadkach przechodzą do podmenu.
 
 ## Pola pozycji (tryb „Ręczny”)
 
@@ -53,7 +67,7 @@ własnej strony przechodzą w obu przypadkach do podmenu.
 | Tytuł | Obowiązkowe. Bez tytułu nie można zamknąć okna przyciskiem „Zastosuj”. |
 | Opis | Opcjonalne, wielowierszowe. |
 | Cel | Opcjonalne. Strona z listy systemowej lub adres wprowadzony samodzielnie. |
-| Etykieta przycisku | Opcjonalne. Jeśli pozostanie puste, przycisk wyświetla komunikat „Otwórz stronę”. |
+| Etykieta przycisku | Opcjonalne. Jeśli pozostanie puste, przycisk wyświetli komunikat „Otwórz stronę”. |
 
 ## Ograniczenia
 
