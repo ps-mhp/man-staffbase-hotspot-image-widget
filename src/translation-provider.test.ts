@@ -11,9 +11,10 @@
  * limitations under the License.
  */
 
-import { POINTS_ATTRIBUTE } from "./configuration-schema";
+import { CONFIG_ATTRIBUTE, POINTS_ATTRIBUTE } from "./configuration-schema";
+import { DEFAULT_CONFIG, encodeConfig, parseConfig } from "./hotspot-config";
 import { encodePointsAttribute, HotspotPoint, parsePoints } from "./points-model";
-import { hotspotTranslationProvider as provider } from "./translation-provider";
+import { hotspotConfigTranslationProvider, hotspotTranslationProvider as provider } from "./translation-provider";
 
 const points: HotspotPoint[] = [
   {
@@ -65,3 +66,32 @@ describe("hotspotTranslationProvider", () => {
     expect(provider.acceptsTranslated("<p>Ein Artikel</p>")).toBe(false);
   });
 });
+
+describe("hotspotConfigTranslationProvider", () => {
+  const config = { ...DEFAULT_CONFIG, manual: { mode: "dots" as const, points } };
+  const storedConfig = encodeConfig(config);
+
+  it("zeigt auf config", () => {
+    expect(hotspotConfigTranslationProvider.ref).toEqual({ tagName: "hotspot-image-widget", attribute: CONFIG_ATTRIBUTE });
+  });
+
+  it("übersetzt die eigenen Punkte und lässt den Rest der Konfiguration stehen", () => {
+    const html = hotspotConfigTranslationProvider.toTranslatable(storedConfig) as string;
+    expect(html).toContain("Ladeanschluss");
+
+    const translated = hotspotConfigTranslationProvider.fromTranslated(
+      html.replace("Ladeanschluss", "Charging port"),
+      storedConfig,
+    ) as string;
+
+    const result = parseConfig(translated);
+    expect(result?.manual.points[0].title).toBe("Charging port");
+    expect(result?.manual.mode).toBe("dots");
+  });
+
+  it("hat nichts zu übersetzen ohne config oder ohne eigene Punkte", () => {
+    expect(hotspotConfigTranslationProvider.toTranslatable(null)).toBeNull();
+    expect(hotspotConfigTranslationProvider.toTranslatable(encodeConfig(DEFAULT_CONFIG))).toBeNull();
+  });
+});
+

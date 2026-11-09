@@ -25,19 +25,16 @@ import { MediaPicker, PickedImage } from "@shared/media/media-picker";
 import { createMediaClient } from "@shared/media/media-client";
 
 import { HotspotImage } from "../points-model";
-import { ImageSource } from "./use-image-attribute";
 
 export interface ImageFieldProps {
   image: HotspotImage | null;
-  /** Der Alternativtext; er hat sein eigenes Feld (`image-alt`). */
+  /** Der Alternativtext, gespeichert am Bild. */
   alt: string;
-  /** Wer das Bild im Dialog führt, siehe `use-image-attribute.ts`. */
-  source: ImageSource;
   onChange: (image: HotspotImage | null) => void;
   onAltChange: (alt: string) => void;
 }
 
-export function ImageField({ image, alt, source, onChange, onAltChange }: ImageFieldProps): ReactElement {
+export function ImageField({ image, alt, onChange, onAltChange }: ImageFieldProps): ReactElement {
   const [picking, setPicking] = useState(false);
   const client = useMemo(() => createMediaClient(), []);
 
@@ -66,22 +63,6 @@ export function ImageField({ image, alt, source, onChange, onAltChange }: ImageF
       />
     </label>
   );
-
-  if (source === "designer") {
-    return (
-      <div className="man-hie__image">
-        {image === null ? (
-          <p className="man-hie__hint" data-testid="image-field-designer-hint">
-            Das Bild wird im Formular unter „Bild“ gewählt. Schliesse den
-            Editor, wähle dort ein Bild und öffne ihn mit „Punkte bearbeiten …“
-            wieder.
-          </p>
-        ) : (
-          altInput
-        )}
-      </div>
-    );
-  }
 
   return (
     <div className="man-hie__image">

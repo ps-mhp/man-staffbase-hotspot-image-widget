@@ -12,49 +12,51 @@
  */
 
 /**
- * Der Editor des Modus „Menü“: je Menüebene ein Bild und die Punkte ihrer
- * Unterpunkte.
+ * Der Modus „Menü“ im Fenster: Startpunkt, Tiefe und Klickverhalten oben,
+ * darunter je Menüebene ein Bild und die Punkte ihrer Unterpunkte.
  *
- * Oben die Ebene, links ihr Bild und die Platzierungsfläche, rechts ihre
- * Unterpunkte. Einen wählen, dann ins Bild klicken: das setzt seinen Punkt
- * oder versetzt ihn. Startpunkt und Tiefe stehen in anderen Feldern des
- * Dialogs; sie werden beim Öffnen gelesen, nach einer Änderung öffnet man neu.
+ * Gesteuert von aussen (`hotspot-editor.tsx`). Wechselt der Startpunkt oder
+ * die Tiefe, lädt der Baum neu — im selben Fenster, ohne es zu schliessen.
  *
- * Das Bild der Startebene ist das Bildfeld des Formulars (im Content Designer
- * dessen Upload); die Bilder tieferer Ebenen kommen aus der Mediathek und
- * stehen im Entwurf dieses Fensters.
- *
- * Punkte, deren Eintrag nicht mehr unter ihrer Ebene steht, werden nie von
- * selbst entfernt: ein Menü, das gerade nicht lädt, sähe genauso aus wie ein
- * gelöschter Eintrag.
+ * Das Bild der Startebene ist das Bild der Konfiguration; die tieferen Ebenen
+ * tragen ihr eigenes. Punkte, deren Eintrag nicht mehr unter ihrer Ebene
+ * steht, werden nie von selbst entfernt: ein Menü, das gerade nicht lädt,
+ * sähe genauso aus wie ein gelöschter Eintrag.
  */
 
 import * as React from "react";
 import { ReactElement, useState } from "react";
 
-import { FieldModalContentProps } from "@shared/config-modal";
-import { useHotStyle } from "@shared/hot-style";
-import { readMenuId } from "@shared/staffbase/menu";
 import { MenuTree } from "@shared/staffbase/menu-tree";
 
-import { MENU_DEPTH_ATTRIBUTE, MENU_ID_ATTRIBUTE } from "../configuration-schema";
-import { MenuHotspotPoint, MenuLayout, levelLayout, readMenuDepth, withLevel } from "../menu-points-model";
+import { HotspotConfig } from "../hotspot-config";
+import {
+  MAX_MENU_DEPTH,
+  MIN_MENU_DEPTH,
+  MenuClickMode,
+  MenuHotspotPoint,
+  MenuLayout,
+  levelLayout,
+  withLevel,
+} from "../menu-points-model";
 import { levelNodes, orphanPoints } from "../menu/menu-levels";
 import { MenuTreeLoader, useMenuTree } from "../menu/use-menu-tree";
 import { HotspotImage, HotspotPoint, MAX_POINTS, clampPercent, newPointId } from "../points-model";
-import pointEditorCss from "../styles/point-editor.scss";
-import { readConfigValue } from "./config-values";
-import { EditorImage, EditorImageField, useEditorImage } from "./editor-image";
 import { ImageField } from "./image-field";
 import { MenuLevelList } from "./menu-level-list";
 import { PlacementCanvas } from "./placement-canvas";
+import { StartPointField } from "./start-point-field";
 
 export const MENU_EDITOR_MESSAGES = {
-  noStart: "Wähle zuerst im Formular einen Startpunkt im Menü und öffne dieses Fenster dann erneut.",
+  noStart: "Wähle oben einen Startpunkt im Menü.",
   loading: "Menü wird geladen …",
   failed: "Das Menü konnte nicht geladen werden.",
   retry: "Erneut versuchen",
   level: "Ebene",
+  depth: "Ebenen",
+  click: "Klick auf einen Punkt mit Unterpunkten",
+  clickEnter: "Ins Untermenü wechseln",
+  clickOpen: "Seite öffnen",
   inherits: "Diese Ebene hat kein eigenes Bild und zeigt das Bild der Ebene darüber. Wähle ein Bild, um hier Punkte zu setzen.",
   rootNeedsImage: "Ohne Bild gibt es keine Fläche, auf der Punkte liegen könnten.",
   pickFirst: "Wähle rechts einen Menüpunkt; ein Klick ins Bild setzt dann seinen Punkt.",
@@ -71,44 +73,71 @@ export const MENU_EDITOR_MESSAGES = {
 } as const;
 
 /** Die Einrückung je Ebene in der Auswahl; ein Geviertleerzeichen, weil Browser gewöhnliche zusammenziehen. */
-const INDENT = " ";
+const INDENT = "\u2003";
 
-export interface MenuPointEditorProps extends FieldModalContentProps<MenuLayout> {
+const DEPTHS = Array.from({ length: MAX_MENU_DEPTH - MIN_MENU_DEPTH + 1 }, (_, index) => MIN_MENU_DEPTH + index);
+
+type MenuSettings = HotspotConfig["menu"];
+
+export interface MenuPanelProps {
+  rootImage: HotspotImage | null;
+  onRootImageChange: (image: HotspotImage | null) => void;
+  menu: MenuSettings;
+  onMenuChange: (menu: MenuSettings) => void;
   /** Nur für Tests. */
   loadTree?: MenuTreeLoader;
 }
 
-export function MenuPointEditor({ value, onChange, onSave, onClose, loadTree }: MenuPointEditorProps): ReactElement {
-  const css = useHotStyle(pointEditorCss, "hotspot-image-widget", "styles/point-editor.scss");
-  const editorImage = useEditorImage();
-  const [rootId] = useState(() => readMenuId(readConfigValue(MENU_ID_ATTRIBUTE)));
-  const [depth] = useState(() => readMenuDepth(readConfigValue(MENU_DEPTH_ATTRIBUTE)));
-  const state = useMenuTree(rootId, depth, loadTree);
+export function MenuPanel({ rootImage, onRootImageChange, menu, onMenuChange, loadTree }: MenuPanelProps): ReactElement {
+  const state = useMenuTree(menu.rootId, menu.depth, loadTree);
+  const set = (patch: Partial<MenuSettings>): void => onMenuChange({ ...menu, ...patch });
 
   return (
-    <div className="man-hie">
-      <style>{css}</style>
-      {state.status === "ready" ? (
-        <LevelEditor tree={state.tree} layout={value} onChange={onChange} editorImage={editorImage} />
-      ) : (
-        <div className="man-hie__layout">
-          <div className="man-hie__left">
-            <EditorImageField editorImage={editorImage} />
-          </div>
-          <div className="man-hie__right">
-            <TreeStatus state={state} />
-          </div>
-        </div>
-      )}
-      <div className="man-hie__footer">
-        <button type="button" className="man-hie__button" onClick={onClose}>
-          Abbrechen
-        </button>
-        <button type="button" className="man-hie__button man-hie__button--primary" onClick={onSave}>
-          Übernehmen
-        </button>
+    <>
+      <div className="man-hie__settings">
+        <StartPointField value={menu.rootId} onChange={(rootId) => set({ rootId })} />
+        <label className="man-hie__label">
+          {MENU_EDITOR_MESSAGES.depth}
+          <select
+            className="man-hie__input"
+            value={menu.depth}
+            data-testid="menu-editor-depth"
+            onChange={(event) => set({ depth: Number(event.target.value) })}
+          >
+            {DEPTHS.map((depth) => (
+              <option key={depth} value={depth}>
+                {depth}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="man-hie__label">
+          {MENU_EDITOR_MESSAGES.click}
+          <select
+            className="man-hie__input"
+            value={menu.click}
+            data-testid="menu-editor-click"
+            onChange={(event) => set({ click: event.target.value as MenuClickMode })}
+          >
+            <option value="enter">{MENU_EDITOR_MESSAGES.clickEnter}</option>
+            <option value="open">{MENU_EDITOR_MESSAGES.clickOpen}</option>
+          </select>
+        </label>
       </div>
-    </div>
+      {state.status === "ready" ? (
+        <LevelEditor
+          // Ein anderer Baum fängt wieder oben an.
+          key={`${menu.rootId}#${menu.depth}`}
+          tree={state.tree}
+          layout={menu.layout}
+          onChange={(layout) => set({ layout })}
+          rootImage={rootImage}
+          onRootImageChange={onRootImageChange}
+        />
+      ) : (
+        <TreeStatus state={state} />
+      )}
+    </>
   );
 }
 
@@ -141,10 +170,11 @@ interface LevelEditorProps {
   tree: MenuTree;
   layout: MenuLayout;
   onChange: (layout: MenuLayout) => void;
-  editorImage: EditorImage;
+  rootImage: HotspotImage | null;
+  onRootImageChange: (image: HotspotImage | null) => void;
 }
 
-function LevelEditor({ tree, layout, onChange, editorImage }: LevelEditorProps): ReactElement {
+function LevelEditor({ tree, layout, onChange, rootImage, onRootImageChange }: LevelEditorProps): ReactElement {
   const rootId = tree.root.entry.id;
   const [levelId, setLevelId] = useState(rootId);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -153,7 +183,8 @@ function LevelEditor({ tree, layout, onChange, editorImage }: LevelEditorProps):
   const levelNode = tree.index.get(levelId)?.node ?? tree.root;
   const level = levelLayout(layout, levelId);
   const isRoot = levelId === rootId;
-  const image = isRoot ? editorImage.image : (level.image ?? null);
+  const image = isRoot ? rootImage : (level.image ?? null);
+
 
   const openLevel = (id: string): void => {
     setLevelId(id);
@@ -167,6 +198,8 @@ function LevelEditor({ tree, layout, onChange, editorImage }: LevelEditorProps):
     const rest = { points: level.points };
     onChange(withLevel(layout, levelId, next === null ? rest : { ...rest, image: next }));
   };
+
+  const changeImage = isRoot ? onRootImageChange : setLevelImage;
 
   const selectedEntry = selectedId === null ? null : (tree.index.get(selectedId)?.node.entry ?? null);
   const selectedPoint = level.points.find((point) => point.menuId === selectedId) ?? null;
@@ -229,18 +262,13 @@ function LevelEditor({ tree, layout, onChange, editorImage }: LevelEditorProps):
       </label>
       <div className="man-hie__layout">
         <div className="man-hie__left">
-          {isRoot ? (
-            <EditorImageField editorImage={editorImage} />
-          ) : (
-            <ImageField
-              image={level.image ?? null}
-              alt={level.image?.alt ?? ""}
-              source="field"
-              onChange={setLevelImage}
-              // Ohne Bild trägt das neue Bild seinen Text schon selbst (`ImageField.select`).
-              onAltChange={(alt) => level.image !== undefined && setLevelImage({ ...level.image, alt })}
-            />
-          )}
+          <ImageField
+            image={image}
+            alt={image?.alt ?? ""}
+            onChange={changeImage}
+            // Ohne Bild trägt das neue Bild seinen Text schon selbst (`ImageField.select`).
+            onAltChange={(alt) => image !== null && changeImage({ ...image, alt })}
+          />
           {image === null ? (
             <p className="man-hie__hint" data-testid="menu-editor-needs-image">
               {isRoot ? MENU_EDITOR_MESSAGES.rootNeedsImage : MENU_EDITOR_MESSAGES.inherits}

@@ -187,6 +187,64 @@
   background: chrome.$accent-selection;
 }
 
+// --- Einstellungen oben im Fenster ----
+
+// Modus, Darstellung bzw. Startpunkt, Tiefe und Klick nebeneinander; auf
+// schmalen Fenstern untereinander.
+.man-hie__settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px 16px;
+  align-items: end;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid chrome.$border;
+}
+
+// Der Modus als zwei aneinanderliegende Knöpfe: es gibt genau zwei, und beide
+// sollen ohne Aufklappen zu sehen sein.
+.man-hie__segments {
+  display: flex;
+  margin-top: 4px;
+}
+
+.man-hie__segment {
+  flex: 1 1 0;
+  min-height: chrome.$control-height;
+  padding: 0 12px;
+  border: 1px solid chrome.$border-input;
+  background: chrome.$surface;
+  color: chrome.$text-body;
+  font: inherit;
+  font-weight: 400;
+  cursor: pointer;
+
+  & + & {
+    border-inline-start: 0;
+  }
+
+  &:first-child {
+    border-start-start-radius: chrome.$radius-input;
+    border-end-start-radius: chrome.$radius-input;
+  }
+
+  &:last-child {
+    border-start-end-radius: chrome.$radius-input;
+    border-end-end-radius: chrome.$radius-input;
+  }
+
+  &:focus-visible {
+    outline: 2px solid chrome.$focus-border;
+    outline-offset: 1px;
+  }
+}
+
+.man-hie__segment--active {
+  border-color: chrome.$accent;
+  background: chrome.$accent;
+  color: white;
+}
+
 // --- Menübaum (Modus „Menü“) ----
 
 // Der Baum ist laenger als eine Punkteliste; er bekommt mehr Hoehe.

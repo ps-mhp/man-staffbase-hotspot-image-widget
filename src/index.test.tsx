@@ -17,6 +17,7 @@ import { HotspotImageWidget } from "./index";
 import { ALL_ATTRIBUTES, configurationSchema, uiSchema } from "./configuration-schema";
 import { encodeImageAttribute, encodePointsAttribute } from "./points-model";
 import { encodeMenuLayout } from "./menu-points-model";
+import { DEFAULT_CONFIG, encodeConfig } from "./hotspot-config";
 
 const image = encodeImageAttribute({ url: "https://example.test/a.jpg", alt: "Ein Auto" });
 const points = encodePointsAttribute([{ id: "p1", x: 10, y: 20, title: "Ladeanschluss" }]);
@@ -114,5 +115,20 @@ describe("HotspotImageWidget", () => {
     // Das Menü kam nicht: Bild ja, Punkte nein, dafür der Hinweis.
     expect(await screen.findByRole("alert")).toBeInTheDocument();
     expect(globalThis.fetch).toHaveBeenCalledWith(`/api/menu/${menuId}`, expect.anything());
+  });
+
+  it("liest die Konfiguration aus config und lässt die einzelnen Felder dann ausser Acht", () => {
+    const config = encodeConfig({
+      ...DEFAULT_CONFIG,
+      image: { url: "https://example.test/b.jpg", alt: "Aus config" },
+      manual: { mode: "dots", points: [{ id: "c1", x: 5, y: 5, title: "Aus config" }] },
+    });
+
+    render(<HotspotImageWidget contentLanguage="de_DE" config={config} image={image} points={points} display-mode="numbered" />);
+
+    expect(screen.getByAltText("Aus config")).toBeInTheDocument();
+    expect(screen.getByTestId("marker-c1")).toBeInTheDocument();
+    expect(screen.queryByTestId("marker-p1")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("item-c1")).not.toBeInTheDocument();
   });
 });

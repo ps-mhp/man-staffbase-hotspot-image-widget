@@ -14,6 +14,8 @@
 import { UiSchema } from "@rjsf/utils";
 import { JSONSchema7 } from "json-schema";
 
+/** Die ganze Konfiguration in einem Feld — siehe `hotspot-config.ts`. */
+export const CONFIG_ATTRIBUTE = "config";
 export const IMAGE_ATTRIBUTE = "image";
 export const IMAGE_ALT_ATTRIBUTE = "image-alt";
 export const POINTS_ATTRIBUTE = "points";
@@ -25,11 +27,17 @@ export const MENU_DEPTH_ATTRIBUTE = "menu-depth";
 export const MENU_CLICK_ATTRIBUTE = "menu-click";
 export const MENU_POINTS_ATTRIBUTE = "menu-points";
 
-/** Die Felder, die nur im Modus „Manuell“ etwas bedeuten. */
-export const MANUAL_ATTRIBUTES = [POINTS_ATTRIBUTE, DISPLAY_MODE_ATTRIBUTE] as const;
-
-/** Die Felder, die nur im Modus „Menü“ etwas bedeuten. */
-export const MENU_ATTRIBUTES = [
+/**
+ * Die einzelnen Felder bis 0.2.0-rc.2. Sie stehen weiter im Schema, damit der
+ * Dialog ihre Werte führt: beim ersten Öffnen übernimmt das Fenster sie nach
+ * `config`. Zu sehen sind sie nicht mehr (`legacy-fields.ts`).
+ */
+export const LEGACY_ATTRIBUTES = [
+  IMAGE_ATTRIBUTE,
+  IMAGE_ALT_ATTRIBUTE,
+  SOURCE_ATTRIBUTE,
+  POINTS_ATTRIBUTE,
+  DISPLAY_MODE_ATTRIBUTE,
   MENU_ID_ATTRIBUTE,
   MENU_DEPTH_ATTRIBUTE,
   MENU_CLICK_ATTRIBUTE,
@@ -39,27 +47,20 @@ export const MENU_ATTRIBUTES = [
 /**
  * Das Schema des Konfigurationsdialogs.
  *
- * `image` und `points` stehen als gewöhnliche Textfelder, obwohl sie niemand
- * von Hand ausfüllen soll: Staffbase rendert den Dialog selbst und kennt nur
- * die Feldtypen von RJSF. Der Punkte-Editor tritt zur Laufzeit an die Stelle
- * von `points` (`point-editor-injector.ts`). Fällt er aus, bleiben die
- * Textfelder sichtbar und die Konfiguration damit reparierbar statt
- * unerreichbar.
- *
- * Der Content Designer behandelt den Schlüssel `image` eigens: er zeigt statt
- * des Textfelds seinen eigenen Bild-Upload und speichert nur die Adresse. Der
- * Alternativtext hat deshalb ein eigenes Feld, `image-alt` — im JSON des
- * klassischen Editors steht er nur noch bei älteren Inhalten. Der Anzeigemodus bleibt aus demselben Grund ein echtes
- * Auswahlfeld des Dialogs.
- *
- * Im Modus „Menü“ gilt dasselbe für `menu-points`: der Platzierungs-Editor
- * tritt an die Stelle des Textfelds. Welche Felder je Modus zu sehen sind,
- * regelt `index.tsx` über `startConditionalFieldVisibility`.
+ * Zu sehen ist nur `config`: an seine Stelle tritt der Knopf zum Fenster, in
+ * dem alles gepflegt wird (`hotspot-dialog.ts`). Die übrigen Felder sind die
+ * der Fassungen bis 0.2.0-rc.2; sie bleiben im Schema, damit der Dialog ihre
+ * Werte führt, und werden ausgeblendet (`legacy-fields.ts`).
  *
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
  */
 export const configurationSchema: JSONSchema7 = {
   properties: {
+    [CONFIG_ATTRIBUTE]: {
+      type: "string",
+      title: "Bild mit Punkten",
+      default: "",
+    },
     [IMAGE_ATTRIBUTE]: {
       type: "string",
       title: "Bild",
@@ -134,6 +135,11 @@ export const ALL_ATTRIBUTES: string[] = Object.keys(configurationSchema.properti
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/api-reference/uiSchema
  */
 export const uiSchema: UiSchema = {
+  [CONFIG_ATTRIBUTE]: {
+    "ui:help":
+      "Bild, Modus und Punkte werden im Fenster „Bild mit Punkten bearbeiten …“ gepflegt; " +
+      "das Textfeld dahinter ist die Rohfassung.",
+  },
   [IMAGE_ATTRIBUTE]: {
     "ui:help":
       "Das Bild, auf dem die Punkte liegen. Im Content Designer wird es hier gewählt; " +

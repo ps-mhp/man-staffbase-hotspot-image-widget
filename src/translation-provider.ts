@@ -24,7 +24,8 @@
 
 import { TranslationProvider } from "@shared/translation/carriers";
 
-import { POINTS_ATTRIBUTE } from "./configuration-schema";
+import { CONFIG_ATTRIBUTE, POINTS_ATTRIBUTE } from "./configuration-schema";
+import { encodeConfig, parseConfig } from "./hotspot-config";
 import { encodePointsAttribute, parsePoints } from "./points-model";
 import { pointsFromTranslated, pointsToTranslatable } from "./translation-payload";
 
@@ -52,3 +53,33 @@ export const hotspotTranslationProvider: TranslationProvider = {
 
   acceptsTranslated: (html) => html.includes("data-point"),
 };
+
+/**
+ * Dasselbe für `config`, wo die Punkte seit 0.2.0-rc.3 liegen. Übersetzt
+ * werden nur die eigenen Punkte des manuellen Modus; im Menü-Modus kommen
+ * die Titel schon übersetzt aus dem Menü. Der Provider für `points` bleibt
+ * für Inhalte, deren Fenster seither nicht übernommen wurde.
+ */
+export const hotspotConfigTranslationProvider: TranslationProvider = {
+  id: `${HOTSPOT_IMAGE_WIDGET_TAG}/config`,
+  label: "Bild mit Punkten",
+  ref: { tagName: HOTSPOT_IMAGE_WIDGET_TAG, attribute: CONFIG_ATTRIBUTE },
+
+  toTranslatable: (stored) => {
+    const config = stored === null ? null : parseConfig(stored);
+    if (config === null || config.manual.points.length === 0) return null;
+    return pointsToTranslatable(config.manual.points);
+  },
+
+  fromTranslated: (html, stored) => {
+    const config = stored === null ? null : parseConfig(stored);
+    if (config === null) return null;
+    return encodeConfig({
+      ...config,
+      manual: { ...config.manual, points: pointsFromTranslated(html, config.manual.points) },
+    });
+  },
+
+  acceptsTranslated: (html) => html.includes("data-point"),
+};
+

@@ -52,7 +52,6 @@ const renderField = (overrides: Partial<Props> = {}) => {
   const props: Props = {
     image: null,
     alt: "",
-    source: "field",
     onChange: jest.fn(),
     onAltChange: jest.fn(),
     ...overrides,
@@ -122,25 +121,5 @@ describe("ImageField", () => {
     const { onChange } = renderField({ image: { url: "https://example.test/a.jpg", alt: "" } });
     fireEvent.click(screen.getByRole("button", { name: "Bild entfernen" }));
     expect(onChange).toHaveBeenCalledWith(null);
-  });
-});
-
-describe("ImageField im Content Designer", () => {
-  // Dort wählt Staffbase das Bild im Formular; der Editor kann es nicht setzen.
-  it("verweist ohne Bild auf das Formular statt auf die Mediathek", () => {
-    renderField({ source: "designer" });
-    expect(screen.queryByRole("button", { name: /Bild wählen/ })).not.toBeInTheDocument();
-    expect(screen.getByTestId("image-field-designer-hint")).toHaveTextContent(/Formular/);
-  });
-
-  it("bietet mit Bild nur den Alternativtext an", () => {
-    const { onAltChange } = renderField({
-      source: "designer",
-      image: { url: "https://example.test/a.jpg", alt: "" },
-    });
-    expect(screen.queryByRole("button", { name: /Anderes Bild wählen/ })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Bild entfernen" })).not.toBeInTheDocument();
-    fireEvent.change(screen.getByLabelText(/Alternativtext/), { target: { value: "Ein Bus" } });
-    expect(onAltChange).toHaveBeenCalledWith("Ein Bus");
   });
 });

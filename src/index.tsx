@@ -28,28 +28,12 @@ import {
 } from "widget-sdk";
 import { startWidget } from "@shared/dev-mode/start-widget";
 import { getTranslationRegistry } from "@shared/translation/registry";
-import {
-  ALL_ATTRIBUTES,
-  DISPLAY_MODE_ATTRIBUTE,
-  IMAGE_ALT_ATTRIBUTE,
-  IMAGE_ATTRIBUTE,
-  MENU_CLICK_ATTRIBUTE,
-  MENU_DEPTH_ATTRIBUTE,
-  MENU_ID_ATTRIBUTE,
-  MENU_POINTS_ATTRIBUTE,
-  POINTS_ATTRIBUTE,
-  SOURCE_ATTRIBUTE,
-  configurationSchema,
-  uiSchema,
-} from "./configuration-schema";
+import { ALL_ATTRIBUTES, CONFIG_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
+import { LegacyAttributes, resolveConfig } from "./hotspot-config";
 import { HotspotImage } from "./hotspot-image";
 import { MenuHotspotImage } from "./menu/menu-hotspot-image";
-import { parseMenuLayout, readMenuClick, readMenuDepth, readSource } from "./menu-points-model";
-import { parsePoints, readDisplayMode, readImage } from "./points-model";
-import { readMenuId } from "@shared/staffbase/menu";
-import { startPointEditorInjector } from "./point-editor-injector";
-import { startMenuModeDialog } from "./menu-dialog";
-import { hotspotTranslationProvider } from "./translation-provider";
+import { startHotspotDialog } from "./hotspot-dialog";
+import { hotspotConfigTranslationProvider, hotspotTranslationProvider } from "./translation-provider";
 import icon from "../resources/hotspot-image-widget.svg";
 import pkg from "../package.json";
 
@@ -57,38 +41,25 @@ import pkg from "../package.json";
  * Attribute kommen immer als Zeichenkette an, auch wenn dort JSON steht.
  * Die Namen tragen Bindestriche, wie im Schema.
  */
-export type HotspotImageWidgetProps = BlockAttributes & {
-  [IMAGE_ATTRIBUTE]?: string;
-  [IMAGE_ALT_ATTRIBUTE]?: string;
-  [POINTS_ATTRIBUTE]?: string;
-  [DISPLAY_MODE_ATTRIBUTE]?: string;
-  [SOURCE_ATTRIBUTE]?: string;
-  [MENU_ID_ATTRIBUTE]?: string;
-  [MENU_DEPTH_ATTRIBUTE]?: string;
-  [MENU_CLICK_ATTRIBUTE]?: string;
-  [MENU_POINTS_ATTRIBUTE]?: string;
-};
+export type HotspotImageWidgetProps = BlockAttributes &
+  LegacyAttributes & {
+    [CONFIG_ATTRIBUTE]?: string;
+  };
 
 export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement | null => {
-  const image = readImage(props[IMAGE_ATTRIBUTE] ?? "", props[IMAGE_ALT_ATTRIBUTE]);
-  if (readSource(props[SOURCE_ATTRIBUTE]) === "menu") {
+  const config = resolveConfig(props);
+  if (config.source === "menu") {
     return (
       <MenuHotspotImage
-        image={image}
-        layout={parseMenuLayout(props[MENU_POINTS_ATTRIBUTE] ?? "")}
-        rootId={readMenuId(props[MENU_ID_ATTRIBUTE])}
-        depth={readMenuDepth(props[MENU_DEPTH_ATTRIBUTE])}
-        click={readMenuClick(props[MENU_CLICK_ATTRIBUTE])}
+        image={config.image}
+        layout={config.menu.layout}
+        rootId={config.menu.rootId}
+        depth={config.menu.depth}
+        click={config.menu.click}
       />
     );
   }
-  return (
-    <HotspotImage
-      image={image}
-      points={parsePoints(props[POINTS_ATTRIBUTE] ?? "")}
-      mode={readDisplayMode(props[DISPLAY_MODE_ATTRIBUTE])}
-    />
-  );
+  return <HotspotImage image={config.image} points={config.manual.points} mode={config.manual.mode} />;
 };
 
 /** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um
@@ -153,7 +124,7 @@ const externalBlockDefinition: ExternalBlockDefinition = {
  * gibt: ohne sie bräche schon der blosse Import der Datei jeden Test.
  *
  * Der Editor hängt am Anmelden, nicht am Laden. Auf Modulebene gestartet
- * belegte der Beobachter des installierten Bundles das `points`-Feld, bevor
+ * belegte der Beobachter des installierten Bundles das `config`-Feld, bevor
  * es überhaupt fragte, ob ein lokaler Server übernimmt — der
  * Entwicklungsmodus lieferte dann die Ansicht, aber den Editor der
  * veröffentlichten Fassung. Live nachgewiesen am 02.09.2026 im
@@ -165,12 +136,12 @@ if (typeof window.defineBlock === "function") {
     name: "hotspot-image-widget",
     version: pkg.version,
     register: () => {
-      startPointEditorInjector();
-      startMenuModeDialog();
+      startHotspotDialog();
       // Wie der Editor-Injektor gehört auch die Übersetzung ins
       // `register`-Callback: auf Modulebene angemeldet würde die Registry
       // laufen, bevor feststeht, ob ein lokaler Entwicklungsserver übernimmt.
       getTranslationRegistry().register(hotspotTranslationProvider);
+      getTranslationRegistry().register(hotspotConfigTranslationProvider);
       window.defineBlock(externalBlockDefinition);
     },
   });

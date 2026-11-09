@@ -13,6 +13,8 @@
 
 import {
   ALL_ATTRIBUTES,
+  CONFIG_ATTRIBUTE,
+  LEGACY_ATTRIBUTES,
   DISPLAY_MODE_ATTRIBUTE,
   IMAGE_ALT_ATTRIBUTE,
   IMAGE_ATTRIBUTE,
@@ -29,6 +31,7 @@ import {
 describe("configurationSchema", () => {
   it("beschreibt die Attribute des Widgets in der Reihenfolge des Dialogs", () => {
     expect(Object.keys(configurationSchema.properties ?? {})).toEqual([
+      CONFIG_ATTRIBUTE,
       IMAGE_ATTRIBUTE,
       IMAGE_ALT_ATTRIBUTE,
       SOURCE_ATTRIBUTE,
@@ -40,6 +43,10 @@ describe("configurationSchema", () => {
       MENU_POINTS_ATTRIBUTE,
     ]);
     expect(ALL_ATTRIBUTES).toEqual(Object.keys(configurationSchema.properties ?? {}));
+  });
+
+  it("führt neben config genau die einzelnen Felder älterer Fassungen", () => {
+    expect([CONFIG_ATTRIBUTE, ...LEGACY_ATTRIBUTES].sort()).toEqual([...ALL_ATTRIBUTES].sort());
   });
 
   it("beginnt im bisherigen Modus, damit bestehende Inhalte unverändert bleiben", () => {
