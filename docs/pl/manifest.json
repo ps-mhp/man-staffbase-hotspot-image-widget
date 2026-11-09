@@ -1,6 +1,6 @@
 {
   "title": "Obraz z kropkami",
-  "summary": "Obraz z klikalnymi kropkami: tytuł, opis i, jeśli chcesz, powiązana strona dla każdej kropki.",
+  "summary": "Obraz z punktami, które można kliknąć: każdy punkt zawiera tytuł, opis oraz, w razie potrzeby, link do strony.",
   "icon": "📍",
   "pages": [
     {
@@ -20,13 +20,13 @@
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Najczęściej zadawane pytania",
       "file": "faq.md"
     }
   ],
   "examples": [
     {
-      "title": "Ponumerowane, z listą obok obrazu",
+      "title": "Ponumerowane, z listą obok zdjęcia",
       "attributes": {
         "display-mode": "numbered"
       },

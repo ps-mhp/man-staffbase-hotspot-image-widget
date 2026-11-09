@@ -1,6 +1,6 @@
 {
   "title": "Afbeelding met stippen",
-  "summary": "Een afbeelding met klikbare stippen: een titel, een beschrijving en, indien gewenst, een gekoppelde pagina voor elk stipje.",
+  "summary": "Een afbeelding met aanklikbare punten: per punt een titel, een beschrijving en, indien gewenst, een gelinkte pagina.",
   "icon": "📍",
   "pages": [
     {
@@ -20,13 +20,13 @@
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Veelgestelde vragen",
       "file": "faq.md"
     }
   ],
   "examples": [
     {
-      "title": "Genummerd, met lijst naast de afbeelding",
+      "title": "Genummerd, met een lijst naast de afbeelding",
       "attributes": {
         "display-mode": "numbered"
       },

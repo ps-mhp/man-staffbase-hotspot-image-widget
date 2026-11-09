@@ -1,96 +1,130 @@
 # Passo a passo
 
-## Preparando o caso básico
+## Configurar o caso básico
 
-1. Coloque o widget **Imagem com Pontos** na página. 
-2. Abra as configurações do widget. A janela para editar o
-   Os pontos se abrem sozinhos. 
-3. Clique em **Escolher Imagem...** à esquerda e selecione uma imagem a partir do
-   Biblioteca de Mídia. Você não pode definir um ponto sem uma imagem. 
-4. Insira um **texto alternativo** abaixo que descreva o que está escrito
-   pode ser visto na foto. 
-5. Clique no local desejado na imagem. Um novo
-   Ponto final, e sua forma aparece à direita. 
-6. Insira o **título**. Sem título, a janela não pode ser usada com
-   **Aplicar** fechar — um aviso correspondente aparecerá em ambos em
-   campo e na parte inferior da janela. 
-7. Opcionalmente, insira uma **descrição**. 
-8. Opcional: adicione sob o campo "Description" via **link
-   adicionar** um alvo — veja a seção "Definindo um link" continuar
-   abaixo. 
+1. Coloque o widget **Imagem com pontos** na página.
+2. Abra as definições do widget. A janela para editar os
+   pontos abre-se automaticamente.
+3. Clique em **Selecionar imagem…**, à esquerda, e selecione uma imagem da
+   biblioteca multimédia. Sem imagem, não é possível definir nenhum ponto.
+4. Introduza, na secção inferior, um **texto alternativo** que descreva o que
+   se vê na imagem.
+5. Clique no local pretendido na imagem. Aí surge um novo
+   ponto e, à direita, aparece o respetivo formulário.
+6. Introduza o **título**. Sem título, não é possível fechar a janela com
+   **Aplicar** — surge uma mensagem a indicar isso tanto no
+   campo como na parte inferior da janela.
+7. Opcionalmente, introduza uma **descrição**.
+8. Opcional: adicione um destino em «Adicionar **ligação**»
+   por baixo do campo «Descrição» — consulte a secção «Criar uma ligação» mais
+   abaixo.
 9. Repita os passos 5 a 8 para cada ponto adicional. Uma imagem
-   Carrega no máximo 20 pontos. 
-10. Clique em **Candidatar**. 
-11. Em **Aparência**, escolha entre "Numerado, com a lista ao lado de
-    a imagem" e "Pontos, sem lista". 
-12. Salve a página e pré-visualize o resultado. 
+   pode ter, no máximo, 20 pontos.
+10. Clique em **Aplicar**.
+11. Em **Apresentação**, escolha entre «Numerado, com lista ao lado
+    da imagem» e «Pontos, sem lista».
+12. Guarde a página e verifique o resultado na pré-visualização.
 
-## Estabeleça um link
+## Inserir um link
 
-1. Clique em **Adicionar link** na forma de um ponto. 
+1. No formulário de um ponto, clique em **Adicionar link**.
 2. Em **Destino**, selecione uma página da lista. Um link para uma página
-   dessa lista aparecerá mais adiante em uma janela acima da página. 
-3. Se quiser inserir seu próprio endereço, clique em
-   **Digite seu próprio endereço ...** e insira o endereço no campo
-   **Endereço**. Esse endereço será aberto mais tarde em um novo endereço
-   Tab, não na janela — é para isso que serve o texto de informação. 
-4. Ao **Selecionar uma página em vez disso** você virá da sua própria
-   Enderece de volta à lista. 
-5. Opcionalmente, insira seu próprio **rótulo do botão**. Restos
-   o campo está vazio, o botão mostra "Abrir página". 
-6. Via **Remover link**, o link desaparece novamente; Título e
-   A descrição do ponto permanece inalterada por isso. 
+   desta lista aparecerá posteriormente numa janela acima da página.
+3. Se preferir introduzir um endereço próprio, clique em
+   **Introduzir endereço próprio…** e introduza o endereço no campo
+   **Endereço**. Esse endereço abrirá posteriormente numa nova
+   aba, e não na janela — é isso que indica o texto de aviso.
+4. Através de **Selecionar uma página em vez disso**, pode voltar da
+   morada personalizada para a lista.
+5. Opcionalmente, introduza um **texto para o botão**. Se
+   o campo ficar em branco, o botão exibirá «Abrir página».
+6. Ao clicar em **Remover link**, o link desaparece; o título e
+   a descrição do item permanecem inalterados.
 
-## Mova, separe e remova pontos
+## Mover, ordenar e remover itens
 
-1. Para mover um ponto, arraste-o para a nova localização na imagem. 
-2. Para alterar a ordem da numeração, selecione o ponto em
-   Selecione a lista à direita e clique em **Cima** ou **Mover para Baixo**. 
-3. Para remover um ponto, selecione-o e clique em seu
-   Exclua o formulário para **Ponto**. 
-4. Complete cada alteração com **Aplicar**; via **Cancelar** 
-   descarte todas as mudanças desde a última vez que a janela foi aberta. 
+1. Para mover um item, arraste-o na imagem para a nova posição.
+2. Para alterar a ordem de numeração, selecione o item na
+   lista à direita e clique em **Para cima** ou **Para baixo**.
+3. Para remover um item, selecione-o e clique em
+   **Apagar item** no respetivo formulário.
+4. Conclua cada alteração com **Aplicar**; com **Cancelar**
+   rejeita todas as alterações efetuadas desde a última vez que a janela foi aberta.
 
-## Mudança depois
+## Alterar posteriormente
 
-1. Abra novamente as configurações do widget. A janela mostrará o
-   pontos existentes e a imagem selecionada. 
-2. Selecione o item que deseja mudar na lista à esquerda e edite
-   Você pode usar o formulário à direita. 
-3. Para substituir a imagem, clique **Escolher outra imagem...**. 
-   Os pontos são mantidos; então verifique se sua posição sobre o
-   A nova foto ainda serve. 
-4. **Candidate**, salve, prévia. 
+1. Volte a abrir as definições do widget. A janela mostra os
+   pontos existentes e a imagem selecionada.
+2. Selecione na lista à esquerda o ponto a alterar e edite
+   o respetivo formulário à direita.
+3. Para substituir a imagem, clique em **Selecionar outra imagem…**.
+   Os elementos são mantidos; verifique depois se a sua posição na
+   nova imagem ainda está correta.
+4. **Aplicar**, guardar, verificar na pré-visualização.
 
-## Em Content Designer
+## No Content Designer
 
-O Content Designer (novo editor de página) mostra seus próprios
-Upload da imagem no formulário. Portanto, a imagem é selecionada ali, não no
-Janela de Pontos: 
+O Content Designer (novo editor de páginas) apresenta o seu próprio
+formulário de carregamento de imagens. Por isso, a imagem é selecionada aí, e não na
+janela de pontos:
 
-1. Abra as configurações do widget. Se nenhuma imagem foi selecionada ainda, 
-   A janela de pontos permanece fechada, e em seu lugar está o botão
-   **Pontos de edição ...**. 
-2. Selecione ou envie uma imagem em **Imagem**. 
-3. Em **Texto alternativo**, insira o que pode ser visto na imagem. 
-4. Clique em **Pontos de edição...** e defina os pontos como em
-   Caso básico descrito do passo 5. 
-5. Para substituir a imagem, fechar a janela de pontos, substituir
-   no formulário sob **Image** e abra a janela novamente. 
+1. Abra as definições do widget. Se ainda não tiver sido selecionada nenhuma imagem,
+   a janela de pontos permanece fechada e, no seu lugar, aparece o botão
+   **Editar pontos…**.
+2. Selecione ou carregue uma imagem em **Imagem**.
+3. Em **Texto alternativo**, indique o que se vê na imagem.
+4. Clique em **Editar pontos…** e coloque os pontos tal como descrito no
+   caso básico a partir do passo 5.
+5. Para substituir a imagem, feche a janela de pontos, substitua
+   a imagem no formulário em **Imagem** e volte a abrir a janela.
 
-## Quando algo não funciona
+## Modo «Menu»: Colocar opções de menu
 
-1. **O widget não mostra nada.** Ou a imagem está faltando, ou ainda está
-   Sem dot definido. Abra as Configurações e marque ambos. 
-2. **"Aplicar" não pode ser clicado.** Pelo menos um ponto ainda tem
-   Sem título. A janela na parte inferior indica quantos pontos são afetados — 
-   Insira um título por vez. 
-3. **A página vinculada não aparece na janela, mas abre um
-   nova aba.** O objetivo é um endereço digitado por você, não uma página de
-   lista. É assim que é pensado: páginas estrangeiras muitas vezes não podem ser
-   Incorpore uma janela. Em vez disso, selecione uma página da lista 
-   Se quiser que apareça na janela. 
-4. **Na lista de páginas não há uma única página, mas um campo para
-   um endereço.** A lista de páginas do sistema não estava aberta quando foi aberta.
-   acessível. Insira o endereço manualmente ou abra o
-   janela de novo.
+1. Nas definições, em **Modo**, selecione a opção «Menu:
+   Colocar opções de menu na imagem». Os campos do modo manual
+   desaparecem e os do modo «Menu» aparecem.
+2. Em **Ponto de partida no menu**, selecione o item de menu cujos
+   subitens devem aparecer na imagem. Se não estiver na lista,
+   selecione **Introduzir outro ID de menu…** e insira o endereço da página
+  .
+3. Em **Níveis**, defina até que profundidade o menu se estende. O valor predefinido
+   é 3: o ponto de partida, os seus subitens e os subitens destes.
+4. Em **Clique num item**, selecione se um clique abre a página
+   (predefinição) ou se o menu navega até à entrada ao lado da imagem.
+5. Clique em **Colocar itens do menu…**. À esquerda está a imagem, à direita
+   a árvore do menu.
+6. Selecione um item de menu à direita e clique no local pretendido
+   na imagem. O item será criado nesse local; na árvore, a entrada fica então
+   marcada com «na imagem».
+7. Repita o passo 6 para cada item de menu adicional. Para deslocar um item,
+   arraste-o ou selecione a entrada e clique no
+   novo local. **Remover item** retira-o da imagem.
+8. Clique em **Aplicar**, guarde a página e verifique o
+   resultado na pré-visualização.
+
+Se tiver alterado o ponto inicial ou os níveis, feche a janela e
+abra-a novamente — ela lê ambos ao abrir.
+
+## Se algo não funcionar
+
+1. **O widget não mostra nada.** Ou falta a imagem, ou ainda
+   não foi definido nenhum ponto. Abra as definições e verifique ambos.
+2. **Não é possível clicar em «Aplicar».** Pelo menos um ponto ainda
+   não tem título. A janela indica na parte inferior quantos pontos estão em causa —
+   introduza um título em cada um deles.
+3. **A página com o link não aparece na janela, mas abre um
+   novo separador.** O destino é um endereço introduzido manualmente, não uma página da
+   lista. Isto é intencional: muitas vezes, as páginas externas não podem ser
+   incorporadas numa janela. Em vez disso, selecione uma página da lista,
+   se pretender que esta apareça na janela.
+4. **Na lista de páginas não consta nenhuma página, mas sim um campo para
+   introduzir um endereço.** A lista de páginas do sistema não estava
+   disponível no momento da abertura. Introduza o endereço manualmente ou abra a
+   janela novamente.
+5. **No modo «Menu», a janela apresenta a indicação para selecionar primeiro um ponto de partida
+  .** Em **Ponto de partida no menu** ainda não está selecionado nada. Selecione
+  um item do menu, feche a janela e volte a abri-la.
+6. **Na janela, existem itens em «Já não está no menu».** O
+   item de menu correspondente foi eliminado, ocultado ou encontra-se num nível inferior ao definido em
+   **Níveis**. Estes itens não aparecem na página.
+   Remova-os daí ou aumente o número de níveis.

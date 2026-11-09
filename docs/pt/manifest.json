@@ -1,6 +1,6 @@
 {
   "title": "Imagem com pontos",
-  "summary": "Uma imagem com pontos clicáveis: um título, uma descrição e, se desejado, uma página vinculada para cada ponto.",
+  "summary": "Uma imagem com pontos clicáveis: cada ponto corresponde a um título, uma descrição e, se desejado, uma página com um link.",
   "icon": "📍",
   "pages": [
     {
@@ -15,18 +15,18 @@
     },
     {
       "id": "settings",
-      "title": "Configurações",
+      "title": "Definições",
       "file": "settings.md"
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Perguntas frequentes",
       "file": "faq.md"
     }
   ],
   "examples": [
     {
-      "title": "Numerada, com a lista ao lado da imagem",
+      "title": "Numerados, com uma lista ao lado da imagem",
       "attributes": {
         "display-mode": "numbered"
       },

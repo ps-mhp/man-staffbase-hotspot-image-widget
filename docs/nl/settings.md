@@ -1,48 +1,77 @@
 # Instellingen
 
-Het configuratiedialoog van de widget heeft vier attributen. "Afbeelding" en
-"Punten" worden behouden in het venster dat verschijnt wanneer je Instellingen opent
-toont zichzelf; de tekstvelden erachter zijn de technische, ruwe versie en
-Mag niet met de hand worden bewerkt. In Content Designer, afbeelding 
-in plaats daarvan wordt de afbeelding van de ontwerper — daar wordt de afbeelding direct opgeslagen in de
-Vorm gekozen. 
+Het configuratievenster van de widget bevat negen attributen; welke daarvan
+worden weergegeven, hangt af van de **modus**. „Afbeelding“ en
+„Punten“ worden bewerkt in het venster dat automatisch verschijnt wanneer je de instellingen
+opent; de tekstvelden daarachter zijn de technische ruwe versie en
+mogen niet handmatig worden bewerkt. In de Content Designer toont „Afbeelding“
+in plaats daarvan de afbeeldingsupload van de Designer — daar wordt de afbeelding direct in het
+formulier geselecteerd.
 
-| Attribuut | Label in dialoog | Beschrijving |
+| Attribuut | Label in het dialoogvenster | Beschrijving |
 | --- | --- | --- |
-| 'afbeelding' | Afbeelding | De afbeelding waarop de stippen zich bevinden. In de klassieke editor via **Selecteer afbeelding ...** in het venster vanuit de mediabibliotheek, in de Content Designer direct geselecteerd in het formulier. |
-| 'image-alt' | Alternatieve tekst | Beschrijft de afbeelding voor schermlezers; laat leeg als deze alleen versiert. Kan ook worden bewerkt in het venster onder "Alternatieve tekst". |
-| 'punten' | Punten | De lijst van punten met positie, titel, beschrijving en link. Bijgehouden in hetzelfde venster. |
-| 'Display-modus' | Display | Bepaalt hoe de stippen op de gepubliceerde pagina verschijnen. De standaardinstelling is 'Genummerd, met lijst naast de afbeelding'. |
+| `image` | Afbeelding | De afbeelding waarop de punten liggen. In de klassieke editor via **Afbeelding selecteren …** in het venster uit de mediabibliotheek, in de Content Designer direct in het formulier geselecteerd. |
+| `image-alt` | Alternatieve tekst | Beschrijft de afbeelding voor schermlezers; laat leeg als deze alleen ter versiering dient. Ook bewerkbaar in het venster onder „Alternatieve tekst“. |
+| `source` | Modus | `Handmatig` (standaard) of `Menu`. Verbergt de velden van de andere modus; de inhoud daarvan blijft opgeslagen. |
+| `points` | Punten | Alleen „Handmatig“. De lijst met punten met positie, titel, beschrijving en link. Wordt in hetzelfde venster bijgewerkt. |
+| `display-mode` | Weergave | Alleen „Handmatig“. Bepaalt hoe de punten op de gepubliceerde pagina worden weergegeven. De standaardinstelling is `Genummerd, met lijst naast de afbeelding`. |
+| `menu-id` | Startpunt in het menu | Alleen „Menu“. Het menu-item waarvan de subitems worden geplaatst; het item zelf kan ook worden geplaatst. Keuze uit het menu of via „Andere menu-ID invoeren …“ het adres van een pagina. |
+| `menu-depth` | Niveaus | Alleen „Menu“. Hoeveel niveaus worden weergegeven, inclusief het startpunt. De standaardinstelling is 3. |
+| `menu-click` | Klik op een punt | Alleen „Menu“. `Pagina openen` (standaard) of `Naast het menu weergeven`. |
+| `menu-points` | Menu-items op de afbeelding | Alleen „Menu“. Waar de menu-items zich bevinden. Wordt ingesteld in het venster „Menu-items plaatsen …“. |
 
-## Waarden van "Representatie" 
+## Waarden van „Weergave“
 
-| Waarde | Labelen in dialoog |
+| Waarde | Label in het dialoogvenster |
 | --- | --- |
-| 'genummerd' | Genummerd, met lijst naast de afbeelding |
-| 'stippen' | Stippen, zonder lijst |
+| `numbered` | Genummerd, met lijst naast de afbeelding |
+| `dots` | Stippen, zonder lijst |
 
-## Velden van een punt
+## Waarden van „Niveaus“
+
+| Waarde | Betekenis |
+| --- | --- |
+| `2` | Startpunt en de bijbehorende subitems |
+| `3` | plus de subitems daarvan (standaard) |
+| `4` tot `6` | overeenkomstig dieper |
+
+## Waarden van „Klik op een punt“
+
+| Waarde | Tekst in het dialoogvenster | Effect |
+| --- | --- | --- |
+| `open` | Pagina openen | Het punt is een link naar de pagina van het menu-item; bestemmingen buiten de app worden in een nieuw tabblad geopend. |
+| `reveal` | Naast het menu weergeven | Het menu naast de afbeelding bladert naar het menu-item en markeert het. |
+
+Mappen zonder eigen pagina worden in beide gevallen in het menu weergegeven.
+
+## Velden van een item (modus „Handmatig“)
 
 | Veld | Beschrijving |
 | --- | --- |
-| Titel | Verplicht. Zonder titel kan het venster niet worden gesloten met "Solliciteren". |
-| Beschrijving | Optioneel, meerlijnig. |
-| Bestemming | Optioneel. Een pagina uit de systeemlijst of een zelfingevoerd adres. |
-| Label van de knop | Optioneel. Als deze leeg blijft, toont de knop "Pagina openen". |
+| Titel | Verplicht. Zonder titel kan het venster niet worden gesloten met „Toepassen“. |
+| Beschrijving | Optioneel, meerdere regels. |
+| Bestemming | Optioneel. Een pagina uit de systeemlijst of een zelf ingevoerd adres. |
+| Tekst op de knop | Optioneel. Als dit veld leeg blijft, toont de knop „Pagina openen“. |
 
-## Grenzen
+## Beperkingen
 
-- Een afbeelding heeft maximaal **20 punten**. Het venster wordt weergegeven wanneer je probeert 
-  om een andere te stellen, in plaats van stilzwijgend
-  Afdoen. 
-- Een punt **zonder titel** kan niet worden aangenomen: de knop
-  "Apply" blijft vergrendeld zolang er ten minste één punt geen titel wordt gewonnen
-  en het venster geeft het aantal getroffen punten aan. 
-- **Zonder afbeelding of zonder ten minste één stip toont de widget niets** — 
-  noch op de gepubliceerde pagina, noch als een leeg frame. 
+- Een afbeelding bevat maximaal **20 punten**. Het venster geeft een melding wanneer je
+  probeert er nog een toe te voegen, in plaats van deze stilzwijgend te
+  verwerpen.
+- Een punt **zonder titel** kan niet worden overgenomen: de knop
+  „Overnemen“ blijft geblokkeerd zolang ten minste één punt geen titel
+  heeft, en het venster geeft het aantal betreffende punten aan.
+- **Zonder afbeelding of zonder ten minste één punt toont de widget niets** —
+  noch op de gepubliceerde pagina, noch als leeg kader. In de modus
+  „Menu“ geldt hetzelfde zonder startpunt.
+- In de modus „Menu“ bevat **elk menu-item maximaal één punt**; een
+  extra klik op de afbeelding verplaatst het.
 
-## Afhankelijkheid
+## Afhankelijkheden
 
-De etikettering van de knop werkt alleen als het punt überhaupt een doel heeft.
-wordt toegewezen. Zonder doel is er geen knop en blijft het label aanwezig
-zonder effect.
+Het venster „Menu-items plaatsen …“ leest het startpunt en de niveaus bij
+het openen. Na een wijziging sluit u het venster en opent u het opnieuw.
+
+De tekst op de knop werkt alleen als er überhaupt een bestemming
+aan het punt is toegewezen. Zonder bestemming is er geen knop en heeft de tekst
+geen effect.

@@ -1,6 +1,6 @@
 {
   "title": "Imagen con puntos",
-  "summary": "Una imagen con puntos clicables: un título, una descripción y, si se desea, una página enlazada para cada punto.",
+  "summary": "Una imagen con puntos en los que se puede hacer clic: cada punto contiene un título, una descripción y, si se desea, un enlace a una página.",
   "icon": "📍",
   "pages": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "id": "settings",
-      "title": "Escenarios",
+      "title": "Configuración",
       "file": "settings.md"
     },
     {
@@ -26,7 +26,7 @@
   ],
   "examples": [
     {
-      "title": "Numerada, con la lista junto a la imagen",
+      "title": "Numeradas, con una lista junto a la imagen",
       "attributes": {
         "display-mode": "numbered"
       },

@@ -1,64 +1,88 @@
-# FAQ
+# Perguntas Frequentes
 
-**Pergunta:** Eu defini um período, mas você não pode "se candidatar"
-botão. 
+**Pergunta:** Defini um ponto, mas não consigo clicar em «Aplicar».
 
 Resposta: Pelo menos um ponto ainda não tem título. Um ponto sem título
-seria perdido ao se candidatar — por isso o botão permanece travado até que todos
-O ponto tem um título. A janela na parte inferior indica quantos pontos são afetados
-, e o mesmo aviso é escrito no próprio campo afetado. 
+seria perdido ao aplicar as alterações — por isso, o botão permanece bloqueado até que cada
+ponto tenha um título. A janela indica na parte inferior quantos pontos estão afetados
+e no próprio campo afetado aparece a mesma indicação.
 
-**Pergunta:** O widget não mostra nada na página. 
+**Pergunta:** O widget não mostra nada na página.
 
-Resposta: Ou a imagem está faltando, ou ainda nenhum ponto foi ajustado. Em
-Em ambos os casos, a superfície é deliberadamente deixada vazia em vez de um referencial vazio ou
-para mostrar uma imagem provisória. Abra as Configurações e verifique
-ambos. 
+Resposta: Ou falta a imagem, ou ainda não foi definido nenhum ponto. Em
+ambos os casos, a área permanece propositadamente em branco, em vez de mostrar uma moldura vazia ou
+uma imagem de preenchimento. Abra as definições e verifique
+ambas as opções.
 
-**Pergunta:** Por que um link abre uma janela acima da página, mas outro
-Uma nova aba? 
+**Pergunta:** Por que razão um link abre uma janela por cima da página, enquanto outro
+abre um novo separador?
 
-Resposta: Depende de onde vem o alvo. Uma página ** do
-A lista** do sistema aparece em uma janela acima da página atual. A
-**endereço auto-digitado**, por outro lado, sempre abre uma nova aba. O
-A razão: páginas estrangeiras muitas vezes não podem tecnicamente ser incorporadas em uma janela
-— uma janela bloqueada então simplesmente permaneceria vazia sem enviar uma mensagem de erro.
-. A nova aba é, portanto, a forma confiável para tudo fora do
-Sistema. 
+Resposta: Isso depende da origem do destino. Uma **página da
+lista** do sistema aparece numa janela por cima da página atual. Uma
+**endereço introduzido pelo próprio utilizador**, por outro lado, abre sempre um novo separador. A
+razão: muitas vezes, não é tecnicamente possível incorporar páginas externas numa janela
+— uma janela bloqueada ficaria simplesmente vazia, sem apresentar qualquer mensagem de erro
+. O novo separador é, por isso, a forma mais fiável para tudo o que está fora do
+sistema.
 
-**Pergunta:** Na lista de páginas não há uma única página, mas uma
-Campo para um endereço. 
+**Pergunta:** Na lista de páginas não aparece nenhuma página, mas sim um
+campo para introduzir um endereço.
 
-Resposta: A lista de páginas do sistema não estava acessível quando aberta. A
-Nota texto chama atenção para isso. Nesse caso, insira o endereço de
-Mão, ou feche a janela e abra novamente. 
+Resposta: A lista de páginas do sistema não estava acessível no momento da abertura. Um
+texto informativo chama a atenção para isso. Neste caso, introduza o endereço
+manualmente ou feche a janela e volte a abri-la.
 
-**Pergunta:** Eu coloquei um link para uma página, mas quando tento de novo
-aberto, há uma nota dizendo que a página salva não está na lista
-. 
+**Pergunta:** Criei uma ligação para uma página, mas ao voltar a
+abri-la aparece uma mensagem a indicar que a página guardada não consta da lista
+.
 
-Resposta: A página linkada provavelmente foi deletada ou não está mais
-. O link anterior permanecerá até você mesmo inseri-lo.
-— simplesmente abrir a janela não a deleta. 
+Resposta: A página para a qual foi criado o link foi provavelmente eliminada ou já não está
+acessível. O link anterior mantém-se até que o altere ou
+elimine — o simples facto de abrir a janela não o elimina.
 
-**Pergunta:** O que acontece com os pontos durante a tradução automática do
-Side? 
+**Pergunta:** O que acontece aos elementos durante a tradução automática da
+página?
 
-Resposta: O título, a descrição e a legenda do
-botões de cada ponto. A posição de um ponto na imagem e do alvo
-de um link permanecer inalterado — essas não são línguas, e o alvo seria
-uma tradução apenas destrói o endereço. 
+Resposta: São traduzidos o título, a descrição e o texto do
+botão de cada ponto. A posição de um ponto na imagem, bem como o destino
+de um link, permanecem inalterados — não se trata de texto, e no caso do destino,
+uma tradução apenas corromperia o endereço.
 
-**Pergunta:** Por que a página vinculada às vezes parece vazia na janela, 
-Mesmo que o link aponte para uma página da lista? 
+**Pergunta:** Por que razão a página para a qual o link aponta aparece, por vezes, vazia na janela,
+apesar de o link apontar para uma página da lista?
 
-Resposta: O embedding também pode falhar com páginas do seu próprio sistema, 
-por exemplo, se a própria página de destino tecnicamente impede o embedding. Uso
-nesse caso, o link "Abrir em nova aba" no topo da janela — exatamente
-É isso que ele representa lá. 
+Resposta: Mesmo no caso de páginas do próprio sistema, a incorporação pode falhar,
+por exemplo, se a própria página de destino impedir tecnicamente a incorporação. Nesse caso,
+utilize o link «Abrir num novo separador» no cabeçalho da janela — é exatamente
+para isso que ele está lá.
 
-**Pergunta:** Posso colocar mais de 20 pontos em uma imagem? 
+**Pergunta:** Posso colocar mais de 20 pontos numa imagem?
 
-Resposta: Não. A partir de 20 pontos, os marcadores se sobrepõem, e os marcadores também
-a lista ao lado da imagem seria maior que a própria imagem. O editor
-Tente marcar um 21º ponto.
+Resposta: Não. A partir de 20 pontos, os marcadores sobrepõem-se uns aos outros e a
+lista ao lado da imagem ficaria mais longa do que a própria imagem. O editor avisa-o quando
+tentar colocar um 21.º ponto.
+
+**Pergunta:** Renomeei uma opção do menu no modo «Menu». Tenho de
+ajustar o widget?
+
+Resposta: Não. Apenas é guardada a localização de cada opção do menu na imagem.
+O título e o destino são obtidos diretamente do menu sempre que este é acedido — o novo nome
+aparece imediatamente.
+
+**Pergunta:** Por que razão alguns colegas vêem menos pontos do que eu?
+
+Resposta: No modo «Menu», cada pessoa vê apenas os pontos correspondentes aos itens de menu que
+também pode ver no menu da aplicação. Isto é intencional: um ponto não deve
+conduzir a uma página que depois não possa ser aberta.
+
+**Pergunta:** Perco os meus pontos se alternar entre «Manual» e «Menu»?
+
+Resposta: Não. Ambos os modos guardam os pontos separadamente. Quem voltar ao modo anterior,
+encontrará os pontos do outro modo inalterados.
+
+**Pergunta:** Por que razão um item do menu não aparece ao lado da imagem no menu, apesar de
+existir?
+
+Resposta: Ou está definido como «Não visível» no menu da aplicação, ou
+está num nível inferior ao definido em **Níveis**. No primeiro caso, permanece
+também aqui oculto; no segundo, aumente o número de níveis.

@@ -1,64 +1,91 @@
 # FAQ
 
-**Question:** I have set a period, but you can't "apply"
-button. 
+**Question:** I've added a point, but the "Apply" button is grayed out
+and I can't click it.
 
-Answer: At least one point does not yet have a title. A point without a title
-would be lost when applying — that's why the button remains locked until everyone
-Point has a title. The window at the bottom indicates how many points are affected
-, and the same notice is written on the affected field itself. 
+Answer: At least one point does not yet have a title. An item without a title
+would be lost when you click “Apply”—that’s why the button remains disabled until every
+item has a title. The window shows at the bottom how many items are affected,
+and the same note appears in the affected field itself.
 
-**Question:** The widget doesn't show anything on the page. 
+**Question:** The widget isn’t displaying anything on the page.
 
-Answer: Either the picture is missing, or no dot has been set yet. In
-in both cases, the surface is deliberately left empty instead of an empty frame or
-to show a placeholder image. Open Settings and check
-both. 
+Answer: Either the image is missing, or no item has been added yet. In
+both cases, the area remains intentionally blank instead of showing an empty frame or
+a placeholder image. Open the settings and check
+both.
 
-**Question:** Why does one link open a window above the page, but another
-a new tab? 
+**Question:** Why does one link open a window on top of the page, while another
+opens a new tab?
 
-Answer: It depends on where the target comes from. A ** page from the
-List** of the system appears in a window above the current page. A
-**self-entered address**, on the other hand, always opens a new tab. The
-The reason: foreign pages often cannot be technically embedded in a window
-— a blocked window would then simply remain empty without sending an error message.
-. The new tab is therefore the reliable way for everything outside of the
-System. 
+Answer: It depends on where the destination comes from. A **page from the
+system’s list** appears in a window on top of the current page. A
+**manually entered address**, on the other hand, always opens a new tab. The
+reason: externally hosted pages often cannot be technically embedded in a window
+— a blocked window would then simply remain blank without displaying an error message.
+The new tab is therefore the reliable option for anything outside the
+system.
 
-**Question:** In the list of pages there is not a single page, but a
-Field for an address. 
+**Question:** The list of pages doesn’t contain a single page, but rather a
+field for an address.
 
-Answer: The system's page list was not accessible when opened. A
-Note text draws attention to this. In this case, enter the address of
-Hand, or close the window and reopen it. 
+Answer: The system’s page list was unavailable when the system opened. A
+notice draws attention to this. In this case, enter the address
+manually, or close the window and reopen it.
 
-**Question:** I put a link to a page, but when I try it again
-open, there is a note that the saved page is not in the list
-. 
+**Question:** I added a link to a page, but when I
+reopen it, a message appears stating that the saved page is not in the list
+.
 
-Answer: The linked page has probably been deleted or is no longer
-. The previous link will remain until you enter it yourself.
-— simply opening the window does not delete it. 
+Answer: The linked page has likely been deleted or is no longer
+accessible. The existing link remains in place until you
+change or remove it yourself—simply opening the window does not delete it.
 
-**Question:** What happens to the points during the automatic translation of the
-Side? 
+**Question:** What happens to the elements during the automatic translation of the
+page?
 
-Answer: The title, description and the caption of the
-buttons of each point. The position of a point on the image and the target
-of a link remain unchanged — these are not languages, and the target would be
-a translation only destroys the address. 
+Answer: The title, description, and button label for
+each bullet point are translated. The position of a bullet point on the image and the destination
+of a link remain unchanged—these are not language-specific, and in the case of the destination,
+a translation would simply break the URL.
 
-**Question:** Why does the linked page sometimes appear empty in the window, 
-even though the link points to a page from the list? 
+**Question:** Why does the linked page sometimes appear blank in the window,
+even though the link points to a page from the list?
 
-Answer: Embedding can also fail with pages from your own system, 
-for example, if the target page itself technically prevents embedding. Use
-in this case, the "Open in new tab" link at the head of the window — exactly
-That's what he stands for there. 
+Answer: Embedding can fail even for pages from your own system,
+for example, if the target page itself technically prevents embedding. In this case,
+use the “Open in a new tab” link at the top of the window—that’s exactly
+what it’s there for.
 
-**Question:** Can I put more than 20 points on an image? 
+**Question:** Can I place more than 20 markers on an image?
 
-Answer: No. From 20 points, the markers overlap each other, and the markers
-list next to the image would be longer than the image itself. The editor
-attempt to set a 21st point.
+Answer: No. Once you reach 20 points, the markers overlap, and the
+list next to the image would become longer than the image itself. The editor will
+notify you of this when you
+try to place a 21st point.
+
+**Question:** I renamed a menu item in “Menu” mode. Do I need to
+adjust the widget?
+
+Answer: No. Only the location of each menu item on the image is saved.
+The title and destination are fetched fresh from the menu each time it’s called up—the new name
+appears immediately.
+
+**Question:** Why do some colleagues see fewer points than I do?
+
+Answer: In “Menu” mode, everyone sees only the points associated with menu items that they
+are authorized to view in the app’s menu. This is by design: an item should
+not lead to a page that cannot be opened.
+
+**Question:** Do I lose my points when I switch between “Manual” and “Menu”
+modes?
+
+Answer: No. Both modes save their points separately. If you switch back,
+you’ll find the points from the other mode unchanged.
+
+**Question:** Why doesn’t a menu item appear next to the image in the menu, even though
+it exists?
+
+Answer: Either it’s set to “Hidden” in the app’s menu, or
+it’s lower than the level set under **Layers**. In the first case, it remains
+hidden here as well; in the second, increase the number of layers.

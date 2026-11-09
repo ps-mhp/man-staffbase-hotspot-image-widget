@@ -1,64 +1,90 @@
-# FAQ
+# Veelgestelde vragen
 
-**Vraag:** Ik heb een periode ingesteld, maar je kunt niet "aanbrengen"
-knop. 
+**Vraag:** Ik heb een punt geplaatst, maar ik kan niet op ‘Toepassen’
+klikken.
 
 Antwoord: Ten minste één punt heeft nog geen titel. Een punt zonder titel
-zou verloren gaan bij het aanvragen — daarom blijft de knop vergrendeld totdat iedereen
-Punt heeft een titel. Het venster onderaan geeft aan hoeveel punten er worden beïnvloed
-, en dezelfde kennisgeving wordt op het getroffen veld zelf geschreven. 
+zou bij het toepassen verloren gaan — daarom blijft de knop geblokkeerd totdat elk
+punt een titel heeft. Onderaan het venster staat vermeld hoeveel punten hierdoor
+worden beïnvloed, en bij het betreffende veld zelf staat dezelfde melding.
 
-**Vraag:** De widget toont niets op de pagina. 
+**Vraag:** De widget geeft helemaal niets weer op de pagina.
 
-Antwoord: Of het beeld ontbreekt, of er is nog geen stip gezet. In
-In beide gevallen wordt het oppervlak bewust leeg gelaten in plaats van een leeg frame of
-om een placeholderafbeelding te tonen. Open Instellingen en controleer
-beide. 
+Antwoord: Ofwel ontbreekt de afbeelding, ofwel is er nog geen punt ingesteld. In
+beide gevallen blijft het veld bewust leeg, in plaats van een leeg kader of
+een plaatshouderafbeelding weer te geven. Open de instellingen en controleer
+beide.
 
-**Vraag:** Waarom opent één link een venster boven de pagina, maar een andere
-Een nieuw tab? 
+**Vraag:** Waarom opent de ene link een venster boven de pagina, terwijl een andere
+een nieuw tabblad opent?
 
-Antwoord: Het hangt ervan af waar het doelwit vandaan komt. Een **-pagina van de
-Lijst** van het systeem verschijnt in een venster boven de huidige pagina. A
-**Zelfingevoerd adres** opent daarentegen altijd een nieuw tabblad. De
-De reden: buitenlandse pagina's kunnen vaak technisch gezien niet in een venster worden ingebed
-— een geblokkeerd venster zou dan gewoon leeg blijven zonder een foutmelding te sturen.
-. Het nieuwe tabblad is daarom de betrouwbare manier voor alles buiten de
-Systeem. 
+Antwoord: Dat hangt af van waar de bestemming vandaan komt. Een **pagina uit de
+lijst** van het systeem verschijnt in een venster boven de huidige pagina. Een
+**zelf ingevoerd adres** opent daarentegen altijd een nieuw tabblad. De
+reden: externe pagina’s kunnen technisch vaak niet in een venster worden ingebed
+— een geblokkeerd venster zou dan gewoon leeg blijven, zonder een foutmelding te
+tonen. Het nieuwe tabblad is daarom de betrouwbare manier voor alles buiten het
+systeem.
 
-**Vraag:** In de lijst met pagina's is er niet één pagina, maar een
-Veld voor een adres. 
+**Vraag:** In de lijst met pagina’s staat geen enkele pagina, maar een
+veld voor een adres.
 
-Antwoord: De paginalijst van het systeem was niet toegankelijk bij het openen. A
-Opmerkingstekst wijst hierop aan. In dit geval voer je het adres van in
-Hand, of sluit het raam en open het weer. 
+Antwoord: De paginalijst van het systeem was bij het openen niet bereikbaar. Een
+waarschuwingstekst wijst hierop. Voer in dat geval het adres
+handmatig in, of sluit het venster en open het opnieuw.
 
-**Vraag:** Ik heb een link naar een pagina geplaatst, maar als ik het opnieuw probeer
-open, is er een opmerking dat de opgeslagen pagina niet in de lijst staat
-. 
+**Vraag:** Ik heb een link naar een pagina geplaatst, maar bij het opnieuw
+openen staat er een melding dat de opgeslagen pagina niet in de lijst
+staat.
 
-Antwoord: De gelinkte pagina is waarschijnlijk verwijderd of is niet langer verwijderd
-. De vorige link blijft staan totdat je hem zelf invoert.
-— het alleen openen van het venster verwijdert het niet. 
+Antwoord: De pagina waarnaar de link verwijst, is waarschijnlijk verwijderd of is niet meer
+bereikbaar. De bestaande link blijft bestaan totdat u deze zelf
+wijzigt of verwijdert — het venster openen alleen is niet voldoende om de link te verwijderen.
 
-**Vraag:** Wat gebeurt er met de punten tijdens de automatische translatatie van de
-Zij? 
+**Vraag:** Wat gebeurt er met de punten bij de automatische vertaling van de
+pagina?
 
-Antwoord: De titel, beschrijving en het bijschrift van de
-knoppen van elk punt. De positie van een punt op het beeld en het doel
-als een link ongewijzigd blijft — dit zijn geen talen, en het doel zou zijn
-Een vertaling vernietigt alleen het adres. 
+Antwoord: De titel, de beschrijving en de tekst op de
+knop van elk punt worden vertaald. De positie van een punt op de afbeelding en de bestemming
+van een link blijven ongewijzigd — dat zijn geen taalelementen, en wat de bestemming betreft zou
+een vertaling het adres alleen maar onleesbaar maken.
 
-**Vraag:** Waarom verschijnt de gekoppelde pagina soms leeg in het venster, 
-Ook al verwijst de link naar een pagina uit de lijst? 
+**Vraag:** Waarom verschijnt de gelinkte pagina soms leeg in het venster,
+hoewel de link naar een pagina uit de lijst verwijst?
 
-Antwoord: Embedding kan ook falen met pagina's uit je eigen systeem, 
-bijvoorbeeld als de doelpagina zelf technisch gezien embedding verhindert. Gebruik
-in dit geval de link "Openen in nieuw tabblad" bovenaan het venster — precies
-Daar staat hij voor. 
+Antwoord: Ook bij pagina’s uit het eigen systeem kan het insluiten mislukken,
+bijvoorbeeld wanneer de doelpagina zelf het insluiten technisch verhindert. Gebruik
+in dat geval de link „In nieuw tabblad openen“ bovenaan het venster — daar
+is hij precies voor bedoeld.
 
-**Vraag:** Mag ik meer dan 20 punten op een afbeelding zetten? 
+**Vraag:** Kan ik meer dan 20 markeringen op een afbeelding plaatsen?
 
-Antwoord: Nee. Vanaf 20 punten overlappen de markeringen elkaar en de markeringen
-de lijst naast de afbeelding zou langer zijn dan de afbeelding zelf. De editor
-Probeer een 21e punt te zetten.
+Antwoord: Nee. Vanaf 20 punten overlappen de markeringen elkaar, en de
+lijst naast de afbeelding zou langer worden dan de afbeelding zelf. De editor geeft hierop een melding
+wanneer je probeert een 21e punt te plaatsen.
+
+**Vraag:** Ik heb in de modus „Menu“ een menu-item hernoemd. Moet ik de
+widget aanpassen?
+
+Antwoord: Nee. Er wordt alleen opgeslagen welk menu-item waar op de afbeelding staat.
+Titel en bestemming worden bij elke oproep opnieuw uit het menu gehaald — de nieuwe naam
+verschijnt onmiddellijk.
+
+**Vraag:** Waarom zien sommige collega’s minder punten dan ik?
+
+Antwoord: In de modus „Menu“ ziet iedereen alleen de punten bij menu-items die hij
+of zij ook in het menu van de app mag zien. Dat is zo bedoeld: een punt mag
+niet naar een pagina leiden die vervolgens niet kan worden geopend.
+
+**Vraag:** Raak ik mijn punten kwijt als ik wissel tussen „Handmatig“ en „Menu“
+?
+
+Antwoord: Nee. Beide modi slaan hun punten apart op. Wie terugschakelt,
+vindt de punten van de andere modus ongewijzigd terug.
+
+**Vraag:** Waarom verschijnt een menu-item niet naast de afbeelding in het menu, hoewel
+het wel bestaat?
+
+Antwoord: Ofwel is het in het menu van de app ingesteld op „Niet zichtbaar“, ofwel
+ligt het dieper dan ingesteld onder **Niveaus**. In het eerste geval blijft het
+ook hier verborgen; in het tweede geval verhoogt u het aantal niveaus.

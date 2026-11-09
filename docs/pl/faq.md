@@ -1,64 +1,89 @@
 # FAQ
 
-**Pytanie:** Ustaliłem okres, ale nie możesz "aplikować"
-guzik. 
+**Pytanie:** Ustawiłem punkt, ale nie mogę
+kliknąć przycisku „Zastosuj”.
 
-Odpowiedź: Przynajmniej jeden punkt nie ma jeszcze tytułu. Punkt bez tytułu
-zostaje utracony przy aplikacji — dlatego przycisk pozostaje zablokowany, dopóki wszyscy nie będą
-Punkt ma tytuł. Okno na dole wskazuje, ile punktów jest dotkniętych
-, a to samo powiadomienie jest zapisane na samym dotkniętym polu. 
+Odpowiedź: Co najmniej jeden punkt nie ma jeszcze tytułu. Punkt bez tytułu
+zostałby utracony podczas zatwierdzania — dlatego przycisk pozostaje zablokowany, dopóki każdy
+punkt nie otrzyma tytułu. W dolnej części okna podana jest liczba punktów, których to dotyczy,
+a ta sama informacja pojawia się przy samym polu.
 
-**Pytanie:** Widżet nic nie pokazuje na stronie. 
+**Pytanie:** Widżet nie wyświetla nic na stronie.
 
-Odpowiedź: Albo zdjęcie brakuje, albo jeszcze nie ustawiono kropki. W
-W obu przypadkach powierzchnia jest celowo pozostawiona pusta zamiast pustej ramy lub
-aby wyświetlić obraz tymczasowy. Otwórz Ustawienia i zaznacz
-Oba te rzeczy. 
+Odpowiedź: Albo brakuje obrazka, albo nie dodano jeszcze żadnego punktu. W
+obu przypadkach obszar ten pozostaje celowo pusty, zamiast wyświetlać pustą ramkę lub
+obrazek zastępczy. Otwórz ustawienia i sprawdź
+obie te rzeczy.
 
 **Pytanie:** Dlaczego jeden link otwiera okno nad stroną, a inny
-Nowa karta? 
+nową kartę?
 
-Odpowiedź: To zależy od tego, skąd pochodzi cel. Strona ** z
-List** systemu pojawia się w oknie powyżej bieżącej strony. A
-**Z kolei adres wpisany przez siebie** zawsze otwiera nową kartę. The
-Powód jest taki: strony zagraniczne często nie mogą być technicznie osadzone w oknie
-— zablokowane okno po prostu pozostawałoby puste bez wysyłania komunikatu o błędzie.
-. Nowa zakładka jest więc niezawodnym sposobem na wszystko poza
-System. 
+Odpowiedź: Zależy to od tego, skąd pochodzi adres docelowy. **Strona z
+listy** systemu pojawia się w oknie nad bieżącą stroną. Natomiast
+**adres wpisany samodzielnie** otwiera natomiast zawsze nową kartę.
+Powód: strony zewnętrzne często nie mogą być technicznie osadzone w oknie
+— zablokowane okno pozostałoby wtedy po prostu puste, bez wyświetlania komunikatu o błędzie.
+Nowa karta jest zatem niezawodnym rozwiązaniem dla wszystkiego, co znajduje się poza
+systemem.
 
-**Pytanie:** Na liście stron nie ma jednej strony, lecz
-Pole na adres. 
+**Pytanie:** Na liście stron nie ma ani jednej strony, tylko
+pole na adres.
 
-Odpowiedź: Lista stron systemu nie była dostępna po otwarciu. A
-Tekst uwagi zwraca na to uwagę. W takim przypadku wpisz adres
-Ręka, albo zamknij okno i otwórz je ponownie. 
+Odpowiedź: Lista stron systemu była niedostępna podczas otwierania.
+Informuje o tym tekst ostrzegawczy. W takim przypadku należy ręcznie
+wpisać adres lub zamknąć okno i otworzyć je ponownie.
 
-**Pytanie:** Dodałem link do strony, ale gdy próbuję ponownie
-Otwórz się, jest notatka, że zapisana strona nie znajduje się na liście
-. 
+**Pytanie:** Umieściłem link do strony, ale po ponownym
+otwarciu pojawia się komunikat, że zapisana strona nie znajduje się na liście
+.
 
-Odpowiedź: Linkowana strona prawdopodobnie została usunięta lub już nie jest
-. Poprzedni link pozostanie na miejscu, dopóki sam go nie wprowadzisz.
-— samo otwarcie okna nie usuwa go. 
+Odpowiedź: Strona, do której prowadzi link, została prawdopodobnie usunięta lub nie jest już
+dostępna. Dotychczasowy link pozostaje aktywny, dopóki sam go
+nie zmienisz lub nie usuniesz — samo otwarcie okna nie powoduje jego usunięcia.
 
-**Pytanie:** Co dzieje się z punktami podczas automatycznego tłumaczenia
-Bok? 
+**Pytanie:** Co dzieje się z elementami podczas automatycznego tłumaczenia
+strony?
 
-Odpowiedź: Tytuł, opis i podpis
-przyciski każdego punktu. Pozycja punktu na obrazie i celu
-jeśli link pozostanie niezmieniony — to nie są języki, a celem byłby
-tłumaczenie tylko niszczy adres. 
+Odpowiedź: Tłumaczone są tytuł, opis oraz etykieta
+przycisku każdego punktu. Położenie punktu na obrazku oraz miejsce docelowe
+linku pozostają niezmienione — nie są to elementy językowe, a w przypadku miejsca docelowego
+tłumaczenie tylko zniszczyłoby adres.
 
-**Pytanie:** Dlaczego linkowana strona czasami wydaje się pusta w oknie, 
-Mimo że link wskazuje na stronę z listy? 
+**Pytanie:** Dlaczego strona, do której prowadzi link, czasami wyświetla się w oknie jako pusta,
+chociaż link wskazuje stronę z listy?
 
-Odpowiedź: Osadzanie może również zawiódć przy stronach z twojego własnego systemu, 
-na przykład, jeśli sama strona docelowa technicznie uniemożliwia osadzanie. Zastosowanie
-w tym przypadku jest to link "Otwórz w nowej karcie" na początku okna — dokładnie
-To właśnie tam reprezentuje. 
+Odpowiedź: Nawet w przypadku stron z własnego systemu osadzanie może się nie powieść,
+na przykład gdy sama strona docelowa technicznie uniemożliwia osadzanie. W takim
+przypadku należy skorzystać z linku „Otwórz w nowej karcie” w nagłówku okna — właśnie
+po to tam się znajduje.
 
-**Pytanie:** Czy mogę dodać więcej niż 20 punktów na obraz? 
+**Pytanie:** Czy mogę umieścić więcej niż 20 punktów na obrazku?
 
-Odpowiedź: Nie. Z 20 punktów znaczniki nakładają się na siebie, a znaczniki
-lista obok obrazu byłaby dłuższa niż sam obraz. Edytor
-Próba uzyskania 21. punktu.
+Odpowiedź: Nie. Od 20 punktów znaczniki nakładają się na siebie, a
+lista obok obrazka stałaby się dłuższa niż sam obrazek. Edytor wyświetla odpowiednie
+ostrzeżenie przy próbie umieszczenia 21. punktu.
+
+**Pytanie:** W trybie „Menu” zmieniłem nazwę pozycji menu. Czy muszę
+dostosować widżet?
+
+Odpowiedź: Nie. Zapisywane jest jedynie to, gdzie na obrazku znajduje się dana pozycja menu.
+Tytuł i miejsce docelowe są pobierane na bieżąco z menu przy każdym wywołaniu — nowa nazwa
+pojawia się natychmiast.
+
+**Pytanie:** Dlaczego niektórzy koledzy i koleżanki widzą mniej punktów niż ja?
+
+Odpowiedź: W trybie „Menu” każdy widzi tylko te punkty, które
+ma uprawnienia do wyświetlania w menu aplikacji. Tak zostało zaprojektowane: punkt nie powinien
+prowadzić do strony, której nie da się otworzyć.
+
+**Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznym” a „Menu”?
+
+Odpowiedź: Nie. Oba tryby zapisują punkty oddzielnie. Kto przełączy się z powrotem,
+znajdzie punkty z drugiego trybu w niezmienionym stanie.
+
+**Pytanie:** Dlaczego pozycja menu nie pojawia się w menu obok obrazka, mimo że
+istnieje?
+
+Odpowiedź: Albo jest on ustawiony w menu aplikacji na „Niewidoczny”, albo
+znajduje się niżej niż ustawiono w opcji **Poziomy**. W pierwszym przypadku pozostaje
+on ukryty również tutaj; w drugim należy zwiększyć liczbę poziomów.

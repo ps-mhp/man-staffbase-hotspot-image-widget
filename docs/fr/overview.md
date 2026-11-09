@@ -1,45 +1,75 @@
 # Image avec des points
 
-Ce widget affiche une image sur laquelle les chiffres individuels sont affichés sous forme de **points** 
-— par exemple, les stations sur un plan d’aperçu, les personnes sur un
-Photo de groupe ou composantes sur un croquis. Chaque point a un titre, 
-soit une description, soit un lien vers une page. 
+Ce widget affiche une image sur laquelle certains endroits sont marqués par des **points**
+— par exemple, des stations sur un plan d'ensemble, des personnes sur une
+photo de groupe ou des éléments sur un croquis. Chaque point est associé à un titre,
+éventuellement à une description et, au choix, à un lien vers une page.
 
-Tous les points sont maintenus dans la même fenêtre qui apparaît lorsque le
-Paramètres en soi : sélectionner l’image, cliquer sur l’image pour voir un
-point final, entrez le titre et les autres informations. 
+Tous les points sont gérés dans la même fenêtre, qui s'affiche automatiquement à l'ouverture des
+paramètres : sélectionnez une image, cliquez dans l'image pour placer un
+point, puis saisissez le titre et les autres informations.
 
-## Les deux représentations
+## Deux modes
 
-Dans **Présentation**, vous pouvez choisir parmi deux variantes : 
+Sous **Mode**, vous pouvez choisir d’où proviennent les points :
 
-- **Numéroté, avec une liste à côté de l’image** — chaque point a un numéro, et
-  À côté de l’image se trouve une liste pliante de tous les titres. Cliquez sur
-  un point ou l’entrée de liste correspondante ouvre son texte. 
-  Utile à partir d’environ cinq points et partout où les lecteurs lisent les titres
-  sans chercher sur la photo. 
-- **Points, sans liste** — les points apparaissent sans chiffre, et il n’y a pas
-  Liste à côté. Cliquer sur un point ouvre directement une petite fenêtre
-  à côté avec le titre, la description et le lien. Utile pour quelques points et
-  si la photo devait tenir debout toute seule sans liste à côté. 
+- **Manuel** — chaque point reçoit son propre titre, une description
+  et, si vous le souhaitez, un lien. Comme auparavant.
+- **Menu** — vous sélectionnez un élément du menu de l’application. Celui-ci et ses
+  sous-éléments peuvent être placés individuellement sous forme de points sur l’image. Les titres
+  et les destinations proviennent directement du menu : si un élément du menu est renommé,
+  son point change immédiatement de nom. À côté de l’image se trouve le menu permettant de faire défiler les éléments.
 
-## Ce que voient les lecteurs
+Les éléments de l’autre mode sont conservés lors du changement de mode.
 
-- Sans image ou sans au moins un point, le widget n’affiche rien du tout — 
-  Pas de cadre vide, pas d’image provisoire. 
-- Dans la vue « Points », la fenêtre où le texte se trouve au point s’ouvre
-  lui-même ; sur des écrans étroits (moins de 768 pixels de large), il apparaît
-  au lieu de cela, au centre de l’écran, avec un sombrement derrière. 
-- Dans la vue « Numérotée », le point correspondant de l’image est affiché
-  dès que le pointeur de la souris est survolé sur un élément de la liste ou un
-  L’entrée est élargie : elle grandit, les autres points s’éloignent. 
-  Sur des écrans étroits, les points apparaissent petits et sans nombre, de sorte que
-  ils ne se chevauchent pas en beaucoup d’endroits ; quel point à quoi
-  Entrée, montre le tapotement dans la liste. 
-- Si un point mène à une page du système, un bouton apparaît en dessous. 
-  Cliquer dessus ouvre la page dans une fenêtre au-dessus de la page actuelle ; 
-  Pour une adresse saisie soi-même, le même bouton s’ouvre à la place
-  Un nouvel onglet. 
-- Le fonctionnement fonctionne aussi sans souris : avec la touche Tab, vous pouvez
-  saute d’un point à l’autre, ouvre avec la touche Entrée, avec Échap
-  Presque.
+## Les deux affichages en mode « Manuel »
+
+Sous **Affichage**, vous avez le choix entre deux variantes :
+
+- **Numéroté, avec une liste à côté de l’image** — chaque point porte un numéro, et
+  à côté de l’image se trouve une liste déroulante contenant tous les titres. Un clic sur
+  un élément ou sur l’entrée correspondante de la liste fait apparaître son texte.
+  Utile à partir d’environ cinq éléments et partout où les lecteurs doivent pouvoir voir les titres
+  sans avoir à les chercher dans l’image.
+- **Points, sans liste** — les points apparaissent sans numéro, et il n’y a pas de
+  liste à côté. Un clic sur un point ouvre une petite fenêtre juste
+  à côté, contenant le titre, la description et le lien. Utile lorsqu’il y a peu de puces et
+  lorsque l’image doit parler d’elle-même, sans qu’une liste ne s’affiche immédiatement à côté.
+
+## Ce que voient les lectrices et lecteurs
+
+- Sans image ou sans au moins une puce, le widget n’affiche rien du tout —
+  ni cadre vide, ni image de remplacement.
+- Dans l’affichage « Points », la fenêtre contenant le texte s’ouvre au niveau du point
+  lui-même ; sur les écrans étroits (moins de 768 pixels de large), elle apparaît
+  à la place au centre de l’écran, avec un fond assombri.
+- Dans l’affichage « Numéroté », le point correspondant est mis en évidence dans l’image
+  dès que le curseur de la souris survole une entrée de la liste ou qu’une
+  entrée est déployée : il s’agrandit, tandis que les autres points s’estompent.
+  Sur les écrans étroits, les points apparaissent petits et sans numéro, afin qu’
+ils ne se chevauchent pas, même lorsqu’il y en a beaucoup ; pour savoir quel point correspond à quelle
+entrée, il suffit de le toucher dans la liste.
+- Si un point renvoie vers une page du système, un bouton apparaît en dessous.
+  Un clic dessus ouvre la page dans une fenêtre au-dessus de la page actuelle ;
+  si l’adresse a été saisie manuellement, ce même bouton ouvre à la place
+  un nouvel onglet.
+- L’utilisation est également possible sans souris : la touche Tab permet de
+  passer d’un point à l’autre, la touche Entrée d’ouvrir, et la touche Échap
+  de fermer.
+
+## Ce que voient les lectrices et lecteurs en mode « Menu »
+
+- À gauche, l’image avec des points rouges sans chiffre ; à droite, le menu —
+  sur les écrans étroits, celui-ci apparaît en dessous. Le menu affiche un niveau à la fois : une
+  flèche permet de descendre d’un niveau, le bouton « Retour » en haut permet de remonter ; sur
+  un téléphone, un balayage vers la droite permet également de remonter.
+- Lorsque le curseur de la souris se trouve sur un point, le nom de l’élément de menu s’affiche,
+  et l’entrée correspondante est mise en surbrillance dans le menu. Si l’entrée se trouve un
+  niveau plus bas, c’est l’entrée située en dessous qui est mise en surbrillance.
+- Lorsque le curseur de la souris se trouve sur une entrée du menu, les options de cette
+  entrée et de toutes ses sous-options sont mises en surbrillance.
+- Un clic sur une option ouvre la page correspondante — ou, selon les
+  paramètres, fait défiler le menu jusqu’à celle-ci. Les éléments de menu qui ne sont que des dossiers sans
+  page propre sont toujours affichés dans le menu.
+- Chacun ne voit que les éléments correspondant aux options de menu qu’il ou elle voit également dans le menu de l’
+  application. Les éléments masqués dans le menu n’apparaissent pas.

@@ -1,64 +1,90 @@
 # FAQ
 
-**Question :** J’ai fixé une période, mais tu ne peux pas « postuler »
-bouton. 
+**Question :** J'ai ajouté un point, mais je ne peux pas cliquer sur « Appliquer »
+.
 
-Réponse : Au moins un point n’a pas encore de titre. Un point sans titre
-serait perdu lors de la demande — c’est pourquoi le bouton reste verrouillé jusqu’à ce que tout le monde soit verrouillé
-Le point a un titre. La fenêtre en bas indique combien de points sont affectés
-, et le même avis est écrit sur le champ concerné lui-même. 
+Réponse : Au moins un point n'a pas encore de titre. Un point sans titre
+serait perdu lors de la validation — c’est pourquoi le bouton reste désactivé jusqu’à ce que chaque
+point porte un titre. La fenêtre indique en bas le nombre de points concernés
+et la même remarque apparaît dans le champ concerné.
 
-**Question :** Le widget n’affiche rien sur la page. 
+**Question :** Le widget n’affiche rien du tout sur la page.
 
-Réponse : Soit l’image manque, soit aucun point n’a encore été posé. En
-Dans les deux cas, la surface est délibérément laissée vide au lieu d’un référentiel vide ou
-pour afficher une image de placeholder. Ouvre les paramètres et coche
-Les deux. 
+Réponse : Soit l’image manque, soit aucun élément n’a encore été défini. Dans
+les deux cas, la zone reste volontairement vide, au lieu d’afficher un cadre vide ou
+une image de remplacement. Ouvrez les paramètres et vérifiez
+ces deux points.
 
-**Question :** Pourquoi un lien ouvre-t-il une fenêtre au-dessus de la page, mais un autre
-Un nouvel onglet ? 
+**Question :** Pourquoi un lien ouvre-t-il une fenêtre par-dessus la page, tandis qu’un autre
+ouvre un nouvel onglet ?
 
-Réponse : Cela dépend d’où vient la cible. Une page ** de la
-La liste** du système apparaît dans une fenêtre au-dessus de la page actuelle. A
-**adresse saisie par soi-même**, en revanche, ouvre toujours un nouvel onglet. Le
-La raison : les pages étrangères ne peuvent souvent pas être techniquement intégrées dans une fenêtre
-— une fenêtre bloquée resterait alors simplement vide sans envoyer de message d’erreur.
-. Le nouvel onglet est donc le moyen fiable pour tout ce qui est en dehors de la
-Système. 
+Réponse : Cela dépend de l’origine de la destination. Une **page figurant dans la
+liste** du système s’affiche dans une fenêtre par-dessus la page actuelle. Une
+**adresse saisie manuellement** ouvre en revanche toujours un nouvel onglet. La
+raison : les pages externes ne peuvent souvent pas, d’un point de vue technique, être intégrées dans une fenêtre
+— une fenêtre bloquée resterait alors simplement vide, sans afficher de message d’erreur
+. Le nouvel onglet est donc la solution la plus fiable pour tout ce qui se trouve en dehors du
+système.
 
-**Question :** Dans la liste des pages, il n’y a pas une seule page, mais une
-Champ pour une adresse. 
+**Question :** La liste des pages ne contient aucune page, mais un
+champ destiné à l’adresse.
 
-Réponse : La liste des pages du système n’était pas accessible à son ouverture. A
-Note que le texte attire l’attention sur ce point. Dans ce cas, entrez l’adresse de
-Main, ou ferme la fenêtre et rouvre-la. 
+Réponse : La liste des pages du système n’était pas accessible à l’ouverture. Un
+message d’avertissement le signale. Dans ce cas, saisissez l’adresse
+manuellement, ou fermez la fenêtre et rouvrez-la.
 
-**Question :** J’ai mis un lien vers une page, mais quand je réessaie
-ouvert, il y a une note indiquant que la page sauvegardée n’est pas dans la liste
-. 
+**Question :** J’ai créé un lien vers une page, mais lorsque je la
+rouvre, un message indique que la page enregistrée ne figure pas dans la liste
+.
 
-Réponse : La page liée a probablement été supprimée ou ne l’est plus
-. Le lien précédent restera jusqu’à ce que vous l’entriez vous-même.
-— il suffit d’ouvrir la fenêtre pour ne pas la supprevoir. 
+Réponse : La page liée a probablement été supprimée ou n’est plus
+accessible. Le lien existant reste en place jusqu’à ce que vous le
+modifiiez ou le supprimiez vous-même — le simple fait d’ouvrir la fenêtre ne le supprime pas.
 
-**Question :** Que se passe-t-il avec les points lors de la traduction automatique de la
-Côté ? 
+**Question :** Qu’advient-il des points lors de la traduction automatique de la
+page ?
 
-Réponse : Le titre, la description et la légende du
-les boutons de chaque point. La position d’un point sur l’image et la cible
-d’un lien reste inchangé — ce ne sont pas des langues, et la cible serait
-une traduction ne fait que détruire l’adresse. 
+Réponse : Le titre, la description et le libellé du
+bouton de chaque point sont traduits. La position d’un point sur l’image ainsi que la destination
+d’un lien restent inchangées — ce ne sont pas des éléments linguistiques, et pour la destination,
+une traduction ne ferait que corrompre l’adresse.
 
-**Question :** Pourquoi la page liée apparaît-elle parfois vide dans la fenêtre, 
-Même si le lien pointe vers une page de la liste ? 
+**Question :** Pourquoi la page vers laquelle pointe le lien apparaît-elle parfois vide dans la fenêtre,
+alors que le lien renvoie vers une page de la liste ?
 
-Réponse : L’intégration peut aussi échouer avec les pages de votre propre système, 
-par exemple, si la page cible elle-même empêche techniquement l’intégration. Utilisation
-dans ce cas, le lien « Ouvrir dans un nouvel onglet » en haut de la fenêtre — exactement
-C’est ce qu’il représente là-bas. 
+Réponse : Même pour les pages issues de votre propre système, l’intégration peut échouer,
+par exemple si la page de destination empêche techniquement cette intégration. Dans ce cas,
+utilisez le lien « Ouvrir dans un nouvel onglet » en haut de la fenêtre — c’est précisément
+pour cela qu’il se trouve là.
 
-**Question :** Puis-je mettre plus de 20 points sur une image ? 
+**Question :** Puis-je placer plus de 20 marqueurs sur une image ?
 
-Réponse : Non. À partir de 20 points, les repères se chevauchent, et les repères
-La liste à côté de l’image serait plus longue que l’image elle-même. L’éditeur
-Tente de fixer un 21e point.
+Réponse : Non. À partir de 20 points, les marqueurs se chevauchent, et la
+liste à côté de l’image deviendrait plus longue que l’image elle-même. L’éditeur vous le signale lorsque
+vous essayez de placer un 21e point.
+
+**Question :** J’ai renommé un élément de menu en mode « Menu ». Dois-je
+adapter le widget ?
+
+Réponse : Non. Seule la position de chaque élément de menu sur l’image est enregistrée.
+Le titre et la destination sont récupérés à chaque ouverture directement depuis le menu — le nouveau nom
+apparaît immédiatement.
+
+**Question :** Pourquoi certains collègues voient-ils moins de points que moi ?
+
+Réponse : En mode « Menu », chacun ne voit que les points correspondant aux éléments de menu auxquels il
+ou elle a accès dans le menu de l’application. C’est voulu : un point ne doit
+pas mener vers une page qui ne pourrait ensuite pas s’ouvrir.
+
+**Question :** Est-ce que je perds mes points lorsque je passe du mode « Manuel » au mode « Menu »
+?
+
+Réponse : Non. Les deux modes enregistrent leurs points séparément. Si vous revenez en arrière,
+vous retrouverez les points de l’autre mode inchangés.
+
+**Question :** Pourquoi un élément du menu n’apparaît-il pas à côté de l’image dans le menu, alors qu’
+il existe ?
+
+Réponse : Soit il est réglé sur « Non visible » dans le menu de l’application, soit
+il se trouve à un niveau inférieur à celui défini sous **Niveaux**. Dans le premier cas, il reste
+également masqué ici ; dans le second, augmentez le nombre de niveaux.

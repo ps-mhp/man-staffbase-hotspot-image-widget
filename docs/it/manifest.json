@@ -1,6 +1,6 @@
 {
-  "title": "Immagine con i puntini",
-  "summary": "Un'immagine con punti cliccabili: un titolo, una descrizione e, se desiderato, una pagina collegata per ogni punto.",
+  "title": "Immagine con puntini",
+  "summary": "Un'immagine con punti cliccabili: per ogni punto, un titolo, una descrizione e, se lo si desidera, una pagina collegata.",
   "icon": "📍",
   "pages": [
     {
@@ -26,7 +26,7 @@
   ],
   "examples": [
     {
-      "title": "Numerata, con la lista accanto all'immagine",
+      "title": "Numerati, con un elenco accanto all'immagine",
       "attributes": {
         "display-mode": "numbered"
       },
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "title": "Solo punti, senza lista",
+      "title": "Solo punti, senza elenco",
       "attributes": {
         "display-mode": "dots"
       },

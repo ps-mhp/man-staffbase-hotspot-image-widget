@@ -1,45 +1,75 @@
 # Imagen con puntos
 
-Este widget muestra una imagen en la que los dígitos individuales se muestran como **puntos** 
-— por ejemplo, estaciones en un plan de visión general, personas en un
-Foto de grupo o componentes en un boceto. Cada punto tiene un título, 
-O bien una descripción y, opcionalmente, un enlace a una página. 
+Este widget muestra una imagen en la que se marcan determinados puntos como **puntos**
+—por ejemplo, paradas en un plano general, personas en una
+foto de grupo o componentes en un boceto—. Cada punto incluye un título,
+opcionalmente una descripción y, si se desea, un enlace a una página.
 
-Todos los puntos se mantienen en la misma ventana que aparece cuando el
-Configuración por separado: selecciona imagen, haz clic en la imagen para ver una
-punto, introduce el título y la otra información. 
+Todos los puntos se gestionan en la misma ventana, que aparece automáticamente al abrir la
+configuración: selecciona una imagen, haz clic en ella para colocar un
+punto e introduce el título y el resto de datos.
 
-## Las dos representaciones
+## Dos modos
 
-En **Presentación** puedes elegir entre una de dos variantes: 
+En **Modo** se puede elegir de dónde proceden los puntos:
 
-- **Numerado, con la lista junto a la imagen** — cada punto tiene un número, y
-  Junto a la imagen hay una lista desplegable de todos los títulos. Haz clic en
-  un punto o la entrada correspondiente de la lista abre su texto. 
-  Útil desde unos cinco puntos y donde los lectores lean los títulos
-  sin buscar en la foto. 
-- **Puntos, sin lista** — los puntos aparecen sin número, y no hay
-  Lista al lado. Al hacer clic en un punto se abre una pequeña ventana directamente
-  Al lado con título, descripción y enlace. Útil para algunos puntos y
-  si la imagen debería sostenerse por sí sola sin una lista al lado. 
+- **Manual**: cada punto recibe su propio título, una descripción
+  y, si se desea, un enlace. Igual que hasta ahora.
+- **Menú**: seleccionas una opción del menú de la aplicación. Tanto esta como sus
+  subopciones se pueden colocar individualmente como puntos en la imagen. Los títulos
+  y los destinos provienen directamente del menú: si se cambia el nombre de una opción del menú,
+  su punto también cambia de nombre inmediatamente. Junto a la imagen aparece el menú para desplazarse.
+
+Los puntos del otro modo se conservan al cambiar de uno a otro.
+
+## Las dos formas de visualización en el modo «Manual»
+
+En **Visualización** se puede elegir entre dos variantes:
+
+- **Numerada, con lista junto a la imagen** — cada punto lleva un número y,
+  junto a la imagen, hay una lista desplegable con todos los títulos. Al hacer clic en
+  un elemento o en la entrada correspondiente de la lista, se despliega su texto.
+  Resulta útil a partir de unos cinco elementos y en todos aquellos casos en los que se quiera que los lectores vean los títulos
+  sin tener que buscarlos en la imagen.
+- **Puntos, sin lista**: los puntos aparecen sin número y no hay
+  ninguna lista al lado. Al hacer clic en un punto, se abre una pequeña ventana justo
+  al lado con el título, la descripción y el enlace. Resulta útil cuando hay pocos puntos y
+  cuando se quiere que la imagen hable por sí misma, sin que aparezca una lista junto a ella.
 
 ## Lo que ven los lectores
 
-- Sin imagen o sin al menos un punto, el widget no muestra nada en absoluto — 
-  No hay fotograma vacío, ni imagen provisional. 
-- En la vista "Puntos", se abre la ventana con el texto en ese punto
-  en sí mismo; en pantallas estrechas (menos de 768 píxeles de ancho) aparece
-  en su lugar, en el centro de la pantalla, con un oscurecimiento detrás. 
-- En la vista "Numerada", se muestra el punto correspondiente en la imagen
-  tan pronto como el puntero del ratón se coloca sobre un elemento de la lista o un
-  La entrada se amplía: se hace más grande, los otros puntos retroceden. 
-  En pantallas estrechas, los puntos aparecen pequeños y sin número, de modo que
-  no se solapan en muchos lugares; en qué punto
-  Entrada, muestra el toque en la lista. 
-- Si un punto conduce a una página del sistema, aparece un botón debajo. 
-  Al hacer clic en él, se abre la página en una ventana sobre la página actual; 
-  Para una dirección que has ingresado tú mismo, se abre el mismo botón en su lugar
-  Una nueva pestaña. 
-- La operación también funciona sin ratón: con la tecla Tab puedes
-  salta de un punto a otro, abre con la tecla enter, con Escape
-  casi.
+- Sin imagen o sin al menos un punto, el widget no muestra nada:
+  ni un marco vacío, ni una imagen de relleno.
+- En el modo de visualización «Puntos», la ventana con el texto se abre en el propio punto;
+  en pantallas estrechas (de menos de 768 píxeles de ancho), aparece
+  en cambio centrada en la pantalla, con un fondo oscurecido detrás.
+- En el modo «Numerado», el punto correspondiente se resalta en la imagen
+  en cuanto el cursor se sitúa sobre una entrada de la lista o se
+  despliega una entrada: se hace más grande y los demás puntos pasan a un segundo plano.
+  En pantallas estrechas, los puntos aparecen pequeños y sin número, para que
+  no se superpongan incluso cuando haya muchas entradas; al pulsar en la lista se muestra a qué
+  entrada pertenece cada punto.
+- Si un punto conduce a una página del sistema, aparece un botón debajo.
+  Al hacer clic en él, la página se abre en una ventana sobre la página actual;
+  si se ha introducido una dirección manualmente, ese mismo botón abre, en su lugar,
+  una nueva pestaña.
+- El manejo también funciona sin ratón: con la tecla de tabulación se puede
+  saltar de un punto a otro, con la tecla Intro se abre y con Esc
+  se cierra.
+
+## Lo que ven los lectores y lectoras en el modo «Menú»
+
+- A la izquierda, la imagen con puntos rojos sin número; a la derecha, el menú —en
+  pantallas estrechas, debajo—. El menú muestra un nivel cada vez: una
+  flecha lleva al nivel inferior, el botón «Atrás» de la parte superior vuelve al nivel anterior; en el
+  teléfono, también se puede deslizar hacia la derecha.
+- Si el cursor del ratón se sitúa sobre un punto, aparece el nombre de la opción del menú,
+  y en el menú se resalta la entrada correspondiente. Si la entrada se encuentra un
+  nivel más abajo, se resalta la entrada situada debajo de ella.
+- Si el cursor del ratón se sitúa sobre una entrada del menú, se resaltan los elementos de dicha
+  entrada y de todos sus subelementos.
+- Al hacer clic en un elemento, se abre la página de esa opción del menú o, según la
+  configuración, el menú se desplaza hasta ella. Las opciones de menú que son solo carpetas sin
+  página propia se muestran siempre en el menú.
+- Cada usuario solo ve las opciones correspondientes a las entradas del menú que también ve en el menú de la
+  aplicación. Las entradas ocultas en el menú no aparecen.

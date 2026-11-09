@@ -1,6 +1,6 @@
 {
   "title": "Image avec des points",
-  "summary": "Une image avec des points cliquables : un titre, une description et, si désiré, une page liée pour chaque point.",
+  "summary": "Une image comportant des points cliquables : pour chaque point, un titre, une description et, si vous le souhaitez, un lien vers une page.",
   "icon": "📍",
   "pages": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "id": "settings",
-      "title": "Décors",
+      "title": "Paramètres",
       "file": "settings.md"
     },
     {
@@ -26,7 +26,7 @@
   ],
   "examples": [
     {
-      "title": "Numérotée, avec une liste à côté de l’image",
+      "title": "Numérotés, avec une liste à côté de l'image",
       "attributes": {
         "display-mode": "numbered"
       },
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "title": "Seulement des points, sans liste",
+      "title": "Uniquement des points, sans liste",
       "attributes": {
         "display-mode": "dots"
       },
