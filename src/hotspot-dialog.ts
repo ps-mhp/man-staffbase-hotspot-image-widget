@@ -59,7 +59,7 @@ export function startHotspotDialog(): () => void {
     reopenTestId: "hotspot-editor-reopen",
     panelClassName: "max-w-[1080px]",
   });
-  const stopHiding = startHiddenFields(LEGACY_ATTRIBUTES);
+  const stopHiding = startHiddenFields(LEGACY_ATTRIBUTES, CONFIG_ATTRIBUTE);
   return () => {
     stopModal();
     stopHiding();
