@@ -174,23 +174,16 @@ function useLevelUpdate(update: ModeEditorProps["update"]) {
     }));
 }
 
-function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startPoint }: InnerProps & { tree: MenuTree }): ReactElement {
-  const media = useEditorMedia();
+/**
+ * Was gezeigt und was gewählt ist: die Ebene auf der Bühne und das Ziel des
+ * nächsten Klicks (ein Eintrag oder ein verwaister Punkt). Ein Eintrag mit
+ * Unterpunkten zeigt seine Ebene, einer ohne wird Ziel auf der Ebene darüber.
+ */
+function useMenuSelection(tree: MenuTree) {
   const rootId = tree.root.entry.id;
   const [levelId, setLevelId] = useState(rootId);
   const [targetId, setTargetId] = useState<string | null>(null);
   const [full, setFull] = useState(false);
-  const setLevel = useLevelUpdate(update);
-
-  const layout = config.menu.layout;
-  const shownId = tree.index.has(levelId) ? levelId : rootId;
-  const levelNode = tree.index.get(shownId)?.node ?? tree.root;
-  const isRoot = shownId === rootId;
-  const level = levelLayout(layout, shownId);
-  const image = ownLevelImage(tree, layout, config.image, shownId);
-  const orphan = targetId === null ? null : parseOrphanKey(targetId);
-  const target = targetId === null || orphan !== null ? null : (tree.index.get(targetId)?.node ?? null);
-  const targetPoint = target === null ? null : (level.points.find((point) => point.menuId === target.entry.id) ?? null);
 
   const show = (nextLevel: string, nextTarget: string | null): void => {
     setLevelId(nextLevel);
@@ -205,21 +198,49 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
     if (id === rootId || node.children.length > 0) return show(id, null);
     show(parentOf(tree, id) ?? rootId, id);
   };
+  // Verschwindet die Ebene aus dem Baum, steht wieder die Startebene da.
+  const shownId = tree.index.has(levelId) ? levelId : rootId;
+  return { shownId, targetId, setTargetId, full, setFull, show, select };
+}
 
-  const setLevelImage = (id: string, next: HotspotImage | null): void => {
+/** Bild einer Ebene setzen und aus der Mediathek wählen – oben das Bild der Konfiguration. */
+function useLevelImage(tree: MenuTree, update: ModeEditorProps["update"]) {
+  const rootId = tree.root.entry.id;
+  const setLevel = useLevelUpdate(update);
+  const change = (id: string, next: (image: HotspotImage | null) => HotspotImage | null): void => {
     if (id === rootId) {
-      update((current) => ({ ...current, image: next }));
+      update((current) => ({ ...current, image: next(current.image) }));
       return;
     }
-    setLevel(id, (current) => (next === null ? { points: current.points } : { ...current, image: next }));
+    setLevel(id, (current) => {
+      const image = next(current.image ?? null);
+      return image === null ? { points: current.points } : { ...current, image };
+    });
   };
-  const pickLevelImage = (id: string) => (picked: PickedMedia): void => {
-    if (id === rootId) {
-      update((current) => ({ ...current, image: imageFromPick(picked, current.image) }));
-      return;
-    }
-    setLevel(id, (current) => ({ ...current, image: imageFromPick(picked, current.image) }));
+  return {
+    set: (id: string, image: HotspotImage | null): void => change(id, () => image),
+    pick: (id: string) => (picked: PickedMedia): void => change(id, (previous) => imageFromPick(picked, previous)),
   };
+}
+
+function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startPoint }: InnerProps & { tree: MenuTree }): ReactElement {
+  const media = useEditorMedia();
+  const rootId = tree.root.entry.id;
+  const { shownId, targetId, setTargetId, full, setFull, show, select } = useMenuSelection(tree);
+  const setLevel = useLevelUpdate(update);
+  const levelImage = useLevelImage(tree, update);
+  const setLevelImage = levelImage.set;
+  const pickLevelImage = levelImage.pick;
+
+  const layout = config.menu.layout;
+  const levelNode = tree.index.get(shownId)?.node ?? tree.root;
+  const isRoot = shownId === rootId;
+  const level = levelLayout(layout, shownId);
+  const image = ownLevelImage(tree, layout, config.image, shownId);
+  const orphan = targetId === null ? null : parseOrphanKey(targetId);
+  const target = targetId === null || orphan !== null ? null : (tree.index.get(targetId)?.node ?? null);
+  const targetPoint = target === null ? null : (level.points.find((point) => point.menuId === target.entry.id) ?? null);
+
   const imageLabel = MENU_SETTINGS_MESSAGES.levelImage(levelNode.entry.title);
 
   const onAdd = (x: number, y: number): void => {

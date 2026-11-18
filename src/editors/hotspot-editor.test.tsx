@@ -285,6 +285,35 @@ describe("HotspotEditor – Menü", () => {
     expect(screen.getByTestId("canvas-empty-text")).toHaveTextContent("kein eigenes Bild");
   });
 
+  it("entfernt das Bild einer Ebene und behält ihre Punkte", async () => {
+    const cab = { url: "https://example.test/kabine.jpg", alt: "Kabine" };
+    const harness = await setupMenu({
+      [IDS.arbeitsplatz]: { image: cab, points: [{ id: "l", menuId: IDS.lenkrad, x: 5, y: 5 }] },
+    });
+
+    await userEvent.click(treeRow(/^Fahrerarbeitsplatz/));
+    expect(screen.getByTestId("placement-canvas").querySelector("img")).toHaveAttribute("src", cab.url);
+    await userEvent.click(screen.getByRole("button", { name: "Bild der Ebene „Fahrerarbeitsplatz“ entfernen" }));
+
+    expect(harness.latest().config.menu.layout[IDS.arbeitsplatz]).toEqual({
+      points: [{ id: "l", menuId: IDS.lenkrad, x: 5, y: 5 }],
+    });
+    expect(harness.latest().config.image).toEqual(rootImage);
+  });
+
+  it("setzt den eigenen Punkt einer Ebene über das Panel auf der Ebene darüber", async () => {
+    const harness = await setupMenu();
+
+    await userEvent.click(treeRow(/^Fahrerarbeitsplatz/));
+    await userEvent.click(screen.getByTestId("level-place-on-parent"));
+    expect(screen.getByRole("complementary", { name: "Fahrerarbeitsplatz" })).toBeInTheDocument();
+    clickCanvas(100, 50);
+
+    expect(harness.latest().config.menu.layout[IDS.fahrerhaus]?.points).toEqual([
+      expect.objectContaining({ menuId: IDS.arbeitsplatz }),
+    ]);
+  });
+
   it("zeigt verwaiste Punkte als Fehler im Baum und löscht sie nur auf Wunsch", async () => {
     const harness = await setupMenu({ [IDS.fahrerhaus]: { points: [{ id: "x", menuId: IDS.lenkrad, x: 1, y: 1 }] } });
 
