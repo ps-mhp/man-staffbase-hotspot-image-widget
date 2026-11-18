@@ -100,15 +100,30 @@ describe("startHotspotDialog", () => {
     await click(inModal('[data-testid="config-shell-apply"]'));
 
     const config = fieldValue(container);
+    expect(config).toBe("");
     expect(resolveConfig({ ...legacyBlock, config })).toEqual(resolveConfig(legacyBlock));
     await act(async () => stop());
   });
 
-  it("beginnt mit dem, was die alten Felder lesbar tragen", async () => {
-    const { stop } = await open(legacyBlock as Record<string, string>);
+  it("übernimmt nach einer Änderung die lesbaren alten Werte, nicht die Vorgaben", async () => {
+    const { container, stop } = await open(legacyBlock as Record<string, string>);
 
     // Der Menü-Modus ist im MUI-Select lesbar – sonst stünde hier „Manuell“.
     expect(inModal('[data-testid="menu-editor"]')).not.toBeNull();
+    const enter = Array.from(modalRoot()?.querySelectorAll<HTMLElement>('[role="radio"]') ?? []).find(
+      (radio) => radio.textContent === "Ins Untermenü wechseln",
+    );
+    await click(enter);
+    await click(inModal('[data-testid="config-shell-apply"]'));
+
+    const config = fieldValue(container);
+    // MUI schreibt für „5 Ebenen“ die Stelle „3“, die zugleich ein Wert
+    // wäre; der gezeigte Titel entscheidet.
+    expect(parseConfigParts(config)).toMatchObject({ source: "menu", "menu.depth": 5, "menu.click": "enter" });
+    expect(resolveConfig({ ...legacyBlock, config })).toEqual({
+      ...resolveConfig(legacyBlock),
+      menu: { ...resolveConfig(legacyBlock).menu, click: "enter" },
+    });
     await act(async () => stop());
   });
 

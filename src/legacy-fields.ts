@@ -156,18 +156,33 @@ function optionsOf(key: string): SchemaOption[] {
 }
 
 /**
- * Der Wert eines Auswahlfelds. RJSF schreibt in Auswahlfelder von sich aus
- * die Stelle der Option („0“, „1“), nicht ihren Wert; ein echtes `<select>`
- * verrät die Option über ihren Text. Ist eine Zahl zugleich Wert und Stelle
- * einer anderen Option (bei `menu-depth` etwa „3“), lässt sich nicht
- * entscheiden – dann `null`, und es gilt weiter das alte Feld.
+ * Der Titel der gewählten Option, wie das Feld ihn zeigt: bei einem echten
+ * `<select>` der Text der Option, bei einer MUI-Auswahl der Text des
+ * Elements mit `root_<key>`. Gilt nur, wenn er genau einem Titel im Schema
+ * entspricht.
  */
-function decodeOption(options: SchemaOption[], element: FormField): string | null {
-  if (element instanceof HTMLSelectElement) {
-    const text = element.selectedOptions[0]?.textContent?.trim();
-    const byTitle = options.find((option) => option.title === text);
-    if (byTitle !== undefined) return byTitle.value;
-  }
+function optionByTitle(options: SchemaOption[], form: ParentNode, key: string): string | null {
+  const shown = form.querySelector(`[id="root_${key}"]`);
+  const text =
+    shown instanceof HTMLSelectElement
+      ? shown.selectedOptions[0]?.textContent
+      : shown instanceof HTMLInputElement || shown instanceof HTMLTextAreaElement
+        ? null
+        : shown?.textContent;
+  const match = options.filter((option) => option.title === text?.trim());
+  return match.length === 1 ? match[0].value : null;
+}
+
+/**
+ * Der Wert eines Auswahlfelds. Zuerst über den gezeigten Titel; sonst über
+ * den Wert, den RJSF von sich aus als Stelle der Option schreibt („0“,
+ * „1“), nicht als ihren Wert. Ist eine Zahl zugleich Wert und Stelle einer
+ * anderen Option (bei `menu-depth` etwa „3“), lässt sich nicht entscheiden –
+ * dann `null`, und es gilt weiter das alte Feld.
+ */
+function decodeOption(options: SchemaOption[], form: ParentNode, key: string, element: FormField | null): string | null {
+  const byTitle = optionByTitle(options, form, key);
+  if (byTitle !== null || element === null) return byTitle;
   const raw = element.value.trim();
   if (raw === "") return null;
   const byIndex = /^\d+$/.test(raw) ? options[Number(raw)]?.value : undefined;
@@ -179,9 +194,9 @@ function decodeOption(options: SchemaOption[], element: FormField): string | nul
 /** Der Wert eines Feldes, wenn er sicher lesbar ist; sonst `null`. */
 function readableValue(form: ParentNode, key: string): string | null {
   const element = valueElementOf(form, key);
-  if (element === null) return null;
   const options = optionsOf(key);
-  return options.length === 0 ? element.value : decodeOption(options, element);
+  if (options.length > 0) return decodeOption(options, form, key, element);
+  return element === null ? null : element.value;
 }
 
 /**

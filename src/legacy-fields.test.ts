@@ -148,6 +148,12 @@ describe("readLegacyFromDialog", () => {
     expect(read.unreadable).toContain("menu-depth");
   });
 
+  it("liest eine MUI-Auswahl über den gezeigten Titel, auch wenn die Stelle mehrdeutig ist", () => {
+    document.body.innerHTML = `<form>${input("config", "")}<div id="root_menu-depth" role="combobox">5 Ebenen</div><input name="root_menu-depth" value="3"></form>`;
+
+    expect(readLegacyFromDialog().attrs["menu-depth"]).toBe("5");
+  });
+
   it("lässt ein Auswahlfeld ohne Wert (Content Designer) ungelesen", () => {
     document.body.innerHTML = `<form>${input("config", "")}<div id="root_source" role="combobox">Menü</div></form>`;
 
