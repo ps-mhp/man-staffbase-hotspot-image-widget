@@ -20,9 +20,16 @@
  * Bildfeld ist ein eigener Upload ohne Eingabefeld (live gesehen 09.11.2026).
  * Seither pflegt ein einziges Fenster alles und schreibt es hierher.
  *
- * Ältere Inhalte tragen nur die einzelnen Felder. Solange `config` leer ist,
- * gelten sie ({@link configFromLegacy}); beim ersten Übernehmen im Fenster
- * wandern sie hierher.
+ * Gemischt wird je Schlüssel ({@link CONFIG_KEYS}): was in `config` steht,
+ * gilt; was dort fehlt, kommt aus dem alten Feld; fehlt auch das, gilt die
+ * Vorgabe. Ältere Inhalte tragen nur die einzelnen Felder und erscheinen
+ * deshalb unverändert. Das Fenster lässt einen Schlüssel weg, solange es den
+ * alten Wert nicht lesen konnte und niemand ihn geändert hat
+ * (`hotspot-draft.ts`) – dann gilt dafür weiter das alte Feld.
+ *
+ * „Steht in `config`“ heisst: der Schlüssel ist da, auch mit `null`. Ein
+ * entferntes Bild ist `"image": null` und darf nicht vom alten Feld
+ * überstimmt werden.
  */
 
 import { encodePayload } from "@shared/payload";
@@ -68,6 +75,47 @@ export interface LegacyAttributes {
   "menu-points"?: string;
 }
 
+/**
+ * Die Schlüssel, nach denen gemischt wird – je einer pro altem Feld (das Bild
+ * nimmt `image` und `image-alt` zusammen).
+ */
+export const CONFIG_KEYS = [
+  "source",
+  "image",
+  "manual.mode",
+  "manual.points",
+  "menu.rootId",
+  "menu.depth",
+  "menu.click",
+  "menu.layout",
+] as const;
+
+export type ConfigKey = (typeof CONFIG_KEYS)[number];
+
+/** Das alte Feld (oder die Felder) hinter jedem Schlüssel. */
+export const LEGACY_FIELDS_OF: Readonly<Record<ConfigKey, readonly (keyof LegacyAttributes)[]>> = {
+  source: ["source"],
+  image: ["image", "image-alt"],
+  "manual.mode": ["display-mode"],
+  "manual.points": ["points"],
+  "menu.rootId": ["menu-id"],
+  "menu.depth": ["menu-depth"],
+  "menu.click": ["menu-click"],
+  "menu.layout": ["menu-points"],
+};
+
+/** Die Werte, die `config` trägt – nur die Schlüssel, die dort stehen. */
+export interface ConfigParts {
+  source?: PointSource;
+  image?: HotspotImage | null;
+  "manual.mode"?: DisplayMode;
+  "manual.points"?: HotspotPoint[];
+  "menu.rootId"?: string | null;
+  "menu.depth"?: number;
+  "menu.click"?: MenuClickMode;
+  "menu.layout"?: MenuLayout;
+}
+
 export const DEFAULT_CONFIG: HotspotConfig = {
   source: "manual",
   image: null,
@@ -90,50 +138,114 @@ function readConfigImage(value: unknown): HotspotImage | null {
 /** Ein Teil des JSON als Zeichenkette, damit die Leser der einzelnen Felder ihn nehmen. */
 const asRaw = (value: unknown): string => (value === undefined ? "" : JSON.stringify(value));
 
-/** Liest `config`; `null`, wenn dort nichts Brauchbares steht. */
-export function parseConfig(raw: string): HotspotConfig | null {
+const has = (record: Record<string, unknown>, key: string): boolean => Object.prototype.hasOwnProperty.call(record, key);
+
+/** Liest einen Teil nur, wenn sein Schlüssel im JSON steht. */
+function part<T>(record: Record<string, unknown>, key: string, read: (value: unknown) => T): T | undefined {
+  return has(record, key) ? read(record[key]) : undefined;
+}
+
+/** Ohne `undefined`-Einträge: „steht nicht da“ soll auch im Objekt nicht dastehen. */
+function compact(parts: ConfigParts): ConfigParts {
+  return Object.fromEntries(Object.entries(parts).filter(([, value]) => value !== undefined)) as ConfigParts;
+}
+
+/**
+ * Liest `config` je Schlüssel; `null`, wenn dort nichts Brauchbares steht.
+ * Ein Schlüssel mit unbrauchbarem Wert steht da und gilt mit seiner Vorgabe –
+ * wie bisher, als `config` immer ganz galt.
+ */
+export function parseConfigParts(raw: string): ConfigParts | null {
   const value = readRaw(raw);
   if (!isRecord(value)) return null;
   const manual = isRecord(value.manual) ? value.manual : {};
   const menu = isRecord(value.menu) ? value.menu : {};
+  return compact({
+    source: part(value, "source", readSource),
+    image: part(value, "image", readConfigImage),
+    "manual.mode": part(manual, "mode", readDisplayMode),
+    "manual.points": part(manual, "points", (points) => (Array.isArray(points) ? parsePoints(asRaw(points)) : [])),
+    "menu.rootId": part(menu, "rootId", readMenuId),
+    "menu.depth": part(menu, "depth", (depth) => readMenuDepth(typeof depth === "number" ? String(depth) : depth)),
+    "menu.click": part(menu, "click", readMenuClick),
+    "menu.layout": part(menu, "layout", (layout) =>
+      isRecord(layout) ? parseMenuLayout(asRaw({ levels: layout })) : {},
+    ),
+  });
+}
+
+/** Je Schlüssel: der Teil aus `config`, sonst der Wert aus `base`. */
+export function mergeParts(parts: ConfigParts, base: HotspotConfig): HotspotConfig {
   return {
-    source: readSource(value.source),
-    image: readConfigImage(value.image),
+    source: parts.source ?? base.source,
+    image: parts.image === undefined ? base.image : parts.image,
     manual: {
-      mode: readDisplayMode(manual.mode),
-      points: Array.isArray(manual.points) ? parsePoints(asRaw(manual.points)) : [],
+      mode: parts["manual.mode"] ?? base.manual.mode,
+      points: parts["manual.points"] ?? base.manual.points,
     },
     menu: {
-      rootId: readMenuId(menu.rootId),
-      depth: readMenuDepth(typeof menu.depth === "number" ? String(menu.depth) : menu.depth),
-      click: readMenuClick(menu.click),
-      layout: isRecord(menu.layout) ? parseMenuLayout(asRaw({ levels: menu.layout })) : {},
+      rootId: parts["menu.rootId"] === undefined ? base.menu.rootId : parts["menu.rootId"],
+      depth: parts["menu.depth"] ?? base.menu.depth,
+      click: parts["menu.click"] ?? base.menu.click,
+      layout: parts["menu.layout"] ?? base.menu.layout,
     },
   };
 }
 
-/** Schreibt `config`, kodiert wie die übrigen Felder; unbekannte Punktfelder werden flach eingemischt. */
-export function encodeConfig(config: HotspotConfig): string {
-  const plainLayout = Object.fromEntries(
-    Object.entries(config.menu.layout)
+/** Liest `config` vollständig, Fehlendes mit den Vorgaben; `null`, wenn dort nichts Brauchbares steht. */
+export function parseConfig(raw: string): HotspotConfig | null {
+  const parts = parseConfigParts(raw);
+  return parts === null ? null : mergeParts(parts, DEFAULT_CONFIG);
+}
+
+const plainPoints = <T extends { unknown?: Record<string, unknown> }>(points: readonly T[]) =>
+  points.map(({ unknown, ...rest }) => ({ ...unknown, ...rest }));
+
+function plainLayout(layout: MenuLayout): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(layout)
       .filter(([, level]) => level.image !== undefined || level.points.length > 0)
       .map(([id, level]) => [
         id,
-        {
-          ...(level.image === undefined ? {} : { image: level.image }),
-          points: level.points.map(({ unknown, ...rest }) => ({ ...unknown, ...rest })),
-        },
+        { ...(level.image === undefined ? {} : { image: level.image }), points: plainPoints(level.points) },
       ]),
+  );
+}
+
+/** Die Einträge eines Teilobjekts ohne die weggelassenen Schlüssel; `undefined`, wenn nichts bleibt. */
+function section(
+  prefix: "manual" | "menu",
+  entries: Record<string, unknown>,
+  omit: ReadonlySet<ConfigKey>,
+): Record<string, unknown> | undefined {
+  const kept = Object.entries(entries).filter(([key]) => !omit.has(`${prefix}.${key}` as ConfigKey));
+  return kept.length === 0 ? undefined : Object.fromEntries(kept);
+}
+
+/**
+ * Schreibt `config`, kodiert wie die übrigen Felder; unbekannte Punktfelder
+ * werden flach eingemischt. `omit` lässt Schlüssel weg – für sie gilt beim
+ * Lesen weiter das alte Feld.
+ */
+export function encodeConfig(config: HotspotConfig, omit: readonly ConfigKey[] = []): string {
+  const skip = new Set(omit);
+  const manual = section("manual", { mode: config.manual.mode, points: plainPoints(config.manual.points) }, skip);
+  const menu = section(
+    "menu",
+    {
+      rootId: config.menu.rootId,
+      depth: config.menu.depth,
+      click: config.menu.click,
+      layout: plainLayout(config.menu.layout),
+    },
+    skip,
   );
   return encodePayload(
     JSON.stringify({
-      source: config.source,
-      image: config.image,
-      manual: {
-        mode: config.manual.mode,
-        points: config.manual.points.map(({ unknown, ...rest }) => ({ ...unknown, ...rest })),
-      },
-      menu: { ...config.menu, layout: plainLayout },
+      ...(skip.has("source") ? {} : { source: config.source }),
+      ...(skip.has("image") ? {} : { image: config.image }),
+      ...(manual === undefined ? {} : { manual }),
+      ...(menu === undefined ? {} : { menu }),
     }),
   );
 }
@@ -153,7 +265,9 @@ export function configFromLegacy(attrs: LegacyAttributes): HotspotConfig {
   };
 }
 
-/** Was gilt: `config`, sonst die einzelnen Felder. */
+/** Was gilt: je Schlüssel `config`, sonst das alte Feld, sonst die Vorgabe. */
 export function resolveConfig(attrs: LegacyAttributes & { config?: string }): HotspotConfig {
-  return parseConfig(attrs.config ?? "") ?? configFromLegacy(attrs);
+  const legacy = configFromLegacy(attrs);
+  const parts = parseConfigParts(attrs.config ?? "");
+  return parts === null ? legacy : mergeParts(parts, legacy);
 }

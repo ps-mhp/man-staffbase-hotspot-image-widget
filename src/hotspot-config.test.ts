@@ -19,7 +19,9 @@ import {
   LegacyAttributes,
   configFromLegacy,
   encodeConfig,
+  mergeParts,
   parseConfig,
+  parseConfigParts,
   resolveConfig,
 } from "./hotspot-config";
 import { encodeMenuLayout } from "./menu-points-model";
@@ -113,6 +115,80 @@ describe("resolveConfig", () => {
 
   it("fällt ohne gemeinsames Feld auf die einzelnen Felder zurück", () => {
     expect(resolveConfig({ "display-mode": "dots" }).manual.mode).toBe("dots");
+  });
+
+  it("rendert einen alten Block ohne gemeinsames Feld genau wie bisher", () => {
+    const legacy: LegacyAttributes = {
+      image: encodeImageAttribute({ url: image.url, alt: "" }),
+      source: "menu",
+      "menu-id": FAHRERHAUS,
+      "menu-depth": "5",
+      "menu-click": "open",
+    };
+
+    expect(resolveConfig(legacy)).toEqual(configFromLegacy(legacy));
+    expect(resolveConfig({ ...legacy, config: "" })).toEqual(configFromLegacy(legacy));
+  });
+
+  it("mischt je Schlüssel: gemeinsames Feld, sonst altes Feld, sonst Vorgabe", () => {
+    const config = encodeConfig(full, ["source", "menu.depth", "menu.click"]);
+
+    const resolved = resolveConfig({ config, source: "manual", "menu-depth": "6" });
+
+    expect(resolved.source).toBe("manual");
+    expect(resolved.menu.depth).toBe(6);
+    expect(resolved.menu.click).toBe("enter");
+    expect(resolved.menu.rootId).toBe(FAHRERHAUS);
+    expect(resolved.manual).toEqual(full.manual);
+  });
+
+  it("lässt ein entferntes Bild nicht vom alten Feld überstimmen", () => {
+    const config = encodeConfig({ ...full, image: null });
+
+    expect(resolveConfig({ config, image: encodeImageAttribute(image) }).image).toBeNull();
+  });
+});
+
+describe("encodeConfig mit weggelassenen Schlüsseln", () => {
+  const decoded = (raw: string): unknown => JSON.parse(decodePayload(raw) ?? "");
+
+  it("schreibt ohne Auslassung genau die bisherige Form", () => {
+    expect(decoded(encodeConfig(full))).toEqual({
+      source: "menu",
+      image,
+      manual: { mode: "dots", points: [{ id: "p1", x: 10, y: 20, title: "Kabine" }] },
+      menu: {
+        rootId: FAHRERHAUS,
+        depth: 4,
+        click: "open",
+        layout: { [FAHRERHAUS]: { points: [{ id: "m1", menuId: RUHE, x: 1, y: 2 }] } },
+      },
+    });
+  });
+
+  it("lässt weggelassene Schlüssel und leere Abschnitte ganz aus", () => {
+    const raw = encodeConfig(full, ["source", "manual.mode", "manual.points", "menu.depth"]);
+
+    expect(decoded(raw)).toEqual({
+      image,
+      menu: { rootId: FAHRERHAUS, click: "open", layout: full.menu.layout },
+    });
+  });
+});
+
+describe("parseConfigParts", () => {
+  it("liest nur die Schlüssel, die im Feld stehen", () => {
+    expect(parseConfigParts(JSON.stringify({ menu: { depth: 5 }, image: null }))).toEqual({
+      image: null,
+      "menu.depth": 5,
+    });
+  });
+
+  it("ergibt mit mergeParts aus allen Schlüsseln wieder das Ganze", () => {
+    const parts = parseConfigParts(encodeConfig(full));
+
+    expect(parts).not.toBeNull();
+    expect(mergeParts(parts ?? {}, DEFAULT_CONFIG)).toEqual(full);
   });
 });
 
