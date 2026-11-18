@@ -33,6 +33,7 @@ import { ReactElement, useState } from "react";
 import { InspectorPanel } from "@man/config-ui/inspector/inspector-panel";
 import { ConfigWorkspace } from "@man/config-ui/layout/config-workspace";
 import { ItemTree } from "@man/config-ui/sidebar/item-tree";
+import { SidebarFootnote } from "@man/config-ui/sidebar/sidebar-footnote";
 import { SidebarPanel } from "@man/config-ui/sidebar/sidebar-panel";
 import { Button } from "@man/config-ui/primitives/button";
 import { EntityOption } from "@shared/entity-picker/entity-catalog";
@@ -356,7 +357,7 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
       sidebar={
         <SidebarPanel
           title={MENU_EDITOR_MESSAGES.levels}
-          footer={<p className="text-[13px] leading-normal text-muted-foreground">{MENU_EDITOR_MESSAGES.sidebarHint(config.menu.depth)}</p>}
+          footer={<SidebarFootnote>{MENU_EDITOR_MESSAGES.sidebarHint(config.menu.depth)}</SidebarFootnote>}
         >
           <ItemTree
             aria-label={MENU_EDITOR_MESSAGES.levels}

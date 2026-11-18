@@ -24,6 +24,8 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { Info } from "lucide-react";
 
+import { Note } from "@man/config-ui/form/note";
+
 import { ConfigKey } from "../hotspot-config";
 
 const KEY_NAMES: Readonly<Record<ConfigKey, string>> = {
@@ -40,15 +42,9 @@ const KEY_NAMES: Readonly<Record<ConfigKey, string>> = {
 export function InheritedNote({ keys }: { keys: readonly ConfigKey[] }): ReactElement | null {
   if (keys.length === 0) return null;
   return (
-    <p
-      className="flex items-start gap-2.5 rounded-md bg-muted px-3.5 py-3 text-[13px] leading-normal text-muted-foreground"
-      data-testid="inherited-note"
-    >
-      <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
-      <span>
-        Aus dem Dialog nicht lesbar: {keys.map((key) => KEY_NAMES[key]).join(", ")}. Dafür gilt weiter die bisherige
-        Einstellung des Blocks – bis du sie hier änderst.
-      </span>
-    </p>
+    <Note icon={Info} data-testid="inherited-note">
+      Aus dem Dialog nicht lesbar: {keys.map((key) => KEY_NAMES[key]).join(", ")}. Dafür gilt weiter die bisherige
+      Einstellung des Blocks – bis du sie hier änderst.
+    </Note>
   );
 }

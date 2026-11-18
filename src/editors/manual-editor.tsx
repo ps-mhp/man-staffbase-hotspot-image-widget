@@ -27,6 +27,7 @@ import { InspectorPanel } from "@man/config-ui/inspector/inspector-panel";
 import { ConfigWorkspace } from "@man/config-ui/layout/config-workspace";
 import { useConfigShell } from "@man/config-ui/shell/shell-context";
 import { ItemActions } from "@man/config-ui/sidebar/item-actions";
+import { SidebarFootnote } from "@man/config-ui/sidebar/sidebar-footnote";
 import { SidebarPanel } from "@man/config-ui/sidebar/sidebar-panel";
 import { PickedMedia } from "@shared/media/media-picker";
 
@@ -129,7 +130,7 @@ export function ManualEditor({ config, inherited, update, onSourceChange, loadPa
         const spot = freeSpot(points);
         add(spot.x, spot.y);
       }}
-      footer={<p className="text-[13px] leading-normal text-muted-foreground">{MANUAL_MESSAGES.sidebarHint}</p>}
+      footer={<SidebarFootnote>{MANUAL_MESSAGES.sidebarHint}</SidebarFootnote>}
     >
       <PointList
         points={points}

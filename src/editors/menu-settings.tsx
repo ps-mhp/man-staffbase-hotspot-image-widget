@@ -23,6 +23,7 @@ import { Info } from "lucide-react";
 import { Field } from "@man/config-ui/form/field";
 import { FormSection } from "@man/config-ui/form/form-section";
 import type { SegmentedOption } from "@man/config-ui/form/segmented";
+import { Note } from "@man/config-ui/form/note";
 import { SegmentedField } from "@man/config-ui/form/segmented-field";
 import { Button } from "@man/config-ui/primitives/button";
 import {
@@ -149,13 +150,9 @@ export function MenuSettings({ menu, inherited, onMenuChange, level, orphanCount
       />
       {level !== undefined && <LevelSection level={level} />}
       {orphanCount > 0 && (
-        <p
-          className="flex items-start gap-2.5 rounded-md bg-muted px-3.5 py-3 text-[13px] leading-normal text-muted-foreground"
-          data-testid="menu-orphans-note"
-        >
-          <Info className="mt-0.5 size-4 shrink-0" aria-hidden />
-          <span>{MENU_SETTINGS_MESSAGES.orphans(orphanCount)}</span>
-        </p>
+        <Note icon={Info} data-testid="menu-orphans-note">
+          {MENU_SETTINGS_MESSAGES.orphans(orphanCount)}
+        </Note>
       )}
     </div>
   );
