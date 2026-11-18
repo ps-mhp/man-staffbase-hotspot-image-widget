@@ -32,11 +32,12 @@ import * as React from "react";
 import { MapPin } from "lucide-react";
 
 import { FieldModalShellOptions, startFieldModalInjector } from "@shared/config-modal";
+import { startHiddenFields } from "@shared/legacy-fields";
 
 import { CONFIG_ATTRIBUTE, LEGACY_ATTRIBUTES } from "./configuration-schema";
 import { hotspotChangesStatus, validateHotspotDraft } from "./editor-rules";
 import { HotspotDraft, parseDraft, serializeDraft } from "./hotspot-draft";
-import { readLegacyFromDialog, startHiddenFields } from "./legacy-fields";
+import { readLegacyFromDialog } from "./legacy-fields";
 
 const loadEditor = () => import("./editors/hotspot-editor");
 
