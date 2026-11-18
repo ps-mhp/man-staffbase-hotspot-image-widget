@@ -29,6 +29,7 @@
 
 import * as React from "react";
 import { ReactElement, useEffect, useState } from "react";
+import { CatalogSelect } from "@man/config-ui/form/catalog-select";
 import { Field } from "@man/config-ui/form/field";
 import { FormSection } from "@man/config-ui/form/form-section";
 import { Button } from "@man/config-ui/primitives/button";
@@ -37,7 +38,6 @@ import { fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
 import { PageOption, pageCatalogSource } from "@shared/staffbase/pages";
 
 import { DEFAULT_LINK_LABEL, HotspotLink } from "../points-model";
-import { CatalogSelect } from "./catalog-select";
 
 export const LINK_MESSAGES = {
   section: "Link",
@@ -182,7 +182,7 @@ export function LinkField({ link, onChange, load = loadPages }: LinkFieldProps):
           manualLabel={LINK_MESSAGES.manual}
           onSelect={pickPage}
           onManual={() => setManual(true)}
-          testId="link-field-target"
+          data-testid="link-field-target"
         />
       )}
       {link !== undefined && (

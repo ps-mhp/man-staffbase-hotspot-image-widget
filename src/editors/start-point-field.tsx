@@ -19,14 +19,13 @@
 
 import * as React from "react";
 import { ReactElement, useEffect, useState } from "react";
+import { CatalogSelect } from "@man/config-ui/form/catalog-select";
 import { Field } from "@man/config-ui/form/field";
 import { Button } from "@man/config-ui/primitives/button";
 import { Input } from "@man/config-ui/primitives/input";
 import { EntityOption } from "@shared/entity-picker/entity-catalog";
 import { readMenuId } from "@shared/staffbase/menu";
 import { fetchStartPointOptions } from "@shared/staffbase/menu-start-points";
-
-import { CatalogSelect } from "./catalog-select";
 
 export const START_POINT_MESSAGES = {
   label: "Startpunkt",
@@ -101,7 +100,7 @@ export function StartPointField({ value, onChange, state }: StartPointFieldProps
         manualLabel={START_POINT_MESSAGES.manualOption}
         onSelect={(id) => onChange(readMenuId(id ?? ""))}
         onManual={() => setManual(true)}
-        testId="start-point-select"
+        data-testid="start-point-select"
       />
     );
   }
