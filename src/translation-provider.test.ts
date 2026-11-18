@@ -12,7 +12,7 @@
  */
 
 import { CONFIG_ATTRIBUTE, POINTS_ATTRIBUTE } from "./configuration-schema";
-import { DEFAULT_CONFIG, encodeConfig, parseConfig } from "./hotspot-config";
+import { DEFAULT_CONFIG, encodeConfig, parseConfig, parseConfigParts } from "./hotspot-config";
 import { encodePointsAttribute, HotspotPoint, parsePoints } from "./points-model";
 import { hotspotConfigTranslationProvider, hotspotTranslationProvider as provider } from "./translation-provider";
 
@@ -87,6 +87,25 @@ describe("hotspotConfigTranslationProvider", () => {
     const result = parseConfig(translated);
     expect(result?.manual.points[0].title).toBe("Charging port");
     expect(result?.manual.mode).toBe("dots");
+  });
+
+  // Ein Fenster, das alte Auswahlfelder nicht lesen konnte, lässt sie in
+  // `config` weg; dann gilt das alte Feld. Die Übersetzung darf sie nicht
+  // mit Vorgaben auffüllen – sonst stünde ein Menü-Block danach auf „Manuell“.
+  it("lässt weggelassene Schlüssel auch nach der Übersetzung weg", () => {
+    const partial = encodeConfig(config, ["source", "manual.mode", "menu.depth"]);
+    const html = hotspotConfigTranslationProvider.toTranslatable(partial) as string;
+
+    const translated = hotspotConfigTranslationProvider.fromTranslated(
+      html.replace("Ladeanschluss", "Charging port"),
+      partial,
+    ) as string;
+
+    const parts = parseConfigParts(translated);
+    expect(parts?.["manual.points"]?.[0].title).toBe("Charging port");
+    expect(parts).not.toHaveProperty("source");
+    expect(parts).not.toHaveProperty(["manual.mode"]);
+    expect(parts).not.toHaveProperty(["menu.depth"]);
   });
 
   it("hat nichts zu übersetzen ohne config oder ohne eigene Punkte", () => {

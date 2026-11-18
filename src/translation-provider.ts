@@ -25,7 +25,7 @@
 import { TranslationProvider } from "@shared/translation/carriers";
 
 import { CONFIG_ATTRIBUTE, POINTS_ATTRIBUTE } from "./configuration-schema";
-import { encodeConfig, parseConfig } from "./hotspot-config";
+import { DEFAULT_CONFIG, encodeConfig, mergeParts, missingKeys, parseConfig, parseConfigParts } from "./hotspot-config";
 import { encodePointsAttribute, parsePoints } from "./points-model";
 import { pointsFromTranslated, pointsToTranslatable } from "./translation-payload";
 
@@ -71,13 +71,18 @@ export const hotspotConfigTranslationProvider: TranslationProvider = {
     return pointsToTranslatable(config.manual.points);
   },
 
+  // Was in `config` fehlt, bleibt auch nach der Übersetzung weg: dafür gilt
+  // weiter das alte Feld. Mit Vorgaben aufgefüllt, stellte die Übersetzung
+  // sonst etwa einen Block im Menü-Modus still auf „Manuell“ um.
   fromTranslated: (html, stored) => {
-    const config = stored === null ? null : parseConfig(stored);
-    if (config === null) return null;
-    return encodeConfig({
-      ...config,
-      manual: { ...config.manual, points: pointsFromTranslated(html, config.manual.points) },
-    });
+    const parts = stored === null ? null : parseConfigParts(stored);
+    if (parts === null) return null;
+    const config = mergeParts(parts, DEFAULT_CONFIG);
+    const translated =
+      parts["manual.points"] === undefined
+        ? config
+        : { ...config, manual: { ...config.manual, points: pointsFromTranslated(html, config.manual.points) } };
+    return encodeConfig(translated, missingKeys(parts));
   },
 
   acceptsTranslated: (html) => html.includes("data-point"),

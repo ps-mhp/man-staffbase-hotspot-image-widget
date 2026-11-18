@@ -192,6 +192,11 @@ export function mergeParts(parts: ConfigParts, base: HotspotConfig): HotspotConf
   };
 }
 
+/** Die Schlüssel, die in `config` nicht stehen – für sie gilt beim Lesen das alte Feld. */
+export function missingKeys(parts: ConfigParts): ConfigKey[] {
+  return CONFIG_KEYS.filter((key) => parts[key] === undefined);
+}
+
 /** Liest `config` vollständig, Fehlendes mit den Vorgaben; `null`, wenn dort nichts Brauchbares steht. */
 export function parseConfig(raw: string): HotspotConfig | null {
   const parts = parseConfigParts(raw);
