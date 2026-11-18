@@ -32,6 +32,7 @@ import * as React from "react";
 import { MapPin } from "lucide-react";
 
 import { FieldModalShellOptions, startFieldModalInjector } from "@shared/config-modal";
+import { LoadBoundary, retryableLazy } from "@shared/lazy-retry";
 import { startHiddenFields } from "@shared/legacy-fields";
 
 import { CONFIG_ATTRIBUTE, LEGACY_ATTRIBUTES } from "./configuration-schema";
@@ -41,10 +42,15 @@ import { readLegacyFromDialog } from "./legacy-fields";
 
 const loadEditor = () => import("./editors/hotspot-editor");
 
-const LazyHotspotEditor = React.lazy(() => loadEditor().then((module) => ({ default: module.HotspotEditor })));
+/**
+ * Nachladbar mit Wiederholung, nicht `React.lazy`: das merkt sich ein
+ * gescheitertes Laden bis zum Neuladen der Seite, „Erneut versuchen“ im
+ * Fenster liefe dann ins Leere (`@shared/lazy-retry`).
+ */
+const LazyHotspotEditor = retryableLazy(() => loadEditor().then((module) => ({ default: module.HotspotEditor })));
 
 /** Die Hilfe aus demselben Chunk wie der Editor; ihr Text gehört nicht ins Seitenbündel. */
-const LazyHotspotEditorHelp = React.lazy(() =>
+const LazyHotspotEditorHelp = retryableLazy(() =>
   loadEditor().then((module) => ({ default: module.HotspotEditorHelp })),
 );
 
@@ -57,9 +63,11 @@ export const hotspotEditorShell: FieldModalShellOptions<HotspotDraft> = {
   icon: MapPin,
   preview: true,
   help: (
-    <React.Suspense fallback={null}>
-      <LazyHotspotEditorHelp />
-    </React.Suspense>
+    <LoadBoundary what="Die Hilfe">
+      <React.Suspense fallback={null}>
+        <LazyHotspotEditorHelp />
+      </React.Suspense>
+    </LoadBoundary>
   ),
   statusText: hotspotChangesStatus,
   validate: validateHotspotDraft,
