@@ -13,45 +13,83 @@
 
 import * as React from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import { START_POINT_MESSAGES, StartPointField } from "./start-point-field";
+import { START_POINT_MESSAGES, StartPointField, useStartPointState } from "./start-point-field";
 
 const FAHRERHAUS = "6a58dd4eefeacc1239d9fd09";
-const TECHNIK = "6a58dd4eefeacc1239d9fd0a";
 const options = [
-  { id: TECHNIK, title: "Technik im Detail" },
-  { id: FAHRERHAUS, title: " Fahrerhaus" },
+  { id: FAHRERHAUS, title: "Fahrerhaus" },
+  { id: "6a73580860fe1414378d4660", title: " Fahrerarbeitsplatz" },
 ];
 
-async function renderField(value: string | null, loadOptions = jest.fn(async () => options)) {
+function Harnessed({ value, onChange, load }: { value: string | null; onChange: jest.Mock; load: () => Promise<typeof options> }) {
+  const state = useStartPointState(value, load);
+  return <StartPointField value={value} onChange={onChange} state={state} />;
+}
+
+async function renderField(value: string | null, load = async () => options): Promise<jest.Mock> {
   const onChange = jest.fn();
-  render(<StartPointField value={value} onChange={onChange} loadOptions={loadOptions} />);
+  render(<Harnessed value={value} onChange={onChange} load={load} />);
   await act(async () => undefined);
   return onChange;
 }
 
 describe("StartPointField", () => {
-  it("bietet die Menüpunkte als Liste an und meldet die Wahl", async () => {
+  it("bietet die Einträge des Menüs als Liste an", async () => {
     const onChange = await renderField(null);
 
-    fireEvent.change(screen.getByRole("combobox"), { target: { value: FAHRERHAUS } });
+    await userEvent.click(screen.getByTestId("start-point-select"));
+    await userEvent.click(await screen.findByRole("option", { name: "Fahrerhaus" }));
 
     expect(onChange).toHaveBeenCalledWith(FAHRERHAUS);
   });
 
-  it("zeigt einen gespeicherten Startpunkt, den die Liste nicht kennt, in der Eingabe", async () => {
-    await renderField("6a58dd4eefeacc1239d9fd0b");
+  it("nimmt von Hand auch die Adresse einer Seite", async () => {
+    const onChange = await renderField(null);
 
-    expect(screen.getByRole("textbox", { name: START_POINT_MESSAGES.manualLabel })).toHaveValue("6a58dd4eefeacc1239d9fd0b");
-  });
-
-  it("nimmt von Hand eine Seitenadresse und liest die Menü-ID daraus", async () => {
-    const onChange = await renderField(null, jest.fn(async () => []));
-
-    fireEvent.change(screen.getByRole("textbox", { name: START_POINT_MESSAGES.manualLabel }), {
-      target: { value: `https://www.mti.man/content/page/${FAHRERHAUS}` },
-    });
+    await userEvent.click(screen.getByTestId("start-point-select"));
+    await userEvent.click(await screen.findByRole("option", { name: START_POINT_MESSAGES.manualOption }));
+    fireEvent.change(screen.getByTestId("start-point-manual"), { target: { value: `/content/page/${FAHRERHAUS}` } });
 
     expect(onChange).toHaveBeenLastCalledWith(FAHRERHAUS);
+  });
+
+  it("zeigt einen Startpunkt, den die Liste nicht kennt, in der Eingabe", async () => {
+    await renderField("6a7358b8340cb013d7f29611");
+
+    expect(screen.getByTestId("start-point-manual")).toHaveValue("6a7358b8340cb013d7f29611");
+  });
+
+  it("behält, was getippt ist, auch wenn das Feld neu eingehängt wird", async () => {
+    const load = jest.fn(async () => options);
+    function Remounting(): React.ReactElement {
+      const [key, setKey] = React.useState(0);
+      const state = useStartPointState(null, load);
+      return (
+        <>
+          <button type="button" onClick={() => setKey((value) => value + 1)}>
+            neu
+          </button>
+          <StartPointField key={key} value={null} onChange={jest.fn()} state={state} />
+        </>
+      );
+    }
+    render(<Remounting />);
+    await act(async () => undefined);
+    await userEvent.click(screen.getByTestId("start-point-select"));
+    await userEvent.click(await screen.findByRole("option", { name: START_POINT_MESSAGES.manualOption }));
+    fireEvent.change(screen.getByTestId("start-point-manual"), { target: { value: "6a58" } });
+
+    await userEvent.click(screen.getByRole("button", { name: "neu" }));
+
+    expect(screen.getByTestId("start-point-manual")).toHaveValue("6a58");
+    expect(load).toHaveBeenCalledTimes(1);
+  });
+
+  it("sagt, dass das Menü nicht geladen werden konnte", async () => {
+    await renderField(null, async () => []);
+
+    expect(screen.getByText(START_POINT_MESSAGES.unavailableNotice)).toBeInTheDocument();
   });
 });

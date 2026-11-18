@@ -12,90 +12,94 @@
  */
 
 /**
- * Was an einem Punkt steht: Titel, Beschreibung, Ziel.
+ * Was an einem Punkt steht: Titel, Beschreibung, Link und Icon – der Rumpf
+ * des Panels „Punkt N“ rechts.
  *
- * Der Titel ist Pflicht -- `parsePoints` verwirft beim Lesen jeden Punkt ohne
+ * Der Titel ist Pflicht: `parsePoints` verwirft beim Lesen jeden Punkt ohne
  * ihn. Das darf die Redaktion nicht erst am leeren Bild bemerken, deshalb der
- * Hinweis unmittelbar am Feld.
+ * Hinweis gleich am Feld; nach einem gescheiterten „Übernehmen“ wird er zum
+ * Fehler.
  */
 
 import * as React from "react";
 import { ReactElement } from "react";
+import { Field } from "@man/config-ui/form/field";
+import { Input } from "@man/config-ui/primitives/input";
+import { Textarea } from "@man/config-ui/primitives/textarea";
+import { PickedMedia } from "@shared/media/media-picker";
 
+import { isUntitled } from "../editor-rules";
 import { HotspotPoint } from "../points-model";
-import { LinkField } from "./link-field";
+import { LinkField, PageLoader } from "./link-field";
 import { PointIconField } from "./point-icon-field";
+
+export const POINT_FORM_MESSAGES = {
+  title: "Titel",
+  titleHint: "Ohne Titel lässt sich der Punkt nicht übernehmen.",
+  titleError: "Titel fehlt – ohne ihn ginge der Punkt beim Übernehmen verloren.",
+  description: "Beschreibung",
+  iconAside: "statt der Nummer",
+} as const;
 
 export interface PointFormProps {
   point: HotspotPoint;
+  /** Die laufende Nummer, ab 1 – für Titel der Mediathek-Leiste. */
+  number: number;
   onChange: (point: HotspotPoint) => void;
-  onRemove: () => void;
+  onPickIcon: (picked: PickedMedia) => void;
+  issuesVisible: boolean;
+  /** Nur für Tests. */
+  loadPages?: PageLoader;
 }
 
-export function PointForm({ point, onChange, onRemove }: PointFormProps): ReactElement {
-  const setDescription = (value: string): void => {
-    // Ein leeres Feld ist keine leere Beschreibung, sondern gar keine.
-    // `parsePoints` wirft sie beim Lesen ohnehin weg; sie hier zu speichern
-    // blähte nur das Attribut auf.
-    const rest: HotspotPoint = { ...point };
-    delete rest.description;
-    onChange(value === "" ? rest : { ...rest, description: value });
-  };
+/** Ein Feld ohne Wert ist kein leerer Wert, sondern gar keiner – so bleibt das Attribut schlank. */
+function without<K extends "description" | "link" | "icon">(point: HotspotPoint, key: K): HotspotPoint {
+  const rest: HotspotPoint = { ...point };
+  delete rest[key];
+  return rest;
+}
 
-  const titleMissing = point.title.trim() === "";
-  const warningId = `man-hie-title-warning-${point.id}`;
-
+export function PointForm({ point, number, onChange, onPickIcon, issuesVisible, loadPages }: PointFormProps): ReactElement {
+  const untitled = isUntitled(point);
   return (
-    <div className="man-hie__form">
-      <label className="man-hie__label">
-        Titel
-        <input
-          className="man-hie__input"
+    <div className="flex flex-col gap-6" data-testid="point-form">
+      <Field
+        label={POINT_FORM_MESSAGES.title}
+        required
+        error={untitled && issuesVisible ? POINT_FORM_MESSAGES.titleError : undefined}
+        hint={untitled && !issuesVisible ? POINT_FORM_MESSAGES.titleHint : undefined}
+      >
+        <Input
           type="text"
+          className="h-10"
+          data-testid="point-form-title"
           value={point.title}
-          // Der Hinweis steht neben dem Feld; ohne diese Verknüpfung liest ein
-          // Screenreader ihn beim Betreten des Feldes nicht mit vor.
-          aria-invalid={titleMissing}
-          aria-describedby={titleMissing ? warningId : undefined}
           onChange={(event) => onChange({ ...point, title: event.target.value })}
         />
-      </label>
-      {titleMissing && (
-        <p className="man-hie__hint" id={warningId} data-testid="point-form-warning">
-          Ohne Titel lässt sich der Punkt nicht übernehmen.
-        </p>
-      )}
-
-      <label className="man-hie__label">
-        Beschreibung
-        <textarea
-          className="man-hie__textarea"
+      </Field>
+      <Field label={POINT_FORM_MESSAGES.description}>
+        <Textarea
+          rows={3}
+          data-testid="point-form-description"
           value={point.description ?? ""}
-          onChange={(event) => setDescription(event.target.value)}
+          onChange={(event) => {
+            const value = event.target.value;
+            onChange(value === "" ? without(point, "description") : { ...point, description: value });
+          }}
         />
-      </label>
-
+      </Field>
       <LinkField
         link={point.link}
-        onChange={(link) => {
-          const rest: HotspotPoint = { ...point };
-          delete rest.link;
-          onChange(link === undefined ? rest : { ...rest, link });
-        }}
+        load={loadPages}
+        onChange={(link) => onChange(link === undefined ? without(point, "link") : { ...point, link })}
       />
-
       <PointIconField
         icon={point.icon}
-        onChange={(icon) => {
-          const rest: HotspotPoint = { ...point };
-          delete rest.icon;
-          onChange(icon === undefined ? rest : { ...rest, icon });
-        }}
+        aside={POINT_FORM_MESSAGES.iconAside}
+        mediaTitle={`Icon für Punkt ${number}`}
+        onPick={onPickIcon}
+        onChange={(icon) => onChange(icon === undefined ? without(point, "icon") : { ...point, icon })}
       />
-
-      <button type="button" className="man-hie__button" onClick={onRemove}>
-        Punkt löschen
-      </button>
     </div>
   );
 }

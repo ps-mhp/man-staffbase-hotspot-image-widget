@@ -12,73 +12,82 @@
  */
 
 import * as React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { MediaClient } from "@shared/media/media-client";
+import { PickedMedia } from "@shared/media/media-picker";
 
-import { ICON_FIELD_MESSAGES, PointIconField } from "./point-icon-field";
+import { PointIcon } from "../point-icon";
+import { EditorMedia, EditorMediaContext } from "./editor-media";
+import { ICON_FIELD_MESSAGES, PointIconField, iconFromPick } from "./point-icon-field";
 
-jest.mock("@shared/media/media-client", () => ({ createMediaClient: () => ({}) }));
-jest.mock("@shared/media/media-picker", () => ({
-  MediaPicker: ({ onSelect }: { onSelect: (media: unknown) => void }) => (
-    <button type="button" onClick={() => onSelect({ url: "https://example.test/neu.png", id: "m", fileName: "neu.png", kind: "image" })}>
-      Aus Mediathek nehmen
-    </button>
-  ),
-}));
+const icon: PointIcon = { url: "https://example.test/kantine.png", size: "m" };
 
-const icon = { url: "https://example.test/alt.png", size: "s" as const };
+function renderField(current: PointIcon | undefined): { onChange: jest.Mock; pick: jest.Mock } {
+  const onChange = jest.fn();
+  const pick = jest.fn();
+  const media: EditorMedia = { client: {} as MediaClient, pick };
+  render(
+    <EditorMediaContext.Provider value={media}>
+      <PointIconField icon={current} onChange={onChange} onPick={jest.fn()} aside="statt der Nummer" mediaTitle="Icon für Punkt 2" />
+    </EditorMediaContext.Provider>,
+  );
+  return { onChange, pick };
+}
 
 describe("PointIconField", () => {
-  it("wählt ein Bild aus der Mediathek in mittlerer Grösse", () => {
-    const onChange = jest.fn();
-    render(<PointIconField icon={undefined} onChange={onChange} />);
+  it("zeigt ohne Icon „Kein Icon“ und öffnet die Mediathek mit dem Ziel im Titel", async () => {
+    const { pick } = renderField(undefined);
 
-    expect(screen.getByText(ICON_FIELD_MESSAGES.hint)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: ICON_FIELD_MESSAGES.choose }));
-    fireEvent.click(screen.getByRole("button", { name: "Aus Mediathek nehmen" }));
+    expect(screen.getByTestId("point-icon-medium")).toHaveTextContent(ICON_FIELD_MESSAGES.none);
+    expect(screen.getByTestId("point-icon-medium")).toHaveAttribute("aria-haspopup", "dialog");
+    expect(screen.queryByRole("radiogroup", { name: ICON_FIELD_MESSAGES.size })).toBeNull();
+    await userEvent.click(screen.getByTestId("point-icon-medium"));
 
-    expect(onChange).toHaveBeenCalledWith({ url: "https://example.test/neu.png", size: "m" });
+    expect(pick).toHaveBeenCalledWith("Icon für Punkt 2", expect.any(Function));
   });
 
-  it("behält beim Austausch die gewählte Grösse", () => {
-    const onChange = jest.fn();
-    render(<PointIconField icon={icon} onChange={onChange} />);
+  it("setzt Größe und Hintergrund über Pills", async () => {
+    const { onChange } = renderField(icon);
 
-    fireEvent.click(screen.getByRole("button", { name: ICON_FIELD_MESSAGES.change }));
-    fireEvent.click(screen.getByRole("button", { name: "Aus Mediathek nehmen" }));
+    expect(screen.getByTestId("point-icon-medium")).toHaveTextContent("kantine.png");
+    await userEvent.click(screen.getByRole("radio", { name: "L" }));
+    expect(onChange).toHaveBeenLastCalledWith({ ...icon, size: "l" });
 
-    expect(onChange).toHaveBeenCalledWith({ url: "https://example.test/neu.png", size: "s" });
-  });
-
-  it("ändert die Grösse und entfernt das Bild", () => {
-    const onChange = jest.fn();
-    render(<PointIconField icon={icon} onChange={onChange} />);
-
-    fireEvent.change(screen.getByTestId("point-icon-size"), { target: { value: "l" } });
-    expect(onChange).toHaveBeenCalledWith({ ...icon, size: "l" });
-
-    fireEvent.click(screen.getByRole("button", { name: ICON_FIELD_MESSAGES.remove }));
-    expect(onChange).toHaveBeenCalledWith(undefined);
-  });
-
-  it("setzt einen Hintergrund und kehrt zu transparent zurück", () => {
-    const onChange = jest.fn();
-    const { rerender } = render(<PointIconField icon={icon} onChange={onChange} />);
-
-    fireEvent.change(screen.getByTestId("point-icon-background"), { target: { value: "red" } });
+    await userEvent.click(screen.getByRole("radio", { name: "MAN-Rot" }));
     expect(onChange).toHaveBeenLastCalledWith({ ...icon, background: "red" });
+  });
 
-    rerender(<PointIconField icon={{ ...icon, background: "red" }} onChange={onChange} />);
-    fireEvent.change(screen.getByTestId("point-icon-background"), { target: { value: "" } });
+  it("nimmt den Hintergrund mit „Transparent“ wieder heraus", async () => {
+    const { onChange } = renderField({ ...icon, background: "dark" });
+
+    expect(screen.getByRole("radio", { name: "Anthrazit" })).toBeChecked();
+    await userEvent.click(screen.getByRole("radio", { name: "Transparent" }));
+
     expect(onChange).toHaveBeenLastCalledWith(icon);
   });
 
-  it("behält beim Austausch des Bildes den Hintergrund", () => {
-    const onChange = jest.fn();
-    render(<PointIconField icon={{ ...icon, background: "white" }} onChange={onChange} />);
+  it("entfernt das Icon", async () => {
+    const { onChange } = renderField(icon);
 
-    fireEvent.click(screen.getByRole("button", { name: ICON_FIELD_MESSAGES.change }));
-    fireEvent.click(screen.getByRole("button", { name: "Aus Mediathek nehmen" }));
+    await userEvent.click(screen.getByTestId("point-icon-remove"));
 
-    expect(onChange).toHaveBeenCalledWith({ url: "https://example.test/neu.png", size: "s", background: "white" });
+    expect(onChange).toHaveBeenCalledWith(undefined);
+  });
+});
+
+describe("iconFromPick", () => {
+  const picked = { url: "https://example.test/neu.png" } as PickedMedia;
+
+  it("behält Größe und Hintergrund des bisherigen Icons", () => {
+    expect(iconFromPick(picked, { ...icon, size: "s", background: "white" })).toEqual({
+      url: picked.url,
+      size: "s",
+      background: "white",
+    });
+  });
+
+  it("beginnt ohne bisheriges Icon mittelgroß ohne Hintergrund", () => {
+    expect(iconFromPick(picked, undefined)).toEqual({ url: picked.url, size: "m" });
   });
 });

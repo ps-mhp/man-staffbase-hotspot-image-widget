@@ -12,135 +12,96 @@
  */
 
 import * as React from "react";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { LinkField } from "./link-field";
-import { pageCatalogSource } from "@shared/staffbase/pages";
+import { act, fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { PageOption } from "@shared/staffbase/pages";
 
-jest.mock("@shared/staffbase/pages", () => ({
-  pageCatalogSource: {
-    fetchList: jest.fn().mockResolvedValue([{ id: "1", title: "Laden zu Hause", url: "/content/pages/1" }]),
-    toOption: (raw: { id: string; title: string; url: string }) => ({
-      id: raw.id,
-      title: raw.title,
-      href: raw.url,
-    }),
-  },
-}));
+import { HotspotLink } from "../points-model";
+import { LINK_MESSAGES, LinkField } from "./link-field";
 
-/**
- * Reicht die Antwort des Katalogs durch, solange die Komponente noch hängt.
- *
- * Tests, die nicht ohnehin auf den Katalog warten, enden sonst vor dessen
- * Antwort; React meldet dann zu Recht „not wrapped in act". Solches Rauschen
- * verdeckt echte Warnungen, deshalb wird hier ausdrücklich abgewartet.
- */
-async function catalogSettled(): Promise<void> {
-  await act(async () => {});
+const pages: PageOption[] = [
+  { id: "1", title: "Laden zu Hause", href: "/content/page/1", menuId: "1" },
+  { id: "2", title: "Speiseplan", href: "/content/page/2", menuId: "2" },
+];
+
+async function renderField(link: HotspotLink | undefined, load = async () => pages): Promise<jest.Mock> {
+  const onChange = jest.fn();
+  render(<LinkField link={link} onChange={onChange} load={load} />);
+  await act(async () => undefined);
+  return onChange;
 }
 
+const choose = async (option: string): Promise<void> => {
+  await userEvent.click(screen.getByTestId("link-field-target"));
+  await userEvent.click(await screen.findByRole("option", { name: option }));
+};
+
 describe("LinkField", () => {
-  it("ist ohne Link leer und legt auf Wunsch einen an", async () => {
-    const onChange = jest.fn();
-    render(<LinkField link={undefined} onChange={onChange} />);
-    fireEvent.click(screen.getByRole("button", { name: /Link hinzufügen/ }));
-    expect(onChange).toHaveBeenCalledWith({ kind: "page", href: "" });
-    await catalogSettled();
+  it("steht ohne Link auf „Kein Link“ und ohne Beschriftung", async () => {
+    await renderField(undefined);
+
+    expect(screen.getByTestId("link-field-target")).toHaveTextContent(LINK_MESSAGES.none);
+    expect(screen.queryByTestId("link-field-label")).toBeNull();
   });
 
-  it("bietet die Seiten des Systems an und übernimmt Adresse und Titel", async () => {
-    const onChange = jest.fn();
-    render(<LinkField link={{ kind: "page", href: "" }} onChange={onChange} />);
-    await waitFor(() => expect(screen.getByRole("option", { name: "Laden zu Hause" })).toBeInTheDocument());
-    fireEvent.change(screen.getByLabelText(/Ziel/), { target: { value: "1" } });
-    expect(onChange).toHaveBeenCalledWith({
-      kind: "page",
-      href: "/content/pages/1",
-      title: "Laden zu Hause",
-    });
+  it("übernimmt aus der Liste Adresse und Titel einer Seite", async () => {
+    const onChange = await renderField(undefined);
+
+    await choose("Speiseplan");
+
+    expect(onChange).toHaveBeenCalledWith({ kind: "page", href: "/content/page/2", title: "Speiseplan" });
   });
 
-  it("nimmt eine eigene Adresse als „url“ auf — die geht später in einen neuen Tab", async () => {
-    const onChange = jest.fn();
-    render(<LinkField link={{ kind: "url", href: "https://example.test" }} onChange={onChange} />);
-    fireEvent.change(screen.getByLabelText(/Adresse/), { target: { value: "https://example.test/neu" } });
-    expect(onChange).toHaveBeenCalledWith({ kind: "url", href: "https://example.test/neu" });
-    await catalogSettled();
-  });
+  it("nimmt den Link über „Kein Link“ wieder heraus", async () => {
+    const onChange = await renderField({ kind: "page", href: "/content/page/2", title: "Speiseplan" });
 
-  it("sagt, dass eigene Adressen in einem neuen Tab aufgehen", async () => {
-    render(<LinkField link={{ kind: "url", href: "https://example.test" }} onChange={jest.fn()} />);
-    expect(screen.getByText(/neuem Tab/i)).toBeInTheDocument();
-    await catalogSettled();
-  });
+    expect(screen.getByTestId("link-field-target")).toHaveTextContent("Speiseplan");
+    await choose(LINK_MESSAGES.none);
 
-  it("lässt die Beschriftung des Buttons setzen und zeigt sonst die Vorgabe an", async () => {
-    const onChange = jest.fn();
-    render(<LinkField link={{ kind: "page", href: "/a" }} onChange={onChange} />);
-    const label = screen.getByLabelText(/Beschriftung/);
-    expect(label).toHaveAttribute("placeholder", "Seite öffnen");
-    fireEvent.change(label, { target: { value: "Mehr zum Laden" } });
-    expect(onChange).toHaveBeenCalledWith({ kind: "page", href: "/a", label: "Mehr zum Laden" });
-    await catalogSettled();
-  });
-
-  it("nimmt den Link wieder heraus", async () => {
-    const onChange = jest.fn();
-    render(<LinkField link={{ kind: "page", href: "/a" }} onChange={onChange} />);
-    fireEvent.click(screen.getByRole("button", { name: /Link entfernen/ }));
     expect(onChange).toHaveBeenCalledWith(undefined);
-    await catalogSettled();
-  });
-});
-
-/**
- * Ein Katalog, der nichts liefert -- weil die Anfrage fehlschlug oder das
- * System keine Seiten hat. Der `EntityPicker` ruft dann von sich aus
- * `onManual`, ohne dass jemand etwas angeklickt hätte.
- */
-describe("LinkField, wenn der Katalog leer bleibt", () => {
-  beforeEach(() => {
-    (pageCatalogSource.fetchList as jest.Mock).mockResolvedValue([]);
   });
 
-  afterEach(() => {
-    (pageCatalogSource.fetchList as jest.Mock).mockResolvedValue([
-      { id: "1", title: "Laden zu Hause", url: "/content/pages/1" },
-    ]);
+  it("schreibt bei „Eigene Adresse“ erst, wenn getippt wird – als „url“", async () => {
+    const onChange = await renderField(undefined);
+
+    await choose(LINK_MESSAGES.manual);
+    expect(onChange).not.toHaveBeenCalled();
+    fireEvent.change(screen.getByTestId("link-field-address"), { target: { value: "https://man.eu" } });
+
+    expect(onChange).toHaveBeenCalledWith({ kind: "url", href: "https://man.eu" });
+    expect(screen.getByText(LINK_MESSAGES.addressHint)).toBeInTheDocument();
   });
 
-  it("rührt einen bestehenden Seitenlink nicht an", async () => {
-    // Das blosse Öffnen des Editors darf nichts speichern. Täte es das, wären
-    // Adresse und Titel weg, bevor die Redaktion überhaupt etwas anfasst -- und
-    // der Link öffnete danach in einem neuen Tab statt im Fenster über dem Bild.
-    const onChange = jest.fn();
-    render(
-      <LinkField
-        link={{ kind: "page", href: "/content/pages/7", title: "Laden unterwegs" }}
-        onChange={onChange}
-      />,
-    );
-    await waitFor(() => expect(screen.getByLabelText(/Adresse/)).toBeInTheDocument());
+  it("setzt die Beschriftung des Buttons und behält sie beim Seitenwechsel", async () => {
+    const onChange = await renderField({ kind: "page", href: "/content/page/1", title: "Laden zu Hause", label: "Mehr" });
+
+    fireEvent.change(screen.getByTestId("link-field-label"), { target: { value: "Zum Laden" } });
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ label: "Zum Laden" }));
+
+    await choose("Speiseplan");
+    expect(onChange).toHaveBeenLastCalledWith({ kind: "page", href: "/content/page/2", title: "Speiseplan", label: "Mehr" });
+  });
+
+  it("sagt es, wenn die gespeicherte Seite nicht in der Liste steht, statt sie zu überschreiben", async () => {
+    const onChange = await renderField({ kind: "page", href: "/content/page/9", title: "Alt" });
+
+    expect(screen.getByText(LINK_MESSAGES.orphaned("/content/page/9"))).toBeInTheDocument();
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it("bietet stattdessen die Eingabe von Hand an, mit der bisherigen Adresse", async () => {
-    render(
-      <LinkField link={{ kind: "page", href: "/content/pages/7" }} onChange={jest.fn()} />,
-    );
-    await waitFor(() =>
-      expect(screen.getByLabelText(/Adresse/)).toHaveValue("/content/pages/7"),
-    );
-  });
-});
+  it("bietet ohne Seitenliste die Adresse von Hand an, ohne einen Seitenlink anzurühren", async () => {
+    const onChange = await renderField({ kind: "page", href: "/content/page/1" }, async () => []);
 
-describe("LinkField, wenn die gespeicherte Seite nicht mehr im Katalog steht", () => {
-  it("sagt es, statt das Feld leer aussehen zu lassen", async () => {
-    // Sonst stünde dort „Seite auswählen …", als wäre nie etwas gesetzt worden
-    // -- und der nächste Klick überschriebe den Link stillschweigend.
-    render(
-      <LinkField link={{ kind: "page", href: "/content/pages/999" }} onChange={jest.fn()} />,
-    );
-    const hint = await screen.findByTestId("link-field-orphaned");
-    expect(hint).toHaveTextContent("/content/pages/999");
+    expect(screen.getByTestId("link-field-address")).toHaveValue("/content/page/1");
+    expect(screen.getByText(LINK_MESSAGES.unavailable)).toBeInTheDocument();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("führt von einer eigenen Adresse zurück zur Liste", async () => {
+    const onChange = await renderField({ kind: "url", href: "https://man.eu", label: "Los" });
+
+    await userEvent.click(screen.getByRole("button", { name: LINK_MESSAGES.backToList }));
+
+    expect(onChange).toHaveBeenCalledWith({ kind: "page", href: "", label: "Los" });
   });
 });

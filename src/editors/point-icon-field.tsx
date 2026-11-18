@@ -12,114 +12,142 @@
  */
 
 /**
- * Das eigene Bild eines Punktes im Fenster: aus der Mediathek wählen, Grösse
- * S/M/L setzen, wieder entfernen. Ohne Bild bleibt es beim roten Punkt.
+ * Das eigene Bild eines Punkts (Abschnitt „Icon“): aus der Mediathek wählen
+ * oder hineinziehen, Größe S/M/L und Hintergrund als Pills, wieder
+ * entfernen. Ohne Icon bleibt es beim Punkt.
  */
 
 import * as React from "react";
-import { ReactElement, useMemo, useState } from "react";
+import { ReactElement } from "react";
+import { ChevronDown } from "lucide-react";
+import { Field } from "@man/config-ui/form/field";
+import { FormSection } from "@man/config-ui/form/form-section";
+import type { IconComponent, SegmentedOption } from "@man/config-ui/form/segmented";
+import { SegmentedField } from "@man/config-ui/form/segmented-field";
+import { Button } from "@man/config-ui/primitives/button";
+import { cn } from "@man/config-ui/primitives/utils";
+import { PickedMedia } from "@shared/media/media-picker";
 
-import { createMediaClient } from "@shared/media/media-client";
-import { MediaPicker, PickedImage } from "@shared/media/media-picker";
-
-import { DEFAULT_ICON_SIZE, ICON_BACKGROUNDS, ICON_SIZES, IconBackground, IconSize, PointIcon } from "../point-icon";
+import { DEFAULT_ICON_SIZE, ICON_BACKGROUNDS, IconBackground, IconSize, PointIcon } from "../point-icon";
+import { MediaDrop, fileNameOf, useEditorMedia } from "./editor-media";
 
 export const ICON_FIELD_MESSAGES = {
-  label: "Bild statt Punkt",
-  choose: "Eigenes Bild wählen …",
-  change: "Anderes Bild wählen …",
-  remove: "Bild entfernen",
+  section: "Icon",
+  medium: "Medium",
+  none: "Kein Icon",
+  noneHint: "Ohne Icon erscheint der Punkt. Ein Bild lässt sich auch aus der Mediathek hierher ziehen.",
   size: "Größe",
-  hint: "Ohne eigenes Bild erscheint der rote Punkt.",
-  sizes: { s: "S – 32 px", m: "M – 48 px", l: "L – 72 px" } as Record<IconSize, string>,
+  sizeHint: "32, 48 oder 72 Pixel – so groß wie auf der Seite.",
   background: "Hintergrund",
-  transparent: "Transparent",
-  backgrounds: { white: "Weiß", red: "MAN-Rot", dark: "Anthrazit", light: "Hellgrau" } as Record<IconBackground, string>,
+  backgroundHint: "Eine runde Fläche hinter dem Icon, in den Farben der Seite.",
+  remove: "Icon entfernen",
+  backgrounds: {
+    none: "Transparent",
+    white: "Weiß",
+    red: "MAN-Rot",
+    dark: "Anthrazit",
+    light: "Hellgrau",
+  } as Record<IconBackground | "none", string>,
 } as const;
+
+/** Das Icon aus der Mediathek; Größe und Hintergrund des bisherigen bleiben. */
+export function iconFromPick(picked: PickedMedia, previous: PointIcon | undefined): PointIcon {
+  const base = { url: picked.url, size: previous?.size ?? DEFAULT_ICON_SIZE };
+  return previous?.background === undefined ? base : { ...base, background: previous.background };
+}
+
+const SIZE_OPTIONS: readonly SegmentedOption<IconSize>[] = [
+  { id: "s", label: "S" },
+  { id: "m", label: "M" },
+  { id: "l", label: "L" },
+];
+
+type BackgroundChoice = IconBackground | "none";
+
+/** Ein Farbtupfer als Icon einer Pill; die Farben kommen aus `editor-canvas.scss`. */
+function swatch(choice: BackgroundChoice): IconComponent {
+  return function Swatch(): ReactElement {
+    return (
+      <span
+        aria-hidden="true"
+        className={cn(
+          "size-3.5 shrink-0 rounded-full ring-1 ring-foreground/30 ring-inset",
+          choice === "none" ? "bg-transparent" : `man-hie__icon-bg--${choice}`,
+        )}
+      />
+    );
+  };
+}
+
+const BACKGROUND_OPTIONS: readonly SegmentedOption<BackgroundChoice>[] = (["none", ...ICON_BACKGROUNDS] as const).map(
+  (choice) => ({ id: choice, label: ICON_FIELD_MESSAGES.backgrounds[choice], icon: swatch(choice), iconOnly: true }),
+);
 
 export interface PointIconFieldProps {
   icon: PointIcon | undefined;
   onChange: (icon: PointIcon | undefined) => void;
+  /** Ein Bild aus der Mediathek; schreibt über den jüngsten Stand, etwa mit {@link iconFromPick}. */
+  onPick: (picked: PickedMedia) => void;
+  /** Randnotiz am Abschnitt: „statt der Nummer“ oder „statt des Punkts“. */
+  aside: string;
+  /** Titel der Mediathek-Leiste, etwa „Icon für Punkt 2“. */
+  mediaTitle: string;
 }
 
-export function PointIconField({ icon, onChange }: PointIconFieldProps): ReactElement {
-  const [picking, setPicking] = useState(false);
-  const client = useMemo(() => createMediaClient(), []);
-
-  const select = (picked: PickedImage): void => {
-    setPicking(false);
-    const base = { url: picked.url, size: icon?.size ?? DEFAULT_ICON_SIZE };
-    onChange(icon?.background === undefined ? base : { ...base, background: icon.background });
-  };
-
+export function PointIconField({ icon, onChange, onPick, aside, mediaTitle }: PointIconFieldProps): ReactElement {
+  const media = useEditorMedia();
   return (
-    <div className="man-hie__form man-hie__icon-field" data-testid="point-icon-field">
-      <span className="man-hie__label">{ICON_FIELD_MESSAGES.label}</span>
-      {icon === undefined ? (
-        <>
-          <button type="button" className="man-hie__button" onClick={() => setPicking(true)}>
-            {ICON_FIELD_MESSAGES.choose}
-          </button>
-          <p className="man-hie__hint">{ICON_FIELD_MESSAGES.hint}</p>
-        </>
-      ) : (
-        <div className="man-hie__icon-chosen">
-          <span
-            className={`man-hie__icon-preview${icon.background === undefined ? "" : ` man-hie__icon-bg man-hie__icon-bg--${icon.background}`}`}
-            style={{
-              width: ICON_SIZES[icon.size],
-              height: ICON_SIZES[icon.size],
-              ["--man-hie-icon" as string]: `${ICON_SIZES[icon.size]}px`,
-            }}
+    <FormSection title={ICON_FIELD_MESSAGES.section} aside={aside}>
+      <MediaDrop className="gap-4" testId="point-icon-drop" onPick={onPick}>
+        <Field label={ICON_FIELD_MESSAGES.medium} hint={icon === undefined ? ICON_FIELD_MESSAGES.noneHint : undefined}>
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            data-testid="point-icon-medium"
+            className="flex h-10 w-full cursor-pointer items-center justify-between gap-2 rounded-md border border-input bg-background px-3 text-left text-sm shadow-xs outline-none hover:bg-accent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            onClick={() => media.pick(mediaTitle, onPick)}
           >
-            <img className="man-hie__canvas-icon" src={icon.url} alt="" />
-          </span>
-          <label className="man-hie__label">
-            {ICON_FIELD_MESSAGES.size}
-            <select
-              className="man-hie__input"
+            <span className="flex min-w-0 items-center gap-2">
+              {icon !== undefined && <img className="size-5 shrink-0 object-contain" src={icon.url} alt="" />}
+              <span className={cn("truncate", icon === undefined && "text-muted-foreground")}>
+                {icon === undefined ? ICON_FIELD_MESSAGES.none : fileNameOf(icon.url)}
+              </span>
+            </span>
+            <ChevronDown className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+          </button>
+        </Field>
+        {icon !== undefined && (
+          <>
+            <SegmentedField
+              label={ICON_FIELD_MESSAGES.size}
+              hint={ICON_FIELD_MESSAGES.sizeHint}
+              options={SIZE_OPTIONS}
               value={icon.size}
-              data-testid="point-icon-size"
-              onChange={(event) => onChange({ ...icon, size: event.target.value as IconSize })}
-            >
-              {(Object.keys(ICON_SIZES) as IconSize[]).map((size) => (
-                <option key={size} value={size}>
-                  {ICON_FIELD_MESSAGES.sizes[size]}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="man-hie__label">
-            {ICON_FIELD_MESSAGES.background}
-            <select
-              className="man-hie__input"
-              value={icon.background ?? ""}
-              data-testid="point-icon-background"
-              onChange={(event) => {
-                const value = event.target.value as IconBackground | "";
+              onChange={(size) => onChange({ ...icon, size })}
+            />
+            <SegmentedField
+              label={ICON_FIELD_MESSAGES.background}
+              hint={ICON_FIELD_MESSAGES.backgroundHint}
+              options={BACKGROUND_OPTIONS}
+              value={icon.background ?? "none"}
+              onChange={(choice) => {
                 const base = { url: icon.url, size: icon.size };
-                onChange(value === "" ? base : { ...base, background: value });
+                onChange(choice === "none" ? base : { ...base, background: choice });
               }}
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="self-start text-destructive hover:text-destructive"
+              data-testid="point-icon-remove"
+              onClick={() => onChange(undefined)}
             >
-              <option value="">{ICON_FIELD_MESSAGES.transparent}</option>
-              {ICON_BACKGROUNDS.map((background) => (
-                <option key={background} value={background}>
-                  {ICON_FIELD_MESSAGES.backgrounds[background]}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div className="man-hie__image-actions">
-            <button type="button" className="man-hie__button" onClick={() => setPicking(true)}>
-              {ICON_FIELD_MESSAGES.change}
-            </button>
-            <button type="button" className="man-hie__button" onClick={() => onChange(undefined)}>
               {ICON_FIELD_MESSAGES.remove}
-            </button>
-          </div>
-        </div>
-      )}
-      {picking && <MediaPicker client={client} onSelect={select} onClose={() => setPicking(false)} />}
-    </div>
+            </Button>
+          </>
+        )}
+      </MediaDrop>
+    </FormSection>
   );
 }

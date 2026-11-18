@@ -11,13 +11,18 @@
  * limitations under the License.
  */
 
-import { configFieldSelector } from "@shared/config-field-injector";
+/** Was beide Modi des Editors vom Fenster bekommen. */
 
-/**
- * Der aktuelle Wert eines Feldes im Konfigurationsdialog; `null`, wenn es
- * fehlt. Auch ein Feld, das ein Injektor verborgen hat, steht noch im DOM
- * und trägt seinen Wert.
- */
-export function readConfigValue(key: string, root: ParentNode = document): string | null {
-  return root.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(configFieldSelector(key))?.value ?? null;
+import { ConfigKey, HotspotConfig } from "../hotspot-config";
+import { PointSource } from "../menu-points-model";
+
+/** Ändert die Konfiguration über ihren jüngsten Stand – auch aus festgehaltenen Rückrufen. */
+export type ConfigUpdate = (change: (config: HotspotConfig) => HotspotConfig) => void;
+
+export interface ModeEditorProps {
+  config: HotspotConfig;
+  /** Schlüssel, deren alter Wert nicht lesbar war (siehe `inherited-note.tsx`). */
+  inherited: readonly ConfigKey[];
+  update: ConfigUpdate;
+  onSourceChange: (source: PointSource) => void;
 }

@@ -12,185 +12,191 @@
  */
 
 /**
- * Das Ziel eines Punktes.
+ * Der Abschnitt „Link“ eines Punkts: Ziel und Beschriftung des Buttons.
  *
  * `kind` ist nicht redaktionell wählbar, sondern folgt daraus, woher die
  * Adresse kam: eine Seite aus dem Katalog liegt in derselben Herkunft und
  * lässt sich einbetten, eine von Hand eingetragene nicht. Ein Auswahlfeld
- * „im iFrame anzeigen?" wäre eine Frage, die niemand beantworten kann, ohne
+ * „im iFrame anzeigen?“ wäre eine Frage, die niemand beantworten kann, ohne
  * die `X-Frame-Options` der Zielseite zu kennen.
+ *
+ * Das Ziel ist eine Auswahl: „Kein Link“, die Seiten des Systems, „Eigene
+ * Adresse eingeben …“. Die Eingabe von Hand ist bewusst nur
+ * Oberflächenzustand, bis jemand tippt: kommt der Katalog leer zurück (auch
+ * wenn die Anfrage bloss fehlschlug), stünde sonst ein bestehender
+ * Seitenlink beim blossen Öffnen ohne Adresse und Titel da.
  */
 
 import * as React from "react";
-import { ReactElement, useCallback, useEffect, useState } from "react";
-
+import { ReactElement, useEffect, useState } from "react";
+import { Field } from "@man/config-ui/form/field";
+import { FormSection } from "@man/config-ui/form/form-section";
+import { Button } from "@man/config-ui/primitives/button";
+import { Input } from "@man/config-ui/primitives/input";
 import { fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
-import { EntityPicker } from "@shared/entity-picker/entity-picker";
+import { PageOption, pageCatalogSource } from "@shared/staffbase/pages";
 
 import { DEFAULT_LINK_LABEL, HotspotLink } from "../points-model";
-import { PageOption, pageCatalogSource } from "@shared/staffbase/pages";
+import { CatalogSelect } from "./catalog-select";
+
+export const LINK_MESSAGES = {
+  section: "Link",
+  target: "Ziel",
+  none: "Kein Link",
+  placeholder: "Seite auswählen …",
+  manual: "Eigene Adresse eingeben …",
+  address: "Adresse",
+  addressHint: "Eigene Adressen öffnen sich in neuem Tab. Nur Seiten aus dem System erscheinen im Fenster über dem Bild.",
+  unavailable: "Die Seiten des Systems lassen sich gerade nicht laden. Trage die Adresse von Hand ein.",
+  backToList: "Stattdessen eine Seite wählen",
+  remove: "Link entfernen",
+  label: "Beschriftung des Buttons",
+  labelHint: `Leer bleibt es bei „${DEFAULT_LINK_LABEL}“.`,
+  orphaned: (href: string): string => `Die gespeicherte Seite steht nicht in der Liste: ${href}`,
+} as const;
+
+/** Die Seiten des Systems; austauschbar für Tests. */
+export type PageLoader = () => Promise<PageOption[]>;
+
+// `fetchEntityCatalog` gibt `EntityOption[]` zurück; das zusätzliche `href`
+// überlebt zur Laufzeit, ist für TypeScript aber weg. Die Zusicherung ist
+// vertretbar, weil `pageCatalogSource.toOption` als einziger Erzeuger immer
+// ein `href` setzt.
+const loadPages: PageLoader = () => fetchEntityCatalog(pageCatalogSource) as Promise<PageOption[]>;
 
 export interface LinkFieldProps {
   link: HotspotLink | undefined;
   onChange: (link: HotspotLink | undefined) => void;
+  /** Nur für Tests. */
+  load?: PageLoader;
 }
 
-export function LinkField({ link, onChange }: LinkFieldProps): ReactElement {
-  const [options, setOptions] = useState<PageOption[]>([]);
-  const [loading, setLoading] = useState(true);
-  /**
-   * Ob gerade von Hand eingetragen wird.
-   *
-   * Bewusst nur Oberflächenzustand: der Picker ruft `onManual` schon, wenn der
-   * Katalog leer zurückkommt -- also auch dann, wenn die Anfrage bloss
-   * fehlschlug. Würde das gespeichert, verlöre ein bestehender Seitenlink beim
-   * blossen Öffnen des Editors Adresse und Titel, ohne dass jemand etwas
-   * angerührt hätte. Geschrieben wird erst, wenn wirklich getippt wird.
-   */
-  const [manual, setManual] = useState(false);
-
+function usePages(load: PageLoader): { options: PageOption[]; loading: boolean } {
+  const [state, setState] = useState<{ options: PageOption[]; loading: boolean }>({ options: [], loading: true });
   useEffect(() => {
     let current = true;
-    // `fetchEntityCatalog` gibt `EntityOption[]` zurück; das zusätzliche `href`
-    // überlebt zur Laufzeit, ist für TypeScript aber weg. Die Zusicherung ist
-    // vertretbar, weil `pageCatalogSource.toOption` als einziger Erzeuger
-    // immer ein `href` setzt.
-    void fetchEntityCatalog(pageCatalogSource).then((loaded) => {
-      if (!current) return;
-      setOptions(loaded as PageOption[]);
-      setLoading(false);
-    });
+    load().then(
+      (options) => current && setState({ options, loading: false }),
+      () => current && setState({ options: [], loading: false }),
+    );
     return () => {
       current = false;
     };
-  }, []);
+  }, [load]);
+  return state;
+}
 
-  const toManual = useCallback(() => setManual(true), []);
+const withLabel = (link: HotspotLink | undefined): Pick<HotspotLink, "label"> =>
+  link?.label === undefined ? {} : { label: link.label };
 
-  if (link === undefined) {
-    return (
-      <div className="man-hie__form">
-        <button
-          type="button"
-          className="man-hie__button"
-          onClick={() => onChange({ kind: "page", href: "" })}
-        >
-          Link hinzufügen
-        </button>
+interface ManualProps {
+  link: HotspotLink | undefined;
+  unavailable: boolean;
+  onChange: (link: HotspotLink | undefined) => void;
+  onBack: (() => void) | undefined;
+}
+
+/** Die eigene Adresse: geschrieben wird erst, wenn getippt wird. */
+function ManualAddress({ link, unavailable, onChange, onBack }: ManualProps): ReactElement {
+  return (
+    <>
+      <Field label={LINK_MESSAGES.address} hint={unavailable ? LINK_MESSAGES.unavailable : LINK_MESSAGES.addressHint}>
+        <Input
+          type="url"
+          className="h-10"
+          placeholder="https://"
+          data-testid="link-field-address"
+          value={link?.href ?? ""}
+          onChange={(event) => onChange({ kind: "url", href: event.target.value, ...withLabel(link) })}
+        />
+      </Field>
+      <div className="flex flex-wrap gap-2">
+        {onBack !== undefined && (
+          <Button type="button" variant="ghost" size="sm" onClick={onBack}>
+            {LINK_MESSAGES.backToList}
+          </Button>
+        )}
+        {link !== undefined && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-destructive hover:text-destructive"
+            onClick={() => onChange(undefined)}
+          >
+            {LINK_MESSAGES.remove}
+          </Button>
+        )}
       </div>
-    );
-  }
+    </>
+  );
+}
 
-  const chosen = options.find((option) => option.href === link.href);
+export function LinkField({ link, onChange, load = loadPages }: LinkFieldProps): ReactElement {
+  const { options, loading } = usePages(load);
+  const [manual, setManual] = useState(false);
+  const unavailable = !loading && options.length === 0;
+  const typing = manual || link?.kind === "url" || unavailable;
+  const chosen = link?.kind === "page" ? options.find((option) => option.href === link.href) : undefined;
   /**
-   * Ein gespeicherter Seitenlink, den der Katalog nicht kennt -- die Seite
-   * wurde gelöscht, oder die Liste kam unvollständig. Ohne Hinweis stünde im
-   * Auswahlfeld die Aufforderung „Seite auswählen …", als wäre nie etwas
-   * gesetzt worden, und der nächste Klick überschriebe den Link stillschweigend.
+   * Ein gespeicherter Seitenlink, den der Katalog nicht kennt – die Seite
+   * wurde gelöscht, oder die Liste kam unvollständig. Ohne Hinweis stünde die
+   * Aufforderung „Seite auswählen …“ da, als wäre nie etwas gesetzt worden.
    */
-  const orphaned = !loading && link.kind === "page" && link.href !== "" && chosen === undefined;
-  const typing = manual || link.kind === "url";
+  const orphaned = !loading && link?.kind === "page" && link.href !== "" && chosen === undefined;
 
-  const pickPage = (id: string): void => {
+  const pickPage = (id: string | null): void => {
+    if (id === null) {
+      onChange(undefined);
+      return;
+    }
     const option = options.find((candidate) => candidate.id === id);
-    if (option === undefined) return;
+    if (option !== undefined) onChange({ kind: "page", href: option.href, title: option.title, ...withLabel(link) });
+  };
+
+  const backToList = (): void => {
     setManual(false);
-    onChange({
-      kind: "page",
-      href: option.href,
-      title: option.title,
-      ...(link.label === undefined ? {} : { label: link.label }),
-    });
+    // Zurück zur Liste heisst: die eigene Adresse gilt nicht mehr. Anders als
+    // das Umschalten ist das eine ausdrückliche Handlung, also darf sie schreiben.
+    if (link?.kind === "url") onChange({ kind: "page", href: "", ...withLabel(link) });
   };
 
   return (
-    <div className="man-hie__form">
-      {!typing ? (
-        <label className="man-hie__label">
-          Ziel
-          {/*
-            Solange der Katalog unterwegs ist, steht hier nichts: der Picker
-            ruft `onManual`, sobald er keine Optionen sieht -- und das täte er
-            beim ersten Rendern jedes Mal, noch bevor die Liste da ist.
-          */}
-          {loading ? null : (
-            <EntityPicker
-              options={options}
-              value={chosen?.id ?? ""}
-              loading={loading}
-              onChange={pickPage}
-              onManual={toManual}
-              labels={{
-                placeholder: "Seite auswählen …",
-                manualOption: "Eigene Adresse eingeben …",
-                unavailableNotice:
-                  "Die Seiten des Systems lassen sich gerade nicht laden. Trage die Adresse von Hand ein.",
-              }}
-            />
-          )}
-          {orphaned && (
-            <span className="man-hie__hint" data-testid="link-field-orphaned">
-              Die gespeicherte Seite steht nicht in der Liste: {link.href}
-            </span>
-          )}
-        </label>
-      ) : (
-        <>
-          <label className="man-hie__label">
-            Adresse
-            <input
-              className="man-hie__input"
-              type="url"
-              value={link.href}
-              onChange={(event) =>
-                onChange({
-                  kind: "url",
-                  href: event.target.value,
-                  ...(link.label === undefined ? {} : { label: link.label }),
-                })
-              }
-            />
-          </label>
-          <p className="man-hie__hint">
-            Eigene Adressen öffnen sich in neuem Tab. Nur Seiten aus dem System
-            erscheinen im Fenster über dem Bild.
-          </p>
-          <button
-            type="button"
-            className="man-hie__button"
-            onClick={() => {
-              setManual(false);
-              // Zurück zur Liste heisst: die eigene Adresse gilt nicht mehr.
-              // Anders als beim Umschalten ist das hier eine ausdrückliche
-              // Handlung, also darf sie schreiben.
-              if (link.kind === "url") {
-                onChange({
-                  kind: "page",
-                  href: "",
-                  ...(link.label === undefined ? {} : { label: link.label }),
-                });
-              }
-            }}
-          >
-            Stattdessen eine Seite auswählen
-          </button>
-        </>
-      )}
-
-      <label className="man-hie__label">
-        Beschriftung des Buttons
-        <input
-          className="man-hie__input"
-          type="text"
-          placeholder={DEFAULT_LINK_LABEL}
-          value={link.label ?? ""}
-          onChange={(event) => onChange({ ...link, label: event.target.value })}
+    <FormSection title={LINK_MESSAGES.section}>
+      {typing ? (
+        <ManualAddress
+          link={link}
+          unavailable={unavailable}
+          onChange={onChange}
+          onBack={options.length > 0 ? backToList : undefined}
         />
-      </label>
-
-      <button type="button" className="man-hie__button" onClick={() => onChange(undefined)}>
-        Link entfernen
-      </button>
-    </div>
+      ) : (
+        <CatalogSelect
+          label={LINK_MESSAGES.target}
+          hint={orphaned && link !== undefined ? LINK_MESSAGES.orphaned(link.href) : undefined}
+          options={options}
+          loading={loading}
+          value={link === undefined ? null : (chosen?.id ?? "")}
+          placeholder={LINK_MESSAGES.placeholder}
+          noneLabel={LINK_MESSAGES.none}
+          manualLabel={LINK_MESSAGES.manual}
+          onSelect={pickPage}
+          onManual={() => setManual(true)}
+          testId="link-field-target"
+        />
+      )}
+      {link !== undefined && (
+        <Field label={LINK_MESSAGES.label} hint={LINK_MESSAGES.labelHint}>
+          <Input
+            type="text"
+            className="h-10"
+            placeholder={DEFAULT_LINK_LABEL}
+            data-testid="link-field-label"
+            value={link.label ?? ""}
+            onChange={(event) => onChange({ ...link, label: event.target.value })}
+          />
+        </Field>
+      )}
+    </FormSection>
   );
 }

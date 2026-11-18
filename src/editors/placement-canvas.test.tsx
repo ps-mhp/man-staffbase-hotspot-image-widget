@@ -167,9 +167,25 @@ describe("PlacementCanvas", () => {
     expect(onMove).toHaveBeenCalledWith("p1", 50, 49);
   });
 
-  it("hebt den ausgewählten Punkt optisch über die Klasse hervor", () => {
+  it("hebt den ausgewählten Punkt optisch mit dem Ring der Akzentfarbe hervor", () => {
     renderCanvas({ selectedId: "p1" });
-    expect(screen.getByTestId("place-marker-p1")).toHaveClass("man-hie__canvas-marker--selected");
+    const marker = screen.getByTestId("place-marker-p1");
+    expect(marker).toHaveAttribute("data-selected", "true");
+    expect(marker).toHaveClass("outline-primary");
+  });
+
+  it("färbt die Punkte wie auf der Seite: rot, im Menü-Modus anthrazit", () => {
+    const { unmount } = renderCanvas();
+    expect(screen.getByTestId("place-marker-p1")).toHaveClass("bg-brand");
+    unmount();
+
+    renderCanvas({ tone: "menu" });
+    expect(screen.getByTestId("place-marker-p1")).toHaveClass("bg-brand-ink");
+  });
+
+  it("setzt den Hintergrund eines Punktbilds in der Farbe der Seite", () => {
+    renderCanvas({ points: [{ ...points[0], icon: { url: "https://example.test/i.png", size: "m", background: "red" } }] });
+    expect(screen.getByTestId("place-marker-p1")).toHaveClass("man-hie__icon-bg--red");
   });
 
   // Eine CSS-Klasse allein prüft kein Verhalten und sagt einer Vorlesesoftware

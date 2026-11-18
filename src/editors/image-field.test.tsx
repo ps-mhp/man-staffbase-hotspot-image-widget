@@ -13,113 +13,71 @@
 
 import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ImageField } from "./image-field";
+import userEvent from "@testing-library/user-event";
+import { MediaClient } from "@shared/media/media-client";
+import { PickedMedia } from "@shared/media/media-picker";
 
-/** Was die Mediathek im jeweiligen Test zurueckgibt. */
-// Jest verlangt fuer Variablen, die eine Mock-Fabrik liest, das Praefix `mock`.
-let mockPicked: Record<string, unknown> = {
-  url: "https://example.test/neu.jpg",
-  width: 1600,
-  height: 900,
-};
+import { HotspotImage } from "../points-model";
+import { EditorMediaContext, fileNameOf, imageFromPick } from "./editor-media";
+import { IMAGE_FIELD_MESSAGES, ImageField } from "./image-field";
 
-jest.mock("@shared/media/media-picker", () => ({
-  MediaPicker: ({ onSelect, onClose }: { onSelect: (image: unknown) => void; onClose: () => void }) => (
-    <div data-testid="media-picker">
-      <button type="button" onClick={() => onSelect(mockPicked)}>
-        Bild wählen
-      </button>
-      <button type="button" onClick={onClose}>
-        Abbrechen
-      </button>
-    </div>
-  ),
-}));
+const image: HotspotImage = { url: "https://example.test/media/werksplan.jpg?token=1", alt: "Werksplan", width: 1600, height: 900 };
 
-/** Oeffnet die Mediathek und waehlt darin das vorbereitete Bild. */
-const chooseFromLibrary = (): void => {
-  fireEvent.click(screen.getByRole("button", { name: /Bild wählen …/ }));
-  fireEvent.click(screen.getByRole("button", { name: "Bild wählen" }));
-};
-
-beforeEach(() => {
-  mockPicked = { url: "https://example.test/neu.jpg", width: 1600, height: 900 };
-});
-
-type Props = React.ComponentProps<typeof ImageField>;
-
-const renderField = (overrides: Partial<Props> = {}) => {
-  const props: Props = {
-    image: null,
-    alt: "",
-    onChange: jest.fn(),
-    onAltChange: jest.fn(),
-    ...overrides,
-  };
-  render(<ImageField {...props} />);
-  return props;
-};
+function renderField(current: HotspotImage | null): { onChange: jest.Mock; onPick: jest.Mock; pick: jest.Mock } {
+  const onChange = jest.fn();
+  const onPick = jest.fn();
+  const pick = jest.fn();
+  render(
+    <EditorMediaContext.Provider value={{ client: {} as MediaClient, pick }}>
+      <ImageField label="Bild" image={current} onChange={onChange} onPick={onPick} hint="Hinweis" testId="img" />
+    </EditorMediaContext.Provider>,
+  );
+  return { onChange, onPick, pick };
+}
 
 describe("ImageField", () => {
-  it("zeigt ohne Bild nur die Aufforderung", () => {
-    renderField();
-    expect(screen.getByRole("button", { name: /Bild wählen/ })).toBeInTheDocument();
-    expect(screen.queryByTestId("image-preview")).not.toBeInTheDocument();
+  it("bietet ohne Bild nur die Wahl an", async () => {
+    const { pick, onPick } = renderField(null);
+
+    expect(screen.queryByLabelText(IMAGE_FIELD_MESSAGES.alt)).toBeNull();
+    await userEvent.click(screen.getByRole("button", { name: `Bild: ${IMAGE_FIELD_MESSAGES.pick}` }));
+
+    expect(pick).toHaveBeenCalledWith("Bild", onPick);
   });
 
-  it("öffnet die Mediathek und gibt das gewählte Bild weiter", () => {
-    const { onChange } = renderField();
-    chooseFromLibrary();
-    expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ url: "https://example.test/neu.jpg", width: 1600, height: 900 }),
-    );
+  it("zeigt Dateiname und Maße und ändert die Bildbeschreibung", () => {
+    const { onChange } = renderField(image);
+
+    expect(screen.getByText("werksplan.jpg")).toBeInTheDocument();
+    expect(screen.getByText("1600 × 900 px")).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText(IMAGE_FIELD_MESSAGES.alt), { target: { value: "Plan" } });
+
+    expect(onChange).toHaveBeenCalledWith({ ...image, alt: "Plan" });
   });
 
-  it("lässt den Alternativtext des gewählten Bildes ändern", () => {
-    const image = { url: "https://example.test/a.jpg", alt: "Ein Auto" };
-    const { onAltChange } = renderField({ image, alt: "Ein Auto" });
-    // Keine eigene Vorschau: die Bühne im Editor zeigt dasselbe Bild.
-    expect(screen.queryByTestId("image-preview")).not.toBeInTheDocument();
-    expect(screen.getByLabelText(/Alternativtext/)).toHaveValue("Ein Auto");
-    fireEvent.change(screen.getByLabelText(/Alternativtext/), { target: { value: "Ein Bus" } });
-    expect(onAltChange).toHaveBeenCalledWith("Ein Bus");
-  });
+  it("ersetzt und entfernt das Bild", async () => {
+    const { onChange, pick } = renderField(image);
 
-  it("übernimmt den Alternativtext aus der Mediathek, wenn es noch keinen gibt", () => {
-    mockPicked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek" };
-    const { onChange, onAltChange } = renderField();
-    chooseFromLibrary();
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ alt: "Aus der Mediathek" }));
-    expect(onAltChange).toHaveBeenCalledWith("Aus der Mediathek");
-  });
-
-  it("lässt einen vorhandenen Alternativtext beim Bildwechsel stehen", () => {
-    // Der Text wurde für dieses Widget geschrieben; der aus der Mediathek
-    // beschreibt nur die Datei. Ihn zu überschreiben nähme der Redaktion
-    // unbemerkt ihre Arbeit weg.
-    mockPicked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek" };
-    const { onChange, onAltChange } = renderField({
-      image: { url: "https://example.test/alt.jpg", alt: "Ein Auto" },
-      alt: "Ein Auto",
-    });
-    fireEvent.click(screen.getByRole("button", { name: /Anderes Bild wählen/ }));
-    fireEvent.click(screen.getByRole("button", { name: "Bild wählen" }));
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ alt: "Ein Auto" }));
-    expect(onAltChange).not.toHaveBeenCalled();
-  });
-
-  it("achtet auch einen bewusst leer gelassenen Alternativtext", () => {
-    // Leer heißt „dieses Bild ist schmückend" -- eine Aussage, kein Versäumnis.
-    mockPicked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek" };
-    const { onChange } = renderField({ image: { url: "https://example.test/alt.jpg", alt: "" }, alt: "" });
-    fireEvent.click(screen.getByRole("button", { name: /Anderes Bild wählen/ }));
-    fireEvent.click(screen.getByRole("button", { name: "Bild wählen" }));
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ alt: "" }));
-  });
-
-  it("nimmt das Bild wieder heraus", () => {
-    const { onChange } = renderField({ image: { url: "https://example.test/a.jpg", alt: "" } });
-    fireEvent.click(screen.getByRole("button", { name: "Bild entfernen" }));
+    await userEvent.click(screen.getByRole("button", { name: "Bild ersetzen" }));
+    expect(pick).toHaveBeenCalled();
+    await userEvent.click(screen.getByRole("button", { name: "Bild entfernen" }));
     expect(onChange).toHaveBeenCalledWith(null);
+  });
+});
+
+describe("imageFromPick", () => {
+  const picked = { url: "https://example.test/neu.jpg", alt: "Aus der Mediathek", width: 800, height: 600 } as PickedMedia;
+
+  it("übernimmt ohne bisheriges Bild den Text aus der Mediathek", () => {
+    expect(imageFromPick(picked, null)).toEqual({ url: picked.url, alt: "Aus der Mediathek", width: 800, height: 600 });
+  });
+
+  it("behält einen bisherigen Text, auch einen bewusst leeren", () => {
+    expect(imageFromPick(picked, { url: "x", alt: "" }).alt).toBe("");
+    expect(imageFromPick(picked, image).alt).toBe("Werksplan");
+  });
+
+  it("nennt die Datei ohne Pfad und Parameter", () => {
+    expect(fileNameOf(image.url)).toBe("werksplan.jpg");
   });
 });

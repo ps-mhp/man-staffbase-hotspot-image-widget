@@ -27,7 +27,7 @@
 
 import hotspotStyles from "./styles/hotspot-image.scss";
 import menuStyles from "./styles/menu-mode.scss";
-import editorStyles from "./styles/point-editor.scss";
+import editorStyles from "./styles/editor-canvas.scss";
 
 /**
  * Der fünffach wiederholte Selektor, den `man-outshine-host` erzeugt.

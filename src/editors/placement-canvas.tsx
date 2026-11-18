@@ -17,10 +17,16 @@
  * Klick ins Bild legt an, Ziehen verschiebt, Pfeiltasten justieren. Zahlen
  * für x und y einzutippen wäre der offensichtliche Weg, aber niemand weiß,
  * wo „62 % / 41 %“ liegt.
+ *
+ * Aussehen wie im Screen: das Bild mit Schatten auf der grauen Bühne, die
+ * Punkte als rote Kreise mit weissem Rand (im Menü-Modus anthrazit), der
+ * gewählte mit Ring in der Akzentfarbe. Ein Punkt mit eigenem Bild steht so
+ * gross wie auf der Seite da.
  */
 
 import * as React from "react";
 import { ReactElement, useRef } from "react";
+import { cn } from "@man/config-ui/primitives/utils";
 
 import { ICON_SIZES } from "../point-icon";
 import { HotspotImage, HotspotPoint, clampPercent } from "../points-model";
@@ -34,7 +40,18 @@ export interface PlacementCanvasProps {
   onSelect: (pointId: string) => void;
   /** Was auf dem Marker steht; ohne Angabe die laufende Nummer. */
   markerLabel?: (index: number) => string;
+  /** Die Punkte des Menü-Modus sind anthrazit statt rot, wie auf der Seite. */
+  tone?: "manual" | "menu";
+  /** Name der Bühne für Screenreader, etwa „Werksplan mit 5 Punkten“. */
+  label?: string;
+  /** Den Titel jedes Punkts als Schild daneben zeigen (Menü-Modus: dort steht keine Nummer). */
+  showTitles?: boolean;
 }
+
+const MARKER =
+  "absolute grid -translate-x-1/2 -translate-y-1/2 cursor-grab place-items-center p-0 text-[13px] font-semibold text-white outline-none focus-visible:ring-[3px] focus-visible:ring-ring/60";
+const DOT = "size-8 rounded-full border-2 border-white shadow-md";
+const SELECTED = "z-[1] outline-[3px] outline-offset-2 outline-primary outline-solid";
 
 const numberLabel = (index: number): string => String(index + 1);
 
@@ -49,6 +66,9 @@ export function PlacementCanvas({
   onMove,
   onSelect,
   markerLabel = numberLabel,
+  tone = "manual",
+  label,
+  showTitles = false,
 }: PlacementCanvasProps): ReactElement {
   const stageRef = useRef<HTMLDivElement>(null);
   /** Welcher Punkt gerade an welchem Zeiger hängt. */
@@ -127,8 +147,15 @@ export function PlacementCanvas({
   };
 
   return (
-    <div className="man-hie__canvas" ref={stageRef} data-testid="placement-canvas" onClick={onStageClick}>
-      <img className="man-hie__canvas-image" src={image.url} alt="" draggable={false} />
+    <div
+      role="group"
+      aria-label={label}
+      className="relative w-full max-w-[680px] cursor-crosshair bg-background shadow-md"
+      ref={stageRef}
+      data-testid="placement-canvas"
+      onClick={onStageClick}
+    >
+      <img className="block h-auto w-full select-none" src={image.url} alt="" draggable={false} />
       {points.map((point, index) => {
         const selected = point.id === selectedId;
         return (
@@ -136,14 +163,16 @@ export function PlacementCanvas({
             key={point.id}
             type="button"
             data-testid={`place-marker-${point.id}`}
-            className={[
-              "man-hie__canvas-marker",
-              selected && "man-hie__canvas-marker--selected",
-              point.icon !== undefined && "man-hie__canvas-marker--icon",
-              point.icon?.background !== undefined && `man-hie__icon-bg man-hie__icon-bg--${point.icon.background}`,
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            data-selected={selected || undefined}
+            className={cn(
+              MARKER,
+              point.icon === undefined && DOT,
+              point.icon === undefined && (tone === "menu" ? "bg-brand-ink" : "bg-brand"),
+              point.icon !== undefined && "rounded-full border-2 border-transparent drop-shadow-md",
+              point.icon?.background !== undefined &&
+                `man-hie__icon-bg man-hie__icon-bg--${point.icon.background} shadow-md`,
+              selected && SELECTED,
+            )}
             style={{
               left: `${point.x}%`,
               top: `${point.y}%`,
@@ -154,7 +183,7 @@ export function PlacementCanvas({
                 : {
                     width: ICON_SIZES[point.icon.size],
                     height: ICON_SIZES[point.icon.size],
-                    // Für die Luft im Hintergrund, siehe `point-editor.scss`.
+                    // Für die Luft im Hintergrund, siehe `editor-canvas.scss`.
                     ["--man-hie-icon" as string]: `${ICON_SIZES[point.icon.size]}px`,
                   }),
             }}
@@ -179,11 +208,27 @@ export function PlacementCanvas({
             {point.icon === undefined ? (
               markerLabel(index)
             ) : (
-              <img className="man-hie__canvas-icon" src={point.icon.url} alt="" draggable={false} />
+              <img
+                className="pointer-events-none block size-full object-contain"
+                src={point.icon.url}
+                alt=""
+                draggable={false}
+              />
             )}
           </button>
         );
       })}
+      {showTitles &&
+        points.map((point) => (
+          <span
+            key={`tag-${point.id}`}
+            aria-hidden="true"
+            className="pointer-events-none absolute translate-x-5 translate-y-1 bg-background/90 px-1.5 py-0.5 text-[11px] font-semibold whitespace-nowrap text-brand-ink"
+            style={{ left: `${point.x}%`, top: `${point.y}%` }}
+          >
+            {point.title}
+          </span>
+        ))}
     </div>
   );
 }

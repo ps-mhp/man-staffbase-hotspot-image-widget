@@ -1,0 +1,43 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Nur, was Tailwind im Fenster nicht kennt: die Hintergründe eines
+// Punktbilds in den Farben der Seite. Alles Übrige am Editor ist Tailwind
+// mit den Tokens von `@man/config-ui`. Die Farben kommen aus den MAN-Tokens,
+// weil der Punkt auf der Bühne so aussehen soll wie auf der Seite.
+
+@use "@shared/stylings/man-tokens" as tokens;
+
+// Die Luft aus der Kantenlänge (`--man-hie-icon`, inline gesetzt), nicht in
+// Prozent: ein Prozent-Innenabstand bezieht sich auf die Breite des
+// umgebenden Bildes -- siehe `.man-hi__marker--icon-bg`.
+.man-hie__icon-bg {
+  padding: calc(var(--man-hie-icon, 48px) * 0.15);
+  border-radius: 50%;
+}
+
+.man-hie__icon-bg--white {
+  background: #{tokens.man("white")};
+}
+
+.man-hie__icon-bg--red {
+  background: #{tokens.man("red")};
+}
+
+.man-hie__icon-bg--dark {
+  background: #{tokens.man("slate-900")};
+}
+
+.man-hie__icon-bg--light {
+  background: #{tokens.man("grey-100")};
+}
