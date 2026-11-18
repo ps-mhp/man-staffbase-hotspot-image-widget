@@ -45,12 +45,13 @@ Unter **Darstellung der Punkte** steht eine von zwei Varianten zur Wahl:
 - Ohne Bild oder ohne mindestens einen Punkt zeigt das Widget gar nichts —
   keinen leeren Rahmen, kein Platzhalterbild.
 - In der Darstellung „Punkte“ öffnet sich das Fenster mit dem Text am Punkt
-  selbst; auf schmalen Bildschirmen (unter 768 Pixel Breite) erscheint es
-  stattdessen mittig im Bildschirm, mit einer Abdunklung dahinter.
+  selbst; steht das Widget schmal (unter 600 Pixel breit, etwa auf dem
+  Telefon), erscheint es stattdessen mittig im Bildschirm, mit einer
+  Abdunklung dahinter.
 - In der Darstellung „Nummeriert“ wird der zugehörige Punkt im Bild
   hervorgehoben, sobald der Mauszeiger über einem Listeneintrag steht oder ein
   Eintrag aufgeklappt ist: er wird größer, die übrigen Punkte treten zurück.
-  Auf schmalen Bildschirmen erscheinen die Punkte klein und ohne Zahl, damit
+  Steht das Widget schmal, erscheinen die Punkte klein und ohne Zahl, damit
   sie sich auch bei vielen Stellen nicht überdecken; welcher Punkt zu welchem
   Eintrag gehört, zeigt das Antippen in der Liste.
 - Führt ein Punkt zu einer Seite des Systems, erscheint darunter ein Button.
@@ -64,7 +65,7 @@ Unter **Darstellung der Punkte** steht eine von zwei Varianten zur Wahl:
 ## Was Leser:innen im Modus „Aus dem Menü“ sehen
 
 - Links das Bild der gezeigten Menüebene mit roten Punkten ohne Zahl, rechts
-  daneben das Menü — auf schmalen Bildschirmen darunter. Das Menü zeigt eine
+  daneben das Menü — steht das Widget schmal, darunter. Das Menü zeigt eine
   Ebene zur Zeit: ein Pfeil führt eine Ebene tiefer, der Zurück-Knopf oben
   wieder hinauf, auf dem Telefon auch ein Wischen nach rechts.
 - Wer im Menü in eine Ebene blättert, sieht deren Bild mit den Punkten

@@ -20,9 +20,10 @@
  * Punkt (dessen Fenster an `document` lauschte) noch eine verlinkte Seite.
  * Der Menü-Modus fragt den Menübaum wie der Editor; das liest nur.
  *
- * Grenze: Der Gerätrahmen ist kein iframe. Medienabfragen der Leseansicht
- * (`max-width: 767px`) fragen das Fenster des Studios, nicht den Rahmen;
- * die schmale Darstellung des Telefons zeigt „Mobil“ deshalb nicht.
+ * Der Gerätrahmen ist kein iframe. Die Leseansicht bricht deshalb nach
+ * ihrer eigenen Breite um (`@container man-hi`, `use-narrow-width.ts`),
+ * nicht nach der des Fensters – so zeigt „Mobil“ die schmale Darstellung
+ * des Telefons.
  */
 
 import * as React from "react";

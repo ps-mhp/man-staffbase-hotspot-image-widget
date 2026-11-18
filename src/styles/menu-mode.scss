@@ -13,13 +13,14 @@
 
 @use "@shared/stylings/man-tokens" as *;
 @use "@shared/stylings/man-craft" as *;
+@use "narrow" as *;
 
 // Das blätternde Menü neben dem Bild, nach dem Navigation-Widget 0.1.0
 // (`styles/navigation-menu.scss`, Stand ec746db); dazu Anordnung, Punkte mit
 // Namensschild und Markierungen des Modus „Menü“.
 
-// Bild links, Menü rechts; auf dem Telefon untereinander -- wie die
-// nummerierte Darstellung.
+// Bild links, Menü rechts; in schmaler eigener Breite (`_narrow.scss`)
+// untereinander -- wie die nummerierte Darstellung.
 .man-hi--menu {
   // Die Wechsel zwischen den Ebenen: länger und mit weichem Ausklang statt
   // der knappen Craft-Bewegung (300ms, `ease-move` zieht hart an) -- am
@@ -85,7 +86,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@container man-hi (min-width: #{$narrow-below}) {
   .man-hi--menu {
     grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
     align-items: start;
@@ -94,7 +95,7 @@
 
 // Ohne Bild bis hinauf zur Startebene steht nur das Menü da -- ueber die
 // ganze Breite statt in einer schmalen rechten Spalte neben nichts.
-@media (min-width: 768px) {
+@container man-hi (min-width: #{$narrow-below}) {
   .man-hi--menu-only {
     grid-template-columns: minmax(0, 1fr);
   }

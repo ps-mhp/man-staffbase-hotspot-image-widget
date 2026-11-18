@@ -13,6 +13,14 @@
 
 @use "@shared/stylings/man-tokens" as *;
 @use "@shared/stylings/man-craft" as *;
+@use "narrow" as *;
+
+// Der Behälter, nach dessen Breite umgebrochen wird. Ein eigenes Element um
+// `.man-hi`: eine Containerabfrage gestaltet nur Nachfahren, nie den Behälter
+// selbst -- und `.man-hi` trägt das Raster, das umbricht.
+.man-hi-scope {
+  container: man-hi / inline-size;
+}
 
 .man-hi {
   // Die Punkte sind das Erkennungszeichen des Widgets und tragen deshalb die
@@ -44,7 +52,7 @@
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 768px) {
+@container man-hi (min-width: #{$narrow-below}) {
   .man-hi--numbered {
     grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
     align-items: start;
@@ -116,13 +124,13 @@
 
 // Auf dem Telefon lagen die nummerierten Punkte bei vielen Stellen
 // uebereinander, und die Ziffern waren nicht mehr zu lesen. Unter der
-// Umbruchbreite werden sie deshalb klein und ziffernlos: welcher Punkt welcher
+// Umbruchbreite (`_narrow.scss`) werden sie deshalb klein und ziffernlos: welcher Punkt welcher
 // ist, zeigt die Liste darunter -- ein Tipp auf einen Eintrag hebt seinen Punkt
 // hervor. Die Liste ist damit auch der gleichwertige Weg, der den kleinen
 // Punkt als Tippziel entschuldigt.
 //
-// Deckungsgleich mit `NARROW_QUERY` in `use-narrow-viewport.ts`.
-@media (max-width: 767px) {
+// Deckungsgleich mit `NARROW_BELOW_PX` in `use-narrow-width.ts`.
+@container man-hi (width < #{$narrow-below}) {
   .man-hi {
     --man-hi-emphasis: 1.7;
   }

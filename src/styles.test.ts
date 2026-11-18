@@ -25,6 +25,7 @@
  * Hausfarbe tragen. Das fängt den Rückfall, nicht das Aussehen.
  */
 
+import { NARROW_BELOW_PX } from "./use-narrow-width";
 import hotspotStyles from "./styles/hotspot-image.scss";
 import menuStyles from "./styles/menu-mode.scss";
 import editorStyles from "./styles/editor-canvas.scss";
@@ -39,6 +40,11 @@ function outshineRule(css: string, className: string): RegExp {
   const selector = `\\.${className.replace(/-/g, "\\-")}`.repeat(5);
   return new RegExp(`${selector}\\s*\\{[^}]*\\}`);
 }
+
+/** Der Block der schmalen Darstellung: unter {@link NARROW_BELOW_PX} eigener Breite. */
+const NARROW_BLOCK = new RegExp(
+  String.raw`@container man-hi \(width < ${NARROW_BELOW_PX}px\)\s*\{([\s\S]*?)\n\}`,
+);
 
 describe("Stylesheet", () => {
   it("trägt die Hausfarbe statt eines eigenen Graus", () => {
@@ -179,10 +185,25 @@ describe("Stylesheet", () => {
   // übereinander, die Ziffern waren nicht mehr zu lesen. Unter der Umbruch-
   // breite werden sie deshalb klein und ziffernlos; wer welcher ist, zeigt
   // die Liste darunter.
-  it("macht die nummerierten Punkte auf schmalen Bildschirmen klein und ohne Ziffer", () => {
-    const narrow = hotspotStyles.match(/@media \(max-width: 767px\)\s*\{([\s\S]*?)\n\}/)?.[1] ?? "";
+  it("macht die nummerierten Punkte in schmaler Breite klein und ohne Ziffer", () => {
+    const narrow = hotspotStyles.match(NARROW_BLOCK)?.[1] ?? "";
     expect(narrow).toMatch(outshineRule(narrow, "man-hi__marker--numbered"));
     expect(narrow).toMatch(/\.man-hi__marker-number\s*\{[^}]*display:\s*none/);
+  });
+
+  // Die Vorschau im Config-Modal setzt das Gerät in echter Breite in einen
+  // Rahmen, nicht in ein eigenes Fenster. Eine Medienabfrage fragte dort das
+  // Fenster des Studios, und „Mobil“ zeigte die breite Darstellung.
+  it.each([
+    ["hotspot-image.scss", hotspotStyles],
+    ["menu-mode.scss", menuStyles],
+  ])("bricht in %s nach der eigenen Breite um, nicht nach der des Fensters", (_name, css) => {
+    expect(css).not.toMatch(/@media[^{]*width/);
+    expect(css).toContain(`@container man-hi (min-width: ${NARROW_BELOW_PX}px)`);
+  });
+
+  it("legt den Behälter, nach dessen Breite umgebrochen wird, um die Leseansicht", () => {
+    expect(hotspotStyles).toMatch(/\.man-hi-scope\s*\{[^}]*container:\s*man-hi\s*\/\s*inline-size/);
   });
 
   it("zieht den hervorgehobenen Punkt nach vorn, statt ihn unter den anderen zu lassen", () => {

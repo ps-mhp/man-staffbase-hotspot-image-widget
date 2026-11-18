@@ -80,28 +80,31 @@ export function MenuHotspotImage({
         {base}
         {menu}
       </style>
-      {state.status === "ready" ? (
-        // Der Schlüssel setzt Blättern und Markierungen zurück, wenn ein anderer Baum kommt.
-        <MenuStage key={`${rootId}#${depth}`} image={image} layout={layout} tree={state.tree} click={click} />
-      ) : (
-        <div className="man-hi man-hi--menu">
-          {image !== null && <Stage image={image} />}
-          <div className="man-hi-menu man-hi-menu--status">
-            {state.status === "error" ? (
-              <div className="man-hi-menu__status" role="alert">
-                <p className="man-hi-menu__message">{MENU_STATUS.failed}</p>
-                <button type="button" className="man-hi-menu__retry" onClick={state.retry}>
-                  {MENU_STATUS.retry}
-                </button>
-              </div>
-            ) : (
-              <p className="man-hi-menu__status man-hi-menu__status--loading" role="status">
-                {MENU_STATUS.loading}
-              </p>
-            )}
+      {/* Der Behälter, nach dessen Breite das Stylesheet umbricht (`@container man-hi`). */}
+      <div className="man-hi-scope">
+        {state.status === "ready" ? (
+          // Der Schlüssel setzt Blättern und Markierungen zurück, wenn ein anderer Baum kommt.
+          <MenuStage key={`${rootId}#${depth}`} image={image} layout={layout} tree={state.tree} click={click} />
+        ) : (
+          <div className="man-hi man-hi--menu">
+            {image !== null && <Stage image={image} />}
+            <div className="man-hi-menu man-hi-menu--status">
+              {state.status === "error" ? (
+                <div className="man-hi-menu__status" role="alert">
+                  <p className="man-hi-menu__message">{MENU_STATUS.failed}</p>
+                  <button type="button" className="man-hi-menu__retry" onClick={state.retry}>
+                    {MENU_STATUS.retry}
+                  </button>
+                </div>
+              ) : (
+                <p className="man-hi-menu__status man-hi-menu__status--loading" role="status">
+                  {MENU_STATUS.loading}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

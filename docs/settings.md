@@ -114,9 +114,10 @@ duplizieren, löschen.
   versetzt ihn.
 - Eine Menüebene **ohne eigenes Bild** zeigt das Bild der Ebene darüber.
   Punkte lassen sich auf ihr erst setzen, wenn sie ein eigenes Bild hat.
-- Die Vorschau **Mobil** zeigt die Seite in Telefonbreite, aber nicht die
-  eigene Darstellung für schmale Bildschirme: die richtet sich nach dem
-  Fenster des Browsers, nicht nach dem Vorschaurahmen.
+- Ob das Widget schmal oder breit dargestellt wird, richtet sich nach seiner
+  eigenen Breite (unter 600 Pixel schmal), nicht nach der des Bildschirms. Die
+  Vorschau **Mobil** zeigt deshalb dieselbe schmale Darstellung wie das
+  Telefon; ein Widget in einer schmalen Spalte steht auch am Desktop schmal.
 
 ## Abhängigkeiten
 

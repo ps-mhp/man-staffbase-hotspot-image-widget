@@ -202,3 +202,57 @@ describe("HotspotImage", () => {
     expect(screen.getByTestId("marker-p2")).toHaveClass("man-hi__marker--open");
   });
 });
+
+/**
+ * Schmal oder breit entscheidet die eigene Breite, nicht die des Fensters:
+ * in der Vorschau des Config-Modals steht die Leseansicht in einem Rahmen
+ * mit Gerätebreite, und „Mobil“ soll dort zeigen, was das Telefon zeigt.
+ * jsdom misst nichts – der ResizeObserver meldet hier die Breite.
+ */
+describe("HotspotImage nach eigener Breite", () => {
+  const original = globalThis.ResizeObserver;
+  let reportedWidth = 0;
+
+  beforeEach(() => {
+    globalThis.ResizeObserver = class {
+      private readonly callback: ResizeObserverCallback;
+      constructor(callback: ResizeObserverCallback) {
+        this.callback = callback;
+      }
+      observe(target: Element): void {
+        const entry = { target, contentRect: { width: reportedWidth } } as unknown as ResizeObserverEntry;
+        this.callback([entry], this as unknown as ResizeObserver);
+      }
+      unobserve(): void {}
+      disconnect(): void {}
+    } as unknown as typeof ResizeObserver;
+    // Ein breites Fenster: die Antwort darf nicht von hier kommen.
+    window.matchMedia = jest.fn(() => ({ matches: false, addEventListener: jest.fn(), removeEventListener: jest.fn() })) as unknown as typeof window.matchMedia;
+  });
+
+  afterEach(() => {
+    globalThis.ResizeObserver = original;
+  });
+
+  it("legt die Leseansicht in den Behälter, dessen Breite das Stylesheet fragt", () => {
+    reportedWidth = 1000;
+    const { container } = render(<HotspotImage image={image} points={points} mode="numbered" />);
+    expect(container.querySelector(".man-hi-scope > .man-hi")).not.toBeNull();
+  });
+
+  it("öffnet das Popover in schmaler eigener Breite mittig und mit Abdunklung", () => {
+    reportedWidth = 342;
+    render(<HotspotImage image={image} points={points} mode="dots" />);
+    fireEvent.click(screen.getByTestId("marker-p1"));
+    expect(screen.getByTestId("man-hi-panel-p1")).toHaveClass("man-hi__popover--centered");
+    expect(screen.getByTestId("popover-scrim")).toBeInTheDocument();
+  });
+
+  it("setzt das Popover in breiter eigener Breite an den Punkt", () => {
+    reportedWidth = 1000;
+    render(<HotspotImage image={image} points={points} mode="dots" />);
+    fireEvent.click(screen.getByTestId("marker-p1"));
+    expect(screen.getByTestId("man-hi-panel-p1")).not.toHaveClass("man-hi__popover--centered");
+    expect(screen.queryByTestId("popover-scrim")).not.toBeInTheDocument();
+  });
+});

@@ -30,7 +30,7 @@ import styles from "./styles/hotspot-image.scss";
 import { useHotStyle } from "@shared/hot-style";
 import { ContentModal } from "@shared/content-modal/content-modal";
 import { PageFrame } from "@shared/content-modal/page-frame";
-import { useNarrowViewport } from "./use-narrow-viewport";
+import { useNarrowWidth } from "./use-narrow-width";
 
 export interface HotspotImageProps {
   image: HotspotImageData | null;
@@ -47,7 +47,7 @@ const panelId = (pointId: string): string => `man-hi-panel-${pointId}`;
 
 export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactElement | null {
   const css = useHotStyle(styles, "hotspot-image-widget", "styles/hotspot-image.scss");
-  const narrow = useNarrowViewport();
+  const [measure, narrow] = useNarrowWidth();
   const stageRef = useRef<HTMLDivElement>(null);
   const [openId, setOpenId] = useState<string | null>(null);
   /** Der Punkt, dessen Listeneintrag gerade unter dem Mauszeiger steht. */
@@ -133,58 +133,61 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
   return (
     <>
       <style>{css}</style>
-      <div className={`man-hi man-hi--${mode}`}>
-        <div className="man-hi__stage" ref={stageRef}>
-          <img
-            className="man-hi__image"
-            src={image.url}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-            loading="lazy"
-          />
-          {points.map((point, index) => (
-            <HotspotMarker
-              key={point.id}
-              point={point}
-              index={index}
-              mode={mode}
-              open={point.id === openId}
-              highlighted={point.id === hoverId}
-              controls={panelId(point.id)}
-              onToggle={() => toggle(point.id)}
+      {/* Der Behälter, nach dessen Breite Stylesheet und `narrow` umbrechen. */}
+      <div className="man-hi-scope" ref={measure}>
+        <div className={`man-hi man-hi--${mode}`}>
+          <div className="man-hi__stage" ref={stageRef}>
+            <img
+              className="man-hi__image"
+              src={image.url}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
             />
-          ))}
-          {showPopover && openPoint !== null && (
-            <HotspotPopover
-              id={panelId(openPoint.id)}
-              point={openPoint}
-              stage={stageRef.current}
-              centered={narrow}
-              onClose={() => setOpenId(null)}
+            {points.map((point, index) => (
+              <HotspotMarker
+                key={point.id}
+                point={point}
+                index={index}
+                mode={mode}
+                open={point.id === openId}
+                highlighted={point.id === hoverId}
+                controls={panelId(point.id)}
+                onToggle={() => toggle(point.id)}
+              />
+            ))}
+            {showPopover && openPoint !== null && (
+              <HotspotPopover
+                id={panelId(openPoint.id)}
+                point={openPoint}
+                stage={stageRef.current}
+                centered={narrow}
+                onClose={() => setOpenId(null)}
+                onOpenLink={openLink}
+              />
+            )}
+          </div>
+
+          {showPopover && narrow && (
+            <div
+              className="man-hi__scrim"
+              data-testid="popover-scrim"
+              onClick={() => setOpenId(null)}
+            />
+          )}
+
+          {mode === "numbered" && (
+            <HotspotList
+              points={points}
+              openId={openId}
+              panelId={panelId}
+              onToggle={toggle}
               onOpenLink={openLink}
+              onHover={setHoverId}
             />
           )}
         </div>
-
-        {showPopover && narrow && (
-          <div
-            className="man-hi__scrim"
-            data-testid="popover-scrim"
-            onClick={() => setOpenId(null)}
-          />
-        )}
-
-        {mode === "numbered" && (
-          <HotspotList
-            points={points}
-            openId={openId}
-            panelId={panelId}
-            onToggle={toggle}
-            onOpenLink={openLink}
-            onHover={setHoverId}
-          />
-        )}
       </div>
 
       {page !== null && (
