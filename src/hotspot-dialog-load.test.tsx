@@ -25,7 +25,7 @@ import { act, render } from "@testing-library/react";
 import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";
 
-import { modalRoot, settleModal } from "@shared/ui/config-modal.testing";
+import { modalRoot, queryInModal, settleModal } from "@shared/ui/config-modal.testing";
 
 import { configurationSchema, uiSchema } from "./configuration-schema";
 import { DEFAULT_CONFIG, encodeConfig } from "./hotspot-config";
@@ -52,8 +52,6 @@ async function settleLoading(): Promise<void> {
   });
   await settleModal();
 }
-
-const inModal = (selector: string): HTMLElement | null => modalRoot()?.querySelector<HTMLElement>(selector) ?? null;
 
 const buttonInModal = (label: string): HTMLElement | undefined =>
   Array.from(modalRoot()?.querySelectorAll<HTMLElement>("button") ?? []).find(
@@ -92,16 +90,16 @@ describe("startHotspotDialog, wenn der Editor nicht lädt", () => {
     mockEditorMissing = true;
     const stop = await open();
 
-    expect(inModal('[data-testid="config-shell"]')).not.toBeNull();
-    expect(inModal('[role="alert"]')).toHaveTextContent("ließ sich nicht laden");
-    expect(inModal('[data-testid="hotspot-editor"]')).toBeNull();
+    expect(queryInModal('[data-testid="config-shell"]')).not.toBeNull();
+    expect(queryInModal('[role="alert"]')).toHaveTextContent("ließ sich nicht laden");
+    expect(queryInModal('[data-testid="hotspot-editor"]')).toBeNull();
 
     mockEditorMissing = false;
     await act(async () => buttonInModal("Erneut versuchen")?.click());
     await settleLoading();
 
-    expect(inModal('[role="alert"]')).toBeNull();
-    expect(inModal('[data-testid="hotspot-editor"]')).not.toBeNull();
+    expect(queryInModal('[role="alert"]')).toBeNull();
+    expect(queryInModal('[data-testid="hotspot-editor"]')).not.toBeNull();
     await act(async () => stop());
   });
 });

@@ -22,7 +22,7 @@ import { act, render } from "@testing-library/react";
 import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";
 
-import { modalRoot, settleModal } from "@shared/ui/config-modal.testing";
+import { clickElement, modalRoot, queryInModal, settleEditor } from "@shared/ui/config-modal.testing";
 
 import { configurationSchema, uiSchema } from "./configuration-schema";
 import { DEFAULT_CONFIG, LegacyAttributes, encodeConfig, parseConfigParts, resolveConfig } from "./hotspot-config";
@@ -55,12 +55,6 @@ const legacyBlock: LegacyAttributes = {
 const fieldValue = (container: HTMLElement): string =>
   container.querySelector<HTMLInputElement>("#root_config")?.value ?? "";
 
-async function settleEditor(): Promise<void> {
-  for (let round = 0; round < 6 && modalRoot()?.querySelector('[data-testid="hotspot-editor"]') == null; round += 1) {
-    await settleModal();
-  }
-}
-
 async function open(formData: Record<string, string>): Promise<{ container: HTMLElement; stop: () => void }> {
   const { container } = render(
     <Form schema={configurationSchema} uiSchema={uiSchema} validator={validator} formData={formData} />,
@@ -69,18 +63,9 @@ async function open(formData: Record<string, string>): Promise<{ container: HTML
   await act(async () => {
     stop = startHotspotDialog(container);
   });
-  await settleEditor();
+  await settleEditor('[data-testid="hotspot-editor"]', 6);
   return { container, stop };
 }
-
-async function click(element: Element | null | undefined): Promise<void> {
-  if (element === null || element === undefined) throw new Error("Nichts zum Klicken gefunden");
-  await act(async () => {
-    (element as HTMLElement).click();
-  });
-}
-
-const inModal = (selector: string): HTMLElement | null => modalRoot()?.querySelector<HTMLElement>(selector) ?? null;
 
 describe("startHotspotDialog", () => {
   it("öffnet den Editor im gemeinsamen Rahmen mit Vorschau-Umschalter", async () => {
@@ -88,8 +73,8 @@ describe("startHotspotDialog", () => {
 
     expect(modalRoot()?.textContent).toContain("Bild mit Punkten");
     expect(modalRoot()?.querySelector("h1")).toHaveTextContent("Punkte setzen");
-    expect(inModal('[data-testid="hotspot-editor"]')).not.toBeNull();
-    expect(inModal('[aria-label="Ansicht"]')).not.toBeNull();
+    expect(queryInModal('[data-testid="hotspot-editor"]')).not.toBeNull();
+    expect(queryInModal('[aria-label="Ansicht"]')).not.toBeNull();
 
     await act(async () => stop());
   });
@@ -97,7 +82,7 @@ describe("startHotspotDialog", () => {
   it("verändert einen alten Block durch Öffnen und Übernehmen nicht", async () => {
     const { container, stop } = await open(legacyBlock as Record<string, string>);
 
-    await click(inModal('[data-testid="config-shell-apply"]'));
+    await clickElement(queryInModal('[data-testid="config-shell-apply"]'));
 
     const config = fieldValue(container);
     expect(config).toBe("");
@@ -109,12 +94,12 @@ describe("startHotspotDialog", () => {
     const { container, stop } = await open(legacyBlock as Record<string, string>);
 
     // Der Menü-Modus ist im MUI-Select lesbar – sonst stünde hier „Manuell“.
-    expect(inModal('[data-testid="menu-editor"]')).not.toBeNull();
+    expect(queryInModal('[data-testid="menu-editor"]')).not.toBeNull();
     const enter = Array.from(modalRoot()?.querySelectorAll<HTMLElement>('[role="radio"]') ?? []).find(
       (radio) => radio.textContent === "Ins Untermenü wechseln",
     );
-    await click(enter);
-    await click(inModal('[data-testid="config-shell-apply"]'));
+    await clickElement(enter);
+    await clickElement(queryInModal('[data-testid="config-shell-apply"]'));
 
     const config = fieldValue(container);
     // MUI schreibt für „5 Ebenen“ die Stelle „3“, die zugleich ein Wert
@@ -134,11 +119,11 @@ describe("startHotspotDialog", () => {
     const add = Array.from(modalRoot()?.querySelectorAll<HTMLElement>("button") ?? []).find(
       (button) => button.textContent?.trim() === "Neuer Punkt",
     );
-    await click(add);
-    await click(inModal('[data-testid="config-shell-apply"]'));
+    await clickElement(add);
+    await clickElement(queryInModal('[data-testid="config-shell-apply"]'));
 
     expect(fieldValue(container)).toBe(config);
-    expect(inModal('[role="status"]')).toHaveTextContent("Punkt 1: Titel fehlt");
+    expect(queryInModal('[role="status"]')).toHaveTextContent("Punkt 1: Titel fehlt");
     await act(async () => stop());
   });
 
@@ -148,8 +133,8 @@ describe("startHotspotDialog", () => {
     const dots = Array.from(modalRoot()?.querySelectorAll<HTMLElement>('[role="radio"]') ?? []).find(
       (radio) => radio.textContent === "Punkte",
     );
-    await click(dots);
-    await click(inModal('[data-testid="config-shell-apply"]'));
+    await clickElement(dots);
+    await clickElement(queryInModal('[data-testid="config-shell-apply"]'));
 
     expect(parseConfigParts(fieldValue(container))?.["manual.mode"]).toBe("dots");
     await act(async () => stop());
