@@ -48,7 +48,7 @@ export const LEGACY_ATTRIBUTES = [
  * Das Schema des Konfigurationsdialogs.
  *
  * Zu sehen ist nur `config`: an seine Stelle tritt der Knopf zum Fenster, in
- * dem alles gepflegt wird (`hotspot-dialog.ts`). Die übrigen Felder sind die
+ * dem alles gepflegt wird (`hotspot-dialog.tsx`). Die übrigen Felder sind die
  * der Fassungen bis 0.2.0-rc.2; sie bleiben im Schema, damit der Dialog ihre
  * Werte führt, und werden ausgeblendet (`legacy-fields.ts`).
  *
@@ -137,18 +137,18 @@ export const ALL_ATTRIBUTES: string[] = Object.keys(configurationSchema.properti
 export const uiSchema: UiSchema = {
   [CONFIG_ATTRIBUTE]: {
     "ui:help":
-      "Bild, Modus und Punkte werden im Fenster „Bild mit Punkten bearbeiten …“ gepflegt; " +
+      "Bild, Quelle und Punkte werden im Fenster „Bild mit Punkten bearbeiten“ gepflegt; " +
       "das Textfeld dahinter ist die Rohfassung.",
   },
   [IMAGE_ATTRIBUTE]: {
     "ui:help":
       "Das Bild, auf dem die Punkte liegen. Im Content Designer wird es hier gewählt; " +
-      "im klassischen Editor wählt es der Punkte-Editor, das Textfeld ist dort nur die Rohfassung.",
+      "im klassischen Editor wählt es das Fenster „Bild mit Punkten bearbeiten“, das Textfeld ist dort nur die Rohfassung.",
   },
   [IMAGE_ALT_ATTRIBUTE]: {
     "ui:help":
       "Beschreibt das Bild für Screenreader. Leer lassen, wenn es nur schmückt. " +
-      "Lässt sich auch im Punkte-Editor bearbeiten.",
+      "Lässt sich auch im Fenster „Bild mit Punkten bearbeiten“ ändern.",
   },
   [SOURCE_ATTRIBUTE]: {
     "ui:help":

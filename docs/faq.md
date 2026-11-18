@@ -1,12 +1,11 @@
 # FAQ
 
-**Frage:** Ich habe einen Punkt gesetzt, aber „Übernehmen“ lässt sich nicht
-anklicken.
+**Frage:** Ich habe einen Punkt gesetzt, aber „Übernehmen“ übernimmt nicht.
 
 Antwort: Mindestens ein Punkt hat noch keinen Titel. Ein Punkt ohne Titel
-ginge beim Übernehmen verloren — deshalb bleibt der Button gesperrt, bis jeder
-Punkt einen Titel trägt. Das Fenster nennt unten, wie viele Punkte betroffen
-sind, und am betroffenen Feld selbst steht derselbe Hinweis.
+ginge beim Übernehmen verloren — deshalb nennt **Übernehmen** ihn im Status
+des Fensters, statt zu übernehmen. Links ist er als „Titel fehlt“ markiert,
+rechts ist er geöffnet, und am Feld steht derselbe Hinweis.
 
 **Frage:** Das Widget zeigt auf der Seite gar nichts an.
 
@@ -63,7 +62,7 @@ Antwort: Nein. Ab 20 Punkten überdecken sich die Marker gegenseitig, und die
 Liste neben dem Bild würde länger als das Bild selbst. Der Editor weist beim
 Versuch, einen 21. Punkt zu setzen, darauf hin.
 
-**Frage:** Ich habe im Modus „Menü“ einen Menüpunkt umbenannt. Muss ich das
+**Frage:** Ich habe im Modus „Aus dem Menü“ einen Menüpunkt umbenannt. Muss ich das
 Widget anpassen?
 
 Antwort: Nein. Gespeichert wird nur, welcher Menüpunkt wo auf dem Bild liegt.
@@ -72,25 +71,34 @@ erscheint sofort.
 
 **Frage:** Warum sehen manche Kolleg:innen weniger Punkte als ich?
 
-Antwort: Im Modus „Menü“ sieht jede:r nur die Punkte zu Menüpunkten, die er
+Antwort: Im Modus „Aus dem Menü“ sieht jede:r nur die Punkte zu Menüpunkten, die er
 oder sie auch im Menü der App sehen darf. Das ist so gewollt: ein Punkt soll
 nicht auf eine Seite führen, die sich dann nicht öffnen lässt.
 
-**Frage:** Verliere ich meine Punkte, wenn ich zwischen „Manuell“ und „Menü“
-wechsle?
+**Frage:** Verliere ich meine Punkte, wenn ich zwischen „Manuell“ und „Aus dem
+Menü“ wechsle?
 
 Antwort: Nein. Beide Modi speichern ihre Punkte getrennt. Wer zurückwechselt,
 findet die Punkte des anderen Modus unverändert vor.
 
 **Frage:** Kann jede Menüebene ein eigenes Bild haben?
 
-Antwort: Ja. Im Fenster „Bild mit Punkten“ wählen Sie im Modus „Menü“ die Ebene
-und links ihr Bild aus der Mediathek. Eine Ebene ohne eigenes Bild zeigt das
-Bild der Ebene darüber, samt deren Punkten.
+Antwort: Ja. Wählen Sie im Fenster im Modus „Aus dem Menü“ links die Ebene
+und rechts unter **Bild der Ebene** ihr Bild aus der Mediathek. Eine Ebene
+ohne eigenes Bild zeigt das Bild der Ebene darüber, samt deren Punkten.
 
 **Frage:** Warum erscheint ein Menüpunkt im Menü neben dem Bild nicht, obwohl
 er existiert?
 
 Antwort: Entweder ist er im Menü der App auf „Nicht sichtbar“ gestellt, oder
-er liegt tiefer, als unter **Ebenen** eingestellt. Im ersten Fall bleibt er
-auch hier verborgen; im zweiten erhöhen Sie die Zahl der Ebenen.
+er liegt tiefer, als unter **Tiefe** eingestellt. Im ersten Fall bleibt er
+auch hier verborgen; im zweiten erhöhen Sie die Tiefe.
+
+**Frage:** Im Fenster steht „Aus dem Dialog nicht lesbar: …“. Was heißt das?
+
+Antwort: Das Widget stammt aus einer Fassung, in der jede Einstellung ein
+eigenes Feld im Formular hatte. Manche dieser Felder verraten ihren Wert
+nicht — im Content Designer etwa die Auswahlfelder. Das Fenster zeigt dafür
+die Vorgabe an, schreibt sie aber nicht: das Widget behält seinen bisherigen
+Wert, bis Sie die Einstellung im Fenster selbst ändern. Öffnen und
+Übernehmen ohne Änderung verändert das Widget also nicht.

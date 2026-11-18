@@ -5,17 +5,20 @@ markiert sind — etwa Stationen auf einem Übersichtsplan, Personen auf einem
 Gruppenfoto oder Bauteile auf einer Skizze. Zu jedem Punkt gehören ein Titel,
 wahlweise eine Beschreibung und wahlweise ein Link auf eine Seite.
 
-Alle Punkte werden im selben Fenster gepflegt, das sich beim Öffnen der
-Einstellungen von selbst zeigt: Bild wählen, in das Bild klicken, um einen
-Punkt zu setzen, Titel und die übrigen Angaben eintragen.
+Alle Punkte werden im selben Vollbild-Fenster gepflegt, das sich beim Öffnen
+der Einstellungen von selbst zeigt: links die Punkte, in der Mitte das Bild,
+rechts der gewählte Punkt. Bild wählen, in das Bild klicken, um einen Punkt
+zu setzen, Titel und die übrigen Angaben eintragen. Über **Desktop**,
+**Tablet** und **Mobil** im Kopf zeigt das Fenster die Seite so, wie Lesende
+sie sehen.
 
 ## Zwei Modi
 
-Unter **Modus** steht zur Wahl, woher die Punkte kommen:
+Unter **Quelle der Punkte** steht zur Wahl, woher die Punkte kommen:
 
 - **Manuell** — jeder Punkt bekommt einen eigenen Titel, eine Beschreibung
   und auf Wunsch einen Link. So wie bisher.
-- **Menü** — Sie wählen einen Menüpunkt der App. Seine Unterpunkte lassen
+- **Aus dem Menü** — Sie wählen einen Menüpunkt der App. Seine Unterpunkte lassen
   sich als Punkte auf einem Bild platzieren — und für jede tiefere
   Menüebene auf einem eigenen Bild. Titel und Ziele kommen direkt aus dem
   Menü: wird ein Menüpunkt umbenannt, heißt auch sein Punkt sofort anders.
@@ -25,14 +28,14 @@ Die Punkte des jeweils anderen Modus bleiben beim Wechsel erhalten.
 
 ## Die beiden Darstellungen im Modus „Manuell“
 
-Unter **Darstellung** steht eine von zwei Varianten zur Wahl:
+Unter **Darstellung der Punkte** steht eine von zwei Varianten zur Wahl:
 
-- **Nummeriert, mit Liste neben dem Bild** — jeder Punkt trägt eine Zahl, und
+- **Nummern** (mit Liste neben dem Bild) — jeder Punkt trägt eine Zahl, und
   neben dem Bild steht eine aufklappbare Liste mit allen Titeln. Ein Klick auf
   einen Punkt oder auf den passenden Listeneintrag klappt dessen Text auf.
   Sinnvoll ab etwa fünf Punkten und überall dort, wo Lesende die Titel auch
   ohne Suchen im Bild sehen sollen.
-- **Punkte, ohne Liste** — die Punkte erscheinen ohne Zahl, und es gibt keine
+- **Punkte** (ohne Liste) — die Punkte erscheinen ohne Zahl, und es gibt keine
   Liste daneben. Ein Klick auf einen Punkt öffnet ein kleines Fenster direkt
   daneben mit Titel, Beschreibung und Link. Sinnvoll bei wenigen Punkten und
   wenn das Bild für sich stehen soll, ohne dass gleich eine Liste danebensteht.
@@ -58,7 +61,7 @@ Unter **Darstellung** steht eine von zwei Varianten zur Wahl:
   von Punkt zu Punkt springen, mit der Eingabetaste öffnen, mit Escape
   schließen.
 
-## Was Leser:innen im Modus „Menü“ sehen
+## Was Leser:innen im Modus „Aus dem Menü“ sehen
 
 - Links das Bild der gezeigten Menüebene mit roten Punkten ohne Zahl, rechts
   daneben das Menü — auf schmalen Bildschirmen darunter. Das Menü zeigt eine
