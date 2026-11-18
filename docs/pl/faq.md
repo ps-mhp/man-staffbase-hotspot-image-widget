@@ -1,17 +1,16 @@
 # FAQ
 
-**Pytanie:** Ustawiłem punkt, ale nie mogę
-kliknąć przycisku „Zastosuj”.
+**Pytanie:** Ustawiłem punkt, ale przycisk „Zastosuj” nie działa.
 
 Odpowiedź: Co najmniej jeden punkt nie ma jeszcze tytułu. Punkt bez tytułu
-zostałby utracony podczas zapisywania — dlatego przycisk pozostaje zablokowany, dopóki każdy
-punkt nie otrzyma tytułu. W dolnej części okna podana jest liczba punktów, których to dotyczy,
-a przy samym polu wyświetla się ta sama informacja.
+zostałby utracony podczas stosowania — dlatego przycisk **Zastosuj** wyświetla go w statusie
+okna zamiast go zastosować. Po lewej stronie jest on oznaczony jako „Brak tytułu”,
+po prawej jest otwarty, a przy polu widnieje ta sama informacja.
 
 **Pytanie:** Widżet nie wyświetla nic na stronie.
 
-Odpowiedź: Albo brakuje obrazka, albo nie dodano jeszcze żadnego punktu. W
-obu przypadkach obszar ten pozostaje celowo pusty, zamiast wyświetlać pustą ramkę lub
+Odpowiedź: Albo brakuje obrazka, albo nie ustawiono jeszcze żadnego punktu. W
+obu przypadkach obszar pozostaje celowo pusty, zamiast wyświetlać pustą ramkę lub
 obrazek zastępczy. Otwórz ustawienia i sprawdź
 obie te rzeczy.
 
@@ -63,33 +62,43 @@ Odpowiedź: Nie. Od 20 punktów znaczniki nakładają się na siebie, a
 lista obok obrazka stałaby się dłuższa niż sam obrazek. Edytor wyświetla odpowiednie
 ostrzeżenie przy próbie umieszczenia 21. punktu.
 
-**Pytanie:** W trybie „Menu” zmieniłem nazwę pozycji menu. Czy muszę
+**Pytanie:** W trybie „Z menu” zmieniłem nazwę pozycji menu. Czy muszę
 dostosować widżet?
 
 Odpowiedź: Nie. Zapisywane jest jedynie to, gdzie na obrazku znajduje się dana pozycja menu.
-Tytuł i miejsce docelowe są pobierane na bieżąco z menu przy każdym wywołaniu — nowa nazwa
+Tytuł i miejsce docelowe są pobierane na nowo z menu przy każdym wywołaniu — nowa nazwa
 pojawia się natychmiast.
 
 **Pytanie:** Dlaczego niektórzy koledzy i koleżanki widzą mniej punktów niż ja?
 
-Odpowiedź: W trybie „Menu” każdy widzi tylko te punkty, które
-ma uprawnienia do wyświetlania w menu aplikacji. Tak zostało zaprojektowane: punkt nie powinien
+Odpowiedź: W trybie „Z menu” każdy widzi tylko punkty dotyczące pozycji menu, które
+może również zobaczyć w menu aplikacji. Jest to zamierzone: punkt nie powinien
 prowadzić do strony, której nie da się otworzyć.
 
-**Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznym” a „Menu”?
+**Pytanie:** Czy stracę swoje punkty, jeśli przełączę się między trybem „Ręcznie” a „Z
+menu”?
 
 Odpowiedź: Nie. Oba tryby zapisują punkty oddzielnie. Kto przełączy się z powrotem,
 znajdzie punkty z drugiego trybu w niezmienionym stanie.
 
-**Pytanie:** Czy każdy poziom menu może mieć własny obrazek?
+**Pytanie:** Czy każdy poziom menu może mieć własny obraz?
 
-Odpowiedź: Tak. W oknie „Obraz z punktami” w trybie „Menu” wybierz poziom
-i po lewej stronie wybierz obraz z biblioteki multimediów. Poziom bez własnego obrazu wyświetla
-obraz poziomu znajdującego się powyżej, wraz z jego punktami.
+Odpowiedź: Tak. W oknie w trybie „Z menu” wybierz po lewej stronie poziom,
+a po prawej, w sekcji **Obraz poziomu**, wybierz obraz z biblioteki multimediów. Poziom
+bez własnego obrazu wyświetla obraz poziomu znajdującego się powyżej wraz z jego punktami.
 
 **Pytanie:** Dlaczego pozycja menu nie pojawia się w menu obok obrazu, mimo że
 istnieje?
 
 Odpowiedź: Albo jest on ustawiony w menu aplikacji na „Niewidoczny”, albo
-znajduje się niżej niż ustawiono w sekcji **Poziomy**. W pierwszym przypadku pozostaje
-on ukryty również tutaj; w drugim należy zwiększyć liczbę poziomów.
+znajduje się głębiej niż wartość ustawiona w polu **Głębokość**. W pierwszym przypadku pozostaje
+on ukryty również tutaj; w drugim należy zwiększyć głębokość.
+
+**Pytanie:** W oknie widnieje komunikat „Niewidoczne w oknie dialogowym: …”. Co to oznacza?
+
+Odpowiedź: Widżet pochodzi z wersji, w której każde ustawienie miało
+własne pole w formularzu. Niektóre z tych pól nie ujawniają swojej wartości
+— na przykład pola wyboru w Content Designerze. Okno wyświetla w tym przypadku
+wartość domyślną, ale jej nie zapisuje: widget zachowuje swoją dotychczasową
+wartość, dopóki nie zmienisz ustawienia w samym oknie. Otwarcie i
+zatwierdzenie bez wprowadzania zmian nie powoduje więc zmiany w widgecie.

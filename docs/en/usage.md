@@ -3,141 +3,164 @@
 ## Setting Up the Basic Case
 
 1. Place the **Image with Dots** widget on the page.
-2. Open the widget's settings. The **Image with
-   Dots** window opens automatically; if not, click **Image with Dots
-   Edit …**. At the top, the **Mode** is set to “Manual.”
-3. Click **Select Image …** on the left and choose an image from the
-   media library. You cannot place a dot without an image.
-4. Enter **alternative text** below that describes what is
+2. Open the widget's settings. The full-screen window **Set Dots
+  ** opens automatically; otherwise, click **Edit Image with Dots
+  **. In the bar above the image, the **Source of Dots**
+  is set to “Manual.”
+3. Click **Select Image** in the center (or click
+   **Select Image** in the toolbar). The media library opens on the right; select an image
+   or drag it from there onto the area. You cannot
+   place a dot without an image.
+4. Under **Image Description** on the right, enter a description of what is
    shown in the image.
-5. Click on the desired spot in the image. A new
-   point will appear there, and its form will show up on the right.
-6. Enter the **title**. Without a title, you cannot close the window by clicking
-   **Apply**—a corresponding message appears both in the
-   field and at the bottom of the window.
+5. Click on the desired location in the image. A new
+   point will appear there; it will show up in the list on the left, and its **Point 1** panel will appear on the right.
+   Alternatively, **New Point** on the left creates a point in the center of the image.
+6. Enter the **Title**. The window will not save without a title—
+   the note appears right next to the field.
 7. Optionally, enter a **Description**.
-8. Optional: Below the “Description” field, use **Add Link
-   **"Add Link"** — see the section “Setting a Link” further
-   down.
+8. Optional: Select a destination in the **Link** section—see “Setting a Link”
+   below.
 9. Repeat steps 5 through 8 for each additional point. An image
-   can have a maximum of 20 points.
-10. At the top, under **Display**, choose between “Numbered, with list
-    next to the image” and “Bullets, without list.”
-11. Click **Apply**.
-12. Save the page and check the result in the preview.
+   can have a maximum of 20 points; the status bar below the image is included in this count.
+10. In the bar on the right under **Item Display**, choose between
+    “Numbers” (with a list next to the image) and “Bullets” (without a list).
+11. Preview the result via **Desktop**, **Tablet**, and **Mobile** at
+    the top of the window.
+12. Click **Apply** and save the page.
 
-## A Custom Image Instead of the Red Dot
+## An Icon Instead of the Red Dot
 
-Each item can display a custom image instead of the red dot—such as an
+Each item can display its own image instead of the red dot—such as an
 icon or a cropped photo. This works in both modes.
 
-1. Select the item: in “Manual” mode from the list on the right; in
-   “Menu” mode, the placed menu item in the list of subitems.
-2. Under **Image Instead of Dot**, click **Select Custom Image…** and
-   select an image from the media library. Transparent PNG or SVG files
-   look best when cropped.
+1. Select the bullet: in “Manual” mode, from the list on the left or in the
+   image; in “From the Menu” mode, select the placed menu item in the tree or in the
+   image.
+2. In the **Icon** section, click the **Medium** field (“No Icon”)
+   and select an image from the media library, or drag it from the
+   media library onto the section. Transparent PNG or SVG files look
+   best when cropped.
 3. Under **Size**, choose between S (32 px), M (48 px, default)
    and L (72 px).
-4. Under **Background**, choose whether the image is isolated (Transparent,
-   default) or placed on a round background in white, MAN red, anthracite,
-   or light gray—just like the red dot.
-5. Click **Remove Image** to restore the red dot.
+4. Under **Background**, choose whether the image is transparent (default)
+   or placed on a round background in white, MAN red, anthracite,
+   or light gray—like the red dot.
+5. Click **Remove Icon** to restore the red dot.
 
 You can also find an image in the media library by pasting its URL (e.g.,
-copied from a page) or its ID into the search field. Click the
-filter icon to limit the selection to a **collection**.
+copied from a webpage) or its ID into the search field. Under the
+filter icon, you can limit the selection to a **collection**.
 
-## Adding a Link
+## Set a Link
 
-1. In a dot’s form, click **Add Link**.
-2. Under **Destination**, select a page from the list. A link to a page
-   from this list will later appear in a window above the page.
-3. If you’d like to enter your own URL instead, click
-   **Enter Your Own URL …** and enter the URL in the
-   **URL** field. Such a URL will later open in a new
-   tab, not in the window—the tooltip explains this.
-4. Click **Select a Page Instead** to return from the custom
-   address to the list.
-5. Optionally, enter a custom **button label**. If
+1. In the dot’s panel, in the **Link** section under **Target**, select a
+   page from the list. A link to a page from this list will
+   later appear in a window above the page.
+2. If you’d like to enter your own address instead, select
+   **Enter your own address …** and enter the address in the
+   **Address** field. Such an address will later open in a new
+   tab, not in the window—the tooltip text indicates this.
+3. Click **Select a Page Instead** to return from the custom address
+   to the list.
+4. Optionally, enter a custom **button label**. If
    the field is left blank, the button will display “Open Page.”
-6. Click **Remove Link** to remove the link; the title and
-   description of the item remain unchanged.
+5. Click **No Link** (or **Remove Link** if you’ve entered your own address)
+   to remove the link; the item’s title and description remain
+   unchanged.
 
 ## Moving, Sorting, and Removing Items
 
-1. To move an item, drag it to its new location in the view.
-2. To change the order of the items, select the item in the
-   list on the right and click **Move Up** or **Move Down**.
-3. To remove an item, select it and click **Delete Item** in its
-   form.
-4. Confirm each change by clicking **Apply**; click **Cancel**
-   to discard all changes made since the window was last opened.
+1. To move an item, drag it to the new location on the screen.
+   Use the arrow keys to move the selected item by one percent.
+2. The order of the list on the left corresponds to the numbering. Drag an
+   item by its handle to a different location, or use the
+   **Move Item Up** and **Move Item Down** buttons above the panel
+   on the right.
+3. **Duplicate Item** creates a copy immediately behind it, slightly offset.
+4. **Delete Point** removes the selected point.
+5. Finish by clicking **Apply**; **Undo** at the top reverses individual
+   steps, while **Cancel** discards all changes made since the last
+   **Apply**.
 
 ## Making Changes Later
 
 1. Open the widget’s settings again. The window displays the
    existing points and the selected image.
-2. Select the point you want to edit from the list on the left and edit
-   its form on the right.
-3. To replace the image, click **Select Another Image…**.
-   The points are retained; then check whether their positions on the
-   new image are still correct.
+2. Select the point you want to change from the list on the left and edit
+   it on the right.
+3. To replace the image, click **Change Image** in the toolbar.
+   The items will remain; check afterward to see if their positions on the
+   new image are still correct. Clicking the image’s name in the toolbar
+   will display the image and its description on the right again.
 4. **Apply**, save, and check in the preview.
 
 ## In the Content Designer
 
 Everything works the same way in the Content Designer: the image is selected in the window from
-the media library, not in the form.
+the media library, not in the form. For widgets from earlier versions,
+the window cannot read some settings from the form; it lists
+them in a note and leaves them unchanged until you modify them in the window
+.
 
-## “Menu” Mode: Placing Menu Items
+## “From the Menu” Mode: Placing Menu Items
 
-1. Open the **Image with Dots** window and set the
-   **Mode** at the top to “Menu.”
-2. Under **Start Point in Menu**, select the menu item whose
-   subitems should appear on the image. If it’s not in the list,
-   select **Enter Other Menu ID…** and enter the page’s address.
-   The menu loads immediately.
-3. Under **Levels**, specify how deep the menu goes (default
-   3), and under **Click on a Point with Subitems**, choose whether a click
-   switches to the submenu (default) or opens the page.
-4. The **Level** field shows the starting level. On the left, use **Select
-   Image…** to choose your image from the media library.
-5. Select a subitem on the right and click at the desired
-   location in the image. A point will appear there; the entry in the list
-   will then be marked as “on the image.” Repeat this for each
-   additional subitem.
-6. To move a point, drag it or select the entry
-   and click at the new location. **Remove Point** removes it
-   from the image.
-7. To create a deeper layer, click **›** to the right of the subitem
-   or select the layer at the top. Select its image and place the
-   points as in step 5. If it has no image of its own, the layer will later display the image
-   of the layer above it.
-8. Click **Apply**, save the page, and check
+1. Open the window and set the **Source of
+   Items** in the toolbar to “From the Menu.”
+2. On the right side of the panel, under **Menu** and **Start Point**, select the menu item
+   whose subitems should appear on the image. If it’s not in the
+   list, select **Enter Other Menu ID…** and enter the address of the
+   page. The **menu levels** will appear on the left.
+3. Under **Depth**, specify how deep the menu should be (default
+   3 levels), and under **Click on an item with subitems**, choose whether a
+   click takes you to the submenu (default) or opens the page.
+4. Under **Level Image** (or in the toolbar via **Select Image**),
+   select the image for the root level.
+5. Select a subitem on the left that has no subitems of its own and click
+   at the desired location in the image. A point will appear there; in the tree,
+   the entry will then show “Point set.”
+6. An entry **with** subitems displays its own
+   level on the left when clicked. You can set its point on the level above it using **Set Point for …
+  ** in the **Menu** panel—or you can drag it in the image if it
+   is already there.
+7. To move a point, drag it or select the entry
+   and click at the new location. **Delete Point** above the panel removes
+   it from the image.
+8. To create a lower level, select the entry with sub-items on the left,
+   assign an image to it under **Level Image**, and place the points
+   as in step 5. Without its own image, the level will later display the image of the
+   level above it.
+9. Click **Apply**, save the page, and check
    the result in the preview.
 
 ## If something isn’t working
 
 1. **The widget isn’t displaying anything.** Either the image is missing, or no
-   points have been set yet. Open the settings and check both.
-2. **You can’t click **Apply**.** At least one point still
-   has no title. The window shows at the bottom how many points are affected—
-   enter a title for each one there.
+   point has been set yet. Open the settings and check both—
+   the **Desktop** preview will also indicate this.
+2. **“Apply” doesn’t work; the status is red.** At least one
+   item still has no title. The status indicates this; on the left, it’s marked as
+   “Title missing” and open on the right—enter a title
+   there.
 3. **The linked page does not appear in the window but opens in a
    new tab.** The destination is a custom URL you entered, not a page from
    the list. This is by design: external pages often cannot be
    embedded in a window. Instead, select a page from the list
    if you want it to appear in the window.
-4. **The list of pages does not contain any pages; instead, it shows a field for
-   an address.** The system’s page list was not
-   accessible when the window opened. Enter the address manually or open the
-   window again.
-5. **In “Menu” mode, the window displays a message to first select a starting point
-  .** Nothing is currently selected under **Starting Point in the Menu**.
-6. **The window displays items under “No longer in the menu.”** The corresponding
-   menu item has been deleted, hidden, moved within the menu, or is
-   located deeper than the setting under **Levels**. These items do not appear on the page.
-   Remove them there or increase the number of levels.
-7. **The settings are lost after saving the page.** The
+4. **Under “Destination,” there is no list, but rather a field for an address.** The
+   system’s page list was unavailable when the window opened. Enter the
+   address manually or reopen the window.
+5. **In “From the Menu” mode, there is a note on the left indicating that you must first
+   select a starting point.** Nothing is selected under **Starting Point** yet.
+6. **On the left, there are entries marked as errors: “No longer in the menu.”** The corresponding
+   menu item has been deleted, hidden, moved within the menu, or is located
+   deeper than the setting under **Depth**. These
+   items do not appear on the page. Select the entry and delete the item, or
+   increase the depth.
+7. **The panel displays “Not readable from the dialog: …”.** The widget is
+   from an earlier version, and the form does not reveal these settings.
+   Instead, the widget retains its previous values; adjust them in the
+   window if you wish to change them.
+8. **The settings are lost after saving the page.** The
    widget is still registered in the instance without the `config` field. The
    registration must be updated (a task for the administrator).

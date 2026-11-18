@@ -1,24 +1,23 @@
 # FAQ
 
-**Question:** I've added a point, but the "Apply" button is grayed out
-and I can't click it.
+**Question:** I added an item, but clicking “Apply” doesn’t apply the changes.
 
-Answer: At least one point does not yet have a title. An item without a title
-would be lost when you click “Apply”—that’s why the button remains disabled until every
-item has a title. The window shows at the bottom how many items are affected,
-and the same note appears in the affected field itself.
+Answer: At least one item still doesn’t have a title. An item without a title
+would be lost when you click “Apply”—that’s why **Apply** displays it in the status
+bar of the window instead of applying the changes. On the left, it’s marked as “Title missing,”
+on the right, it’s open, and the same note appears in the field.
 
 **Question:** The widget isn’t displaying anything on the page.
 
-Answer: Either the image is missing, or no item has been added yet. In
-both cases, the area remains intentionally blank instead of displaying an empty frame or
+Answer: Either the image is missing, or no item has been selected yet. In
+both cases, the area intentionally remains blank instead of showing an empty frame or
 a placeholder image. Open the settings and check
 both.
 
 **Question:** Why does one link open a window on top of the page, while another
 opens a new tab?
 
-Answer: It depends on where the destination comes from. A **page from the
+Answer: That depends on where the destination comes from. A **page from the
 system’s list** appears in a window on top of the current page. A
 **manually entered address**, on the other hand, always opens a new tab. The
 reason: externally hosted pages often cannot be technically embedded in a window
@@ -29,7 +28,7 @@ system.
 **Question:** The list of pages doesn’t contain a single page, but rather a
 field for an address.
 
-Answer: The system’s page list was unavailable when the application opened. A
+Answer: The system’s page list was unavailable when the system opened. A
 notice draws attention to this. In this case, enter the address
 manually, or close the window and reopen it.
 
@@ -61,37 +60,45 @@ what it’s there for.
 
 Answer: No. Once you reach 20 markers, they overlap each other, and the
 list next to the image would become longer than the image itself. The editor will
-notify you of this when you
-try to place a 21st marker.
+notify you of this when you try to place a 21st marker.
 
-**Question:** I renamed a menu item in “Menu” mode. Do I need to
+**Question:** I renamed a menu item in “From the Menu” mode. Do I need to
 adjust the widget?
 
 Answer: No. Only the location of each menu item on the image is saved.
-The title and destination are fetched fresh from the menu each time it’s called up—the new name
+The title and destination are fetched fresh from the menu each time the widget is called—the new name
 appears immediately.
 
-**Question:** Why do some colleagues see fewer items than I do?
+**Question:** Why do some colleagues see fewer dots than I do?
 
-Answer: In “Menu” mode, everyone sees only the items corresponding to menu entries that they
-are authorized to view in the app’s menu. This is by design: an item should
-not lead to a page that cannot then be opened.
+Answer: In “From the Menu” mode, everyone sees only the points for menu items that they
+are authorized to view in the app’s menu. This is by design: a point should
+not lead to a page that cannot be opened.
 
-**Question:** Do I lose my items when I switch between “Manual” and “Menu”
-modes?
+**Question:** Do I lose my points when I switch between “Manual” and “From the
+Menu”?
 
 Answer: No. Both modes save their points separately. If you switch back,
 you’ll find the points from the other mode unchanged.
 
 **Question:** Can each menu level have its own image?
 
-Answer: Yes. In the “Image with Points” window, select the level in “Menu” mode
-and choose its image from the media library on the left. A level without its own image displays the
-image of the level above it, along with its points.
+Answer: Yes. In the window, in “From the Menu” mode, select the level on the left
+and, on the right under **Level Image**, select your image from the media library. A level
+without its own image displays the image of the level above it, along with that level’s points.
 
 **Question:** Why doesn’t a menu item appear next to the image in the menu, even though
 it exists?
 
-Answer: Either it is set to “Hidden” in the app’s menu, or
-it is lower than the number set under **Layers**. In the first case, it remains
-hidden here as well; in the second, increase the number of layers.
+Answer: Either it is set to “Not visible” in the app’s menu, or
+it is deeper than the value set under **Depth**. In the first case, it remains
+hidden here as well; in the second, increase the depth.
+
+**Question:** The window says “Cannot be read from the dialog: …”. What does that mean?
+
+Answer: The widget comes from a version in which each setting had its
+own field in the form. Some of these fields do not reveal their values
+— for example, the selection fields in the Content Designer. The window displays
+the default value for these, but does not save it: the widget retains its previous
+value until you change the setting in the window itself. Therefore, opening the window and
+clicking “Apply” without making any changes will not alter the widget.

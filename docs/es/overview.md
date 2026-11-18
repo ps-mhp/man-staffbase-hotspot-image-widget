@@ -2,37 +2,40 @@
 
 Este widget muestra una imagen en la que se marcan determinados puntos como **puntos**
 —por ejemplo, paradas en un plano general, personas en una
-foto de grupo o componentes en un boceto—. Cada punto incluye un título,
+foto de grupo o componentes en un boceto—. Cada punto tiene un título,
 opcionalmente una descripción y, si se desea, un enlace a una página.
 
-Todos los puntos se gestionan en la misma ventana, que aparece automáticamente al abrir la
-configuración: selecciona una imagen, haz clic en ella para colocar un
-punto e introduce el título y el resto de datos.
+Todos los puntos se gestionan en la misma ventana a pantalla completa, que aparece automáticamente al abrir
+la configuración: a la izquierda, los puntos; en el centro, la imagen;
+a la derecha, el punto seleccionado. Selecciona una imagen, haz clic en ella para colocar un punto
+e introduce el título y el resto de datos. Mediante las opciones **Ordenador**,
+**Tableta** y **Móvil** en la parte superior, la ventana muestra la página tal y como la ven los lectores
+.
 
 ## Dos modos
 
-En **Modo** se puede elegir de dónde proceden los puntos:
+En **Fuente de los puntos** se puede elegir de dónde proceden los puntos:
 
 - **Manual**: cada punto recibe su propio título, una descripción
   y, si se desea, un enlace. Igual que hasta ahora.
-- **Menú**: seleccionas una opción del menú de la aplicación. Sus subopciones se pueden
-  colocar como puntos en una imagen, y para cada nivel inferior
-  del menú, en una imagen propia. Los títulos y los destinos proceden directamente del
-  menú: si se renombra una opción del menú, su punto también cambia de nombre inmediatamente.
-  Junto a la imagen aparece el menú para desplazarse.
+- **Desde el menú**: selecciona una opción del menú de la aplicación. Sus subopciones se pueden
+  colocar como puntos en una imagen, y para cada nivel de menú más profundo,
+  en una imagen propia. Los títulos y los destinos proceden directamente del
+  menú: si se cambia el nombre de una opción del menú, su punto también cambia de nombre inmediatamente.
+  Junto a la imagen aparece el menú para navegar.
 
 Los puntos del otro modo se conservan al cambiar de uno a otro.
 
-## Las dos formas de visualización en el modo «Manual»
+## Las dos representaciones en el modo «Manual»
 
-En **Visualización** se puede elegir entre dos variantes:
+En **Presentación de las opciones** se puede elegir entre dos variantes:
 
-- **Numerado, con lista junto a la imagen** — cada punto lleva un número y
-  junto a la imagen hay una lista desplegable con todos los títulos. Al hacer clic en
+- **Números** (con lista junto a la imagen): cada opción lleva un número y,
+  junto a la imagen, aparece una lista desplegable con todos los títulos. Al hacer clic en
   un elemento o en la entrada correspondiente de la lista, se despliega su texto.
   Resulta útil a partir de unos cinco elementos y en todos aquellos casos en los que se quiera que los lectores vean los títulos
   sin tener que buscarlos en la imagen.
-- **Puntos, sin lista**: los puntos aparecen sin número y no hay
+- **Puntos** (sin lista): los puntos aparecen sin número y no hay
   ninguna lista al lado. Al hacer clic en un punto, se abre una pequeña ventana justo
   al lado con el título, la descripción y el enlace. Resulta útil cuando hay pocos puntos y
   cuando se quiere que la imagen hable por sí misma, sin que aparezca una lista junto a ella.
@@ -41,14 +44,15 @@ En **Visualización** se puede elegir entre dos variantes:
 
 - Sin imagen o sin al menos un punto, el widget no muestra nada:
   ni un marco vacío, ni una imagen de relleno.
-- En el modo de visualización «Puntos», la ventana se abre con el texto en el propio punto;
-  en pantallas estrechas (de menos de 768 píxeles de ancho), aparece
-  en cambio en el centro de la pantalla, con un fondo oscurecido detrás.
+- En el modo de visualización «Puntos», la ventana con el texto se abre en el propio punto;
+  si el widget tiene un ancho reducido (menos de 600 píxeles de ancho, por ejemplo, en el
+  teléfono), aparece en su lugar centrado en la pantalla, con un
+  fondo oscurecido detrás.
 - En el modo «Numerado», el punto correspondiente se resalta en la imagen
   en cuanto el cursor se sitúa sobre una entrada de la lista o se
   despliega una entrada: se hace más grande y los demás puntos pasan a un segundo plano.
-  En pantallas estrechas, los puntos aparecen pequeños y sin número, para que
-  no se superpongan incluso cuando haya muchas entradas; al pulsar en la lista se muestra a qué
+  Si el widget tiene un ancho reducido, los puntos aparecen pequeños y sin número, para que
+  no se superpongan incluso cuando haya muchos elementos; al pulsar en la lista se muestra a qué
   entrada pertenece cada punto.
 - Si un punto conduce a una página del sistema, aparece un botón debajo.
   Al hacer clic en él, la página se abre en una ventana sobre la página actual;
@@ -58,12 +62,12 @@ En **Visualización** se puede elegir entre dos variantes:
   saltar de un punto a otro, con la tecla Intro se abre y con Esc
   se cierra.
 
-## Lo que ven los lectores en el modo «Menú»
+## Lo que ven los lectores en el modo «Desde el menú»
 
 - A la izquierda, la imagen del nivel del menú mostrado con puntos rojos sin número; a la derecha,
-  justo al lado, el menú —en pantallas estrechas, debajo—. El menú muestra un
-  nivel cada vez: una flecha lleva al nivel inferior, el botón «Atrás» de la parte superior
-  vuelve al nivel anterior; en el teléfono, también se puede deslizar el dedo hacia la derecha.
+  justo al lado, el menú —si el widget es estrecho, debajo de este—. El menú muestra un
+  nivel cada vez: una flecha lleva al nivel inferior, el botón «Atrás» de arriba
+  vuelve a subir; en el teléfono, también se puede deslizar hacia la derecha.
 - Al desplazarse por un nivel del menú, se ve su imagen con los puntos
   de sus subniveles. Si un nivel no tiene imagen propia, se mantiene la imagen del
   nivel superior.

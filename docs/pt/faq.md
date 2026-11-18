@@ -1,24 +1,24 @@
 # Perguntas Frequentes
 
-**Pergunta:** Defini um ponto, mas não consigo clicar em «Aplicar».
+**Pergunta:** Defini um ponto, mas a opção «Aplicar» não funciona.
 
 Resposta: Pelo menos um ponto ainda não tem título. Um ponto sem título
-seria perdido ao aplicar as alterações — por isso, o botão permanece bloqueado até que cada
-ponto tenha um título. A janela indica na parte inferior quantos pontos estão afetados
-e no próprio campo afetado aparece a mesma indicação.
+seria perdido ao aplicar — por isso, a opção **Aplicar** indica-o no estado
+da janela, em vez de o aplicar. À esquerda, está marcado como «Falta título»,
+à direita, está aberto e no campo aparece a mesma indicação.
 
 **Pergunta:** O widget não mostra nada na página.
 
 Resposta: Ou falta a imagem, ou ainda não foi definido nenhum ponto. Em
-ambos os casos, a área permanece propositadamente em branco, em vez de mostrar uma moldura vazia ou
+ambos os casos, a área permanece deliberadamente em branco, em vez de mostrar uma moldura vazia ou
 uma imagem de preenchimento. Abra as definições e verifique
 ambas as opções.
 
-**Pergunta:** Por que razão um link abre uma janela por cima da página, enquanto outro
+**Pergunta:** Por que razão um link abre uma janela sobre a página, enquanto outro
 abre um novo separador?
 
 Resposta: Isso depende da origem do destino. Uma **página da
-lista** do sistema aparece numa janela por cima da página atual. Uma
+lista** do sistema aparece numa janela sobre a página atual. Uma
 **endereço introduzido pelo próprio utilizador**, por outro lado, abre sempre um novo separador. A
 razão: muitas vezes, não é tecnicamente possível incorporar páginas externas numa janela
 — uma janela bloqueada ficaria simplesmente vazia, sem apresentar qualquer mensagem de erro
@@ -62,33 +62,43 @@ Resposta: Não. A partir de 20 pontos, os marcadores sobrepõem-se uns aos outro
 lista ao lado da imagem ficaria mais longa do que a própria imagem. O editor avisa-o quando
 tentar colocar um 21.º ponto.
 
-**Pergunta:** Renomeei uma opção do menu no modo «Menu». Tenho de
+**Pergunta:** Renomeei um item do menu no modo «A partir do menu». Tenho de
 ajustar o widget?
 
-Resposta: Não. Apenas é guardada a localização de cada opção do menu na imagem.
-O título e o destino são obtidos diretamente do menu sempre que este é acedido — o novo nome
+Resposta: Não. Apenas é guardada a localização de cada item do menu na imagem.
+O título e o destino são obtidos diretamente do menu sempre que o widget é acedido — o novo nome
 aparece imediatamente.
 
 **Pergunta:** Por que razão alguns colegas vêem menos pontos do que eu?
 
-Resposta: No modo «Menu», cada pessoa vê apenas os pontos correspondentes aos itens de menu que
+Resposta: No modo «A partir do menu», cada pessoa vê apenas os pontos relativos aos itens de menu que
 também pode ver no menu da aplicação. Isto é intencional: um ponto não deve
 conduzir a uma página que depois não possa ser aberta.
 
-**Pergunta:** Perco os meus pontos se alternar entre «Manual» e «Menu»?
+**Pergunta:** Perco os meus pontos se alternar entre «Manual» e «A partir do
+menu»?
 
 Resposta: Não. Ambos os modos guardam os pontos separadamente. Quem voltar ao modo anterior,
 encontrará os pontos do outro modo inalterados.
 
 **Pergunta:** Cada nível do menu pode ter a sua própria imagem?
 
-Resposta: Sim. Na janela «Imagem com pontos», no modo «Menu», selecione o nível
-e, à esquerda, a imagem da sua biblioteca multimédia. Um nível sem imagem própria mostra a
-imagem do nível acima, juntamente com os respetivos pontos.
+Resposta: Sim. Na janela, no modo «A partir do menu», selecione o nível à esquerda
+e, à direita, em **Imagem do nível**, escolha a sua imagem da biblioteca multimédia. Um nível
+sem imagem própria mostra a imagem do nível acima, juntamente com os respetivos pontos.
 
 **Pergunta:** Por que razão um item do menu não aparece ao lado da imagem, apesar de
 existir?
 
 Resposta: Ou está definido como «Não visível» no menu da aplicação, ou
-está num nível inferior ao definido em **Níveis**. No primeiro caso, permanece
-também aqui oculto; no segundo, aumente o número de níveis.
+está mais profundo do que o valor definido em **Profundidade**. No primeiro caso, permanece
+também aqui oculto; no segundo, aumente a profundidade.
+
+**Pergunta:** Na janela aparece «Não legível a partir da caixa de diálogo: …». O que significa isto?
+
+Resposta: O widget provém de uma versão em que cada configuração tinha um
+campo próprio no formulário. Alguns desses campos não revelam o seu valor
+— no Content Designer, por exemplo, os campos de seleção. A janela mostra, nesse caso,
+o valor predefinido, mas não o grava: o widget mantém o seu valor anterior
+até que altere a configuração na própria janela. Abrir e
+aplicar sem alterações não altera, portanto, o widget.
