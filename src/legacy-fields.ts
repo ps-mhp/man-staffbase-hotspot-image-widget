@@ -12,12 +12,14 @@
  */
 
 /**
- * Blendet die einzelnen Felder älterer Fassungen im Staffbase-Dialog aus.
+ * Die einzelnen Felder älterer Fassungen im Staffbase-Dialog: lesen und
+ * ausblenden.
  *
  * Sie bleiben im Schema, damit der Dialog ihre Werte weiter führt — das
- * Fenster übernimmt sie beim ersten Öffnen nach `config`. Zu sehen sollen sie
- * nicht mehr sein: im Content Designer liessen sie sich ohnehin nicht
- * verlässlich bedienen, und zwei Wege zum selben Wert laden zu Widersprüchen ein.
+ * Fenster beginnt beim ersten Öffnen mit dem, was sich davon lesen lässt
+ * ({@link readLegacyFromDialog}). Zu sehen sollen sie nicht mehr sein: im
+ * Content Designer liessen sie sich ohnehin nicht verlässlich bedienen, und
+ * zwei Wege zum selben Wert laden zu Widersprüchen ein.
  *
  * Gefunden wird jedes Feld über das, was RJSF und der Content Designer gleich
  * vergeben: `id="root_<key>"` am Eingabeelement oder `for="root_<key>"` an
@@ -30,7 +32,12 @@
  * widgetübergreifend — `menu-id` hat auch das Navigation-Widget,
  * `display-mode` das Podcast-Widget. Dokumentweit ausgeblendet, stieg die
  * Zeile dort bis zum ganzen Formular hoch, und deren Dialog blieb leer.
+ * Aus demselben Grund wird auch nur dort gelesen.
  */
+
+import { CONFIG_ATTRIBUTE, LEGACY_ATTRIBUTES, configurationSchema } from "./configuration-schema";
+import type { LegacyAttributes } from "./hotspot-config";
+import { HotspotImage, parseImage } from "./points-model";
 
 const FIELD_MARK = '[id^="root_"], label[for^="root_"]';
 
@@ -97,5 +104,113 @@ export function startHiddenFields(
       row.style.display = "";
     });
     hidden.clear();
+  };
+}
+
+type LegacyKey = keyof LegacyAttributes;
+
+/** Was sich beim Öffnen aus den alten Feldern des eigenen Dialogs lesen liess. */
+export interface LegacyRead {
+  /** Nur die lesbaren Werte. */
+  attrs: LegacyAttributes;
+  /** Felder, deren Wert nicht sicher zu lesen war: kein Eingabeelement, leer oder mehrdeutig. */
+  unreadable: readonly LegacyKey[];
+  /**
+   * Das Bild aus der Vorschau des Uploads im Content Designer – nur zum
+   * Anzeigen im Fenster, wenn `image` selbst nicht lesbar ist.
+   */
+  previewImage: HotspotImage | null;
+}
+
+type FormField = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+const isFormField = (element: Element | null | undefined): element is FormField =>
+  element instanceof HTMLInputElement || element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement;
+
+/**
+ * Das Element, das den Wert eines Feldes trägt. Eine MUI-Auswahl legt die
+ * Kennung auf ein `div` und den Wert in ein verstecktes Eingabefeld, das nur
+ * den Namen `root_<key>` trägt; dann wird das genommen.
+ */
+function valueElementOf(form: ParentNode, key: string): FormField | null {
+  const element = form.querySelector(`[id="root_${key}"]`);
+  if (isFormField(element)) return element;
+  const named = form.querySelector(`[name="root_${key}"]`);
+  return isFormField(named) ? named : null;
+}
+
+interface SchemaOption {
+  value: string;
+  title: string;
+}
+
+/** Die Optionen eines Auswahlfelds in Schema-Reihenfolge; leer für Textfelder. */
+function optionsOf(key: string): SchemaOption[] {
+  const property = configurationSchema.properties?.[key];
+  if (typeof property !== "object" || !Array.isArray(property.oneOf)) return [];
+  return property.oneOf.flatMap((option) =>
+    typeof option === "object" && typeof option.const === "string"
+      ? [{ value: option.const, title: option.title ?? option.const }]
+      : [],
+  );
+}
+
+/**
+ * Der Wert eines Auswahlfelds. RJSF schreibt in Auswahlfelder von sich aus
+ * die Stelle der Option („0“, „1“), nicht ihren Wert; ein echtes `<select>`
+ * verrät die Option über ihren Text. Ist eine Zahl zugleich Wert und Stelle
+ * einer anderen Option (bei `menu-depth` etwa „3“), lässt sich nicht
+ * entscheiden – dann `null`, und es gilt weiter das alte Feld.
+ */
+function decodeOption(options: SchemaOption[], element: FormField): string | null {
+  if (element instanceof HTMLSelectElement) {
+    const text = element.selectedOptions[0]?.textContent?.trim();
+    const byTitle = options.find((option) => option.title === text);
+    if (byTitle !== undefined) return byTitle.value;
+  }
+  const raw = element.value.trim();
+  if (raw === "") return null;
+  const byIndex = /^\d+$/.test(raw) ? options[Number(raw)]?.value : undefined;
+  const isValue = options.some((option) => option.value === raw);
+  if (isValue) return byIndex === undefined || byIndex === raw ? raw : null;
+  return byIndex ?? null;
+}
+
+/** Der Wert eines Feldes, wenn er sicher lesbar ist; sonst `null`. */
+function readableValue(form: ParentNode, key: string): string | null {
+  const element = valueElementOf(form, key);
+  if (element === null) return null;
+  const options = optionsOf(key);
+  return options.length === 0 ? element.value : decodeOption(options, element);
+}
+
+/**
+ * Das Bild im Content Designer: dort ist `image` ein Upload ohne
+ * Eingabefeld, nur die Beschriftung verweist auf `root_image`, das Bild
+ * steht in seiner Vorschau (live gesehen 29.09.2026).
+ */
+function previewImageOf(form: ParentNode): HotspotImage | null {
+  const row = form.querySelector<HTMLLabelElement>('label[for="root_image"]')?.parentElement;
+  const src = row?.querySelector("img")?.getAttribute("src");
+  return src ? parseImage(src) : null;
+}
+
+/** Das Formular, das das eigene Feld führt; `null` ohne eigenen Dialog. */
+function ownForm(root: ParentNode): HTMLFormElement | null {
+  return ownForms(root, CONFIG_ATTRIBUTE)[0] ?? null;
+}
+
+/**
+ * Die alten Felder, wie der eigene Dialog sie gerade führt. Ohne eigenen
+ * Dialog ist nichts lesbar.
+ */
+export function readLegacyFromDialog(root: ParentNode = document): LegacyRead {
+  const form = ownForm(root);
+  if (form === null) return { attrs: {}, unreadable: [...LEGACY_ATTRIBUTES], previewImage: null };
+  const values = LEGACY_ATTRIBUTES.map((key) => [key, readableValue(form, key)] as const);
+  return {
+    attrs: Object.fromEntries(values.filter(([, value]) => value !== null)),
+    unreadable: values.filter(([, value]) => value === null).map(([key]) => key),
+    previewImage: previewImageOf(form),
   };
 }
