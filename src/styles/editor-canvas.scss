@@ -23,7 +23,7 @@
 // umgebenden Bildes -- siehe `.man-hi__marker--icon-bg`.
 .man-hie__icon-bg {
   padding: calc(var(--man-hie-icon, 48px) * 0.15);
-  border-radius: 50%;
+  border-radius: 0;
 }
 
 .man-hie__icon-bg--white {

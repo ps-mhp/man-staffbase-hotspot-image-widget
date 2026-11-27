@@ -51,6 +51,22 @@ describe("Stylesheet", () => {
     expect(hotspotStyles).toContain("--man-hi-accent: var(--man-red, #e40045)");
   });
 
+  // Eckig wie die Marke (27.11.2026): Punkt, Nummer der Liste und
+  // Punktbild-Fläche nehmen `radius` (0), nicht mehr `radius-round`.
+  it("zeichnet Punkte und Nummern eckig", () => {
+    expect(hotspotStyles).not.toMatch(/--man-radius-round/);
+    const marker = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__marker"))?.[0] ?? "";
+    expect(marker).toMatch(/border-radius:\s*var\(--man-radius, 0\)\s*!important/);
+  });
+
+  it("färbt Punkt, Schrift und Puls aus den Variablen der gewählten Farbe", () => {
+    const marker = hotspotStyles.match(outshineRule(hotspotStyles, "man-hi__marker"))?.[0] ?? "";
+    expect(marker).toMatch(/background:\s*var\(--man-hi-accent\)/);
+    expect(marker).toMatch(/color:\s*var\(--man-hi-on-accent\)/);
+    const keyframes = hotspotStyles.match(/@keyframes man-hi-pulse\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+    expect(keyframes).toContain("var(--man-hi-accent)");
+  });
+
   it.each([
     ["man-hi__marker", hotspotStyles],
     ["man-hi__marker--dots", hotspotStyles],

@@ -31,11 +31,14 @@ import { useHotStyle } from "@shared/hot-style";
 import { ContentModal } from "@shared/content-modal/content-modal";
 import { PageFrame } from "@shared/content-modal/page-frame";
 import { useNarrowWidth } from "./use-narrow-width";
+import { markerColorStyle } from "./marker-color";
 
 export interface HotspotImageProps {
   image: HotspotImageData | null;
   points: HotspotPoint[];
   mode: DisplayMode;
+  /** Die Farbe aller Punkte; ohne sie MAN-Rot. */
+  color?: string | null;
 }
 
 interface OpenPage {
@@ -45,7 +48,7 @@ interface OpenPage {
 
 const panelId = (pointId: string): string => `man-hi-panel-${pointId}`;
 
-export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactElement | null {
+export function HotspotImage({ image, points, mode, color = null }: HotspotImageProps): ReactElement | null {
   const css = useHotStyle(styles, "hotspot-image-widget", "styles/hotspot-image.scss");
   const [measure, narrow] = useNarrowWidth();
   const stageRef = useRef<HTMLDivElement>(null);
@@ -135,7 +138,7 @@ export function HotspotImage({ image, points, mode }: HotspotImageProps): ReactE
       <style>{css}</style>
       {/* Der Behälter, nach dessen Breite Stylesheet und `narrow` umbrechen. */}
       <div className="man-hi-scope" ref={measure}>
-        <div className={`man-hi man-hi--${mode}`}>
+        <div className={`man-hi man-hi--${mode}`} style={markerColorStyle(color)}>
           <div className="man-hi__stage" ref={stageRef}>
             <img
               className="man-hi__image"

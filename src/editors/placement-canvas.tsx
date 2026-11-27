@@ -19,7 +19,8 @@
  * wo „62 % / 41 %“ liegt.
  *
  * Aussehen wie im Screen: das Bild mit Schatten auf der grauen Bühne, die
- * Punkte als rote Kreise mit weissem Rand (im Menü-Modus anthrazit), der
+ * Punkte als eckige Felder mit weissem Rand in ihrer Farbe (ohne Farbe rot,
+ * im Menü-Modus anthrazit), der
  * gewählte mit Ring in der Akzentfarbe. Ein Punkt mit eigenem Bild steht so
  * gross wie auf der Seite da.
  */
@@ -28,6 +29,7 @@ import * as React from "react";
 import { ReactElement, useRef } from "react";
 import { cn } from "@man/config-ui/primitives/utils";
 
+import { effectiveColor, fillStyle } from "../marker-color";
 import { ICON_SIZES } from "../point-icon";
 import { HotspotImage, HotspotPoint, clampPercent } from "../points-model";
 
@@ -46,11 +48,13 @@ export interface PlacementCanvasProps {
   label?: string;
   /** Den Titel jedes Punkts als Schild daneben zeigen (Menü-Modus: dort steht keine Nummer). */
   showTitles?: boolean;
+  /** Die Farbe aller Punkte; ein Punkt mit eigener Farbe überstimmt sie. */
+  color?: string | null;
 }
 
 const MARKER =
   "absolute grid -translate-x-1/2 -translate-y-1/2 cursor-grab place-items-center p-0 text-[13px] font-semibold text-white outline-none focus-visible:ring-[3px] focus-visible:ring-ring/60";
-const DOT = "size-8 rounded-full border-2 border-white shadow-md";
+const DOT = "size-8 rounded-none border-2 border-white shadow-md";
 const SELECTED = "z-[1] outline-[3px] outline-offset-2 outline-primary outline-solid";
 
 const numberLabel = (index: number): string => String(index + 1);
@@ -69,6 +73,7 @@ export function PlacementCanvas({
   tone = "manual",
   label,
   showTitles = false,
+  color = null,
 }: PlacementCanvasProps): ReactElement {
   const stageRef = useRef<HTMLDivElement>(null);
   /** Welcher Punkt gerade an welchem Zeiger hängt. */
@@ -158,6 +163,7 @@ export function PlacementCanvas({
       <img className="block h-auto w-full select-none" src={image.url} alt="" draggable={false} />
       {points.map((point, index) => {
         const selected = point.id === selectedId;
+        const fill = point.icon === undefined ? effectiveColor(point.color, color) : undefined;
         return (
           <button
             key={point.id}
@@ -168,7 +174,7 @@ export function PlacementCanvas({
               MARKER,
               point.icon === undefined && DOT,
               point.icon === undefined && (tone === "menu" ? "bg-brand-ink" : "bg-brand"),
-              point.icon !== undefined && "rounded-full border-2 border-transparent drop-shadow-md",
+              point.icon !== undefined && "rounded-none border-2 border-transparent drop-shadow-md",
               point.icon?.background !== undefined &&
                 `man-hie__icon-bg man-hie__icon-bg--${point.icon.background} shadow-md`,
               selected && SELECTED,
@@ -176,6 +182,8 @@ export function PlacementCanvas({
             style={{
               left: `${point.x}%`,
               top: `${point.y}%`,
+              // Die gewählte Farbe statt Rot bzw. Anthrazit, wie auf der Seite.
+              ...fillStyle(fill),
               // Mit eigenem Bild so gross wie auf der Seite — sonst platzierte man
               // ein 72px-Symbol nach einem 32px-Punkt.
               ...(point.icon === undefined

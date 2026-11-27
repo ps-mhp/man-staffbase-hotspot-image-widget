@@ -40,6 +40,22 @@ describe("HotspotMarker", () => {
     expect(screen.getByRole("button", { name: "Ladeanschluss" })).toBeInTheDocument();
   });
 
+  it("trägt eine eigene Farbe als Variable, mit lesbarer Schrift darauf", () => {
+    render(
+      <HotspotMarker point={{ ...point, color: "#ffffff" }} index={0} mode="numbered" open={false} controls="box" onToggle={jest.fn()} />,
+    );
+    const button = screen.getByRole("button");
+    expect(button.style.getPropertyValue("--man-hi-accent")).toBe("#ffffff");
+    expect(button.style.getPropertyValue("--man-hi-on-accent")).toBe("#303c49");
+  });
+
+  it("lässt ohne eigene Farbe die des Widgets gelten", () => {
+    render(
+      <HotspotMarker point={point} index={0} mode="numbered" open={false} controls="box" onToggle={jest.fn()} />,
+    );
+    expect(screen.getByRole("button").style.getPropertyValue("--man-hi-accent")).toBe("");
+  });
+
   it("sagt an, was es auf- und zuklappt", () => {
     render(
       <HotspotMarker point={point} index={0} mode="numbered" open controls="eintrag-p1" onToggle={jest.fn()} />,

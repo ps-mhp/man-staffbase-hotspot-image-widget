@@ -49,6 +49,7 @@ const KEY_MESSAGES: Readonly<Record<Exclude<ConfigKey, "manual.points">, string>
   "menu.depth": "Tiefe geändert",
   "menu.click": "Klickverhalten geändert",
   "menu.layout": "Menüpunkte geändert",
+  color: "Farbe der Punkte geändert",
 };
 
 const sameJson = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);

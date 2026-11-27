@@ -273,6 +273,7 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
     y: point.y,
     title: tree.index.get(point.menuId)?.node.entry.title ?? MENU_EDITOR_MESSAGES.orphanTitle,
     ...(point.icon === undefined ? {} : { icon: point.icon }),
+    ...(point.color === undefined ? {} : { color: point.color }),
   }));
 
   const orphans = orphanPoints(tree, layout);
@@ -304,7 +305,7 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
     }
     if (target !== null) {
       const menuId = target.entry.id;
-      const changeIcon = (change: (point: (typeof level.points)[number]) => (typeof level.points)[number]): void =>
+      const changePoint = (change: (point: (typeof level.points)[number]) => (typeof level.points)[number]): void =>
         setLevel(shownId, (current) => ({
           ...current,
           points: current.points.map((point) => (point.menuId === menuId ? change(point) : point)),
@@ -316,14 +317,22 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
           levelTitle={levelNode.entry.title}
           levelHasImage={image !== null}
           point={targetPoint}
+          globalColor={config.color}
+          onColorChange={(color) =>
+            changePoint((point) => {
+              const rest = { ...point };
+              delete rest.color;
+              return color === undefined ? rest : { ...rest, color };
+            })
+          }
           onIconChange={(icon) =>
-            changeIcon((point) => {
+            changePoint((point) => {
               const rest = { ...point };
               delete rest.icon;
               return icon === undefined ? rest : { ...rest, icon };
             })
           }
-          onIconPick={(picked) => changeIcon((point) => ({ ...point, icon: iconFromPick(picked, point.icon) }))}
+          onIconPick={(picked) => changePoint((point) => ({ ...point, icon: iconFromPick(picked, point.icon) }))}
           onRemove={() => targetPoint !== null && removePoint(shownId, targetPoint.id)}
           onOpenLevel={target.children.length > 0 ? () => show(menuId, null) : undefined}
         />
@@ -380,6 +389,7 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
           onShowSettings={() => setTargetId(null)}
           pickLabel={image === null ? "Bild wählen" : "Bild ändern"}
           onPick={() => media.pick(imageLabel, pickLevelImage(shownId))}
+          color={{ value: config.color, onChange: (color) => update((current) => ({ ...current, color })) }}
         />
         <CanvasStage
           empty={image === null}
@@ -397,6 +407,7 @@ function MenuWorkspace({ tree, config, inherited, update, onSourceChange, startP
               points={canvasPoints}
               selectedId={targetPoint?.id ?? null}
               tone="menu"
+              color={config.color}
               showTitles
               label={`${levelNode.entry.title} mit ${canvasPoints.length} Punkten aus dem Menü`}
               markerLabel={() => ""}

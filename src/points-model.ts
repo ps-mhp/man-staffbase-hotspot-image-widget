@@ -24,6 +24,7 @@
 
 import { decodePayload, encodePayload, isPayload } from "@shared/payload";
 
+import { readMarkerColor } from "./marker-color";
 import { PointIcon, readPointIcon } from "./point-icon";
 
 export interface HotspotImage {
@@ -64,6 +65,8 @@ export interface HotspotPoint {
   link?: HotspotLink;
   /** Ein eigenes Bild an Stelle des roten Punkts. */
   icon?: PointIcon;
+  /** Eigene Farbe (`#rrggbb`), überstimmt die Farbe aller Punkte. */
+  color?: string;
   /**
    * Alles, was eine spätere Version geschrieben hat und diese nicht kennt.
    * Ohne diesen Beutel löschte eine Redaktion mit älterem Bundle beim ersten
@@ -86,7 +89,7 @@ export const DEFAULT_LINK_LABEL = "Seite öffnen";
 export const MAX_POINTS = 20;
 
 /** Die Felder, die ein Punkt selbst belegt — alles andere ist `unknown`. */
-const KNOWN_POINT_KEYS = new Set(["id", "x", "y", "title", "description", "link", "icon"]);
+const KNOWN_POINT_KEYS = new Set(["id", "x", "y", "title", "description", "link", "icon", "color"]);
 
 /**
  * Erzeugt eine Kennung, die auch dann eindeutig ist, wenn `crypto.randomUUID`
@@ -171,6 +174,9 @@ function readPoint(value: unknown): HotspotPoint | null {
 
   const icon = readPointIcon(raw.icon);
   if (icon !== undefined) point.icon = icon;
+
+  const color = readMarkerColor(raw.color);
+  if (color !== undefined) point.color = color;
 
   const unknown = Object.fromEntries(
     Object.entries(raw).filter(([key]) => !KNOWN_POINT_KEYS.has(key)),

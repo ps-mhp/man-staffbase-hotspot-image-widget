@@ -35,6 +35,7 @@ import {
 import { reorderIds } from "@man/config-ui/sidebar/reorder";
 
 import { isUntitled } from "../editor-rules";
+import { effectiveColor, fillStyle } from "../marker-color";
 import { HotspotPoint } from "../points-model";
 import { linkSummary } from "./manual-points";
 
@@ -45,11 +46,20 @@ export interface PointListProps {
   onReorder: (ids: string[]) => void;
   /** Ob Punkte ohne Titel schon als Fehler erscheinen (nach gescheitertem „Übernehmen“). */
   issuesVisible: boolean;
+  /** Die Farbe aller Punkte; die Nummer trägt die Farbe ihres Punkts wie auf der Bühne. */
+  color?: string | null;
 }
 
 const EMPTY = "Noch keine Punkte. Ein Klick ins Bild setzt den ersten.";
 
-export function PointList({ points, selectedId, onSelect, onReorder, issuesVisible }: PointListProps): ReactElement {
+export function PointList({
+  points,
+  selectedId,
+  onSelect,
+  onReorder,
+  issuesVisible,
+  color = null,
+}: PointListProps): ReactElement {
   const items = points.map((point, index) => ({ point, index }));
   const { dragAndDropHooks } = useDragAndDrop<{ point: HotspotPoint; index: number }>({
     getItems: (keys) => Array.from(keys, (key) => ({ "text/plain": String(key) })),
@@ -90,7 +100,9 @@ export function PointList({ points, selectedId, onSelect, onReorder, issuesVisib
             <DragHandle />
             <span
               aria-hidden="true"
-              className="grid size-7 shrink-0 place-items-center rounded-full bg-brand text-xs font-semibold text-white"
+              className="grid size-7 shrink-0 place-items-center rounded-none bg-brand text-xs font-semibold text-white"
+              // Ohne Farbe bleibt `bg-brand`.
+              style={fillStyle(effectiveColor(point.color, color))}
             >
               {index + 1}
             </span>

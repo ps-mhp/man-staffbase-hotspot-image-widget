@@ -138,6 +138,7 @@ export function ManualEditor({ config, inherited, update, onSourceChange, loadPa
         onSelect={setSelectedId}
         onReorder={(ids) => setPoints((current) => reorderPoints(current, ids))}
         issuesVisible={issuesVisible}
+        color={config.color}
       />
     </SidebarPanel>
   );
@@ -183,6 +184,7 @@ export function ManualEditor({ config, inherited, update, onSourceChange, loadPa
           onChange={changePoint}
           onPickIcon={pickIcon(selected.id)}
           issuesVisible={issuesVisible}
+          globalColor={config.color}
           loadPages={loadPages}
         />
       </InspectorPanel>
@@ -209,6 +211,7 @@ export function ManualEditor({ config, inherited, update, onSourceChange, loadPa
             value: config.manual.mode,
             onChange: (mode) => update((current) => ({ ...current, manual: { ...current.manual, mode } })),
           }}
+          color={{ value: config.color, onChange: (color) => update((current) => ({ ...current, color })) }}
         />
         <CanvasStage
           empty={image === null}
@@ -223,6 +226,7 @@ export function ManualEditor({ config, inherited, update, onSourceChange, loadPa
               image={image}
               points={points}
               selectedId={selectedId}
+              color={config.color}
               label={`${image.alt === "" ? "Bild" : image.alt} mit ${points.length} Punkten`}
               onAdd={add}
               onMove={(pointId, x, y) =>

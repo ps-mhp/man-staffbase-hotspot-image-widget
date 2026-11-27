@@ -56,10 +56,11 @@ export const HotspotImageWidget = (props: HotspotImageWidgetProps): ReactElement
         rootId={config.menu.rootId}
         depth={config.menu.depth}
         click={config.menu.click}
+        color={config.color}
       />
     );
   }
-  return <HotspotImage image={config.image} points={config.manual.points} mode={config.manual.mode} />;
+  return <HotspotImage image={config.image} points={config.manual.points} mode={config.manual.mode} color={config.color} />;
 };
 
 /** Attribute aus den gleichen Konstanten wie das Konfigurationsschema, um

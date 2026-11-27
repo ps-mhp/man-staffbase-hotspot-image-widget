@@ -13,7 +13,7 @@
 
 /**
  * Das Panel rechts für einen gewählten Menüeintrag: wo sein Punkt liegt
- * (bzw. dass ein Klick ins Bild ihn setzt), sein Icon, „Punkt entfernen“ –
+ * (bzw. dass ein Klick ins Bild ihn setzt), seine Farbe, sein Icon, „Punkt entfernen“ –
  * und für einen Eintrag mit Unterpunkten der Weg zu seiner eigenen Ebene.
  * Dazu das Panel für einen Punkt, dessen Eintrag nicht mehr im Menü steht.
  */
@@ -27,6 +27,7 @@ import { PickedMedia } from "@shared/media/media-picker";
 
 import { MenuHotspotPoint } from "../menu-points-model";
 import { PointIcon } from "../point-icon";
+import { PointColorField } from "./point-color-field";
 import { PointIconField } from "./point-icon-field";
 
 export const MENU_POINT_MESSAGES = {
@@ -47,6 +48,9 @@ export interface MenuPointPanelProps {
   /** Ob die Ebene ein eigenes Bild hat, auf das der Punkt kann. */
   levelHasImage: boolean;
   point: MenuHotspotPoint | null;
+  /** Die Farbe aller Punkte – was gilt, solange der Punkt keine eigene hat. */
+  globalColor: string | null;
+  onColorChange: (color: string | undefined) => void;
   onIconChange: (icon: PointIcon | undefined) => void;
   onIconPick: (picked: PickedMedia) => void;
   onRemove: () => void;
@@ -59,6 +63,8 @@ export function MenuPointPanel({
   levelTitle,
   levelHasImage,
   point,
+  globalColor,
+  onColorChange,
   onIconChange,
   onIconPick,
   onRemove,
@@ -78,6 +84,7 @@ export function MenuPointPanel({
         <p className={HINT} data-testid="menu-point-status">
           {status}
         </p>
+        {point !== null && <PointColorField color={point.color} global={globalColor} onChange={onColorChange} />}
         {point !== null && (
           <PointIconField
             icon={point.icon}

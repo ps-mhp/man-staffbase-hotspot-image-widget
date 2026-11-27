@@ -29,6 +29,7 @@
 import { encodePayload } from "@shared/payload";
 import { isStaffbaseId } from "@shared/staffbase/ids";
 
+import { readMarkerColor } from "./marker-color";
 import { PointIcon, readPointIcon } from "./point-icon";
 import { HotspotImage, MAX_POINTS, newPointId, readRaw } from "./points-model";
 
@@ -48,6 +49,8 @@ export interface MenuHotspotPoint {
   y: number;
   /** Ein eigenes Bild an Stelle des roten Punkts. */
   icon?: PointIcon;
+  /** Eigene Farbe (`#rrggbb`), überstimmt die Farbe aller Punkte. */
+  color?: string;
   /** Felder einer späteren Version, die diese nicht kennt — siehe `HotspotPoint`. */
   unknown?: Record<string, unknown>;
 }
@@ -70,7 +73,7 @@ export const MIN_MENU_DEPTH = 2;
 /** Tiefer blättert niemand, und jede Ebene kostet Anfragen beim Laden der Seite. */
 export const MAX_MENU_DEPTH = 6;
 
-const KNOWN_POINT_KEYS = new Set(["id", "menuId", "x", "y", "icon"]);
+const KNOWN_POINT_KEYS = new Set(["id", "menuId", "x", "y", "icon", "color"]);
 
 /** Nur http(s) und Pfade der eigenen Instanz — eine `javascript:`-Adresse soll nicht als `src` enden. */
 const IMAGE_URL = /^(https?:\/\/|\/)\S+$/i;
@@ -105,12 +108,14 @@ function readMenuPoint(value: unknown): MenuHotspotPoint | null {
 
   const id = typeof value.id === "string" && value.id.trim() !== "" ? value.id : newPointId();
   const icon = readPointIcon(value.icon);
+  const color = readMarkerColor(value.color);
   const point: MenuHotspotPoint = {
     id,
     menuId: value.menuId.toLowerCase(),
     x: value.x,
     y: value.y,
     ...(icon === undefined ? {} : { icon }),
+    ...(color === undefined ? {} : { color }),
   };
   const unknown = Object.fromEntries(Object.entries(value).filter(([key]) => !KNOWN_POINT_KEYS.has(key)));
   return Object.keys(unknown).length > 0 ? { ...point, unknown } : point;

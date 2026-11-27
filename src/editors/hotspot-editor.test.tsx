@@ -168,6 +168,26 @@ describe("HotspotEditor – manuell", () => {
     expect(screen.getByRole("complementary", { name: "Bild" })).toBeInTheDocument();
   });
 
+  it("setzt die Farbe aller Punkte in der Leiste und eine eigene am Punkt", async () => {
+    const harness = setup({ image, manual: { mode: "numbered", points } });
+
+    await userEvent.click(screen.getByTestId("marker-color-options"));
+    await userEvent.click(screen.getByTestId("marker-color-swatch-3875b2"));
+    expect(harness.latest().config.color).toBe("#3875b2");
+    expect(screen.getByTestId("place-marker-a")).toHaveStyle({ background: "#3875b2" });
+
+    await userEvent.click(rows("Punkte")[1]);
+    expect(screen.getByTestId("point-color-state")).toHaveTextContent("Wie alle Punkte: Blau");
+    await userEvent.click(screen.getByTestId("point-color-options"));
+    await userEvent.click(screen.getByTestId("point-color-swatch-2d6300"));
+    expect(harness.latest().config.manual.points[1]).toMatchObject({ color: "#2d6300" });
+    expect(screen.getByTestId("place-marker-b")).toHaveStyle({ background: "#2d6300" });
+
+    await userEvent.click(screen.getByTestId("point-color-options"));
+    await userEvent.click(screen.getByTestId("point-color-reset"));
+    expect(harness.latest().config.manual.points[1]).not.toHaveProperty("color");
+  });
+
   it("ändert Titel und Beschreibung des gewählten Punkts", async () => {
     const harness = setup({ image, manual: { mode: "numbered", points } });
     await userEvent.click(rows("Punkte")[1]);
@@ -348,6 +368,16 @@ describe("HotspotEditor – Menü", () => {
     await userEvent.click(screen.getByRole("button", { name: "Punkt löschen" }));
 
     expect(harness.latest().config.menu.layout[IDS.fahrerhaus]?.points).toEqual([]);
+  });
+
+  it("gibt einem Menüpunkt eine eigene Farbe", async () => {
+    const harness = await setupMenu({ [IDS.fahrerhaus]: { points: [{ id: "r", menuId: IDS.ruhe, x: 10, y: 10 }] } });
+
+    fireEvent.pointerDown(screen.getByTestId("place-marker-r"), { pointerId: 1 });
+    await userEvent.click(screen.getByTestId("point-color-options"));
+    await userEvent.click(screen.getByTestId("point-color-swatch-303c49"));
+
+    expect(harness.latest().config.menu.layout[IDS.fahrerhaus]?.points[0]).toMatchObject({ color: "#303c49" });
   });
 
   it("verlangt einen Startpunkt, bevor es einen Baum gibt", async () => {

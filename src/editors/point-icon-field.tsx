@@ -71,7 +71,7 @@ function swatch(choice: BackgroundChoice): IconComponent {
       <span
         aria-hidden="true"
         className={cn(
-          "size-3.5 shrink-0 rounded-full ring-1 ring-foreground/30 ring-inset",
+          "size-3.5 shrink-0 rounded-none ring-1 ring-foreground/30 ring-inset",
           choice === "none" ? "bg-transparent" : `man-hie__icon-bg--${choice}`,
         )}
       />

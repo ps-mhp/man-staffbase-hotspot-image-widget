@@ -62,6 +62,8 @@ export function valueAt(config: HotspotConfig, key: ConfigKey): unknown {
       return config.menu.click;
     case "menu.layout":
       return config.menu.layout;
+    case "color":
+      return config.color;
   }
 }
 

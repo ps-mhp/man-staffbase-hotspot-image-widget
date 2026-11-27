@@ -23,6 +23,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 
+import { markerColorStyle } from "./marker-color";
 import { HotspotPoint, linkLabel } from "./points-model";
 
 export interface HotspotListProps {
@@ -51,6 +52,8 @@ export function HotspotList({
           <li
             key={point.id}
             className={`man-hi__item${open ? " man-hi__item--open" : ""}`}
+            // Die Nummer trägt die Farbe ihres Punkts.
+            style={markerColorStyle(point.color)}
             // Zeiger- statt Maus-Ereignisse: ein Telefon schickt nach dem
             // Antippen ein nachgeahmtes `mouseenter`, aber kein `mouseleave`
             // -- der Punkt bliebe hervorgehoben, bis woanders getippt wird.

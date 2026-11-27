@@ -34,6 +34,7 @@ import { ReactElement } from "react";
 
 import { MenuTreeNode } from "@shared/staffbase/menu-tree";
 
+import { markerColorStyle } from "../marker-color";
 import { MarkerIcon, iconClassNames } from "../marker-icon";
 import { MenuClickMode, MenuHotspotPoint } from "../menu-points-model";
 import { MENU_MESSAGES } from "./menu-browser";
@@ -89,7 +90,7 @@ export function MenuMarker({
 
   const common = {
     className,
-    style: { left: `${point.x}%`, top: `${point.y}%` },
+    style: { left: `${point.x}%`, top: `${point.y}%`, ...markerColorStyle(point.color) },
     "data-testid": `menu-marker-${point.menuId}`,
     onPointerEnter: (event: React.PointerEvent) => {
       if (event.pointerType !== "touch") onHover(point.menuId);

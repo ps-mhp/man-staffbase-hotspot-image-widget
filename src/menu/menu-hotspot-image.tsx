@@ -35,6 +35,7 @@ import menuStyles from "../styles/menu-mode.scss";
 import { MenuBrowser, MenuDirection } from "./menu-browser";
 import { menuMarkFor, subtreeIds } from "./menu-highlight";
 import { ImageLevel, imageLevelFor, levelPoints, shownLevelId, trailOf } from "./menu-levels";
+import { markerColorStyle } from "../marker-color";
 import { MenuMarker } from "./menu-marker";
 import { MenuTreeLoader, useMenuTree } from "./use-menu-tree";
 import { prefetchImages, useSettledImageLevel } from "./use-settled-image";
@@ -53,6 +54,8 @@ export interface MenuHotspotImageProps {
   rootId: string | null;
   depth: number;
   click: MenuClickMode;
+  /** Die Farbe aller Punkte; ohne sie MAN-Rot. */
+  color?: string | null;
   /** Nur für Tests. */
   loadTree?: MenuTreeLoader;
 }
@@ -63,6 +66,7 @@ export function MenuHotspotImage({
   rootId,
   depth,
   click,
+  color = null,
   loadTree,
 }: MenuHotspotImageProps): ReactElement | null {
   const base = useHotStyle(baseStyles, "hotspot-image-widget", "styles/hotspot-image.scss");
@@ -84,7 +88,7 @@ export function MenuHotspotImage({
       <div className="man-hi-scope">
         {state.status === "ready" ? (
           // Der Schlüssel setzt Blättern und Markierungen zurück, wenn ein anderer Baum kommt.
-          <MenuStage key={`${rootId}#${depth}`} image={image} layout={layout} tree={state.tree} click={click} />
+          <MenuStage key={`${rootId}#${depth}`} image={image} layout={layout} tree={state.tree} click={click} color={color} />
         ) : (
           <div className="man-hi man-hi--menu">
             {image !== null && <Stage image={image} />}
@@ -130,6 +134,7 @@ interface MenuStageProps {
   layout: MenuLayout;
   tree: MenuTree;
   click: MenuClickMode;
+  color: string | null;
 }
 
 interface Navigation {
@@ -137,7 +142,7 @@ interface Navigation {
   direction: MenuDirection;
 }
 
-function MenuStage({ image, layout, tree, click }: MenuStageProps): ReactElement {
+function MenuStage({ image, layout, tree, click, color }: MenuStageProps): ReactElement {
   const [navigation, setNavigation] = useState<Navigation>({ trail: [], direction: "none" });
   const [markerHover, setMarkerHover] = useState<string | null>(null);
   const [rowHover, setRowHover] = useState<string | null>(null);
@@ -175,7 +180,7 @@ function MenuStage({ image, layout, tree, click }: MenuStageProps): ReactElement
   const highlighted = rowHover === null ? new Set<string>() : subtreeIds(tree, rowHover);
 
   return (
-    <div className={`man-hi man-hi--menu${shown === null ? " man-hi--menu-only" : ""}`}>
+    <div className={`man-hi man-hi--menu${shown === null ? " man-hi--menu-only" : ""}`} style={markerColorStyle(color)}>
       {(shown !== null || leaving.image !== null) && (
         <div className="man-hi__stage-wrap">
           {shown !== null && (

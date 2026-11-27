@@ -12,7 +12,7 @@
  */
 
 /**
- * Was an einem Punkt steht: Titel, Beschreibung, Link und Icon – der Rumpf
+ * Was an einem Punkt steht: Titel, Beschreibung, Link, Farbe und Icon – der Rumpf
  * des Panels „Punkt N“ rechts.
  *
  * Der Titel ist Pflicht: `parsePoints` verwirft beim Lesen jeden Punkt ohne
@@ -31,6 +31,7 @@ import { PickedMedia } from "@shared/media/media-picker";
 import { isUntitled } from "../editor-rules";
 import { HotspotPoint } from "../points-model";
 import { LinkField, PageLoader } from "./link-field";
+import { PointColorField } from "./point-color-field";
 import { PointIconField } from "./point-icon-field";
 
 export const POINT_FORM_MESSAGES = {
@@ -48,18 +49,28 @@ export interface PointFormProps {
   onChange: (point: HotspotPoint) => void;
   onPickIcon: (picked: PickedMedia) => void;
   issuesVisible: boolean;
+  /** Die Farbe aller Punkte – was gilt, solange der Punkt keine eigene hat. */
+  globalColor?: string | null;
   /** Nur für Tests. */
   loadPages?: PageLoader;
 }
 
 /** Ein Feld ohne Wert ist kein leerer Wert, sondern gar keiner – so bleibt das Attribut schlank. */
-function without<K extends "description" | "link" | "icon">(point: HotspotPoint, key: K): HotspotPoint {
+function without<K extends "description" | "link" | "icon" | "color">(point: HotspotPoint, key: K): HotspotPoint {
   const rest: HotspotPoint = { ...point };
   delete rest[key];
   return rest;
 }
 
-export function PointForm({ point, number, onChange, onPickIcon, issuesVisible, loadPages }: PointFormProps): ReactElement {
+export function PointForm({
+  point,
+  number,
+  onChange,
+  onPickIcon,
+  issuesVisible,
+  globalColor = null,
+  loadPages,
+}: PointFormProps): ReactElement {
   const untitled = isUntitled(point);
   return (
     <div className="flex flex-col gap-6" data-testid="point-form">
@@ -92,6 +103,11 @@ export function PointForm({ point, number, onChange, onPickIcon, issuesVisible, 
         link={point.link}
         load={loadPages}
         onChange={(link) => onChange(link === undefined ? without(point, "link") : { ...point, link })}
+      />
+      <PointColorField
+        color={point.color}
+        global={globalColor}
+        onChange={(color) => onChange(color === undefined ? without(point, "color") : { ...point, color })}
       />
       <PointIconField
         icon={point.icon}

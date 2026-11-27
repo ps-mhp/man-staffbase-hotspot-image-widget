@@ -41,6 +41,7 @@ const full: HotspotConfig = {
     click: "open",
     layout: { [FAHRERHAUS]: { points: [{ id: "m1", menuId: RUHE, x: 1, y: 2 }] } },
   },
+  color: null,
 };
 
 describe("parseConfig und encodeConfig", () => {
@@ -199,6 +200,35 @@ describe("DEFAULT_CONFIG", () => {
       image: null,
       manual: { mode: "numbered", points: [] },
       menu: { rootId: null, depth: 3, click: "enter", layout: {} },
+      color: null,
     });
+  });
+});
+
+describe("Farbe der Punkte", () => {
+  const colored: HotspotConfig = {
+    ...full,
+    manual: { mode: "numbered", points: [{ id: "p1", x: 10, y: 20, title: "Kabine", color: "#2d6300" }] },
+    menu: {
+      ...full.menu,
+      layout: { [FAHRERHAUS]: { points: [{ id: "m1", menuId: RUHE, x: 1, y: 2, color: "#ffffff" }] } },
+    },
+    color: "#3875b2",
+  };
+
+  it("übersteht Schreiben und Lesen – global und je Punkt", () => {
+    expect(parseConfig(encodeConfig(colored))).toEqual(colored);
+  });
+
+  it("schreibt ohne Farbe keinen Schlüssel: `config` bleibt wie bisher", () => {
+    const json = JSON.parse(decodePayload(encodeConfig(full)) ?? "{}") as Record<string, unknown>;
+    expect(json).not.toHaveProperty("color");
+  });
+
+  it("liest Kurzform und Grossbuchstaben, verwirft Unbrauchbares", () => {
+    expect(parseConfig(JSON.stringify({ color: "#ABC" }))?.color).toBe("#aabbcc");
+    expect(parseConfig(JSON.stringify({ color: "red; background: url(x)" }))?.color).toBeNull();
+    const points = [{ id: "p1", x: 1, y: 1, title: "A", color: "javascript:alert(1)" }];
+    expect(parseConfig(JSON.stringify({ manual: { points } }))?.manual.points[0]).not.toHaveProperty("color");
   });
 });

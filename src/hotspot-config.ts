@@ -44,6 +44,7 @@ import {
   readMenuDepth,
   readSource,
 } from "./menu-points-model";
+import { readMarkerColor } from "./marker-color";
 import {
   DisplayMode,
   HotspotImage,
@@ -60,6 +61,8 @@ export interface HotspotConfig {
   image: HotspotImage | null;
   manual: { mode: DisplayMode; points: HotspotPoint[] };
   menu: { rootId: string | null; depth: number; click: MenuClickMode; layout: MenuLayout };
+  /** Die Farbe aller Punkte (`#rrggbb`); `null` heisst MAN-Rot. Ein Punkt kann sie überstimmen. */
+  color: string | null;
 }
 
 /** Die einzelnen Attribute bis 0.2.0-rc.2, so wie sie am Element ankommen. */
@@ -88,6 +91,7 @@ export const CONFIG_KEYS = [
   "menu.depth",
   "menu.click",
   "menu.layout",
+  "color",
 ] as const;
 
 export type ConfigKey = (typeof CONFIG_KEYS)[number];
@@ -102,6 +106,8 @@ export const LEGACY_FIELDS_OF: Readonly<Record<ConfigKey, readonly (keyof Legacy
   "menu.depth": ["menu-depth"],
   "menu.click": ["menu-click"],
   "menu.layout": ["menu-points"],
+  // Neu am 27.11.2026, ohne Feld im alten Dialog.
+  color: [],
 };
 
 /** Die Werte, die `config` trägt – nur die Schlüssel, die dort stehen. */
@@ -114,6 +120,7 @@ export interface ConfigParts {
   "menu.depth"?: number;
   "menu.click"?: MenuClickMode;
   "menu.layout"?: MenuLayout;
+  color?: string | null;
 }
 
 export const DEFAULT_CONFIG: HotspotConfig = {
@@ -121,6 +128,7 @@ export const DEFAULT_CONFIG: HotspotConfig = {
   image: null,
   manual: { mode: "numbered", points: [] },
   menu: { rootId: null, depth: 3, click: "enter", layout: {} },
+  color: null,
 };
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -171,6 +179,7 @@ export function parseConfigParts(raw: string): ConfigParts | null {
     "menu.layout": part(menu, "layout", (layout) =>
       isRecord(layout) ? parseMenuLayout(asRaw({ levels: layout })) : {},
     ),
+    color: part(value, "color", (color) => readMarkerColor(color) ?? null),
   });
 }
 
@@ -189,6 +198,7 @@ export function mergeParts(parts: ConfigParts, base: HotspotConfig): HotspotConf
       click: parts["menu.click"] ?? base.menu.click,
       layout: parts["menu.layout"] ?? base.menu.layout,
     },
+    color: parts.color === undefined ? base.color : parts.color,
   };
 }
 
@@ -251,6 +261,8 @@ export function encodeConfig(config: HotspotConfig, omit: readonly ConfigKey[] =
       ...(skip.has("image") ? {} : { image: config.image }),
       ...(manual === undefined ? {} : { manual }),
       ...(menu === undefined ? {} : { menu }),
+      // Nur gesetzt: ohne Farbe bleibt `config` wie bisher.
+      ...(skip.has("color") || config.color === null ? {} : { color: config.color }),
     }),
   );
 }
@@ -267,6 +279,7 @@ export function configFromLegacy(attrs: LegacyAttributes): HotspotConfig {
       click: readMenuClick(attrs["menu-click"]),
       layout: parseMenuLayout(attrs["menu-points"] ?? ""),
     },
+    color: null,
   };
 }
 

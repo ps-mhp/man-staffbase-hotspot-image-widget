@@ -23,7 +23,7 @@
 export type IconSize = "s" | "m" | "l";
 
 /**
- * Die Fläche hinter dem Bild, rund wie der Punkt (Wunsch des Nutzers
+ * Die Fläche hinter dem Bild, eckig wie der Punkt (seit 27.11.2026; Wunsch des Nutzers
  * 09.11.2026). Fehlt sie, steht das Bild frei — „transparent“.
  */
 export type IconBackground = "white" | "red" | "dark" | "light";

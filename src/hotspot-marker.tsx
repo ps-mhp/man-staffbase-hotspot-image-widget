@@ -23,6 +23,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 
+import { markerColorStyle } from "./marker-color";
 import { MarkerIcon, iconClassNames } from "./marker-icon";
 import { DisplayMode, HotspotPoint } from "./points-model";
 
@@ -65,7 +66,8 @@ export function HotspotMarker({
     <button
       type="button"
       className={className}
-      style={{ left: `${point.x}%`, top: `${point.y}%` }}
+      // Die eigene Farbe als Variable am Punkt: sie überstimmt die aller Punkte.
+      style={{ left: `${point.x}%`, top: `${point.y}%`, ...markerColorStyle(point.color) }}
       // Der sichtbare Text ist im nummerierten Modus nur eine Ziffer und im
       // Punkte-Modus gar keiner. Der Titel muss deshalb ausdrücklich dazu.
       aria-label={point.title}

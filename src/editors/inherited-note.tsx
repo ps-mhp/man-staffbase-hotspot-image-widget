@@ -37,6 +37,7 @@ const KEY_NAMES: Readonly<Record<ConfigKey, string>> = {
   "menu.depth": "Tiefe",
   "menu.click": "Klick auf einen Punkt",
   "menu.layout": "Menüpunkte",
+  color: "Farbe der Punkte",
 };
 
 export function InheritedNote({ keys }: { keys: readonly ConfigKey[] }): ReactElement | null {

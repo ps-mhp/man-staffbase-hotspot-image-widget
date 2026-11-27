@@ -15,7 +15,7 @@
  * Die Leiste über der Bühne wie im Screen: links die Quelle der Punkte
  * (Manuell · Aus dem Menü), daneben welches Bild gerade bearbeitet wird und
  * „Bild ändern“, rechts im manuellen Modus die Darstellung
- * (Nummern · Punkte).
+ * (Nummern · Punkte) und ganz rechts die Farbe aller Punkte.
  *
  * Der Name des Bildes ist selbst ein Knopf: er zeigt rechts die
  * Einstellungen des Bildes (Bildbeschreibung, Entfernen) bzw. des Menüs,
@@ -30,6 +30,7 @@ import { ToolSeparator, Toolbar } from "@man/config-ui/toolbar/toolbar";
 
 import { PointSource } from "../menu-points-model";
 import { DisplayMode } from "../points-model";
+import { MarkerColorTool } from "./point-color-field";
 
 export const BAR_MESSAGES = {
   toolbar: "Bild und Darstellung",
@@ -65,6 +66,8 @@ export interface CanvasBarProps {
   /** Fehlt, wo es gerade kein Bild zu wählen gibt (etwa ohne Menü). */
   onPick?: () => void;
   display?: { value: DisplayMode; onChange: (mode: DisplayMode) => void };
+  /** Die Farbe aller Punkte; fehlt, wo es keine Punkte gibt (etwa ohne Menü). */
+  color?: { value: string | null; onChange: (color: string | null) => void };
 }
 
 export function CanvasBar({
@@ -76,6 +79,7 @@ export function CanvasBar({
   pickLabel,
   onPick,
   display,
+  color,
 }: CanvasBarProps): ReactElement {
   return (
     <Toolbar aria-label={BAR_MESSAGES.toolbar} data-testid="canvas-bar">
@@ -107,6 +111,7 @@ export function CanvasBar({
           onChange={display.onChange}
         />
       )}
+      {color !== undefined && <MarkerColorTool value={color.value} onChange={color.onChange} />}
     </Toolbar>
   );
 }

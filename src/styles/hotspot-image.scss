@@ -26,8 +26,13 @@
   // Die Punkte sind das Erkennungszeichen des Widgets und tragen deshalb die
   // Hausfarbe, nicht ein dahergelaufenes Dunkelgrau -- am 10.09.2026 im
   // Frontend als "nicht im MAN-Rot" beanstandet.
+  //
+  // Seit 27.11.2026 waehlbar: fuer alle Punkte am Widget, je Punkt am Punkt
+  // (`marker-color.ts`, inline). `--man-hi-on-accent` ist die Schrift darauf
+  // -- Anthrazit auf hellen Farben, sonst Weiss.
   --man-hi-accent: #{man("red")};
   --man-hi-surface: #{man("white")};
+  --man-hi-on-accent: var(--man-hi-surface);
   // Die Craft-Haarlinie, dieselbe wie am Rand des Fensters.
   --man-hi-border: #{man("border")};
   // Um so viel waechst der hervorgehobene Punkt; auf dem Telefon mehr, weil er
@@ -103,9 +108,10 @@
     padding: 0 !important;
     // Ohne Rand: auch der weisse Rand der Wirtsseite fuer Knoepfe muss weg.
     border: 0 !important;
-    border-radius: #{man("radius-round")} !important;
+    // Eckig wie die Marke (Wunsch des Nutzers 27.11.2026): `radius` ist 0.
+    border-radius: #{man("radius")} !important;
     background: var(--man-hi-accent) !important;
-    color: var(--man-hi-surface) !important;
+    color: var(--man-hi-on-accent) !important;
     font: 700 14px/1 #{man("font-head")} !important;
     text-transform: none !important;
     cursor: pointer;
@@ -207,11 +213,12 @@
 }
 
 @keyframes man-hi-pulse {
+  // In der Farbe des Punkts, nicht fest in Rot.
   0% {
-    box-shadow: 0 0 0 0 #{man-alpha("red", 0.55)}, var(--man-hi-shadow);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--man-hi-accent) 55%, transparent), var(--man-hi-shadow);
   }
   100% {
-    box-shadow: 0 0 0 14px #{man-alpha("red", 0)}, var(--man-hi-shadow);
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--man-hi-accent) 0%, transparent), var(--man-hi-shadow);
   }
 }
 
@@ -415,9 +422,9 @@
   place-items: center;
   flex: 0 0 24px;
   height: 24px;
-  border-radius: man("radius-round");
+  border-radius: man("radius");
   background: var(--man-hi-accent);
-  color: var(--man-hi-surface);
+  color: var(--man-hi-on-accent);
   font-size: 13px;
   // Fett ist 700: Man Europe hat nur 400 und 700, 600 gibt es nicht mehr.
   font-weight: man("weight-body-bold");
@@ -472,7 +479,7 @@
   --man-hi-icon: 72px;
 }
 
-// Mit Hintergrund: eine runde Fläche wie der Punkt, mit dessen Schatten
+// Mit Hintergrund: eine eckige Fläche wie der Punkt, mit dessen Schatten
 // statt des `drop-shadow`; das Bild sitzt mit etwas Luft darin.
 //
 // Die Luft aus der eigenen Grösse gerechnet, nicht in Prozent: ein
@@ -482,7 +489,7 @@
 .man-hi__marker--icon-bg {
   @include man-outshine-host {
     padding: calc(var(--man-hi-icon, 48px) * 0.15) !important;
-    border-radius: #{man("radius-round")} !important;
+    border-radius: #{man("radius")} !important;
     box-shadow: var(--man-hi-shadow);
     filter: none;
   }
@@ -521,7 +528,7 @@
   pointer-events: none;
 }
 
-// Der Puls zeichnet einen roten Ring um eine runde Fläche -- um ein freies
+// Der Puls zeichnet einen Ring um die Fläche des Punkts -- um ein freies
 // Bild sähe er wie ein Fehler aus. Hervorgehoben wird das Bild wie der Punkt:
 // grösser und angehoben.
 @media (prefers-reduced-motion: no-preference) {
